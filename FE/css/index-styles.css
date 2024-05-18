@@ -12,4 +12,5 @@ footer {
 
 main {
   flex-grow: 1;
+  background-color: rgb(255, 255, 255);
 }
