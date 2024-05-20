@@ -31,6 +31,7 @@ main {
 
 .main-wrapper p:first-of-type {
   font-size: 3em;
+  margin: 0;
 }
 
 .main-wrapper p:last-of-type {
