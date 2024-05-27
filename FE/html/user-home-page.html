@@ -13,7 +13,7 @@
       crossorigin="anonymous"
     />
   </head>
-  <body>
+  <body class="font">
     <div class="d-flex flex-column vh-100 gap-5">
       <header class="flex-shrink-0 border-bottom border-black shadow">
         <nav class="navbar navbar-expand-lg bg-secondary">
@@ -53,11 +53,21 @@
                   href="#"
                   >Create Test</a
                 >
+                <a
+                  class="nav-link bg-light rounded shadow px-3 fs-5 text-center text-black border border-black border-2"
+                  href="#"
+                  >My Tests</a
+                >
+                <a
+                  class="nav-link bg-light rounded shadow px-3 fs-5 text-center text-black border border-black border-2"
+                  href="#"
+                  >My Results</a
+                >
               </div>
               <div class="navbar-nav ms-auto">
                 <a
                   class="nav-link bg-light rounded shadow px-3 fs-5 text-center text-black mt-3 mt-lg-0 border border-black border-2"
-                  href="#"
+                  href=""
                   >Log out</a
                 >
               </div>
@@ -73,10 +83,10 @@
           <div class="col-sm-1 flex-fill align-self-center">
             <form
               id="testEntranceForm"
-              class="bg-light rounded shadow border border-black border-2 p-5 d-flex flex-column"
+              class="bg-secondary rounded shadow border border-black border-2 p-5 d-flex flex-column"
             >
               <div class="mb-3 flex-fill text-center">
-                <label for="testCode" class="form-label fs-5"
+                <label for="testCode" class="form-label fs-4 text-white"
                   >Enter Test Code:</label
                 >
                 <input
@@ -89,7 +99,7 @@
               </div>
               <button
                 type="submit"
-                class="btn btn-secondary border border-black border-2 shadow rounded fs-5"
+                class="btn bg-light text-black border border-black border-2 shadow rounded fs-5"
               >
                 Join Test
               </button>
