@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/testingez_db?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: 1234
+
+  jpa:
+    properties:
+      hibernate.format_sql: TRUE
+      # hibernate.dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    org: WARN
+    blog: WARN
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor: TRACE
