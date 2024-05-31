@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,19 +27,21 @@
       <div class="row">
         <div class="col"><h2 class="text-center">Register</h2></div>
       </div>
-      <form action="">
+      <form action="#" method="post" th:action="@{/account/create}" th:object="${userSignUpData}">
         <div class="row">
           <div class="col-md">
             <label for="username" class="form-label">Username:</label>
             <input
+                    th:field="*{username}"
               type="text"
               class="form-control border border-black fs-6"
               id="username"
             />
-            <label for="inputPassword" class="form-label">Password:</label>
+            <label for="password" class="form-label">Password:</label>
             <input
+                    th:field="*{password}"
               type="password"
-              id="inputPassword"
+              id="password"
               class="form-control border border-black fs-6"
               aria-describedby="passwordHelpBlock"
             />
@@ -47,12 +49,14 @@
           <div class="col-md">
             <label for="first-name" class="form-label">First Name:</label>
             <input
+                    th:field="*{firstName}"
               type="text"
               class="form-control border border-black fs-6"
               id="first-name"
             />
             <label for="last-name" class="form-label">Last Name:</label>
             <input
+                    th:field="*{lastName}"
               type="text"
               class="form-control border border-black fs-6"
               id="last-name"
@@ -61,6 +65,7 @@
           <div class="col-md">
             <label for="email" class="form-label">Email:</label>
             <input
+                    th:field="*{email}"
               type="email"
               class="form-control border border-black fs-6"
               id="email"
@@ -68,6 +73,7 @@
             />
             <label for="phone-number" class="form-label">Phone number:</label>
             <input
+                    th:field="*{phone}"
               type="text"
               class="form-control mb-3 border border-black fs-6"
               id="phone-number"
@@ -78,7 +84,7 @@
         <div class="row">
           <div class="col d-flex justify-content-center">
             <button
-              type="button"
+              type="submit"
               class="btn btn-secondary border border-black border-2 shadow rounded fs-5"
             >
               Sign Up

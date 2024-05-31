@@ -1,5 +1,6 @@
-package com.testingez.testingez.models;
+package com.testingez.testingez.models.entities;
 
+import com.testingez.testingez.models.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,5 +32,9 @@ public class User {
 
     @Column(unique = true, nullable = false)
     private String phone;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
 }
