@@ -18,4 +18,6 @@ public @interface NotTaken {
 
     Class<? extends Payload>[] payload() default {};
 
+    String fieldName();
+
 }
