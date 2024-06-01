@@ -21,18 +21,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(UserSignUpDataDTO userSignUpData) {
-        Optional<User> byUsername = this.userRepository.findByUsername(userSignUpData.getUsername());
-        if (byUsername.isPresent()) {
-            throw new InvalidParameterException("Username already exists");
-        }
-        Optional<User> byEmail = this.userRepository.findByEmail(userSignUpData.getEmail());
-        if (byEmail.isPresent()) {
-            throw new InvalidParameterException("Email already exists");
-        }
-        Optional<User> byPhone = this.userRepository.findByPhone(userSignUpData.getPhone());
-        if (byPhone.isPresent()) {
-            throw new InvalidParameterException("Phone already exists");
-        }
         User newUser = this.modelMapper.map(userSignUpData, User.class);
         if (this.userRepository.count() == 0) {
             newUser.setRole(UserRole.ADMINISTRATOR);
