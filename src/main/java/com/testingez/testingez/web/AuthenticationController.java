@@ -34,9 +34,9 @@ public class AuthenticationController {
                                     BindingResult bindingResult,
                                     RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userData",
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userSignUpData",
                     bindingResult);
-            redirectAttributes.addFlashAttribute("userData", userSignUpData);
+            redirectAttributes.addFlashAttribute("userSignUpData", userSignUpData);
             return "redirect:/account/create";
         }
 
