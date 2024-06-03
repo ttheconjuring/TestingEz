@@ -8,6 +8,8 @@ import com.testingez.testingez.services.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 @Service
 @AllArgsConstructor
@@ -25,6 +27,13 @@ public class UserServiceImpl implements UserService {
             newUser.setRole(UserRole.STANDARD);
         }
         this.userRepository.saveAndFlush(newUser);
+    }
+
+    @Override
+    public void confirmPasswords(UserSignUpDataDTO userSignUpDataDTO, BindingResult bindingResult) {
+        if (!userSignUpDataDTO.getPassword().equals(userSignUpDataDTO.getConfirmPassword())) {
+            bindingResult.addError(new FieldError("userSignUpDataDTO", "confirmPassword", "Passwords do not match"));
+        }
     }
 
 }
