@@ -24,6 +24,11 @@ public class UserSignUpDataDTO {
             message = "Password should be at least 8 symbols.")
     private String password;
 
+    @NotNull(message = "Password should not be null.")
+    @Size(min = 8,
+            message = "Password should be at least 8 symbols.")
+    private String confirmPassword;
+
     @NotBlank(message = "First name should not be null or empty.")
     private String firstName;
 

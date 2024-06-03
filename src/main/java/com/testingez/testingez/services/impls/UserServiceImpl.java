@@ -9,9 +9,6 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.security.InvalidParameterException;
-import java.util.Optional;
-
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {

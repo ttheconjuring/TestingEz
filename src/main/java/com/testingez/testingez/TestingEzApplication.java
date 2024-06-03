@@ -10,4 +10,6 @@ public class TestingEzApplication {
 		SpringApplication.run(TestingEzApplication.class, args);
 	}
 
+	// TODO: work on sign-up.html
+
 }

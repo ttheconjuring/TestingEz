@@ -4,11 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Sign Up</title>
-    <link
-            rel="icon"
-            type="image/x-icon"
-            href="/images/school.png"
-    />
+    <link rel="icon" type="image/x-icon" href="/images/school.png"/>
     <link rel="stylesheet" href="/css/reset.css"/>
     <link rel="stylesheet" href="/css/typography.css"/>
     <link
@@ -18,97 +14,187 @@
             crossorigin="anonymous"
     />
 </head>
-<body
-        class="bg-secondary vh-100 d-flex justify-content-center align-items-center font"
->
-<div
-        class="container bg-light p-4 border border-black border-2 rounded-3 shadow p-3 mb-5 bg-body-tertiary rounded fs-5"
->
-    <div class="row">
-        <div class="col"><h2 class="text-center">Register</h2></div>
-    </div>
-    <form action="#" method="post" th:action="@{/account/create}" th:object="${userSignUpData}">
-        <div class="row">
-            <div class="col-md">
-                <label for="username" class="form-label">Username:</label>
-                <input
-                        th:field="*{username}"
-                        type="text"
-                        class="form-control border border-black fs-6"
-                        id="username"
-                        minlength="5"
-                        maxlength="25"
-                        required
-                />
-                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger fs-6"></div>
-                <label for="password" class="form-label">Password:</label>
-                <input
-                        th:field="*{password}"
-                        type="password"
-                        id="password"
-                        class="form-control border border-black fs-6"
-                        aria-describedby="passwordHelpBlock"
-                        minlength="8"
-                        required
-                />
-                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger fs-6"></div>
-            </div>
-            <div class="col-md">
-                <label for="first-name" class="form-label">First Name:</label>
-                <input
-                        th:field="*{firstName}"
-                        type="text"
-                        class="form-control border border-black fs-6"
-                        id="first-name"
-                        required
-                />
-                <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-danger fs-6"></div>
-                <label for="last-name" class="form-label">Last Name:</label>
-                <input
-                        th:field="*{lastName}"
-                        type="text"
-                        class="form-control border border-black fs-6"
-                        id="last-name"
-                        required
-                />
-                <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="text-danger fs-6"></div>
-            </div>
-            <div class="col-md">
-                <label for="email" class="form-label">Email:</label>
-                <input
-                        th:field="*{email}"
-                        type="email"
-                        class="form-control border border-black fs-6"
-                        id="email"
-                        placeholder="name@example.com"
-                        required
-                />
-                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger fs-6"></div>
-                <label for="phone-number" class="form-label">Phone number:</label>
-                <input
-                        th:field="*{phone}"
-                        type="tel"
-                        class="form-control mb-3 border border-black fs-6"
-                        id="phone-number"
-                        pattern="^[0-9]{3}-[0-9]{3}-[0-9]{4}$"
-                        required
-                />
-                <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="text-danger fs-6"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col d-flex justify-content-center">
-                <button
-                        type="submit"
-                        class="btn btn-secondary border border-black border-2 shadow rounded fs-5"
+<body class="font">
+<div class="d-flex flex-column vh-100 gap-5 bg-secondary">
+    <main
+            class="container d-flex flex-column justify-content-center flex-grow-1 bg-secondary"
+    >
+        <div class="row justify-content-center">
+            <div
+                    class="col-sm-12 col-md-10 col-lg-8 bg-light shadow rounded border border-2 border-black p-3"
+            >
+                <h2 class="text-center">Register</h2>
+                <form
+                        action="#"
+                        method="post"
+                        th:action="@{/account/create}"
+                        th:object="${userSignUpData}"
                 >
-                    Sign Up
-                </button>
+                    <div class="row justify-content-center">
+                        <div class="col">
+                            <label for="username" class="form-label">Username:</label>
+                            <input
+                                    th:field="*{username}"
+                                    type="text"
+                                    class="form-control border border-black fs-6"
+                                    id="username"
+                                    minlength="5"
+                                    maxlength="25"
+                                    required
+                            />
+                            <div
+                                    th:if="${#fields.hasErrors('username')}"
+                                    th:errors="*{username}"
+                                    class="text-danger fs-6"
+                            ></div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col">
+                            <label for="password" class="form-label">Password:</label>
+                            <input
+                                    th:field="*{password}"
+                                    type="password"
+                                    id="password"
+                                    class="form-control border border-black fs-6"
+                                    aria-describedby="passwordHelpBlock"
+                                    minlength="8"
+                                    required
+                            />
+                            <div
+                                    th:if="${#fields.hasErrors('password')}"
+                                    th:errors="*{password}"
+                                    class="text-danger fs-6"
+                            ></div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col">
+                            <label for="confirmPassword" class="form-label"
+                            >Confirm password:</label
+                            >
+                            <input
+                                    th:field="*{confirmPassword}"
+                                    type="password"
+                                    id="confirmPassword"
+                                    class="form-control border border-black fs-6"
+                                    aria-describedby="passwordHelpBlock"
+                                    minlength="8"
+                                    required
+                            />
+                            <div
+                                    th:if="${#fields.hasErrors('confirmPassword')}"
+                                    th:errors="*{confirmPassword}"
+                                    class="text-danger fs-6"
+                            ></div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col">
+                            <label for="first-name" class="form-label">First Name:</label>
+                            <input
+                                    th:field="*{firstName}"
+                                    type="text"
+                                    class="form-control border border-black fs-6"
+                                    id="first-name"
+                                    required
+                            />
+                            <div
+                                    th:if="${#fields.hasErrors('firstName')}"
+                                    th:errors="*{firstName}"
+                                    class="text-danger fs-6"
+                            ></div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col">
+                            <label for="last-name" class="form-label">Last Name:</label>
+                            <input
+                                    th:field="*{lastName}"
+                                    type="text"
+                                    class="form-control border border-black fs-6"
+                                    id="last-name"
+                                    required
+                            />
+                            <div
+                                    th:if="${#fields.hasErrors('lastName')}"
+                                    th:errors="*{lastName}"
+                                    class="text-danger fs-6"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col">
+                            <label for="email" class="form-label">Email:</label>
+                            <input
+                                    th:field="*{email}"
+                                    type="email"
+                                    class="form-control border border-black fs-6"
+                                    id="email"
+                                    placeholder="name@example.com"
+                                    required
+                            />
+                            <div
+                                    th:if="${#fields.hasErrors('email')}"
+                                    th:errors="*{email}"
+                                    class="text-danger fs-6"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col">
+                            <label for="phone-number" class="form-label"
+                            >Phone number:</label
+                            >
+                            <input
+                                    th:field="*{phone}"
+                                    type="tel"
+                                    class="form-control mb-3 border border-black fs-6"
+                                    id="phone-number"
+                                    placeholder="XXX-XXX-XXXX"
+                                    pattern="^[0-9]{3}-[0-9]{3}-[0-9]{4}$"
+                                    required
+                            />
+                            <div
+                                    th:if="${#fields.hasErrors('phone')}"
+                                    th:errors="*{phone}"
+                                    class="text-danger fs-6"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col d-flex justify-content-center">
+                            <button
+                                    type="submit"
+                                    class="btn btn-secondary border border-black border-2 shadow rounded fs-5 px-5"
+                            >
+                                Sign Up
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-    </form>
+    </main>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+
+        confirmPassword.addEventListener('input', () => {
+            if (password.value !== confirmPassword.value) {
+                confirmPassword.setCustomValidity('Passwords do not match');
+            } else {
+                confirmPassword.setCustomValidity('');
+            }
+        });
+    });
+</script>
 <script
         src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
