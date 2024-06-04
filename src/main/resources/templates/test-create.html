@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Test</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/images/school.png"
+    />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/typography.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body class="font">
+    <div class="d-flex flex-column vh-100 gap-5">
+      <header class="flex-shrink-0 border-bottom border-black shadow">
+        <nav class="navbar navbar-expand-lg bg-secondary">
+          <div class="container-fluid gap-1">
+            <a
+              class="navbar-brand bg-light rounded shadow px-1 fs-5 border border-black border-2"
+              href="#"
+            >
+              <img
+                src="/images/astronaut.png"
+                alt="default-avatar"
+                width="35"
+                height="35"
+                class="d-inline-block align-text-middle me-1"
+              />@username</a
+            >
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNavAltMarkup"
+              aria-controls="navbarNavAltMarkup"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav justify-content-center gap-1 mt-3 mt-lg-0">
+                <a
+                  class="nav-link text-center fs-5 link-light"
+                  href="#"
+                  >Join Test</a
+                >
+                <a
+                  class="nav-link text-center fs-5 link-light active"
+                  aria-current="page"
+                  href="#"
+                  >Create Test</a
+                >
+                <a class="nav-link text-center fs-5 link-light" href="#"
+                  >My Results</a
+                >
+                <a class="nav-link text-center fs-5 link-light" href="#"
+                  >My Tests</a
+                >
+              </div>
+              <div class="navbar-nav ms-auto">
+                <a
+                  class="nav-link bg-light rounded shadow px-3 fs-5 text-center text-black mt-3 mt-lg-0 border border-black border-2"
+                  href=""
+                  >Log out</a
+                >
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <main class="d-flex align-items-center flex-grow-1">
+        <div
+          class="container bg-secondary border border-2 border-black rounded shadow text-white fs-4 p-3"
+        >
+          <h1 class="text-center">Create Test</h1>
+          <div class="row row-cols-1 row-cols-md-2 mb-2">
+            <div class="col">
+              <label for="name" class="form-label">Test name:</label>
+            </div>
+            <div class="col">
+              <input
+                type="text"
+                class="form-control border border-black shadow fs-5"
+                id="name"
+              />
+            </div>
+          </div>
+          <div class="row row-cols-1 row-cols-md-2 mb-2">
+            <div class="col">
+              <label for="description" class="form-label">Description:</label>
+            </div>
+            <div class="col">
+              <input
+                type="text"
+                class="form-control border border-black fs-5"
+                id="description"
+                placeholder="(optional)"
+              />
+            </div>
+          </div>
+          <div class="row row-cols-1 row-cols-md-2 mb-2">
+            <div class="col">
+              <label for="code" class="form-label">Code:</label>
+            </div>
+            <div class="col">
+              <input
+                type="text"
+                class="form-control border border-black fs-5"
+                id="code"
+              />
+            </div>
+          </div>
+          <div class="row row-cols-1 row-cols-md-2 mb-2">
+            <div class="col">
+              <label for="time-for-response" class="form-label"
+                >Time for response:</label
+              >
+            </div>
+            <div class="col">
+              <input
+                type="text"
+                class="form-control border border-black fs-5"
+                id="time-for-response"
+                placeholder="(in minutes)"
+              />
+            </div>
+          </div>
+          <div class="row row-cols-1 row-cols-md-2 mb-2">
+            <div class="col">
+              <label for="questions-count" class="form-label"
+                >Questions count:</label
+              >
+            </div>
+            <div class="col">
+              <input
+                type="text"
+                class="form-control border border-black fs-5"
+                id="questions-count"
+              />
+            </div>
+          </div>
+          <div class="row row-cols-1 row-cols-md-2 mb-2">
+            <div class="col">
+              <label for="status" class="form-label">Status:</label>
+            </div>
+            <div class="col">
+              <input
+                type="text"
+                class="form-control border border-black fs-5"
+                id="status"
+                placeholder="(opened/closed)"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col text-center">
+              <button
+                class="btn bg-light text-black border border-black border-2 shadow rounded fs-5 px-5 mt-3"
+              >
+                next
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="shadow border-top border-black bg-secondary">
+        <div class="container-fluid">
+          <footer class="container bg-secondary">
+            <ul class="nav justify-content-center pb-3 mb-3">
+              <li class="nav-item">
+                <a href="#" class="nav-link px-2 text-white fs-5">Home</a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link px-2 text-white fs-5">Features</a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link px-2 text-white fs-5">Pricing</a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link px-2 text-white fs-5">FAQs</a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link px-2 text-white fs-5">About</a>
+              </li>
+            </ul>
+            <p class="text-center text-white fs-5">© 2024 Company, Inc</p>
+          </footer>
+        </div>
+      </footer>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
