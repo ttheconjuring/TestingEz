@@ -46,7 +46,6 @@ public class AuthenticationController {
         return "redirect:/account/login";
     }
 
-
     @GetMapping("/login")
     public String getLoginAccountView(Model model) {
         if (!model.containsAttribute("userLoginData")) {
@@ -69,5 +68,4 @@ public class AuthenticationController {
 
         return "redirect:/";
     }
-
 }
