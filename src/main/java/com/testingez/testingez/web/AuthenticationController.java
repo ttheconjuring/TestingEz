@@ -42,8 +42,9 @@ public class AuthenticationController {
         }
 
         this.userService.register(userSignUpData);
+        redirectAttributes.addFlashAttribute("username", userSignUpData.getUsername());
 
-        return "redirect:/account/login";
+        return "redirect:/test/join";
     }
 
     @GetMapping("/login")
@@ -66,6 +67,8 @@ public class AuthenticationController {
             return "redirect:/account/login";
         }
 
-        return "redirect:/";
+        redirectAttributes.addFlashAttribute("username", userLoginData.getUsername());
+
+        return "redirect:/test/join";
     }
 }
