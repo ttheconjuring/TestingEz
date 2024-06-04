@@ -42,6 +42,7 @@ public class AuthenticationController {
         }
 
         this.userService.register(userSignUpData);
+
         redirectAttributes.addFlashAttribute("username", userSignUpData.getUsername());
 
         return "redirect:/user/home";
@@ -71,4 +72,5 @@ public class AuthenticationController {
 
         return "redirect:/user/home";
     }
+
 }
