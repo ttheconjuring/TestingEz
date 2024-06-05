@@ -16,61 +16,7 @@
 </head>
 <body class="font">
 <div class="d-flex flex-column vh-100 gap-5">
-    <header class="flex-shrink-0 border-bottom border-black shadow">
-        <nav class="navbar navbar-expand-lg bg-secondary">
-            <div class="container-fluid gap-1">
-                <a
-                        class="navbar-brand bg-light rounded shadow px-1 fs-5 border border-black border-2"
-                        href="#"
-                >
-                    <img
-                            src="/images/astronaut.png"
-                            alt="default-avatar"
-                            width="35"
-                            height="35"
-                            class="d-inline-block align-text-middle me-1"
-                    /><span th:text="'@' + ${username}"/></a
-                >
-                <button
-                        class="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarNavAltMarkup"
-                        aria-controls="navbarNavAltMarkup"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                >
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav justify-content-center gap-1 mt-3 mt-lg-0">
-                        <a
-                                class="nav-link text-center fs-5 link-light active"
-                                aria-current="page"
-                                href="#"
-                        >Join Test</a
-                        >
-                        <a class="nav-link text-center fs-5 link-light" href="#"
-                        >Create Test</a
-                        >
-                        <a class="nav-link text-center fs-5 link-light" href="#"
-                        >My Results</a
-                        >
-                        <a class="nav-link text-center fs-5 link-light" href="#"
-                        >My Tests</a
-                        >
-                    </div>
-                    <div class="navbar-nav ms-auto">
-                        <a
-                                class="nav-link bg-light rounded shadow px-3 fs-5 text-center text-black mt-3 mt-lg-0 border border-black border-2"
-                                href="/account/login"
-                        >Log out</a
-                        >
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <div th:replace="fragments/headers :: header"></div>
 
     <main
             class="container d-flex justify-content-center align-items-center flex-grow-1"
