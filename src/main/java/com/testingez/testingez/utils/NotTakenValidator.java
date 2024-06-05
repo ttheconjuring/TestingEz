@@ -4,29 +4,24 @@ import com.testingez.testingez.repositories.UserRepository;
 import com.testingez.testingez.models.annotations.NotTaken;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
+@AllArgsConstructor
 public class NotTakenValidator implements ConstraintValidator<NotTaken, String> {
 
     private final UserRepository userRepository;
-    private String fieldName;
-
-    public NotTakenValidator(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    @Override
-    public void initialize(NotTaken constraintAnnotation) {
-        fieldName = constraintAnnotation.fieldName();
-        ConstraintValidator.super.initialize(constraintAnnotation);
-    }
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return switch (this.fieldName) {
-            case "username" -> this.userRepository.findByUsername(value).isEmpty();
-            case "email" -> this.userRepository.findByEmail(value).isEmpty();
-            case "phone" -> this.userRepository.findByPhone(value).isEmpty();
-            default -> throw new IllegalArgumentException("Invalid filed name is passed");
-        };
+        if (value == null || value.isEmpty()) {
+            throw new NullPointerException("Value is null or empty");
+        }
+
+        return this.userRepository.findByUsername(value).isEmpty() &&
+                this.userRepository.findByEmail(value).isEmpty() &&
+                this.userRepository.findByPhone(value).isEmpty();
+
     }
 }
