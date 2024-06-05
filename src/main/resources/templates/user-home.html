@@ -47,12 +47,12 @@
                         <a
                                 class="nav-link text-center fs-5 link-light active"
                                 aria-current="page"
-                                href="user-home.html"
+                                href="#"
                         >Join Test</a
                         >
                         <a
                                 class="nav-link text-center fs-5 link-light"
-                                href="create-test.html"
+                                href="#"
                         >Create Test</a
                         >
                         <a class="nav-link text-center fs-5 link-light" href="#"
@@ -159,30 +159,7 @@
         </div>
     </main>
 
-    <footer class="shadow border-top border-black bg-secondary">
-        <div class="container-fluid">
-            <footer class="container bg-secondary">
-                <ul class="nav justify-content-center pb-3 mb-3">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link px-2 text-white fs-5">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link px-2 text-white fs-5">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link px-2 text-white fs-5">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link px-2 text-white fs-5">FAQs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link px-2 text-white fs-5">About</a>
-                    </li>
-                </ul>
-                <p class="text-center text-white fs-5">© 2024 Company, Inc</p>
-            </footer>
-        </div>
-    </footer>
+    <div th:replace="fragments/footers :: footer"></div>
 </div>
 
 <script
