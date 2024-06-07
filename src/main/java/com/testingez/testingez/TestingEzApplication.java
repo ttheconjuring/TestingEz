@@ -14,7 +14,6 @@ public class TestingEzApplication {
 	// 		 1.Add password encoding
 	//   	 2.Create new template for /user/home endpoint
 	// 	     3.Add pseudo-session, a.k.a. CurrentUser
-	// 		 4.Remove the default browser behavior from the register and login forms
 	//		 5.Clear the templates by adding more fragments
 
 }

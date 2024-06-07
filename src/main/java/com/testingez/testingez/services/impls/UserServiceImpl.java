@@ -33,13 +33,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void confirmPasswords(UserSignUpDataDTO userSignUpDataDTO, BindingResult bindingResult) {
-        if (!userSignUpDataDTO.getPassword().equals(userSignUpDataDTO.getConfirmPassword())) {
-            bindingResult.addError(new FieldError("userSignUpDataDTO", "confirmPassword", "Passwords do not match"));
-        }
-    }
-
-    @Override
     public void login(UserLoginDataDTO userLoginData, BindingResult bindingResult) {
         Optional<User> byUsername = this.userRepository.findByUsername(userLoginData.getUsername());
         if (byUsername.isEmpty()) {

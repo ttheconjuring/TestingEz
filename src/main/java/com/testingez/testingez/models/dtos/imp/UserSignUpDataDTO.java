@@ -42,8 +42,9 @@ public class UserSignUpDataDTO {
     @NotTaken(message = "This email is already in use.")
     private String email;
 
-    @NotBlank(message = "Phone should not be null or empty.")
-    @NotTaken(message = "This phone  is already in use.")
+    @NotNull(message = "Phone should not be null.")
+    @NotTaken(message = "This phone is already in use.")
+    @Pattern(regexp = "^[0-9]{3}-[0-9]{3}-[0-9]{4}$", message = "Phone should be in valid format.")
     private String phone;
 
 }

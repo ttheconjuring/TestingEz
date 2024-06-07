@@ -15,10 +15,6 @@ public class NotTakenValidator implements ConstraintValidator<NotTaken, String> 
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (value == null || value.isEmpty()) {
-            throw new NullPointerException("Value is null or empty");
-        }
-
         return this.userRepository.findByUsername(value).isEmpty() &&
                 this.userRepository.findByEmail(value).isEmpty() &&
                 this.userRepository.findByPhone(value).isEmpty();
