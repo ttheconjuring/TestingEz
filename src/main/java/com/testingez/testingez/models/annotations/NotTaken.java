@@ -1,6 +1,6 @@
 package com.testingez.testingez.models.annotations;
 
-import com.testingez.testingez.utils.NotTakenValidator;
+import com.testingez.testingez.utils.validators.NotTakenValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 

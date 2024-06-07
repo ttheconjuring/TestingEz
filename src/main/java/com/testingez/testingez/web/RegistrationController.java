@@ -21,7 +21,7 @@ public class RegistrationController {
     private final UserService userService;
 
     @GetMapping("/create")
-    public String getCreateAccountView(Model model) {
+    public String register(Model model) {
         if (!model.containsAttribute("userSignUpData")) {
             model.addAttribute("userSignUpData", new UserSignUpDataDTO());
         }
@@ -29,10 +29,9 @@ public class RegistrationController {
     }
 
     @PostMapping("/create")
-    public String postCreateAccount(@Valid @ModelAttribute("userSignUpData") UserSignUpDataDTO userSignUpData,
-                                    BindingResult bindingResult,
-                                    RedirectAttributes redirectAttributes) {
-        this.userService.confirmPasswords(userSignUpData, bindingResult);
+    public String register(@Valid @ModelAttribute("userSignUpData") UserSignUpDataDTO userSignUpData,
+                           BindingResult bindingResult,
+                           RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userSignUpData",
                     bindingResult);
@@ -41,8 +40,6 @@ public class RegistrationController {
         }
 
         this.userService.register(userSignUpData);
-
-        redirectAttributes.addFlashAttribute("username", userSignUpData.getUsername());
 
         return "redirect:/user/home";
     }

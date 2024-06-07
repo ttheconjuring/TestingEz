@@ -1,4 +1,4 @@
-package com.testingez.testingez.utils;
+package com.testingez.testingez.utils.validators;
 
 import com.testingez.testingez.repositories.UserRepository;
 import com.testingez.testingez.models.annotations.NotTaken;

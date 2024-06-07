@@ -1,5 +1,6 @@
 package com.testingez.testingez.models.dtos.imp;
 
+import com.testingez.testingez.models.annotations.ConfirmPasswords;
 import com.testingez.testingez.models.annotations.NotTaken;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ConfirmPasswords
 public class UserSignUpDataDTO {
 
     @NotNull(message = "Username should not be null.")

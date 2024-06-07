@@ -8,7 +8,5 @@ public interface UserService {
 
     void register(UserSignUpDataDTO userSignUpData);
 
-    void confirmPasswords(UserSignUpDataDTO userSignUpDataDTO, BindingResult bindingResult);
-
     void login(UserLoginDataDTO userLoginData, BindingResult bindingResult);
 }
