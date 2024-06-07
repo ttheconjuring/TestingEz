@@ -8,6 +8,7 @@ import com.testingez.testingez.repositories.UserRepository;
 import com.testingez.testingez.services.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -20,10 +21,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void register(UserSignUpDataDTO userSignUpData) {
         User newUser = this.modelMapper.map(userSignUpData, User.class);
+        newUser.setPassword(passwordEncoder.encode(userSignUpData.getPassword()));
         if (this.userRepository.count() == 0) {
             newUser.setRole(UserRole.ADMINISTRATOR);
         } else {
