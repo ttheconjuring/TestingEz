@@ -16,14 +16,24 @@ public class TestController {
     private final CurrentUser currentUser;
 
     @GetMapping("/join")
-    public String getJoinTestView(Model model) {
-        model.addAttribute("username", currentUser.getUsername());
+    public String join(Model model) {
+        if (!this.currentUser.isLogged()) {
+            return "redirect:/account/login";
+        }
+        if (!model.containsAttribute("username")) {
+            model.addAttribute("username", currentUser.getUsername());
+        }
         return "test-join";
     }
 
     @GetMapping("/create")
-    public String getCreateTestView(Model model) {
-        model.addAttribute("username", currentUser.getUsername());
+    public String create(Model model) {
+        if (!this.currentUser.isLogged()) {
+            return "redirect:/account/login";
+        }
+        if (!model.containsAttribute("username")) {
+            model.addAttribute("username", currentUser.getUsername());
+        }
         if (!model.containsAttribute("testCreateData")) {
             model.addAttribute(new TestCreateDTO());
         }

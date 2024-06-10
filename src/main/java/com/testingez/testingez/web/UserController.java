@@ -16,6 +16,9 @@ public class UserController {
 
     @GetMapping("/home")
     public String getUserHomeView(Model model) {
+        if (!this.currentUser.isLogged()) {
+            return "redirect:/account/login";
+        }
         model.addAttribute("username", currentUser.getUsername());
         return "test-join";
     }
