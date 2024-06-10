@@ -48,4 +48,17 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public void login(UserLoginDataDTO userLoginData, BindingResult bindingResult) {
+        Optional<User> byUsername = this.userRepository.findByUsername(userLoginData.getUsername());
+        if (byUsername.isEmpty()) {
+            bindingResult.addError(new FieldError("userLoginData", "username", "username or password is incorrect"));
+        } else {
+            User user = byUsername.get();
+            if (!user.getPassword().equals(userLoginData.getPassword())) {
+                bindingResult.addError(new FieldError("userLoginData", "username", "username or password is incorrect"));
+            }
+        }
+    }
+
 }
