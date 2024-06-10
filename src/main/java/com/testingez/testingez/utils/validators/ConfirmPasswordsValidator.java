@@ -1,7 +1,7 @@
 package com.testingez.testingez.utils.validators;
 
 import com.testingez.testingez.models.annotations.ConfirmPasswords;
-import com.testingez.testingez.models.dtos.imp.UserSignUpDataDTO;
+import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.stereotype.Component;
@@ -11,7 +11,7 @@ public class ConfirmPasswordsValidator implements ConstraintValidator<ConfirmPas
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
-        UserSignUpDataDTO user = (UserSignUpDataDTO) value;
+        UserSignUpDTO user = (UserSignUpDTO) value;
         return user.getPassword().equals(user.getConfirmPassword());
     }
 

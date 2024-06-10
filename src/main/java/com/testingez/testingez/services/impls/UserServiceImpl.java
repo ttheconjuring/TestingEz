@@ -1,7 +1,7 @@
 package com.testingez.testingez.services.impls;
 
-import com.testingez.testingez.models.dtos.imp.UserSignInDataDTO;
-import com.testingez.testingez.models.dtos.imp.UserSignUpDataDTO;
+import com.testingez.testingez.models.dtos.imp.UserSignInDTO;
+import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
 import com.testingez.testingez.models.entities.User;
 import com.testingez.testingez.models.enums.UserRole;
 import com.testingez.testingez.repositories.UserRepository;
@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
     private final CurrentUser currentUser;
 
     @Override
-    public void register(UserSignUpDataDTO userSignUpData) {
+    public void register(UserSignUpDTO userSignUpData) {
         User newUser = this.modelMapper.map(userSignUpData, User.class);
         newUser.setPassword(passwordEncoder.encode(userSignUpData.getPassword()));
         if (this.userRepository.count() == 0) {
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void login(UserSignInDataDTO userSingInData, BindingResult bindingResult) {
+    public void login(UserSignInDTO userSingInData, BindingResult bindingResult) {
         Optional<User> byUsername = this.userRepository.findByUsername(userSingInData.getUsername());
         if (byUsername.isEmpty()) {
             bindingResult.addError(new FieldError("userSingInData", "username", "username or password is incorrect"));

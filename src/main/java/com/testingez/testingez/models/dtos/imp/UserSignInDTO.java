@@ -1,6 +1,5 @@
 package com.testingez.testingez.models.dtos.imp;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserSignInDataDTO {
+public class UserSignInDTO {
 
     private String username;
 
