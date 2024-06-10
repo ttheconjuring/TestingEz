@@ -39,8 +39,6 @@ public class LoginController {
             return "redirect:/account/login";
         }
 
-        redirectAttributes.addFlashAttribute("username", userLoginData.getUsername());
-
         return "redirect:/user/home";
     }
 
