@@ -1,5 +1,6 @@
 package com.testingez.testingez.models.dtos.imp;
 
+import com.testingez.testingez.models.annotations.ConfirmPasswords;
 import com.testingez.testingez.models.annotations.NotTaken;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -11,12 +12,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ConfirmPasswords
 public class UserSignUpDataDTO {
 
     @NotNull(message = "Username should not be null.")
     @Size(min = 5, max = 25,
             message = "Username should be between 5 and 25 symbols.")
-    @NotTaken(fieldName = "username", message = "Username is already in use.")
+    @NotTaken(message = "This username is already in use.")
     private String username;
 
     @NotNull(message = "Password should not be null.")
@@ -37,11 +39,12 @@ public class UserSignUpDataDTO {
 
     @NotBlank(message = "Email should not be null or empty.")
     @Email(message = "Email should be in valid format.")
-    @NotTaken(fieldName = "email", message = "Email is already in use.")
+    @NotTaken(message = "This email is already in use.")
     private String email;
 
-    @NotBlank(message = "Phone should not be null or empty.")
-    @NotTaken(fieldName = "phone", message = "Phone is already in use.")
+    @NotNull(message = "Phone should not be null.")
+    @NotTaken(message = "This phone is already in use.")
+    @Pattern(regexp = "^[0-9]{3}-[0-9]{3}-[0-9]{4}$", message = "Phone should be in valid format.")
     private String phone;
 
 }

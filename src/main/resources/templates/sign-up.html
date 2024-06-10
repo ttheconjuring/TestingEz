@@ -15,9 +15,9 @@
     />
 </head>
 <body class="font">
-<div class="d-flex flex-column vh-100 gap-5 bg-secondary">
+<div class="d-flex flex-column min-vh-100 gap-5 bg-secondary p-3">
     <main
-            class="container d-flex flex-column justify-content-center flex-grow-1 bg-secondary"
+            class="container d-flex flex-column flex-fill align-item-center justify-content-center flex-grow-1 bg-secondary"
     >
         <div class="row justify-content-center">
             <div
@@ -26,142 +26,165 @@
                 <h2 class="text-center">Register</h2>
                 <form
                         action="#"
+                        class="needs-validation"
                         method="post"
+                        novalidate
                         th:action="@{/account/create}"
                         th:object="${userSignUpData}"
                 >
                     <div class="row justify-content-center">
                         <div class="col">
                             <label for="username" class="form-label">Username:</label>
-                            <input
-                                    th:field="*{username}"
-                                    type="text"
-                                    class="form-control border border-black fs-6"
-                                    id="username"
-                                    minlength="5"
-                                    maxlength="25"
-                                    required
-                            />
-                            <div
-                                    th:if="${#fields.hasErrors('username')}"
-                                    th:errors="*{username}"
-                                    class="text-danger fs-6"
-                            ></div>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                <input
+                                        aria-describedby="inputGroupPrepend"
+                                        class="form-control border border-black fs-6"
+                                        id="username"
+                                        maxlength="25"
+                                        minlength="5"
+                                        name="username"
+                                        required
+                                        th:classappend="${#fields.hasErrors('username')} ? 'is-invalid' : ''"
+                                        th:field="*{username}"
+                                        type="text"
+                                />
+                            </div>
+                            <div class="text-danger fs-6"
+                                 th:errors="*{username}"
+                                 th:if="${#fields.hasErrors('username')}">
+                            </div>
                         </div>
                     </div>
+
                     <div class="row justify-content-center">
                         <div class="col">
                             <label for="password" class="form-label">Password:</label>
-                            <input
-                                    th:field="*{password}"
-                                    type="password"
-                                    id="password"
-                                    class="form-control border border-black fs-6"
-                                    aria-describedby="passwordHelpBlock"
-                                    minlength="8"
-                                    required
-                            />
-                            <div
-                                    th:if="${#fields.hasErrors('password')}"
-                                    th:errors="*{password}"
-                                    class="text-danger fs-6"
-                            ></div>
+                            <div class="input-group has-validation">
+                                <input
+                                        class="form-control border border-black fs-6"
+                                        id="password"
+                                        minlength="8"
+                                        name="password"
+                                        required
+                                        th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''"
+                                        th:field="*{password}"
+                                        type="password"
+                                />
+                            </div>
+                            <div class="text-danger fs-6"
+                                 th:errors="*{password}"
+                                 th:if="${#fields.hasErrors('password')}">
+                            </div>
                         </div>
                     </div>
+
                     <div class="row justify-content-center">
                         <div class="col">
-                            <label for="confirmPassword" class="form-label"
-                            >Confirm password:</label
-                            >
-                            <input
-                                    th:field="*{confirmPassword}"
-                                    type="password"
-                                    id="confirmPassword"
-                                    class="form-control border border-black fs-6"
-                                    aria-describedby="passwordHelpBlock"
-                                    minlength="8"
-                                    required
-                            />
-                            <div
-                                    th:if="${#fields.hasErrors('confirmPassword')}"
-                                    th:errors="*{confirmPassword}"
-                                    class="text-danger fs-6"
-                            ></div>
+                            <label for="confirmPassword" class="form-label">Confirm password:</label>
+                            <div class="input-group has-validation">
+                                <input
+                                        class="form-control border border-black fs-6"
+                                        id="confirmPassword"
+                                        minlength="8"
+                                        name="confirmPassword"
+                                        required
+                                        th:classappend="${#fields.hasErrors('confirmPassword')} ? 'is-invalid' : ''"
+                                        th:field="*{confirmPassword}"
+                                        type="password"
+                                />
+                            </div>
+                            <div class="text-danger fs-6"
+                                 th:errors="*{confirmPassword}"
+                                 th:if="${#fields.hasErrors('confirmPassword')}">
+                            </div>
                         </div>
                     </div>
+
                     <div class="row justify-content-center">
                         <div class="col">
-                            <label for="first-name" class="form-label">First Name:</label>
-                            <input
-                                    th:field="*{firstName}"
-                                    type="text"
-                                    class="form-control border border-black fs-6"
-                                    id="first-name"
-                                    required
-                            />
-                            <div
-                                    th:if="${#fields.hasErrors('firstName')}"
-                                    th:errors="*{firstName}"
-                                    class="text-danger fs-6"
-                            ></div>
+                            <label for="firstName" class="form-label">First Name:</label>
+                            <div class="input-group has-validation">
+                                <input
+                                        class="form-control border border-black fs-6"
+                                        id="firstName"
+                                        name="firstName"
+                                        required
+                                        th:classappend="${#fields.hasErrors('firstName')} ? 'is-invalid' : ''"
+                                        th:field="*{firstName}"
+                                        type="text"
+                                />
+                            </div>
+                            <div class="text-danger fs-6"
+                                 th:errors="*{firstName}"
+                                 th:if="${#fields.hasErrors('firstName')}">
+                            </div>
                         </div>
                     </div>
+
                     <div class="row justify-content-center">
                         <div class="col">
-                            <label for="last-name" class="form-label">Last Name:</label>
-                            <input
-                                    th:field="*{lastName}"
-                                    type="text"
-                                    class="form-control border border-black fs-6"
-                                    id="last-name"
-                                    required
-                            />
-                            <div
-                                    th:if="${#fields.hasErrors('lastName')}"
-                                    th:errors="*{lastName}"
-                                    class="text-danger fs-6"
-                            ></div>
+                            <label for="lastName" class="form-label">Last Name:</label>
+                            <div class="input-group has-validation">
+                                <input
+                                        class="form-control border border-black fs-6"
+                                        id="lastName"
+                                        name="lastName"
+                                        required
+                                        th:classappend="${#fields.hasErrors('lastName')} ? 'is-invalid' : ''"
+                                        th:field="*{lastName}"
+                                        type="text"
+                                />
+                            </div>
+                            <div class="text-danger fs-6"
+                                 th:errors="*{lastName}"
+                                 th:if="${#fields.hasErrors('lastName')}">
+                            </div>
                         </div>
                     </div>
 
                     <div class="row justify-content-center">
                         <div class="col">
                             <label for="email" class="form-label">Email:</label>
-                            <input
-                                    th:field="*{email}"
-                                    type="email"
-                                    class="form-control border border-black fs-6"
-                                    id="email"
-                                    placeholder="name@example.com"
-                                    required
-                            />
-                            <div
-                                    th:if="${#fields.hasErrors('email')}"
-                                    th:errors="*{email}"
-                                    class="text-danger fs-6"
-                            ></div>
+                            <div class="input-group has-validation">
+                                <input
+                                        class="form-control border border-black fs-6"
+                                        id="email"
+                                        name="email"
+                                        placeholder="name@example.com"
+                                        required
+                                        th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''"
+                                        th:field="*{email}"
+                                        type="email"
+                                />
+                            </div>
+                            <div class="text-danger fs-6"
+                                 th:errors="*{email}"
+                                 th:if="${#fields.hasErrors('email')}">
+                            </div>
                         </div>
                     </div>
 
                     <div class="row justify-content-center">
                         <div class="col">
-                            <label for="phone-number" class="form-label"
-                            >Phone number:</label
-                            >
-                            <input
-                                    th:field="*{phone}"
-                                    type="tel"
-                                    class="form-control mb-3 border border-black fs-6"
-                                    id="phone-number"
-                                    placeholder="XXX-XXX-XXXX"
-                                    pattern="^[0-9]{3}-[0-9]{3}-[0-9]{4}$"
-                                    required
-                            />
-                            <div
-                                    th:if="${#fields.hasErrors('phone')}"
-                                    th:errors="*{phone}"
-                                    class="text-danger fs-6"
-                            ></div>
+                            <label for="phone" class="form-label">Phone number:</label>
+                            <div class="input-group has-validation">
+                                <input
+                                        class="form-control border border-black fs-6"
+                                        id="phone"
+                                        name="phone"
+                                        pattern="^[0-9]{3}-[0-9]{3}-[0-9]{4}$"
+                                        placeholder="XXX-XXX-XXXX"
+                                        required
+                                        th:field="*{phone}"
+                                        th:classappend="${#fields.hasErrors('phone')} ? 'is-invalid' : ''"
+                                        type="tel"
+                                />
+                            </div>
+                            <div class="text-danger fs-6"
+                                 th:errors="*{phone}"
+                                 th:if="${#fields.hasErrors('phone')}">
+                            </div>
                         </div>
                     </div>
 
@@ -169,7 +192,7 @@
                         <div class="col d-flex justify-content-center">
                             <button
                                     type="submit"
-                                    class="btn btn-secondary border border-black border-2 shadow rounded fs-5 px-5"
+                                    class="btn btn-secondary border border-black border-2 shadow rounded fs-5 px-5 mt-3"
                             >
                                 Sign Up
                             </button>
@@ -181,20 +204,6 @@
     </main>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const password = document.getElementById('password');
-        const confirmPassword = document.getElementById('confirmPassword');
-
-        confirmPassword.addEventListener('input', () => {
-            if (password.value !== confirmPassword.value) {
-                confirmPassword.setCustomValidity('Passwords do not match');
-            } else {
-                confirmPassword.setCustomValidity('');
-            }
-        });
-    });
-</script>
 <script
         src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
