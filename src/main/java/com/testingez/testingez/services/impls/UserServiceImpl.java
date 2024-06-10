@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
             if (!this.passwordEncoder.matches(userSingInData.getPassword(), user.getPassword())) {
                 bindingResult.addError(new FieldError("userSingInData", "username", "username or password is incorrect"));
             } else
-                this.currentUser.setUser(user);
+                logUser(user);
         }
     }
 
