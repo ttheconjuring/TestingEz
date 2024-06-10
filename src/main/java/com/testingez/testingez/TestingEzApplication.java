@@ -16,6 +16,5 @@ public class TestingEzApplication {
 	//		 3.Clear the templates by adding more fragments
 	// 	 	 4.Add Unit Tests
 	// 	     5.Find out how to display error for not matching password and confirmPassword
-	//  	 6.Test if the login works with encoded passwords
 
 }
