@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -42,10 +42,10 @@ public class Test {
     private TestStatus status;
 
     @Column(name = "date_created", nullable = false)
-    private LocalDate dateCreated;
+    private LocalDateTime dateCreated;
 
     @Column(name = "date_updated", nullable = false)
-    private LocalDate dateUpdated;
+    private LocalDateTime dateUpdated;
 
     @ManyToOne
     @JoinColumn(name = "creator_id", referencedColumnName = "id")

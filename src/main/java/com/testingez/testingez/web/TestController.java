@@ -2,6 +2,7 @@ package com.testingez.testingez.web;
 
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.services.CurrentUser;
+import com.testingez.testingez.services.TestService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class TestController {
 
     private final CurrentUser currentUser;
+    private final TestService testService;
 
     @GetMapping("/join")
     public String join(Model model) {
@@ -54,7 +56,7 @@ public class TestController {
             redirectAttributes.addFlashAttribute("testCreateDTO", testCreateDTO);
             return "redirect:/test/create";
         }
-        // TODO: create test
+        this.testService.create(testCreateDTO);
         return "redirect:/";
     }
 
