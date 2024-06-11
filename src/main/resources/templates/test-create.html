@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:replace="fragments/heads :: head"></div>
+<div th:replace="~{fragments/heads :: head}"></div>
 <body class="font">
 <div class="d-flex flex-column vh-100 gap-5">
-    <div th:replace="fragments/headers :: header"></div>
+    <div th:replace="~{fragments/headers :: header}"></div>
 
     <main class="d-flex align-items-center flex-grow-1">
         <div class="container bg-secondary border border-2 border-black rounded shadow text-white fs-4 p-3">
@@ -28,9 +28,14 @@
                                     minlength="5"
                                     name="name"
                                     required
+                                    th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''"
                                     th:field="*{name}"
                                     type="text"
                             />
+                        </div>
+                        <div class="text-danger fs-6"
+                             th:errors="*{name}"
+                             th:if="${#fields.hasErrors('name')}">
                         </div>
                     </div>
                 </div>
@@ -46,9 +51,14 @@
                                     maxlength="50"
                                     name="description"
                                     placeholder="(optional)"
+                                    th:classappend="${#fields.hasErrors('description')} ? 'is-invalid' : ''"
                                     th:field="*{description}"
                                     type="text"
                             />
+                        </div>
+                        <div class="text-danger fs-6"
+                             th:errors="*{description}"
+                             th:if="${#fields.hasErrors('description')}">
                         </div>
                     </div>
                 </div>
@@ -64,6 +74,7 @@
                                     name="code"
                                     pattern="^(?=.*[A-Za-z].*[A-Za-z])(?=.*\d.*\d)(?=.*[!@#$%^&*].*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6}$"
                                     required
+                                    th:classappend="${#fields.hasErrors('code')} ? 'is-invalid' : ''"
                                     th:field="*{code}"
                                     type="text"
                             />
@@ -71,6 +82,10 @@
                                     onclick="generateCode()"
                                     type="button">Generate
                             </button>
+                        </div>
+                        <div class="text-danger fs-6"
+                             th:errors="*{code}"
+                             th:if="${#fields.hasErrors('code')}">
                         </div>
                     </div>
                 </div>
@@ -87,9 +102,14 @@
                                     name="responseTime"
                                     placeholder="(in minutes)"
                                     required
+                                    th:classappend="${#fields.hasErrors('responseTime')} ? 'is-invalid' : ''"
                                     th:field="*{responseTime}"
                                     type="text"
                             />
+                        </div>
+                        <div class="text-danger fs-6"
+                             th:errors="*{responseTime}"
+                             th:if="${#fields.hasErrors('responseTime')}">
                         </div>
                     </div>
                 </div>
@@ -104,9 +124,14 @@
                                     id="passingScore"
                                     name="passingScore"
                                     placeholder="(optional)"
+                                    th:classappend="${#fields.hasErrors('passingScore')} ? 'is-invalid' : ''"
                                     th:field="*{passingScore}"
                                     type="text"
                             />
+                        </div>
+                        <div class="text-danger fs-6"
+                             th:errors="*{passingScore}"
+                             th:if="${#fields.hasErrors('passingScore')}">
                         </div>
                     </div>
                 </div>
@@ -122,9 +147,14 @@
                                     id="questionsCount"
                                     name="questionsCount"
                                     required
+                                    th:classappend="${#fields.hasErrors('questionsCount')} ? 'is-invalid' : ''"
                                     th:field="*{questionsCount}"
                                     type="text"
                             />
+                        </div>
+                        <div class="text-danger fs-6"
+                             th:errors="*{questionsCount}"
+                             th:if="${#fields.hasErrors('questionsCount')}">
                         </div>
                     </div>
                 </div>
@@ -140,9 +170,14 @@
                                     name="status"
                                     placeholder="(open/closed)"
                                     required
+                                    th:classappend="${#fields.hasErrors('status')} ? 'is-invalid' : ''"
                                     th:field="*{status}"
                                     type="text"
                             />
+                        </div>
+                        <div class="text-danger fs-6"
+                             th:errors="*{status}"
+                             th:if="${#fields.hasErrors('status')}">
                         </div>
                     </div>
                 </div>
@@ -158,9 +193,9 @@
         </div>
     </main>
 
-    <div th:replace="fragments/footers :: footer"></div>
+    <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
 <script src="/js/code-generator.js"></script>
-<div th:replace="fragments/scripts :: scripts"></div>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>

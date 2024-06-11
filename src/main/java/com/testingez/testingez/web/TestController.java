@@ -2,11 +2,16 @@ package com.testingez.testingez.web;
 
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.services.CurrentUser;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @AllArgsConstructor
 @Controller
@@ -34,10 +39,23 @@ public class TestController {
         if (!model.containsAttribute("username")) {
             model.addAttribute("username", currentUser.getUsername());
         }
-        if (!model.containsAttribute("testCreateData")) {
+        if (!model.containsAttribute("testCreateDTO")) {
             model.addAttribute(new TestCreateDTO());
         }
         return "test-create";
+    }
+
+    @PostMapping("/create")
+    public String create(@Valid @ModelAttribute("testCreateData") TestCreateDTO testCreateDTO,
+                         BindingResult bindingResult,
+                         RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.testCreateDTO", bindingResult);
+            redirectAttributes.addFlashAttribute("testCreateDTO", testCreateDTO);
+            return "redirect:/test/create";
+        }
+        // TODO: create test
+        return "redirect:/";
     }
 
 }
