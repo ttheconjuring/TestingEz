@@ -24,9 +24,12 @@
                             <input
                                     class="form-control border border-black shadow fs-5"
                                     id="name"
+                                    maxlength="25"
+                                    minlength="5"
                                     name="name"
-                                    type="text"
+                                    required
                                     th:field="*{name}"
+                                    type="text"
                             />
                         </div>
                     </div>
@@ -38,12 +41,13 @@
                     <div class="col">
                         <div class="input-group has-validation">
                             <input
-                                    type="text"
                                     class="form-control border border-black fs-5"
                                     id="description"
+                                    maxlength="50"
                                     name="description"
                                     placeholder="(optional)"
                                     th:field="*{description}"
+                                    type="text"
                             />
                         </div>
                     </div>
@@ -53,14 +57,20 @@
                         <label for="code" class="form-label">Code:</label>
                     </div>
                     <div class="col">
-                        <div class="input-group has-validation">
+                        <div class="input-group has-validation gap-1">
                             <input
-                                    type="text"
                                     class="form-control border border-black fs-5"
                                     id="code"
                                     name="code"
+                                    pattern="^(?=.*[A-Za-z].*[A-Za-z])(?=.*\d.*\d)(?=.*[!@#$%^&*].*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6}$"
+                                    required
                                     th:field="*{code}"
+                                    type="text"
                             />
+                            <button class="btn bg-light text-black border border-black border-2 shadow rounded fs-5"
+                                    onclick="generateCode()"
+                                    type="button">Generate
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -72,12 +82,30 @@
                     <div class="col">
                         <div class="input-group has-validation">
                             <input
-                                    type="text"
                                     class="form-control border border-black fs-5"
                                     id="responseTime"
                                     name="responseTime"
                                     placeholder="(in minutes)"
+                                    required
                                     th:field="*{responseTime}"
+                                    type="text"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-cols-1 row-cols-md-2 mb-2">
+                    <div class="col">
+                        <label for="passingScore" class="form-label">Passing score:</label>
+                    </div>
+                    <div class="col">
+                        <div class="input-group has-validation">
+                            <input
+                                    class="form-control border border-black fs-5"
+                                    id="passingScore"
+                                    name="passingScore"
+                                    placeholder="(optional)"
+                                    th:field="*{passingScore}"
+                                    type="text"
                             />
                         </div>
                     </div>
@@ -90,11 +118,12 @@
                     <div class="col">
                         <div class="input-group has-validation">
                             <input
-                                    type="text"
                                     class="form-control border border-black fs-5"
                                     id="questionsCount"
                                     name="questionsCount"
+                                    required
                                     th:field="*{questionsCount}"
+                                    type="text"
                             />
                         </div>
                     </div>
@@ -106,12 +135,13 @@
                     <div class="col">
                         <div class="input-group has-validation">
                             <input
-                                    type="text"
                                     class="form-control border border-black fs-5"
                                     id="status"
                                     name="status"
-                                    placeholder="(opened/closed)"
+                                    placeholder="(open/closed)"
+                                    required
                                     th:field="*{status}"
+                                    type="text"
                             />
                         </div>
                     </div>
@@ -130,7 +160,7 @@
 
     <div th:replace="fragments/footers :: footer"></div>
 </div>
-
+<script src="/js/code-generator.js"></script>
 <div th:replace="fragments/scripts :: scripts"></div>
 </body>
 </html>
