@@ -1,6 +1,6 @@
 package com.testingez.testingez.web;
 
-import com.testingez.testingez.models.dtos.imp.UserSignUpDataDTO;
+import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
 import com.testingez.testingez.services.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -23,13 +23,13 @@ public class RegistrationController {
     @GetMapping("/create")
     public String register(Model model) {
         if (!model.containsAttribute("userSignUpData")) {
-            model.addAttribute("userSignUpData", new UserSignUpDataDTO());
+            model.addAttribute("userSignUpData", new UserSignUpDTO());
         }
         return "sign-up";
     }
 
     @PostMapping("/create")
-    public String register(@Valid @ModelAttribute("userSignUpData") UserSignUpDataDTO userSignUpData,
+    public String register(@Valid @ModelAttribute("userSignUpData") UserSignUpDTO userSignUpData,
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {

@@ -1,109 +1,201 @@
 <!DOCTYPE html>
-<html lang="en">
-<div th:replace="fragments/heads :: head"></div>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{fragments/heads :: head}"></div>
 <body class="font">
 <div class="d-flex flex-column vh-100 gap-5">
-    <div th:replace="fragments/headers :: header"></div>
+    <div th:replace="~{fragments/headers :: header}"></div>
 
     <main class="d-flex align-items-center flex-grow-1">
-        <div
-                class="container bg-secondary border border-2 border-black rounded shadow text-white fs-4 p-3"
-        >
-            <h1 class="text-center">Create Test</h1>
-            <div class="row row-cols-1 row-cols-md-2 mb-2">
-                <div class="col">
-                    <label for="name" class="form-label">Test name:</label>
+        <div class="container bg-secondary border border-2 border-black rounded shadow text-white fs-4 p-3">
+            <form
+                    action="#"
+                    class="needs-validation"
+                    method="post"
+                    novalidate
+                    th:action="@{/test/create}"
+                    th:object="${testCreateDTO}">
+                <h1 class="text-center">Create Test</h1>
+                <div class="row row-cols-1 row-cols-md-2 mb-2">
+                    <div class="col">
+                        <label for="name" class="form-label">Test name:</label>
+                    </div>
+                    <div class="col">
+                        <div class="input-group has-validation">
+                            <input
+                                    class="form-control border border-black shadow fs-5"
+                                    id="name"
+                                    maxlength="25"
+                                    minlength="5"
+                                    name="name"
+                                    required
+                                    th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''"
+                                    th:field="*{name}"
+                                    type="text"
+                            />
+                        </div>
+                        <div class="text-danger fs-6"
+                             th:errors="*{name}"
+                             th:if="${#fields.hasErrors('name')}">
+                        </div>
+                    </div>
                 </div>
-                <div class="col">
-                    <input
-                            type="text"
-                            class="form-control border border-black shadow fs-5"
-                            id="name"
-                    />
+                <div class="row row-cols-1 row-cols-md-2 mb-2">
+                    <div class="col">
+                        <label for="description" class="form-label">Description:</label>
+                    </div>
+                    <div class="col">
+                        <div class="input-group has-validation">
+                            <input
+                                    class="form-control border border-black fs-5"
+                                    id="description"
+                                    maxlength="50"
+                                    name="description"
+                                    placeholder="(optional)"
+                                    th:classappend="${#fields.hasErrors('description')} ? 'is-invalid' : ''"
+                                    th:field="*{description}"
+                                    type="text"
+                            />
+                        </div>
+                        <div class="text-danger fs-6"
+                             th:errors="*{description}"
+                             th:if="${#fields.hasErrors('description')}">
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row row-cols-1 row-cols-md-2 mb-2">
-                <div class="col">
-                    <label for="description" class="form-label">Description:</label>
+                <div class="row row-cols-1 row-cols-md-2 mb-2">
+                    <div class="col">
+                        <label for="code" class="form-label">Code:</label>
+                    </div>
+                    <div class="col">
+                        <div class="input-group has-validation gap-1">
+                            <input
+                                    class="form-control border border-black fs-5"
+                                    id="code"
+                                    name="code"
+                                    pattern="^(?=.*[A-Za-z].*[A-Za-z])(?=.*\d.*\d)(?=.*[!@#$%^&*].*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6}$"
+                                    required
+                                    th:classappend="${#fields.hasErrors('code')} ? 'is-invalid' : ''"
+                                    th:field="*{code}"
+                                    type="text"
+                            />
+                            <button class="btn bg-light text-black border border-black border-2 shadow rounded fs-5"
+                                    onclick="generateCode()"
+                                    type="button">Generate
+                            </button>
+                        </div>
+                        <div class="text-danger fs-6"
+                             th:errors="*{code}"
+                             th:if="${#fields.hasErrors('code')}">
+                        </div>
+                    </div>
                 </div>
-                <div class="col">
-                    <input
-                            type="text"
-                            class="form-control border border-black fs-5"
-                            id="description"
-                            placeholder="(optional)"
-                    />
+                <div class="row row-cols-1 row-cols-md-2 mb-2">
+                    <div class="col">
+                        <label for="responseTime" class="form-label"
+                        >Time for response:</label>
+                    </div>
+                    <div class="col">
+                        <div class="input-group has-validation">
+                            <input
+                                    class="form-control border border-black fs-5"
+                                    id="responseTime"
+                                    name="responseTime"
+                                    placeholder="(in minutes)"
+                                    required
+                                    th:classappend="${#fields.hasErrors('responseTime')} ? 'is-invalid' : ''"
+                                    th:field="*{responseTime}"
+                                    type="text"
+                            />
+                        </div>
+                        <div class="text-danger fs-6"
+                             th:errors="*{responseTime}"
+                             th:if="${#fields.hasErrors('responseTime')}">
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row row-cols-1 row-cols-md-2 mb-2">
-                <div class="col">
-                    <label for="code" class="form-label">Code:</label>
+                <div class="row row-cols-1 row-cols-md-2 mb-2">
+                    <div class="col">
+                        <label for="passingScore" class="form-label">Passing score:</label>
+                    </div>
+                    <div class="col">
+                        <div class="input-group has-validation">
+                            <input
+                                    class="form-control border border-black fs-5"
+                                    id="passingScore"
+                                    name="passingScore"
+                                    placeholder="(optional)"
+                                    th:classappend="${#fields.hasErrors('passingScore')} ? 'is-invalid' : ''"
+                                    th:field="*{passingScore}"
+                                    type="text"
+                            />
+                        </div>
+                        <div class="text-danger fs-6"
+                             th:errors="*{passingScore}"
+                             th:if="${#fields.hasErrors('passingScore')}">
+                        </div>
+                    </div>
                 </div>
-                <div class="col">
-                    <input
-                            type="text"
-                            class="form-control border border-black fs-5"
-                            id="code"
-                    />
+                <div class="row row-cols-1 row-cols-md-2 mb-2">
+                    <div class="col">
+                        <label for="questionsCount" class="form-label"
+                        >Questions count:</label>
+                    </div>
+                    <div class="col">
+                        <div class="input-group has-validation">
+                            <input
+                                    class="form-control border border-black fs-5"
+                                    id="questionsCount"
+                                    name="questionsCount"
+                                    required
+                                    th:classappend="${#fields.hasErrors('questionsCount')} ? 'is-invalid' : ''"
+                                    th:field="*{questionsCount}"
+                                    type="text"
+                            />
+                        </div>
+                        <div class="text-danger fs-6"
+                             th:errors="*{questionsCount}"
+                             th:if="${#fields.hasErrors('questionsCount')}">
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row row-cols-1 row-cols-md-2 mb-2">
-                <div class="col">
-                    <label for="time-for-response" class="form-label"
-                    >Time for response:</label
-                    >
+                <div class="row row-cols-1 row-cols-md-2 mb-2">
+                    <div class="col">
+                        <label for="status" class="form-label">Status:</label>
+                    </div>
+                    <div class="col">
+                        <div class="input-group has-validation">
+                            <input
+                                    class="form-control border border-black fs-5"
+                                    id="status"
+                                    name="status"
+                                    placeholder="(open/closed)"
+                                    required
+                                    th:classappend="${#fields.hasErrors('status')} ? 'is-invalid' : ''"
+                                    th:field="*{status}"
+                                    type="text"
+                            />
+                        </div>
+                        <div class="text-danger fs-6"
+                             th:errors="*{status}"
+                             th:if="${#fields.hasErrors('status')}">
+                        </div>
+                    </div>
                 </div>
-                <div class="col">
-                    <input
-                            type="text"
-                            class="form-control border border-black fs-5"
-                            id="time-for-response"
-                            placeholder="(in minutes)"
-                    />
+                <div class="row">
+                    <div class="col text-center">
+                        <button type="submit"
+                                class="btn bg-light text-black border border-black border-2 shadow rounded fs-5 px-5 mt-3">
+                            next
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div class="row row-cols-1 row-cols-md-2 mb-2">
-                <div class="col">
-                    <label for="questions-count" class="form-label"
-                    >Questions count:</label
-                    >
-                </div>
-                <div class="col">
-                    <input
-                            type="text"
-                            class="form-control border border-black fs-5"
-                            id="questions-count"
-                    />
-                </div>
-            </div>
-            <div class="row row-cols-1 row-cols-md-2 mb-2">
-                <div class="col">
-                    <label for="status" class="form-label">Status:</label>
-                </div>
-                <div class="col">
-                    <input
-                            type="text"
-                            class="form-control border border-black fs-5"
-                            id="status"
-                            placeholder="(opened/closed)"
-                    />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col text-center">
-                    <button
-                            class="btn bg-light text-black border border-black border-2 shadow rounded fs-5 px-5 mt-3"
-                    >
-                        next
-                    </button>
-                </div>
-            </div>
+            </form>
         </div>
     </main>
 
-    <div th:replace="fragments/footers :: footer"></div>
+    <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
-
-<div th:replace="fragments/scripts :: scripts"></div>
+<script src="/js/code-generator.js"></script>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>

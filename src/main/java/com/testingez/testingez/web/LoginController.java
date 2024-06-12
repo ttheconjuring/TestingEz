@@ -1,8 +1,7 @@
 package com.testingez.testingez.web;
 
-import com.testingez.testingez.models.dtos.imp.UserSignInDataDTO;
+import com.testingez.testingez.models.dtos.imp.UserSignInDTO;
 import com.testingez.testingez.services.UserService;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,13 +22,13 @@ public class LoginController {
     @GetMapping("/login")
     public String login(Model model) {
         if (!model.containsAttribute("userSignInData")) {
-            model.addAttribute("userSignInData", new UserSignInDataDTO());
+            model.addAttribute("userSignInData", new UserSignInDTO());
         }
         return "sign-in";
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute("userSignInData") UserSignInDataDTO userSignInData,
+    public String login(@ModelAttribute("userSignInData") UserSignInDTO userSignInData,
                         BindingResult bindingResult,
                         RedirectAttributes redirectAttributes) {
         this.userService.login(userSignInData, bindingResult);

@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @ConfirmPasswords
-public class UserSignUpDataDTO {
+public class UserSignUpDTO {
 
     @NotNull(message = "Username should not be null.")
     @Size(min = 5, max = 25,
