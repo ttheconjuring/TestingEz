@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:replace="fragments/heads :: head"></div>
+<div th:replace="~{fragments/heads :: head}"></div>
 <body class="font">
 <div class="d-flex flex-column min-vh-100 gap-5 bg-secondary p-3">
-    <main
-            class="container d-flex flex-column flex-fill align-item-center justify-content-center flex-grow-1 bg-secondary"
-    >
+    <main class="container d-flex flex-column flex-fill align-item-center justify-content-center flex-grow-1 bg-secondary">
         <div class="row justify-content-center">
-            <div
-                    class="col-sm-12 col-md-10 col-lg-8 bg-light shadow rounded border border-2 border-black p-3"
-            >
+            <div class="col-sm-12 col-md-10 col-lg-8 bg-light shadow rounded border border-2 border-black p-3">
                 <h2 class="text-center">Register</h2>
                 <form
                         action="#"
@@ -191,6 +187,6 @@
     </main>
 </div>
 
-<div th:replace="fragments/scripts :: scripts"></div>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>

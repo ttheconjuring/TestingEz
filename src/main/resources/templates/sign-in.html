@@ -1,15 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:replace="fragments/heads :: head"></div>
-<body
-        class="bg-secondary vh-100 d-flex justify-content-center align-items-center font"
->
-<div
-        class="container d-flex justify-content-center align-items-center vh-100"
->
-    <div
-            class="bg-light p-5 border border-black border-3 shadow rounded fs-5"
-    >
+<div th:replace="~{fragments/heads :: head}"></div>
+<body class="bg-secondary vh-100 d-flex justify-content-center align-items-center font">
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="bg-light p-5 border border-black border-3 shadow rounded fs-5">
         <h2 class="text-center">Login</h2>
         <form action="#"
               class="d-flex flex-column"
@@ -56,6 +50,6 @@
     </div>
 </div>
 
-<div th:replace="fragments/scripts :: scripts"></div>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>
