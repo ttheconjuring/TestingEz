@@ -57,7 +57,7 @@ public class TestController {
             return "redirect:/test/create";
         }
         this.testService.create(testCreateDTO);
-        return "redirect:/";
+        return "redirect:/questions?questionsCount=" + testCreateDTO.getQuestionsCount()    ;
     }
 
 }
