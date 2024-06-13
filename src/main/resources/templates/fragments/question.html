@@ -7,28 +7,64 @@
     <div th:fragment="question-form (i)">
         <h2 class="text-center">Question #<span th:text="${i}"></span></h2>
         <div class="form-group mb-3">
-            <input type="text" class="form-control border border-black border-2 shadow fs-5" id="question" placeholder="Enter your question">
+            <input class="form-control border border-black border-2 shadow fs-5 text-center"
+                   id="question"
+                   name="question"
+                   placeholder="Enter your question"
+                   type="text">
         </div>
         <div class="row">
             <div class="col-md-6 mb-1">
                 <div class="form-group">
-                    <input type="text" class="form-control border border-black shadow fs-5" id="answer1" placeholder="Enter answer 1">
+                    <input class="form-control border border-black shadow fs-5"
+                           id="answer1"
+                           name="answer1"
+                           placeholder="Enter answer 1"
+                           type="text">
                 </div>
             </div>
             <div class="col-md-6 mb-1">
                 <div class="form-group">
-                    <input type="text" class="form-control border border-black shadow fs-5" id="answer2" placeholder="Enter answer 2">
+                    <input class="form-control border border-black shadow fs-5"
+                           id="answer2"
+                           name="answer1"
+                           placeholder="Enter answer 2"
+                           type="text">
                 </div>
             </div>
             <div class="col-md-6 mb-2">
                 <div class="form-group">
-                    <input type="text" class="form-control border border-black shadow fs-5" id="answer3" placeholder="Enter answer 3">
+                    <input class="form-control border border-black shadow fs-5"
+                           id="answer3"
+                           name="answer1"
+                           placeholder="Enter answer 3"
+                           type="text">
                 </div>
             </div>
             <div class="col-md-6 mb-2">
                 <div class="form-group">
-                    <input type="text" class="form-control border border-black shadow fs-5" id="answer4" placeholder="Enter answer 4">
+                    <input class="form-control border border-black shadow fs-5"
+                           id="answer4"
+                           name="answer1"
+                           placeholder="Enter answer 4"
+                           type="text">
                 </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-8 col-md-2 text-end">
+                <input class="form-control border border-black shadow fs-5"
+                       id="correctAnswer"
+                       name="correctAnswer"
+                       placeholder="correct answer"
+                       type="text">
+            </div>
+            <div class="col-sm-4 col-md-2">
+                <input class="form-control border border-black shadow fs-5 text-center"
+                       id="points"
+                       name="points"
+                       placeholder="points"
+                       type="number">
             </div>
         </div>
     </div>
