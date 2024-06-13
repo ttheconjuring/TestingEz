@@ -4,30 +4,30 @@
 <body>
 
 <div class="container">
-    <div th:fragment="question-form">
-        <h2 class="text-center">Question #?</h2>
+    <div th:fragment="question-form (i)">
+        <h2 class="text-center">Question #<span th:text="${i}"></span></h2>
         <div class="form-group mb-3">
-            <input type="text" class="form-control" id="question" placeholder="Enter your question">
+            <input type="text" class="form-control border border-black border-2 shadow fs-5" id="question" placeholder="Enter your question">
         </div>
         <div class="row">
             <div class="col-md-6 mb-1">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="answer1" placeholder="Enter answer 1">
+                    <input type="text" class="form-control border border-black shadow fs-5" id="answer1" placeholder="Enter answer 1">
                 </div>
             </div>
             <div class="col-md-6 mb-1">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="answer2" placeholder="Enter answer 2">
+                    <input type="text" class="form-control border border-black shadow fs-5" id="answer2" placeholder="Enter answer 2">
                 </div>
             </div>
             <div class="col-md-6 mb-2">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="answer3" placeholder="Enter answer 3">
+                    <input type="text" class="form-control border border-black shadow fs-5" id="answer3" placeholder="Enter answer 3">
                 </div>
             </div>
             <div class="col-md-6 mb-2">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="answer4" placeholder="Enter answer 4">
+                    <input type="text" class="form-control border border-black shadow fs-5" id="answer4" placeholder="Enter answer 4">
                 </div>
             </div>
         </div>

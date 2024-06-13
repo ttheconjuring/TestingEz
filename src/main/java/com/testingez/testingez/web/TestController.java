@@ -57,7 +57,8 @@ public class TestController {
             return "redirect:/test/create";
         }
         this.testService.create(testCreateDTO);
-        return "redirect:/questions?questionsCount=" + testCreateDTO.getQuestionsCount()    ;
+        return "redirect:/questions?questionsCount=" + testCreateDTO.getQuestionsCount();
     }
-
 }
+
+// http://localhost:8080/questions?questionsCount=2
