@@ -8,5 +8,7 @@ public interface UserService {
 
     void register(UserSignUpDTO userSignUpData);
 
-    void login(UserSignInDTO userSingInData, BindingResult bindingResult);
+    boolean login(UserSignInDTO userSingInData);
+
+    void logout();
 }

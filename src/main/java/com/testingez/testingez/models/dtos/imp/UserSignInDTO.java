@@ -1,6 +1,7 @@
 package com.testingez.testingez.models.dtos.imp;
 
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,8 +11,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserSignInDTO {
 
+    @NotNull(message = "Username should not be null.")
+    @Size(min = 5, max = 25, message = "Username should be between 5 and 25 symbols.")
     private String username;
 
+    @NotNull(message = "Password should not be null.")
+    @Size(min = 8, message = "Password should be at least 8 symbols.")
     private String password;
 
 }

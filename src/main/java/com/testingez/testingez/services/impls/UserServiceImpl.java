@@ -35,28 +35,26 @@ public class UserServiceImpl implements UserService {
             newUser.setRole(UserRole.STANDARD);
         }
         this.userRepository.saveAndFlush(newUser);
-        logUser(newUser);
+        this.currentUser.setUser(newUser);
     }
 
     @Override
-    public void login(UserSignInDTO userSingInData, BindingResult bindingResult) {
+    public boolean login(UserSignInDTO userSingInData) {
         Optional<User> byUsername = this.userRepository.findByUsername(userSingInData.getUsername());
         if (byUsername.isEmpty()) {
-            bindingResult.addError(new FieldError("userSingInData", "username", "username or password is incorrect"));
-        } else {
-            User user = byUsername.get();
-            if (!this.passwordEncoder.matches(userSingInData.getPassword(), user.getPassword())) {
-                bindingResult.addError(new FieldError("userSingInData", "username", "username or password is incorrect"));
-            } else
-                logUser(user);
+            return false;
         }
-    }
-
-    private void logUser(User user) {
-        if (this.currentUser.isLogged()) {
-            this.currentUser.setUser(null);
+        User user = byUsername.get();
+        if (!this.passwordEncoder.matches(userSingInData.getPassword(), user.getPassword())) {
+            return false;
         }
         this.currentUser.setUser(user);
+        return true;
     }
 
+    @Override
+    public void logout() {
+        this.currentUser.setUser(null);
+    }
 }
+

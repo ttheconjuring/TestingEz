@@ -48,7 +48,7 @@ public class TestController {
     }
 
     @PostMapping("/create")
-    public String create(@Valid @ModelAttribute("testCreateData") TestCreateDTO testCreateDTO,
+    public String create(@Valid @ModelAttribute("testCreateDTO") TestCreateDTO testCreateDTO,
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -60,5 +60,3 @@ public class TestController {
         return "redirect:/questions?questionsCount=" + testCreateDTO.getQuestionsCount();
     }
 }
-
-// http://localhost:8080/questions?questionsCount=2

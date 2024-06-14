@@ -15,19 +15,16 @@ import lombok.Setter;
 public class UserSignUpDTO {
 
     @NotNull(message = "Username should not be null.")
-    @Size(min = 5, max = 25,
-            message = "Username should be between 5 and 25 symbols.")
+    @Size(min = 5, max = 25, message = "Username should be between 5 and 25 symbols.")
     @NotTaken(message = "This username is already in use.")
     private String username;
 
     @NotNull(message = "Password should not be null.")
-    @Size(min = 8,
-            message = "Password should be at least 8 symbols.")
+    @Size(min = 8, message = "Password should be at least 8 symbols.")
     private String password;
 
     @NotNull(message = "Password should not be null.")
-    @Size(min = 8,
-            message = "Password should be at least 8 symbols.")
+    @Size(min = 8, message = "Password should be at least 8 symbols.")
     private String confirmPassword;
 
     @NotBlank(message = "First name should not be null or empty.")
