@@ -37,6 +37,9 @@
                                  th:errors="*{username}"
                                  th:if="${#fields.hasErrors('username')}">
                             </div>
+                            <div th:if="${invalidUsername}" class="text-danger fs-6">This username is
+                                already in use.
+                            </div>
                         </div>
                     </div>
 
@@ -58,6 +61,8 @@
                             <div class="text-danger fs-6"
                                  th:errors="*{password}"
                                  th:if="${#fields.hasErrors('password')}">
+                            </div>
+                            <div th:if="${invalidPasswords}" class="text-danger fs-6">Passwords do not match.
                             </div>
                         </div>
                     </div>
@@ -145,6 +150,9 @@
                                  th:errors="*{email}"
                                  th:if="${#fields.hasErrors('email')}">
                             </div>
+                            <div th:if="${invalidEmail}" class="text-danger fs-6">This email is
+                                already in use.
+                            </div>
                         </div>
                     </div>
 
@@ -167,6 +175,9 @@
                             <div class="text-danger fs-6"
                                  th:errors="*{phone}"
                                  th:if="${#fields.hasErrors('phone')}">
+                            </div>
+                            <div th:if="${invalidPhone}" class="text-danger fs-6">This phone is
+                                already in use.
                             </div>
                         </div>
                     </div>

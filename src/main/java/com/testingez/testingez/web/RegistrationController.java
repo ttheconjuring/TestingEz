@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -29,7 +28,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/create")
-    public String register(@Valid @ModelAttribute("userSignUpData") UserSignUpDTO userSignUpData,
+    public String register(@Valid UserSignUpDTO userSignUpData,
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -39,7 +38,25 @@ public class RegistrationController {
             return "redirect:/account/create";
         }
 
-        this.userService.register(userSignUpData);
+        String result = this.userService.register(userSignUpData);
+
+        if (!result.equals("success")) {
+            String errors = result.trim();
+            if (errors.contains("username")) {
+                redirectAttributes.addFlashAttribute("invalidUsername", true);
+            }
+            if (errors.contains("email")) {
+                redirectAttributes.addFlashAttribute("invalidEmail", true);
+            }
+            if (errors.contains("phone")) {
+                redirectAttributes.addFlashAttribute("invalidPhone", true);
+            }
+            if (errors.contains("passwords")) {
+                redirectAttributes.addFlashAttribute("invalidPasswords", true);
+            }
+            redirectAttributes.addFlashAttribute("userSignUpData", userSignUpData);
+            return "redirect:/account/create";
+        }
 
         return "redirect:/user/home";
     }

@@ -11,8 +11,6 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 
 import java.util.Optional;
 
@@ -26,7 +24,11 @@ public class UserServiceImpl implements UserService {
     private final CurrentUser currentUser;
 
     @Override
-    public void register(UserSignUpDTO userSignUpData) {
+    public String register(UserSignUpDTO userSignUpData) {
+        String result = validate(userSignUpData);
+        if (!result.isEmpty()) {
+            return result;
+        }
         User newUser = this.modelMapper.map(userSignUpData, User.class);
         newUser.setPassword(passwordEncoder.encode(userSignUpData.getPassword()));
         if (this.userRepository.count() == 0) {
@@ -36,6 +38,7 @@ public class UserServiceImpl implements UserService {
         }
         this.userRepository.saveAndFlush(newUser);
         this.currentUser.setUser(newUser);
+        return "success";
     }
 
     @Override
@@ -55,6 +58,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public void logout() {
         this.currentUser.setUser(null);
+    }
+
+    private String validate(UserSignUpDTO userSignUpData) {
+        String error = "";
+        Optional<User> byUsername = this.userRepository.findByUsername(userSignUpData.getUsername());
+        if (byUsername.isPresent()) {
+            error += ("username ");
+        }
+        Optional<User> byEmail = this.userRepository.findByEmail(userSignUpData.getEmail());
+        if (byEmail.isPresent()) {
+            error += ("email ");
+        }
+        Optional<User> byPhone = this.userRepository.findByPhone(userSignUpData.getPhone());
+        if (byPhone.isPresent()) {
+            error += "phone ";
+        }
+        if (!userSignUpData.getPassword().equals(userSignUpData.getConfirmPassword())) {
+            error += "passwords ";
+        }
+        return error.isEmpty() ? "" : error;
     }
 }
 
