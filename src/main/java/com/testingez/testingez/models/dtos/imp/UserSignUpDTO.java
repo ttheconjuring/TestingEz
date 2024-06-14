@@ -10,7 +10,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @ConfirmPasswords
 public class UserSignUpDTO {
