@@ -22,41 +22,42 @@ public class TestController {
     private final CurrentUser currentUser;
     private final TestService testService;
 
+    @ModelAttribute("testCreateData")
+    public TestCreateDTO testCreateData() {
+        return new TestCreateDTO();
+    }
+
+    @ModelAttribute
+    public void addAttributes(Model model) {
+        model.addAttribute("username", currentUser.getUsername());
+    }
+
     @GetMapping("/join")
-    public String join(Model model) {
+    public String join() {
         if (!this.currentUser.isLogged()) {
             return "redirect:/account/login";
-        }
-        if (!model.containsAttribute("username")) {
-            model.addAttribute("username", currentUser.getUsername());
         }
         return "test-join";
     }
 
     @GetMapping("/create")
-    public String create(Model model) {
+    public String create() {
         if (!this.currentUser.isLogged()) {
             return "redirect:/account/login";
-        }
-        if (!model.containsAttribute("username")) {
-            model.addAttribute("username", currentUser.getUsername());
-        }
-        if (!model.containsAttribute("testCreateDTO")) {
-            model.addAttribute(new TestCreateDTO());
         }
         return "test-create";
     }
 
     @PostMapping("/create")
-    public String create(@Valid @ModelAttribute("testCreateDTO") TestCreateDTO testCreateDTO,
+    public String create(@Valid TestCreateDTO testCreateData,
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.testCreateDTO", bindingResult);
-            redirectAttributes.addFlashAttribute("testCreateDTO", testCreateDTO);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.testCreateData", bindingResult);
+            redirectAttributes.addFlashAttribute("testCreateData", testCreateData);
             return "redirect:/test/create";
         }
-        this.testService.create(testCreateDTO);
-        return "redirect:/questions?questionsCount=" + testCreateDTO.getQuestionsCount();
+        this.testService.create(testCreateData);
+        return "redirect:/questions?questionsCount=" + testCreateData.getQuestionsCount();
     }
 }
