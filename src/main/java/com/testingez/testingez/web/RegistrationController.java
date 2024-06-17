@@ -20,23 +20,13 @@ public class RegistrationController {
 
     private final UserService userService;
 
-    /* @ModelAttribute("userSignUpData")
+    @ModelAttribute("userSignUpData")
     public UserSignUpDTO userSignUpData() {
         return new UserSignUpDTO();
     }
 
     @GetMapping("/create")
     public String register() {
-        return "sign-up";
-    }
-
-    */
-
-    @GetMapping("/create")
-    public String register(Model model) {
-        if (!model.containsAttribute("userSignUpData")) {
-            model.addAttribute("userSignUpData", new UserSignUpDTO());
-        }
         return "sign-up";
     }
 
