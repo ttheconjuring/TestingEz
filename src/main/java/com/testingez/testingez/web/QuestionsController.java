@@ -2,7 +2,6 @@ package com.testingez.testingez.web;
 
 import com.testingez.testingez.models.dtos.imp.QuestionCreateDTO;
 import com.testingez.testingez.models.dtos.imp.TestQuestionsDTO;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +16,7 @@ import java.util.List;
 public class QuestionsController {
 
     @GetMapping
-    public String get(@RequestParam int questionsCount, Model model) {
+    public String putDownQuestions(@RequestParam int questionsCount, Model model) {
         model.addAttribute("questionsCount", questionsCount);
         model.addAttribute("testQuestionsData", testQuestionsDTO(questionsCount));
         return "questions-create";
@@ -31,6 +30,13 @@ public class QuestionsController {
         }
         testQuestionsDTO.setQuestions(questions);
         return testQuestionsDTO;
+    }
+
+    @PostMapping
+    public String saveQuestions(TestQuestionsDTO testQuestionsDTO,
+                                BindingResult bindingResult,
+                                RedirectAttributes redirectAttributes) {
+        return "success";
     }
 
 }

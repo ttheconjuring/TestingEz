@@ -28,6 +28,7 @@
                                        id="answer1"
                                        name="answer1"
                                        placeholder="Enter answer 1"
+                                       th:field="*{questions[__${questionIndex.index}__].answer1}"
                                        type="text">
                             </div>
                         </div>
@@ -37,6 +38,7 @@
                                        id="answer2"
                                        name="answer1"
                                        placeholder="Enter answer 2"
+                                       th:field="*{questions[__${questionIndex.index}__].answer2}"
                                        type="text">
                             </div>
                         </div>
@@ -46,6 +48,7 @@
                                        id="answer3"
                                        name="answer1"
                                        placeholder="Enter answer 3"
+                                       th:field="*{questions[__${questionIndex.index}__].answer3}"
                                        type="text">
                             </div>
                         </div>
@@ -55,6 +58,7 @@
                                        id="answer4"
                                        name="answer1"
                                        placeholder="Enter answer 4"
+                                       th:field="*{questions[__${questionIndex.index}__].answer4}"
                                        type="text">
                             </div>
                         </div>
@@ -65,6 +69,7 @@
                                    id="correctAnswer"
                                    name="correctAnswer"
                                    placeholder="correct answer"
+                                   th:field="*{questions[__${questionIndex.index}__].correctAnswer}"
                                    type="text">
                         </div>
                         <div class="col-sm-4 col-md-2">
@@ -72,6 +77,7 @@
                                    id="points"
                                    name="points"
                                    placeholder="points"
+                                   th:field="*{questions[__${questionIndex.index}__].points}"
                                    type="number">
                         </div>
                     </div>
