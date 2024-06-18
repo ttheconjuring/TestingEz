@@ -2,6 +2,7 @@ package com.testingez.testingez.web;
 
 import com.testingez.testingez.models.dtos.imp.QuestionCreateDTO;
 import com.testingez.testingez.models.dtos.imp.TestQuestionsDTO;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,9 +34,15 @@ public class QuestionsController {
     }
 
     @PostMapping
-    public String saveQuestions(TestQuestionsDTO testQuestionsDTO,
+    public String saveQuestions(@Valid TestQuestionsDTO testQuestionsData,
                                 BindingResult bindingResult,
                                 RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.testQuestionsData", bindingResult);
+            redirectAttributes.addFlashAttribute("testQuestionsData", testQuestionsData);
+            return "redirect:/questions";
+        }
+
         return "success";
     }
 

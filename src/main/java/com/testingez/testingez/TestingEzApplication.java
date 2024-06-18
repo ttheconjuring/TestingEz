@@ -11,8 +11,6 @@ public class TestingEzApplication {
 	}
 
 	// TODO:
-	// 		 1.Create QuestionCreateDTO and TestQuestionsDTO
-	// 		 2.Save questions in the database when complete button is clicked
 	//		 3.Delete the last created test form the database when cancel button is clicked
 	//   	 2.Create new template for /user/home endpoint
 	// 	 	 3.Add Unit Tests

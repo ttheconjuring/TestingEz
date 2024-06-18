@@ -1,5 +1,6 @@
 package com.testingez.testingez.models.dtos.imp;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +16,6 @@ import java.util.List;
 public class TestQuestionsDTO {
 
     @NotNull(message = "Question list should not be null.")
-    private List<QuestionCreateDTO> questions;
+    private List<@Valid QuestionCreateDTO> questions;
 
 }
