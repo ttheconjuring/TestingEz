@@ -20,7 +20,16 @@ public class Question {
     private String question;
 
     @Column(nullable = false)
-    private String answers;
+    private String answer1;
+
+    @Column(nullable = false)
+    private String answer2;
+
+    @Column(nullable = false)
+    private String answer3;
+
+    @Column(nullable = false)
+    private String answer4;
 
     @Column(name = "correct_answer", nullable = false)
     private String correctAnswer;
