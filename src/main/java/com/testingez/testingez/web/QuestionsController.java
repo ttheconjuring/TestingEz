@@ -2,6 +2,7 @@ package com.testingez.testingez.web;
 
 import com.testingez.testingez.models.dtos.imp.QuestionCreateDTO;
 import com.testingez.testingez.models.dtos.imp.TestQuestionsDTO;
+import com.testingez.testingez.services.CurrentUser;
 import com.testingez.testingez.services.QuestionService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -20,9 +21,13 @@ import java.util.List;
 public class QuestionsController {
 
     private final QuestionService questionService;
+    private final CurrentUser currentUser;
 
     @GetMapping
     public String writeQuestions(@RequestParam int questionsCount, Model model) {
+        if (!this.currentUser.isLogged()) {
+            return "redirect:/account/login";
+        }
         model.addAttribute("questionsCount", questionsCount);
         if (!model.containsAttribute("testQuestionsData")) {
             model.addAttribute("testQuestionsData", testQuestionsDTO(questionsCount));
@@ -43,12 +48,10 @@ public class QuestionsController {
         boolean success = this.questionService.putDown(testQuestionsData);
 
         if (!success) {
-            redirectAttributes.addFlashAttribute("Last test added not found.");
-            redirectAttributes.addFlashAttribute("testQuestionsData", testQuestionsData);
-            return "redirect:/questions?questionsCount=" + testQuestionsData.getQuestions().size();
+            return null;
         }
 
-        return "success";
+        return null;
     }
 
     private TestQuestionsDTO testQuestionsDTO(int questionsCount) {

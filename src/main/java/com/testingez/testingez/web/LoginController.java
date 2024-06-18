@@ -1,6 +1,7 @@
 package com.testingez.testingez.web;
 
 import com.testingez.testingez.models.dtos.imp.UserSignInDTO;
+import com.testingez.testingez.services.CurrentUser;
 import com.testingez.testingez.services.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class LoginController {
 
     private final UserService userService;
+    private final CurrentUser currentUser;
 
     @ModelAttribute("userSignInData")
     public UserSignInDTO userSignInData() {
@@ -26,6 +28,9 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login() {
+        if (this.currentUser.isLogged()) {
+            return "redirect:/user/home";
+        }
         return "sign-in";
     }
 
