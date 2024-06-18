@@ -7,9 +7,11 @@
     <main class="d-flex align-items-center flex-grow-1 p-3">
         <div class="container">
             <form
-                    th:object="${testQuestionsData}"
-                    th:action="@{/questions}"
+                    class="needs-validation"
                     method="post"
+                    novalidate
+                    th:action="@{/questions}"
+                    th:object="${testQuestionsData}"
             >
                 <div th:each="question, questionIndex : ${testQuestionsData.questions}">
                     <h2 class="text-center">Question #<span th:text="${questionIndex.index + 1}"></span></h2>
@@ -18,8 +20,13 @@
                                id="question"
                                name="question"
                                placeholder="Enter your question"
+                               th:classappend="${#fields.hasErrors('questions[' + questionIndex.index + '].question')} ? 'is-invalid' : ''"
                                th:field="*{questions[__${questionIndex.index}__].question}"
                                type="text">
+                        <div class="text-danger fs-6"
+                             th:errors="*{questions[__${questionIndex.index}__].question}"
+                             th:if="${#fields.hasErrors('questions[' + questionIndex.index + '].question')}">
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-1">
@@ -28,8 +35,13 @@
                                        id="answer1"
                                        name="answer1"
                                        placeholder="Enter answer 1"
+                                       th:classappend="${#fields.hasErrors('questions[' + questionIndex.index + '].answer1')} ? 'is-invalid' : ''"
                                        th:field="*{questions[__${questionIndex.index}__].answer1}"
                                        type="text">
+                            </div>
+                            <div class="text-danger fs-6"
+                                 th:errors="*{questions[__${questionIndex.index}__].answer1}"
+                                 th:if="${#fields.hasErrors('questions[' + questionIndex.index + '].answer1')}">
                             </div>
                         </div>
                         <div class="col-md-6 mb-1">
@@ -38,8 +50,13 @@
                                        id="answer2"
                                        name="answer1"
                                        placeholder="Enter answer 2"
+                                       th:classappend="${#fields.hasErrors('questions[' + questionIndex.index + '].answer2')} ? 'is-invalid' : ''"
                                        th:field="*{questions[__${questionIndex.index}__].answer2}"
                                        type="text">
+                                <div class="text-danger fs-6"
+                                     th:errors="*{questions[__${questionIndex.index}__].answer2}"
+                                     th:if="${#fields.hasErrors('questions[' + questionIndex.index + '].answer2')}">
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6 mb-2">
@@ -48,8 +65,13 @@
                                        id="answer3"
                                        name="answer1"
                                        placeholder="Enter answer 3"
+                                       th:classappend="${#fields.hasErrors('questions[' + questionIndex.index + '].answer3')} ? 'is-invalid' : ''"
                                        th:field="*{questions[__${questionIndex.index}__].answer3}"
                                        type="text">
+                                <div class="text-danger fs-6"
+                                     th:errors="*{questions[__${questionIndex.index}__].answer3}"
+                                     th:if="${#fields.hasErrors('questions[' + questionIndex.index + '].answer3')}">
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6 mb-2">
@@ -58,8 +80,13 @@
                                        id="answer4"
                                        name="answer1"
                                        placeholder="Enter answer 4"
+                                       th:classappend="${#fields.hasErrors('questions[' + questionIndex.index + '].answer4')} ? 'is-invalid' : ''"
                                        th:field="*{questions[__${questionIndex.index}__].answer4}"
                                        type="text">
+                                <div class="text-danger fs-6"
+                                     th:errors="*{questions[__${questionIndex.index}__].answer4}"
+                                     th:if="${#fields.hasErrors('questions[' + questionIndex.index + '].answer4')}">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -69,16 +96,26 @@
                                    id="correctAnswer"
                                    name="correctAnswer"
                                    placeholder="correct answer"
+                                   th:classappend="${#fields.hasErrors('questions[' + questionIndex.index + '].correctAnswer')} ? 'is-invalid' : ''"
                                    th:field="*{questions[__${questionIndex.index}__].correctAnswer}"
                                    type="text">
+                            <div class="text-danger fs-6"
+                                 th:errors="*{questions[__${questionIndex.index}__].correctAnswer}"
+                                 th:if="${#fields.hasErrors('questions[' + questionIndex.index + '].correctAnswer')}">
+                            </div>
                         </div>
                         <div class="col-sm-4 col-md-2">
                             <input class="form-control border border-black shadow fs-5 text-center"
                                    id="points"
                                    name="points"
                                    placeholder="points"
+                                   th:classappend="${#fields.hasErrors('questions[' + questionIndex.index + '].points')} ? 'is-invalid' : ''"
                                    th:field="*{questions[__${questionIndex.index}__].points}"
                                    type="number">
+                            <div class="text-danger fs-6"
+                                 th:errors="*{questions[__${questionIndex.index}__].points}"
+                                 th:if="${#fields.hasErrors('questions[' + questionIndex.index + '].points')}">
+                            </div>
                         </div>
                     </div>
                 </div>

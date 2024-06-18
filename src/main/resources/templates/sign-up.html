@@ -62,8 +62,7 @@
                                  th:errors="*{password}"
                                  th:if="${#fields.hasErrors('password')}">
                             </div>
-                            <div th:if="${invalidPasswords}" class="text-danger fs-6">Passwords do not match.
-                            </div>
+                            <div th:if="${invalidPasswords}" class="text-danger fs-6">Passwords do not match.</div>
                         </div>
                     </div>
 

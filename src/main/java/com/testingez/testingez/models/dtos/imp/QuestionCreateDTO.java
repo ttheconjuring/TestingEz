@@ -33,8 +33,9 @@ public class QuestionCreateDTO {
     private String correctAnswer;
 
     @NotNull(message = "Points should not be null.")
-    @Digits(integer = 1, fraction = 0, message = "Points should be a number.")
+    @Digits(integer = 3, fraction = 0, message = "Points should be a number.")
     @Max(value = 100, message = "Points should be up to 100.")
+    @Positive(message = "Points should be a positive number.")
     private Integer points;
 
 }

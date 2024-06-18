@@ -22,7 +22,7 @@ public class QuestionsController {
     private final QuestionService questionService;
 
     @GetMapping
-    public String writeDownQuestions(@RequestParam int questionsCount, Model model) {
+    public String writeQuestions(@RequestParam int questionsCount, Model model) {
         model.addAttribute("questionsCount", questionsCount);
         if (!model.containsAttribute("testQuestionsData")) {
             model.addAttribute("testQuestionsData", testQuestionsDTO(questionsCount));
@@ -35,7 +35,7 @@ public class QuestionsController {
                                    BindingResult bindingResult,
                                    RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("org.springframework.validation.testQuestionsData", bindingResult);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.testQuestionsData", bindingResult);
             redirectAttributes.addFlashAttribute("testQuestionsData", testQuestionsData);
             return "redirect:/questions?questionsCount=" + testQuestionsData.getQuestions().size();
         }
