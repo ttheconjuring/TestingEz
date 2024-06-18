@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<div th:replace="fragments/heads :: head"></div>
+<div th:replace="~{fragments/heads :: head}"></div>
 <body class="font">
 <div class="d-flex flex-column vh-100 gap-5">
-    <div th:replace="fragments/headers :: header"></div>
+    <div th:replace="~{fragments/headers :: header}"></div>
 
     <main
             class="container d-flex justify-content-center align-items-center flex-grow-1"
@@ -90,9 +90,9 @@
         </div>
     </main>
 
-    <div th:replace="fragments/footers :: footer"></div>
+    <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
 
-<div th:replace="fragments/scripts :: scripts"></div>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>

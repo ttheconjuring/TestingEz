@@ -1,12 +1,10 @@
 package com.testingez.testingez.models.dtos.imp;
 
-import com.testingez.testingez.models.annotations.NotTaken;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class TestCreateDTO {
 
@@ -21,7 +19,6 @@ public class TestCreateDTO {
     @NotNull(message = "Code should not be null.")
     @Pattern(regexp = "^(?=.*[A-Za-z].*[A-Za-z])(?=.*\\d.*\\d)(?=.*[!@#$%^&*].*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{6}$",
             message = "Code should contain 2 letter, 2 digits and 2 special symbols.")
-    @NotTaken(message = "This code is already in use.")
     private String code;
 
     @NotNull(message = "Response time should not be null.")

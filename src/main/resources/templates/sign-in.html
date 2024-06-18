@@ -1,15 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:replace="fragments/heads :: head"></div>
-<body
-        class="bg-secondary vh-100 d-flex justify-content-center align-items-center font"
->
-<div
-        class="container d-flex justify-content-center align-items-center vh-100"
->
-    <div
-            class="bg-light p-5 border border-black border-3 shadow rounded fs-5"
-    >
+<div th:replace="~{fragments/heads :: head}"></div>
+<body class="bg-secondary vh-100 d-flex justify-content-center align-items-center font">
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="bg-light p-5 border border-black border-3 shadow rounded fs-5">
         <h2 class="text-center">Login</h2>
         <form action="#"
               class="d-flex flex-column"
@@ -17,6 +11,7 @@
               novalidate
               th:method="@{/account/login}"
               th:object="${userSignInData}">
+            <div th:if="${invalidCredentials}" class="text-danger fs-6 text-center">invalid credentials</div>
             <label for="username" class="form-label">Username:</label>
             <div class="input-group">
                 <span class="input-group-text border-black" id="inputGroupPrepend">@</span>
@@ -37,7 +32,7 @@
             <label for="password" class="form-label">Password:</label>
             <div class="input-group">
                 <input
-                        class="form-control border border-black mb-3 fs-6"
+                        class="form-control border border-black fs-6"
                         id="password"
                         name="password"
                         placeholder="Enter password"
@@ -46,9 +41,13 @@
                         type="password"
                 />
             </div>
+            <div
+                    th:if="${#fields.hasErrors('password')}"
+                    th:errors="*{password}"
+                    class="text-danger fs-6"></div>
             <button
                     type="submit"
-                    class="btn btn-secondary border border-black border-2 shadow rounded fs-5"
+                    class="btn btn-secondary border border-black border-2 shadow rounded fs-5 mt-3"
             >
                 Sign In
             </button>
@@ -56,6 +55,6 @@
     </div>
 </div>
 
-<div th:replace="fragments/scripts :: scripts"></div>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>

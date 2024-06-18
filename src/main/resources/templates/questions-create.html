@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{fragments/heads :: head}"></div>
+<body class="font">
+<div class="d-flex flex-column vh-100">
+
+    <main class="d-flex align-items-center flex-grow-1 p-3">
+        <div class="container">
+            <form
+                    class="needs-validation"
+                    method="post"
+                    novalidate
+                    th:action="@{/questions}"
+                    th:object="${testQuestionsData}"
+            >
+                <div th:each="question, questionIndex : ${testQuestionsData.questions}">
+                    <h2 class="text-center">Question #<span th:text="${questionIndex.index + 1}"></span></h2>
+                    <div class="form-group mb-3">
+                        <input class="form-control border border-black border-2 shadow fs-5 text-center"
+                               id="question"
+                               name="question"
+                               placeholder="Enter your question"
+                               th:classappend="${#fields.hasErrors('questions[' + questionIndex.index + '].question')} ? 'is-invalid' : ''"
+                               th:field="*{questions[__${questionIndex.index}__].question}"
+                               type="text">
+                        <div class="text-danger fs-6"
+                             th:errors="*{questions[__${questionIndex.index}__].question}"
+                             th:if="${#fields.hasErrors('questions[' + questionIndex.index + '].question')}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-1">
+                            <div class="form-group">
+                                <input class="form-control border border-black shadow fs-5"
+                                       id="answer1"
+                                       name="answer1"
+                                       placeholder="Enter answer 1"
+                                       th:classappend="${#fields.hasErrors('questions[' + questionIndex.index + '].answer1')} ? 'is-invalid' : ''"
+                                       th:field="*{questions[__${questionIndex.index}__].answer1}"
+                                       type="text">
+                            </div>
+                            <div class="text-danger fs-6"
+                                 th:errors="*{questions[__${questionIndex.index}__].answer1}"
+                                 th:if="${#fields.hasErrors('questions[' + questionIndex.index + '].answer1')}">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-1">
+                            <div class="form-group">
+                                <input class="form-control border border-black shadow fs-5"
+                                       id="answer2"
+                                       name="answer1"
+                                       placeholder="Enter answer 2"
+                                       th:classappend="${#fields.hasErrors('questions[' + questionIndex.index + '].answer2')} ? 'is-invalid' : ''"
+                                       th:field="*{questions[__${questionIndex.index}__].answer2}"
+                                       type="text">
+                                <div class="text-danger fs-6"
+                                     th:errors="*{questions[__${questionIndex.index}__].answer2}"
+                                     th:if="${#fields.hasErrors('questions[' + questionIndex.index + '].answer2')}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <div class="form-group">
+                                <input class="form-control border border-black shadow fs-5"
+                                       id="answer3"
+                                       name="answer1"
+                                       placeholder="Enter answer 3"
+                                       th:classappend="${#fields.hasErrors('questions[' + questionIndex.index + '].answer3')} ? 'is-invalid' : ''"
+                                       th:field="*{questions[__${questionIndex.index}__].answer3}"
+                                       type="text">
+                                <div class="text-danger fs-6"
+                                     th:errors="*{questions[__${questionIndex.index}__].answer3}"
+                                     th:if="${#fields.hasErrors('questions[' + questionIndex.index + '].answer3')}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <div class="form-group">
+                                <input class="form-control border border-black shadow fs-5"
+                                       id="answer4"
+                                       name="answer1"
+                                       placeholder="Enter answer 4"
+                                       th:classappend="${#fields.hasErrors('questions[' + questionIndex.index + '].answer4')} ? 'is-invalid' : ''"
+                                       th:field="*{questions[__${questionIndex.index}__].answer4}"
+                                       type="text">
+                                <div class="text-danger fs-6"
+                                     th:errors="*{questions[__${questionIndex.index}__].answer4}"
+                                     th:if="${#fields.hasErrors('questions[' + questionIndex.index + '].answer4')}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-sm-8 col-md-2 text-end">
+                            <input class="form-control border border-black shadow fs-5"
+                                   id="correctAnswer"
+                                   name="correctAnswer"
+                                   placeholder="correct answer"
+                                   th:classappend="${#fields.hasErrors('questions[' + questionIndex.index + '].correctAnswer')} ? 'is-invalid' : ''"
+                                   th:field="*{questions[__${questionIndex.index}__].correctAnswer}"
+                                   type="text">
+                            <div class="text-danger fs-6"
+                                 th:errors="*{questions[__${questionIndex.index}__].correctAnswer}"
+                                 th:if="${#fields.hasErrors('questions[' + questionIndex.index + '].correctAnswer')}">
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                            <input class="form-control border border-black shadow fs-5 text-center"
+                                   id="points"
+                                   name="points"
+                                   placeholder="points"
+                                   th:classappend="${#fields.hasErrors('questions[' + questionIndex.index + '].points')} ? 'is-invalid' : ''"
+                                   th:field="*{questions[__${questionIndex.index}__].points}"
+                                   type="number">
+                            <div class="text-danger fs-6"
+                                 th:errors="*{questions[__${questionIndex.index}__].points}"
+                                 th:if="${#fields.hasErrors('questions[' + questionIndex.index + '].points')}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center gap-1 mt-3">
+                    <button type="submit" class="btn btn-success border border-black border-2 shadow fs-4">Complete
+                    </button>
+                    <button type="button" class="btn btn-danger border border-black border-2 shadow fs-4">Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <div th:replace="~{fragments/footers :: footer}"></div>
+</div>
+
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>

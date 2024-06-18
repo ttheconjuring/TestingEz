@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -50,5 +51,8 @@ public class Test {
     @ManyToOne
     @JoinColumn(name = "creator_id", referencedColumnName = "id")
     private User creator;
+
+    @OneToMany(mappedBy = "test")
+    private List<Question> questions;
 
 }

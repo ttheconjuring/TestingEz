@@ -11,8 +11,6 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 
 import java.util.Optional;
 
@@ -26,7 +24,11 @@ public class UserServiceImpl implements UserService {
     private final CurrentUser currentUser;
 
     @Override
-    public void register(UserSignUpDTO userSignUpData) {
+    public String register(UserSignUpDTO userSignUpData) {
+        String result = validate(userSignUpData);
+        if (!result.isEmpty()) {
+            return result;
+        }
         User newUser = this.modelMapper.map(userSignUpData, User.class);
         newUser.setPassword(passwordEncoder.encode(userSignUpData.getPassword()));
         if (this.userRepository.count() == 0) {
@@ -35,28 +37,47 @@ public class UserServiceImpl implements UserService {
             newUser.setRole(UserRole.STANDARD);
         }
         this.userRepository.saveAndFlush(newUser);
-        logUser(newUser);
+        this.currentUser.setUser(newUser);
+        return "success";
     }
 
     @Override
-    public void login(UserSignInDTO userSingInData, BindingResult bindingResult) {
+    public boolean login(UserSignInDTO userSingInData) {
         Optional<User> byUsername = this.userRepository.findByUsername(userSingInData.getUsername());
         if (byUsername.isEmpty()) {
-            bindingResult.addError(new FieldError("userSingInData", "username", "username or password is incorrect"));
-        } else {
-            User user = byUsername.get();
-            if (!this.passwordEncoder.matches(userSingInData.getPassword(), user.getPassword())) {
-                bindingResult.addError(new FieldError("userSingInData", "username", "username or password is incorrect"));
-            } else
-                logUser(user);
+            return false;
         }
-    }
-
-    private void logUser(User user) {
-        if (this.currentUser.isLogged()) {
-            this.currentUser.setUser(null);
+        User user = byUsername.get();
+        if (!this.passwordEncoder.matches(userSingInData.getPassword(), user.getPassword())) {
+            return false;
         }
         this.currentUser.setUser(user);
+        return true;
     }
 
+    @Override
+    public void logout() {
+        this.currentUser.setUser(null);
+    }
+
+    private String validate(UserSignUpDTO userSignUpData) {
+        String error = "";
+        Optional<User> byUsername = this.userRepository.findByUsername(userSignUpData.getUsername());
+        if (byUsername.isPresent()) {
+            error += ("username ");
+        }
+        Optional<User> byEmail = this.userRepository.findByEmail(userSignUpData.getEmail());
+        if (byEmail.isPresent()) {
+            error += ("email ");
+        }
+        Optional<User> byPhone = this.userRepository.findByPhone(userSignUpData.getPhone());
+        if (byPhone.isPresent()) {
+            error += "phone ";
+        }
+        if (!userSignUpData.getPassword().equals(userSignUpData.getConfirmPassword())) {
+            error += "passwords ";
+        }
+        return error.isEmpty() ? "" : error;
+    }
 }
+

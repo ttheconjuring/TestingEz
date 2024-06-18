@@ -20,16 +20,18 @@ public class RegistrationController {
 
     private final UserService userService;
 
+    @ModelAttribute("userSignUpData")
+    public UserSignUpDTO userSignUpData() {
+        return new UserSignUpDTO();
+    }
+
     @GetMapping("/create")
-    public String register(Model model) {
-        if (!model.containsAttribute("userSignUpData")) {
-            model.addAttribute("userSignUpData", new UserSignUpDTO());
-        }
+    public String register() {
         return "sign-up";
     }
 
     @PostMapping("/create")
-    public String register(@Valid @ModelAttribute("userSignUpData") UserSignUpDTO userSignUpData,
+    public String register(@Valid UserSignUpDTO userSignUpData,
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -39,7 +41,25 @@ public class RegistrationController {
             return "redirect:/account/create";
         }
 
-        this.userService.register(userSignUpData);
+        String result = this.userService.register(userSignUpData);
+
+        if (!result.equals("success")) {
+            String errors = result.trim();
+            if (errors.contains("username")) {
+                redirectAttributes.addFlashAttribute("invalidUsername", true);
+            }
+            if (errors.contains("email")) {
+                redirectAttributes.addFlashAttribute("invalidEmail", true);
+            }
+            if (errors.contains("phone")) {
+                redirectAttributes.addFlashAttribute("invalidPhone", true);
+            }
+            if (errors.contains("passwords")) {
+                redirectAttributes.addFlashAttribute("invalidPasswords", true);
+            }
+            redirectAttributes.addFlashAttribute("userSignUpData", userSignUpData);
+            return "redirect:/account/create";
+        }
 
         return "redirect:/user/home";
     }
