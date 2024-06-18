@@ -32,7 +32,7 @@ public class UserSignUpDTO {
     @Email(message = "Email should be in valid format.")
     private String email;
 
-    @NotNull(message = "Phone should not be null.")
+    @NotBlank(message = "Phone should no be null or empty.")
     @Pattern(regexp = "^[0-9]{3}-[0-9]{3}-[0-9]{4}$", message = "Phone should be in valid format.")
     private String phone;
 

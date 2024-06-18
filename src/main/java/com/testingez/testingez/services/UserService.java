@@ -9,5 +9,4 @@ public interface UserService {
 
     boolean login(UserSignInDTO userSingInData);
 
-    void logout();
 }

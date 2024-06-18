@@ -55,11 +55,6 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
-    @Override
-    public void logout() {
-        this.currentUser.setUser(null);
-    }
-
     private String validate(UserSignUpDTO userSignUpData) {
         String error = "";
         Optional<User> byUsername = this.userRepository.findByUsername(userSignUpData.getUsername());
