@@ -6,8 +6,8 @@ spring:
     password: 1234
 
   jpa:
-    properties:
-      hibernate.format_sql: TRUE
+    # properties:
+      # hibernate.format_sql: TRUE
       # hibernate.dialect: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
@@ -16,5 +16,5 @@ logging:
   level:
     org: WARN
     blog: WARN
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor: TRACE
+    # org.hibernate.SQL: DEBUG
+    # org.hibernate.type.descriptor: TRACE

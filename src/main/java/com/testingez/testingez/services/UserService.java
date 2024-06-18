@@ -1,12 +1,13 @@
 package com.testingez.testingez.services;
 
-import com.testingez.testingez.models.dtos.imp.UserLoginDataDTO;
-import com.testingez.testingez.models.dtos.imp.UserSignUpDataDTO;
-import org.springframework.validation.BindingResult;
+import com.testingez.testingez.models.dtos.imp.UserSignInDTO;
+import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
 
 public interface UserService {
 
-    void register(UserSignUpDataDTO userSignUpData);
+    String register(UserSignUpDTO userSignUpData);
 
-    void login(UserLoginDataDTO userLoginData, BindingResult bindingResult);
+    boolean login(UserSignInDTO userSingInData);
+
+    void logout();
 }
