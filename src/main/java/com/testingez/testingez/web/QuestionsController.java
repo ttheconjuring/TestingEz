@@ -51,7 +51,8 @@ public class QuestionsController {
             return null;
         }
 
-        return null;
+        redirectAttributes.addFlashAttribute("message", "You successfully created a test!");
+        return "redirect:/operation/success";
     }
 
     private TestQuestionsDTO testQuestionsDTO(int questionsCount) {
