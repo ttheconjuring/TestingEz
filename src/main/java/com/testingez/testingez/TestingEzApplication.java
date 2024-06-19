@@ -11,7 +11,7 @@ public class TestingEzApplication {
     }
 
 	// TODO:
-	// 		 1.Create success/fail html templates
+	// 		 1.Create fail html templates
 	//		 2.Delete the last created test form the database when cancel button is clicked
 	//   	 3.Create new template for /user/home endpoint
 	// 	 	 4.Add Unit Tests
