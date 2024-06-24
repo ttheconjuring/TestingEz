@@ -27,7 +27,8 @@ public class TestCreateDTO {
     private Integer responseTime;
 
     @NotNull(message = "Passing score should not be null.")
-    @Min(0)
+    @Min(value = 0, message = "Passing score should be 0 or more.")
+    @Max(value = 100, message = "Passing score should be up to 100.")
     private Integer passingScore;
 
     @NotNull(message = "Questions count should not be null.")

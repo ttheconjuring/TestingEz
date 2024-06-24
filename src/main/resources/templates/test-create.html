@@ -104,7 +104,7 @@
                                     required
                                     th:classappend="${#fields.hasErrors('responseTime')} ? 'is-invalid' : ''"
                                     th:field="*{responseTime}"
-                                    type="text"
+                                    type="number"
                             />
                         </div>
                         <div class="text-danger fs-6"
@@ -123,10 +123,9 @@
                                     class="form-control border border-black fs-5"
                                     id="passingScore"
                                     name="passingScore"
-                                    placeholder="(optional)"
                                     th:classappend="${#fields.hasErrors('passingScore')} ? 'is-invalid' : ''"
                                     th:field="*{passingScore}"
-                                    type="text"
+                                    type="number"
                             />
                         </div>
                         <div class="text-danger fs-6"
@@ -149,7 +148,7 @@
                                     required
                                     th:classappend="${#fields.hasErrors('questionsCount')} ? 'is-invalid' : ''"
                                     th:field="*{questionsCount}"
-                                    type="text"
+                                    type="number"
                             />
                         </div>
                         <div class="text-danger fs-6"
