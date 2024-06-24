@@ -34,4 +34,13 @@ public class TestServiceImpl implements TestService {
         this.testRepository.saveAndFlush(newTest);
     }
 
+    @Override
+    public void delete(Long id) {
+        if (id == -1) {
+            this.testRepository.deleteById(this.testRepository.findLastAdded().get().getId());
+        } else {
+            this.testRepository.deleteById(id);
+        }
+    }
+
 }
