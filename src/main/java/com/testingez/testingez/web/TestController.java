@@ -8,10 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @AllArgsConstructor
@@ -59,5 +56,15 @@ public class TestController {
         }
         this.testService.create(testCreateData);
         return "redirect:/questions?questionsCount=" + testCreateData.getQuestionsCount();
+    }
+
+    @PostMapping("/delete")
+    public String delete(@RequestParam(required = false, defaultValue = "-1") Long id, RedirectAttributes redirectAttributes) {
+        if (!this.currentUser.isLogged()) {
+            return "redirect:/account/login";
+        }
+        this.testService.delete(id);
+        redirectAttributes.addFlashAttribute("message", "You cancelled the test.");
+        return "redirect:/operation/success";
     }
 }

@@ -6,4 +6,6 @@ public interface TestService {
 
     void create(TestCreateDTO testCreateDTO);
 
+    void delete(Long id);
+
 }
