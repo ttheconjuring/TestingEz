@@ -14,6 +14,5 @@ public class TestingEzApplication {
 	// 		 1.Create fail html templates
 	//   	 2.Create new template for /user/home endpoint
 	// 	 	 3.Add Unit Tests
-	//
 
 }
