@@ -15,12 +15,21 @@ public class UserController {
     private final CurrentUser currentUser;
 
     @GetMapping("/home")
-    public String getUserHomeView(Model model) {
+    public String home(Model model) {
         if (!this.currentUser.isLogged()) {
             return "redirect:/account/login";
         }
         model.addAttribute("username", currentUser.getUsername());
         return "test-join";
+    }
+
+    @GetMapping("/profile")
+    public String profile(Model model) {
+        if (!this.currentUser.isLogged()) {
+            return "redirect:/account/login";
+        }
+        model.addAttribute("username", currentUser.getUsername());
+        return "user-profile";
     }
 
 }
