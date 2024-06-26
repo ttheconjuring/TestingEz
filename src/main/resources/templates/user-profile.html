@@ -21,7 +21,7 @@
                     change
                 </button>
             </div>
-            <div class="col-sm-12 col-md-7 d-flex flex-column align-items-center">
+            <div class="col-sm-12 col-md-7 d-flex flex-column align-items-center" th:object="${userProfileData}">
                 <input
                         class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
                         disabled
@@ -29,7 +29,7 @@
                         placeholder="(username)"
                         readonly
                         type="text"
-                        value="Username: random">
+                        th:value="'Username: ' + *{username}">
                 <input
                         class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
                         disabled
@@ -37,7 +37,7 @@
                         placeholder="(first name)"
                         readonly
                         type="text"
-                        value="First name: Random">
+                        th:value="'First name: ' + *{firstName}">
                 <input
                         class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
                         disabled
@@ -45,7 +45,7 @@
                         placeholder="(last name)"
                         readonly
                         type="text"
-                        value="Last name: Random">
+                        th:value="'Last name: ' + *{lastName}">
                 <input
                         class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
                         disabled
@@ -53,7 +53,7 @@
                         placeholder="(email)"
                         readonly
                         type="email"
-                        value="Email: test@example.com">
+                        th:value="'Email: ' + *{email}">
                 <input
                         class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
                         disabled
@@ -61,7 +61,7 @@
                         placeholder="(phone)"
                         readonly
                         type="text"
-                        value="Phone: XXX-XXX-XXXX">
+                        th:value="'Phone: ' + *{phone}">
                 <input
                         class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
                         disabled
@@ -69,20 +69,11 @@
                         placeholder="(role)"
                         readonly
                         type="text"
-                        value="Role: STANDARD">
-                <div class="justify-content-center gap-2 w-100" id="edit-profile-buttons-div" style="display: none">
-                    <button class="btn btn-success rounded shadow text-center text-black border border-black border-2 w-50 fs-5">
-                        save
-                    </button>
-                    <a th:href="@{/user/profile}"
-                       class="btn bg-light rounded shadow text-center text-black border border-black border-2 w-50 fs-5">
-                        cancel
-                    </a>
-                </div>
-                <button class="btn bg-light rounded shadow text-center text-black border border-black border-2 w-50"
-                        id="edit-profile-button">
+                        th:value="'Role: ' + *{role}">
+                <a th:href=" @{/user/profile/edit}"
+                   class="btn bg-light rounded shadow text-center text-black border border-black border-2 w-50">
                     Edit profile
-                </button>
+                </a>
             </div>
         </div>
         <div class="row justify-content-center text-center">
@@ -96,7 +87,6 @@
 
     <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
-<script src="/js/hide-reveal-edit-buttons.js"></script>
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>

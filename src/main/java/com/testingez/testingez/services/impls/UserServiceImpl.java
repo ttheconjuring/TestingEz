@@ -1,5 +1,6 @@
 package com.testingez.testingez.services.impls;
 
+import com.testingez.testingez.models.dtos.exp.UserProfileDTO;
 import com.testingez.testingez.models.dtos.imp.UserSignInDTO;
 import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
 import com.testingez.testingez.models.entities.User;
@@ -53,6 +54,15 @@ public class UserServiceImpl implements UserService {
         }
         this.currentUser.setUser(user);
         return true;
+    }
+
+    @Override
+    public UserProfileDTO getUserProfileData(Long id) {
+        Optional<User> byId = this.userRepository.findById(id);
+        if (byId.isEmpty()) {
+            throw new IllegalArgumentException("No user with id = " + id + " found.");
+        }
+        return this.modelMapper.map(byId.get(), UserProfileDTO.class);
     }
 
     private String validate(UserSignUpDTO userSignUpData) {
