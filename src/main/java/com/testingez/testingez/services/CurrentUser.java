@@ -10,7 +10,6 @@ import org.springframework.web.context.annotation.SessionScope;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @Component
 @SessionScope
@@ -19,11 +18,19 @@ public class CurrentUser {
     private User user;
 
     public String getUsername() {
-        return user.getUsername();
+        return this.user.getUsername();
+    }
+
+    public void setUsername(String username) {
+        this.user.setUsername(username);
+    }
+
+    public Long getId() {
+        return this.user.getId();
     }
 
     public boolean isLogged() {
-        return user != null;
+        return this.user != null;
     }
 
 }

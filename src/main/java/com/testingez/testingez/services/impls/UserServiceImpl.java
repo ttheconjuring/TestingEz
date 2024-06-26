@@ -1,5 +1,6 @@
 package com.testingez.testingez.services.impls;
 
+import com.testingez.testingez.models.dtos.exp.UserProfileDTO;
 import com.testingez.testingez.models.dtos.imp.UserSignInDTO;
 import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
 import com.testingez.testingez.models.entities.User;
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String register(UserSignUpDTO userSignUpData) {
-        String result = validate(userSignUpData);
+        String result = verifyUniqueCredentials(userSignUpData);
         if (!result.isEmpty()) {
             return result;
         }
@@ -55,24 +56,79 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
-    private String validate(UserSignUpDTO userSignUpData) {
-        String error = "";
+    @Override
+    public UserProfileDTO getUserProfileData(Long id) {
+        Optional<User> byId = this.userRepository.findById(id);
+        if (byId.isEmpty()) {
+            throw new IllegalArgumentException("No user with id = " + id + " found.");
+        }
+        return this.modelMapper.map(byId.get(), UserProfileDTO.class);
+    }
+
+    @Override
+    public String editProfileData(UserProfileDTO userProfileData, Long id) {
+        Optional<User> byId = this.userRepository.findById(id);
+        if (byId.isEmpty()) {
+            throw new IllegalArgumentException("No user with id = " + id + " found.");
+        }
+        return updateUserProfileData(userProfileData, byId.get());
+    }
+
+    private String verifyUniqueCredentials(UserSignUpDTO userSignUpData) {
+        String errors = "";
         Optional<User> byUsername = this.userRepository.findByUsername(userSignUpData.getUsername());
         if (byUsername.isPresent()) {
-            error += ("username ");
+            errors += ("username ");
         }
         Optional<User> byEmail = this.userRepository.findByEmail(userSignUpData.getEmail());
         if (byEmail.isPresent()) {
-            error += ("email ");
+            errors += ("email ");
         }
         Optional<User> byPhone = this.userRepository.findByPhone(userSignUpData.getPhone());
         if (byPhone.isPresent()) {
-            error += "phone ";
+            errors += "phone ";
         }
         if (!userSignUpData.getPassword().equals(userSignUpData.getConfirmPassword())) {
-            error += "passwords ";
+            errors += "passwords ";
         }
-        return error.isEmpty() ? "" : error;
+        return errors.isEmpty() ? "" : errors;
+    }
+
+    private String updateUserProfileData(UserProfileDTO userProfileData, User user) {
+        String errors = "";
+        if (!userProfileData.getUsername().equals(user.getUsername())) {
+            if (this.userRepository.findByUsername(userProfileData.getUsername()).isEmpty()) {
+                user.setUsername(userProfileData.getUsername());
+                this.currentUser.setUsername(user.getUsername());
+            } else {
+                errors += ("username ");
+            }
+        }
+        if (!userProfileData.getEmail().equals(user.getEmail())) {
+            if (this.userRepository.findByEmail(userProfileData.getEmail()).isEmpty()) {
+                user.setEmail(userProfileData.getEmail());
+            } else {
+                errors += ("email ");
+            }
+        }
+        if (!userProfileData.getPhone().equals(user.getPhone())) {
+            if (this.userRepository.findByPhone(userProfileData.getPhone()).isEmpty()) {
+                user.setPhone(userProfileData.getPhone());
+            } else {
+                errors += ("phone ");
+            }
+        }
+        if (!errors.isEmpty()) {
+            return errors;
+        }
+        if (!userProfileData.getFirstName().equals(user.getFirstName())) {
+            user.setFirstName(userProfileData.getFirstName());
+        }
+        if (!userProfileData.getLastName().equals(user.getLastName())) {
+            user.setLastName(userProfileData.getLastName());
+        }
+        this.userRepository.saveAndFlush(user);
+        return "success";
     }
 }
 
