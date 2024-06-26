@@ -25,8 +25,16 @@
                 <form
                         class="w-100"
                         method="post"
+                        novalidate
                         th:action="@{/user/profile/edit}"
                         th:object="${userProfileData}">
+                    <div class="text-warning fs-6"
+                         th:errors="*{username}"
+                         th:if="${#fields.hasErrors('username')}">
+                    </div>
+                    <div th:if="${invalidUsername}" class="text-warning fs-6">This username is
+                        already in use.
+                    </div>
                     <input
                             class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
                             id="username"
@@ -34,6 +42,10 @@
                             th:field="*{username}"
                             type="text"
                     >
+                    <div class="text-warning fs-6"
+                         th:errors="*{firstName}"
+                         th:if="${#fields.hasErrors('firstName')}">
+                    </div>
                     <input
                             class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
                             id="firstName"
@@ -41,18 +53,36 @@
                             th:field="*{firstName}"
                             type="text"
                     >
+                    <div class="text-warning fs-6"
+                         th:errors="*{lastName}"
+                         th:if="${#fields.hasErrors('lastName')}">
+                    </div>
                     <input
                             class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
                             id="lastName"
                             placeholder="(last name)"
                             th:field="*{lastName}"
                             type="text">
+                    <div class="text-warning fs-6"
+                         th:errors="*{email}"
+                         th:if="${#fields.hasErrors('email')}">
+                    </div>
+                    <div th:if="${invalidEmail}" class="text-warning fs-6">This email is
+                        already in use.
+                    </div>
                     <input
                             class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
                             id="email"
                             placeholder="(email)"
                             th:field="*{email}"
                             type="email">
+                    <div class="text-warning fs-6"
+                         th:errors="*{phone}"
+                         th:if="${#fields.hasErrors('phone')}">
+                    </div>
+                    <div th:if="${invalidPhone}" class="text-warning fs-6">This phone is
+                        already in use.
+                    </div>
                     <input
                             class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
                             id="phone"
@@ -61,7 +91,6 @@
                             type="text">
                     <input
                             class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
-                            disabled
                             id="role"
                             placeholder="(role)"
                             th:field="*{role}"

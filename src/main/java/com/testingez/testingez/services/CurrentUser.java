@@ -21,6 +21,10 @@ public class CurrentUser {
         return this.user.getUsername();
     }
 
+    public void setUsername(String username) {
+        this.user.setUsername(username);
+    }
+
     public Long getId() {
         return this.user.getId();
     }

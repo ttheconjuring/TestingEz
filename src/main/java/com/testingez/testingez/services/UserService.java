@@ -12,4 +12,5 @@ public interface UserService {
 
     UserProfileDTO getUserProfileData(Long id);
 
+    String editProfileData(UserProfileDTO userProfileData, Long id);
 }

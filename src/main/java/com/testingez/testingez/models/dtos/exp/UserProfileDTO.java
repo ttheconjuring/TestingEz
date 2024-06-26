@@ -28,8 +28,7 @@ public class UserProfileDTO {
     @Pattern(regexp = "^[0-9]{3}-[0-9]{3}-[0-9]{4}$", message = "Phone should be in valid format.")
     private String phone;
 
-    @NotNull(message = "Role should not be null.")
     @Pattern(regexp = "^(STANDARD|ADMINISTRATOR)$", message = "Role should be either STANDARD or ADMINISTRATOR.")
-    private String Role;
+    private String role;
 
 }
