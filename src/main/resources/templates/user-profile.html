@@ -17,7 +17,7 @@
                         height="300px"
                         class="shadow rounded-circle border border-2 border-black"
                 />
-                <button class="btn bg-light rounded shadow text-center text-black border border-black border-2 w-50">
+                <button class="btn bg-light rounded shadow text-center text-black border border-black border-2 w-50 fs-5">
                     change
                 </button>
             </div>
@@ -26,50 +26,62 @@
                         class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
                         disabled
                         id="username"
+                        placeholder="(username)"
                         readonly
                         type="text"
                         value="Username: random">
                 <input
-                        class="form-control border border-2 border-black shadow rounded fs-5 mb-2" disabled
+                        class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
+                        disabled
                         id="firstName"
+                        placeholder="(first name)"
                         readonly
                         type="text"
                         value="First name: Random">
                 <input
-                        class="form-control border border-2 border-black shadow rounded fs-5 mb-2" disabled
+                        class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
+                        disabled
                         id="lastName"
+                        placeholder="(last name)"
                         readonly
                         type="text"
                         value="Last name: Random">
                 <input
-                        class="form-control border border-2 border-black shadow rounded fs-5 mb-2" disabled
+                        class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
+                        disabled
                         id="email"
+                        placeholder="(email)"
                         readonly
                         type="email"
                         value="Email: test@example.com">
                 <input
-                        class="form-control border border-2 border-black shadow rounded fs-5 mb-2" disabled
+                        class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
+                        disabled
                         id="phone"
+                        placeholder="(phone)"
                         readonly
                         type="text"
                         value="Phone: XXX-XXX-XXXX">
                 <input
-                        class="form-control border border-2 border-black shadow rounded fs-5 mb-2" disabled id="role"
+                        class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
+                        disabled
+                        id="role"
+                        placeholder="(role)"
                         readonly
                         type="text"
                         value="Role: STANDARD">
-                <div class="justify-content-center gap-2 w-100" id="edit-buttons-div" style="display: none">
-                    <button class="btn btn-success rounded shadow text-center text-black border border-black border-2 w-50">
+                <div class="justify-content-center gap-2 w-100" id="edit-profile-buttons-div" style="display: none">
+                    <button class="btn btn-success rounded shadow text-center text-black border border-black border-2 w-50 fs-5">
                         save
                     </button>
                     <a th:href="@{/user/profile}"
-                       class="btn bg-light rounded shadow text-center text-black border border-black border-2 w-50">
+                       class="btn bg-light rounded shadow text-center text-black border border-black border-2 w-50 fs-5">
                         cancel
                     </a>
                 </div>
                 <button class="btn bg-light rounded shadow text-center text-black border border-black border-2 w-50"
-                        id="edit-button">
-                    Edit Account
+                        id="edit-profile-button">
+                    Edit profile
                 </button>
             </div>
         </div>
