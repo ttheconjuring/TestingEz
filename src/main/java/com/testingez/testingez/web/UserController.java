@@ -35,7 +35,7 @@ public class UserController {
         if (!this.currentUser.isLogged()) {
             return "redirect:/account/login";
         }
-        model.addAttribute("username", currentUser.getUsername());
+        model.addAttribute("username", currentUser.getUsername());ø
         model.addAttribute("userProfileData", this.userService.getUserProfileData(this.currentUser.getId()));
         return "user-profile";
     }
