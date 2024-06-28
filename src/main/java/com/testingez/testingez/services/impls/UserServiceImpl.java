@@ -1,7 +1,6 @@
 package com.testingez.testingez.services.impls;
 
 import com.testingez.testingez.models.dtos.exp.UserProfileDTO;
-import com.testingez.testingez.models.dtos.imp.UserSignInDTO;
 import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
 import com.testingez.testingez.models.entities.User;
 import com.testingez.testingez.models.enums.UserRole;
@@ -42,7 +41,7 @@ public class UserServiceImpl implements UserService {
         return "success";
     }
 
-    @Override
+    /* @Override
     public boolean login(UserSignInDTO userSingInData) {
         Optional<User> byUsername = this.userRepository.findByUsername(userSingInData.getUsername());
         if (byUsername.isEmpty()) {
@@ -54,7 +53,7 @@ public class UserServiceImpl implements UserService {
         }
         this.currentUser.setUser(user);
         return true;
-    }
+    } */
 
     @Override
     public UserProfileDTO getUserProfileData(Long id) {

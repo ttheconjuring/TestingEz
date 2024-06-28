@@ -11,14 +11,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/operation")
 public class OperationStatusController {
 
-    private final CurrentUser currentUser;
+    // private final CurrentUser currentUser;
 
     @GetMapping("/success")
     public String success() {
-        if (!this.currentUser.isLogged()) {
+        /* if (!this.currentUser.isLogged()) {
             return "redirect:/account/login";
-        }
+        } */
         return "success";
+    }
+
+    @GetMapping("/failure")
+    public String failure() {
+        return "failure";
     }
 
 }

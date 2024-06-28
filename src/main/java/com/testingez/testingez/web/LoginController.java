@@ -18,8 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/account")
 public class LoginController {
 
-    private final UserService userService;
-    private final CurrentUser currentUser;
+    // private final UserService userService;
+    // private final CurrentUser currentUser;
 
     @ModelAttribute("userSignInData")
     public UserSignInDTO userSignInData() {
@@ -28,13 +28,13 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login() {
-        if (this.currentUser.isLogged()) {
+        /* if (this.currentUser.isLogged()) {
             return "redirect:/user/home";
-        }
+        } */
         return "sign-in";
     }
 
-    @PostMapping("/login")
+    /* @PostMapping("/login")
     public String login(@Valid UserSignInDTO userSignInData,
                         BindingResult bindingResult,
                         RedirectAttributes redirectAttributes) {
@@ -54,6 +54,6 @@ public class LoginController {
         }
 
         return "redirect:/user/home";
-    }
+    } */
 
 }
