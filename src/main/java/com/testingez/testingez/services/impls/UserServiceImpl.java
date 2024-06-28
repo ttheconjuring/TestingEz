@@ -38,7 +38,6 @@ public class UserServiceImpl implements UserService {
         return "success";
     }
 
-    @Override
     public UserProfileDTO getUserProfileData(Long id) {
         Optional<User> byId = this.userRepository.findById(id);
         if (byId.isEmpty()) {

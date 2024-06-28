@@ -1,6 +1,7 @@
 package com.testingez.testingez.web;
 
 import com.testingez.testingez.models.dtos.exp.UserProfileDTO;
+import com.testingez.testingez.services.CurrentUser;
 import com.testingez.testingez.services.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
