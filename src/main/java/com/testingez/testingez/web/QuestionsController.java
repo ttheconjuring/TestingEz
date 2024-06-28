@@ -2,7 +2,6 @@ package com.testingez.testingez.web;
 
 import com.testingez.testingez.models.dtos.imp.QuestionCreateDTO;
 import com.testingez.testingez.models.dtos.imp.TestQuestionsDTO;
-import com.testingez.testingez.services.CurrentUser;
 import com.testingez.testingez.services.QuestionService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -21,13 +20,9 @@ import java.util.List;
 public class QuestionsController {
 
     private final QuestionService questionService;
-    private final CurrentUser currentUser;
 
     @GetMapping
     public String writeQuestions(@RequestParam int questionsCount, Model model) {
-        if (!this.currentUser.isLogged()) {
-            return "redirect:/account/login";
-        }
         model.addAttribute("questionsCount", questionsCount);
         if (!model.containsAttribute("testQuestionsData")) {
             model.addAttribute("testQuestionsData", testQuestionsDTO(questionsCount));

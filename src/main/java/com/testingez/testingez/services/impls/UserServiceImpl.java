@@ -5,7 +5,6 @@ import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
 import com.testingez.testingez.models.entities.User;
 import com.testingez.testingez.models.enums.UserRole;
 import com.testingez.testingez.repositories.UserRepository;
-import com.testingez.testingez.services.CurrentUser;
 import com.testingez.testingez.services.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -21,7 +20,6 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
-    private final CurrentUser currentUser;
 
     @Override
     public String register(UserSignUpDTO userSignUpData) {
@@ -37,29 +35,14 @@ public class UserServiceImpl implements UserService {
             newUser.setRole(UserRole.STANDARD);
         }
         this.userRepository.saveAndFlush(newUser);
-        this.currentUser.setUser(newUser);
         return "success";
     }
-
-    /* @Override
-    public boolean login(UserSignInDTO userSingInData) {
-        Optional<User> byUsername = this.userRepository.findByUsername(userSingInData.getUsername());
-        if (byUsername.isEmpty()) {
-            return false;
-        }
-        User user = byUsername.get();
-        if (!this.passwordEncoder.matches(userSingInData.getPassword(), user.getPassword())) {
-            return false;
-        }
-        this.currentUser.setUser(user);
-        return true;
-    } */
 
     @Override
     public UserProfileDTO getUserProfileData(Long id) {
         Optional<User> byId = this.userRepository.findById(id);
         if (byId.isEmpty()) {
-            throw new IllegalArgumentException("No user with id = " + id + " found.");
+            throw new IllegalArgumentException("No user found with id = " + id);
         }
         return this.modelMapper.map(byId.get(), UserProfileDTO.class);
     }
@@ -98,7 +81,6 @@ public class UserServiceImpl implements UserService {
         if (!userProfileData.getUsername().equals(user.getUsername())) {
             if (this.userRepository.findByUsername(userProfileData.getUsername()).isEmpty()) {
                 user.setUsername(userProfileData.getUsername());
-                this.currentUser.setUsername(user.getUsername());
             } else {
                 errors += ("username ");
             }

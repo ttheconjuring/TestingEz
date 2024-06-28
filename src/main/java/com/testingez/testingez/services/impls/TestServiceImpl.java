@@ -4,7 +4,6 @@ import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.models.entities.Test;
 import com.testingez.testingez.models.enums.TestStatus;
 import com.testingez.testingez.repositories.TestRepository;
-import com.testingez.testingez.services.CurrentUser;
 import com.testingez.testingez.services.TestService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -18,7 +17,6 @@ public class TestServiceImpl implements TestService {
 
     private final TestRepository testRepository;
     private final ModelMapper modelMapper;
-    private final CurrentUser currentUser;
 
     @Override
     public void create(TestCreateDTO testCreateDTO) {
@@ -30,14 +28,18 @@ public class TestServiceImpl implements TestService {
         }
         newTest.setDateCreated(LocalDateTime.now());
         newTest.setDateUpdated(LocalDateTime.now());
-        newTest.setCreator(currentUser.getUser());
+        // newTest.setCreator(currentUser.getUser());
         this.testRepository.saveAndFlush(newTest);
     }
 
     @Override
     public void delete(Long id) {
         if (id == -1) {
-            this.testRepository.deleteById(this.testRepository.findLastAdded().get().getId());
+            this.testRepository.deleteById(
+                    this.testRepository.findLastAdded()
+                            .orElseThrow(() -> new IllegalArgumentException("No test found with id: " + id))
+                            .getId()
+            );
         } else {
             this.testRepository.deleteById(id);
         }
