@@ -18,36 +18,26 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/user")
 public class UserController {
 
-    private final CurrentUser currentUser;
     private final UserService userService;
 
     @GetMapping("/home")
     public String home(Model model) {
-        if (!this.currentUser.isLogged()) {
-            return "redirect:/account/login";
-        }
-        model.addAttribute("username", currentUser.getUsername());
+        model.addAttribute("username", "username");
         return "test-join";
     }
 
     @GetMapping("/profile")
     public String profile(Model model) {
-        if (!this.currentUser.isLogged()) {
-            return "redirect:/account/login";
-        }
-        model.addAttribute("username", currentUser.getUsername());ø
-        model.addAttribute("userProfileData", this.userService.getUserProfileData(this.currentUser.getId()));
+        model.addAttribute("username", "username");
+        model.addAttribute("userProfileData", this.userService.getUserProfileData(-1L));
         return "user-profile";
     }
 
     @GetMapping("/profile/edit")
     public String edit(Model model) {
-        if (!this.currentUser.isLogged()) {
-            return "redirect:/account/login";
-        }
-        model.addAttribute("username", currentUser.getUsername());
+        model.addAttribute("username", "username");
         if (!model.containsAttribute("userProfileData")) {
-            model.addAttribute("userProfileData", this.userService.getUserProfileData(this.currentUser.getId()));
+            model.addAttribute("userProfileData", this.userService.getUserProfileData(-1L));
         }
         return "user-profile-edit";
     }
@@ -56,9 +46,6 @@ public class UserController {
     public String edit(@Valid UserProfileDTO userProfileData,
                        BindingResult bindingResult,
                        RedirectAttributes redirectAttributes) {
-        if (!this.currentUser.isLogged()) {
-            return "redirect:/account/login";
-        }
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userProfileData",
                     bindingResult);
@@ -66,7 +53,7 @@ public class UserController {
             return "redirect:/user/profile/edit";
         }
 
-        String result = this.userService.editProfileData(userProfileData, this.currentUser.getId());
+        String result = this.userService.editProfileData(userProfileData, -1L);
 
         if (!result.equals("success")) {
             String errors = result.trim();

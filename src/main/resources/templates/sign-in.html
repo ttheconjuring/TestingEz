@@ -9,7 +9,7 @@
               class="d-flex flex-column"
               method="post"
               novalidate
-              th:method="@{/account/login}"
+              th:action="@{/account/login}"
               th:object="${userSignInData}">
             <div th:if="${invalidCredentials}" class="text-danger fs-6 text-center">invalid credentials</div>
             <label for="username" class="form-label">Username:</label>

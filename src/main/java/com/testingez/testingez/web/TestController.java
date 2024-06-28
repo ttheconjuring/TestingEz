@@ -1,7 +1,6 @@
 package com.testingez.testingez.web;
 
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
-import com.testingez.testingez.services.CurrentUser;
 import com.testingez.testingez.services.TestService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -16,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/test")
 public class TestController {
 
-    private final CurrentUser currentUser;
     private final TestService testService;
 
     @ModelAttribute("testCreateData")
@@ -26,22 +24,16 @@ public class TestController {
 
     @ModelAttribute
     public void addAttributes(Model model) {
-        model.addAttribute("username", currentUser.getUsername());
+        model.addAttribute("username", "username");
     }
 
     @GetMapping("/join")
     public String join() {
-        if (!this.currentUser.isLogged()) {
-            return "redirect:/account/login";
-        }
         return "test-join";
     }
 
     @GetMapping("/create")
     public String create() {
-        if (!this.currentUser.isLogged()) {
-            return "redirect:/account/login";
-        }
         return "test-create";
     }
 
@@ -60,9 +52,6 @@ public class TestController {
 
     @PostMapping("/delete")
     public String delete(@RequestParam(required = false, defaultValue = "-1") Long id, RedirectAttributes redirectAttributes) {
-        if (!this.currentUser.isLogged()) {
-            return "redirect:/account/login";
-        }
         this.testService.delete(id);
         redirectAttributes.addFlashAttribute("message", "You cancelled the test.");
         return "redirect:/operation/success";

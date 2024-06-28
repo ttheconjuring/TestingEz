@@ -12,9 +12,9 @@ public class TestingEzApplication {
 
 
 	/*TODO:
-        1.Implement the user profile logic
+            1.Implement Spring Security
 		    2.Create fail html templates
-	  	  3.Create new template for /user/home endpoint
-		 	  4.Add Unit Tests
+	  	    3.Create new template for /user/home endpoint
+		    4.Add Unit Tests
 	 */
 }

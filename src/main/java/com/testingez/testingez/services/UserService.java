@@ -8,8 +8,6 @@ public interface UserService {
 
     String register(UserSignUpDTO userSignUpData);
 
-    boolean login(UserSignInDTO userSingInData);
-
     UserProfileDTO getUserProfileData(Long id);
 
     String editProfileData(UserProfileDTO userProfileData, Long id);
