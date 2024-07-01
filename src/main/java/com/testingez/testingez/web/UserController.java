@@ -47,7 +47,8 @@ public class UserController {
     }
 
     @PostMapping("/profile/edit")
-    public String edit(@Valid UserProfileDTO userProfileData,
+    public String edit(@AuthenticationPrincipal UserDetails userDetails,
+                       @Valid UserProfileDTO userProfileData,
                        BindingResult bindingResult,
                        RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -57,7 +58,7 @@ public class UserController {
             return "redirect:/user/profile/edit";
         }
 
-        String result = this.userService.editProfileData(userProfileData, -1L);
+        String result = this.userService.editProfileData(userProfileData, userDetails.getUsername());
 
         if (!result.equals("success")) {
             String errors = result.trim();

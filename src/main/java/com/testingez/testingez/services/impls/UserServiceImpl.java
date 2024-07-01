@@ -3,7 +3,6 @@ package com.testingez.testingez.services.impls;
 import com.testingez.testingez.models.dtos.exp.UserProfileDTO;
 import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
 import com.testingez.testingez.models.entities.User;
-import com.testingez.testingez.models.enums.UserRole;
 import com.testingez.testingez.repositories.RoleRepository;
 import com.testingez.testingez.repositories.UserRepository;
 import com.testingez.testingez.services.UserService;
@@ -51,12 +50,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String editProfileData(UserProfileDTO userProfileData, Long id) {
-        Optional<User> byId = this.userRepository.findById(id);
-        if (byId.isEmpty()) {
-            throw new IllegalArgumentException("No user with id = " + id + " found.");
-        }
-        return updateUserProfileData(userProfileData, byId.get());
+    public String editProfileData(UserProfileDTO userProfileData, String username) {
+        return updateUserProfileData(userProfileData,
+                this.userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("No user found with username: " + username + "!")));
     }
 
     private String verifyUniqueCredentials(UserSignUpDTO userSignUpData) {

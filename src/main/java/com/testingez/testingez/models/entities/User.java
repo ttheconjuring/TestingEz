@@ -1,6 +1,5 @@
 package com.testingez.testingez.models.entities;
 
-import com.testingez.testingez.models.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
