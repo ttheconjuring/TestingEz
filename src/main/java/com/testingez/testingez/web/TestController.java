@@ -39,7 +39,8 @@ public class TestController {
     }
 
     @PostMapping("/create")
-    public String create(@Valid TestCreateDTO testCreateData,
+    public String create(@AuthenticationPrincipal UserDetails userDetails,
+                         @Valid TestCreateDTO testCreateData,
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -47,7 +48,7 @@ public class TestController {
             redirectAttributes.addFlashAttribute("testCreateData", testCreateData);
             return "redirect:/test/create";
         }
-        this.testService.create(testCreateData);
+        this.testService.create(testCreateData, userDetails.getUsername());
         return "redirect:/questions?questionsCount=" + testCreateData.getQuestionsCount();
     }
 
