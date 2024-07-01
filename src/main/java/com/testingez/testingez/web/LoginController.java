@@ -3,17 +3,16 @@ package com.testingez.testingez.web;
 import com.testingez.testingez.models.dtos.imp.UserSignInDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @AllArgsConstructor
 @Controller
 @RequestMapping("/account")
 public class LoginController {
-
-    // private final UserService userService;
-    // private final CurrentUser currentUser;
 
     @ModelAttribute("userSignInData")
     public UserSignInDTO userSignInData() {
@@ -21,33 +20,12 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String login() {
-        /* if (this.currentUser.isLogged()) {
-            return "redirect:/user/home";
-        } */
+    public String login(@RequestParam(required = false, name = "error") String error,
+                        Model model) {
+        if (error != null) {
+            model.addAttribute("error", error);
+        }
         return "sign-in";
     }
-
-    /* @PostMapping("/login")
-    public String login(@Valid UserSignInDTO userSignInData,
-                        BindingResult bindingResult,
-                        RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userSignInData",
-                    bindingResult);
-            redirectAttributes.addFlashAttribute("userSignInData", userSignInData);
-            return "redirect:/account/login";
-        }
-
-        boolean success = this.userService.login(userSignInData);
-
-        if (!success) {
-            redirectAttributes.addFlashAttribute("invalidCredentials", true);
-            redirectAttributes.addFlashAttribute("userSignInData", userSignInData);
-            return "redirect:/account/login";
-        }
-
-        return "redirect:/user/home";
-    } */
 
 }
