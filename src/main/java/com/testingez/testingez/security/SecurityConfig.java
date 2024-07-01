@@ -38,7 +38,7 @@ public class SecurityConfig {
                                     // What will happen if login is successful
                                     .defaultSuccessUrl("/user/home")
                                     // What will happen if login is unsuccessful
-                                    .failureUrl("/operation/failure");
+                                    .failureUrl("/account/login?error=invalidCredentials");
                         }
                 )
                 .logout(
@@ -48,6 +48,8 @@ public class SecurityConfig {
                                     .logoutUrl("/account/logout")
                                     // Where should we go after logout
                                     .logoutSuccessUrl("/")
+                                    // Delete the session id cookie
+                                    .deleteCookies("JSESSIONID")
                                     // Invalidate session after logout
                                     .invalidateHttpSession(true);
                         }

@@ -1,10 +1,11 @@
 package com.testingez.testingez.web;
 
 import com.testingez.testingez.models.dtos.exp.UserProfileDTO;
-import com.testingez.testingez.services.CurrentUser;
 import com.testingez.testingez.services.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,29 +22,33 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/home")
-    public String home(Model model) {
-        model.addAttribute("username", "username");
+    public String home(@AuthenticationPrincipal UserDetails userDetails,
+                       Model model) {
+        model.addAttribute("username", userDetails.getUsername());
         return "test-join";
     }
 
     @GetMapping("/profile")
-    public String profile(Model model) {
-        model.addAttribute("username", "username");
-        model.addAttribute("userProfileData", this.userService.getUserProfileData(-1L));
+    public String profile(@AuthenticationPrincipal UserDetails userDetails,
+                          Model model) {
+        model.addAttribute("username", userDetails.getUsername());
+        model.addAttribute("userProfileData", this.userService.getUserProfileData(userDetails.getUsername()));
         return "user-profile";
     }
 
     @GetMapping("/profile/edit")
-    public String edit(Model model) {
-        model.addAttribute("username", "username");
+    public String edit(@AuthenticationPrincipal UserDetails userDetails,
+                       Model model) {
+        model.addAttribute("username", userDetails.getUsername());
         if (!model.containsAttribute("userProfileData")) {
-            model.addAttribute("userProfileData", this.userService.getUserProfileData(-1L));
+            model.addAttribute("userProfileData", this.userService.getUserProfileData(userDetails.getUsername()));
         }
         return "user-profile-edit";
     }
 
     @PostMapping("/profile/edit")
-    public String edit(@Valid UserProfileDTO userProfileData,
+    public String edit(@AuthenticationPrincipal UserDetails userDetails,
+                       @Valid UserProfileDTO userProfileData,
                        BindingResult bindingResult,
                        RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -53,7 +58,7 @@ public class UserController {
             return "redirect:/user/profile/edit";
         }
 
-        String result = this.userService.editProfileData(userProfileData, -1L);
+        String result = this.userService.editProfileData(userProfileData, userDetails.getUsername());
 
         if (!result.equals("success")) {
             String errors = result.trim();
