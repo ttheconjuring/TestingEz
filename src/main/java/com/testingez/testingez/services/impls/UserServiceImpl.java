@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
         this.userRepository.saveAndFlush(newUser);
         return "success";
     }
-
+  
     @Override
     public UserProfileDTO getUserProfileData(String username) {
         return this.modelMapper.map(this.userRepository.findByUsername(username)
