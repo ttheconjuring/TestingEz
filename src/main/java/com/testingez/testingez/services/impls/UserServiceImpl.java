@@ -4,6 +4,7 @@ import com.testingez.testingez.models.dtos.exp.UserProfileDTO;
 import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
 import com.testingez.testingez.models.entities.User;
 import com.testingez.testingez.models.enums.UserRole;
+import com.testingez.testingez.repositories.RoleRepository;
 import com.testingez.testingez.repositories.UserRepository;
 import com.testingez.testingez.services.UserService;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
 
     @Override
     public String register(UserSignUpDTO userSignUpData) {
@@ -30,9 +32,11 @@ public class UserServiceImpl implements UserService {
         User newUser = this.modelMapper.map(userSignUpData, User.class);
         newUser.setPassword(passwordEncoder.encode(userSignUpData.getPassword()));
         if (this.userRepository.count() == 0) {
-            newUser.setRole(UserRole.ADMINISTRATOR);
+            newUser.setRole(this.roleRepository.findById(2L)
+                    .orElseThrow(() -> new IllegalArgumentException("No role could be found with id: 2")));
         } else {
-            newUser.setRole(UserRole.STANDARD);
+            newUser.setRole(this.roleRepository.findById(1L)
+                    .orElseThrow(() -> new IllegalArgumentException("No role could be found with id: 1")));
         }
         this.userRepository.saveAndFlush(newUser);
         return "success";

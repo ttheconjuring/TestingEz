@@ -37,9 +37,8 @@ public class User {
     @Column(unique = true, nullable = false)
     private String phone;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private UserRole role;
+    @ManyToOne
+    private Role role;
 
     @OneToMany(mappedBy = "creator")
     private Set<Test> tests;
