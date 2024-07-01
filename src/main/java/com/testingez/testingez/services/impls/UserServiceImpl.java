@@ -9,6 +9,7 @@ import com.testingez.testingez.repositories.UserRepository;
 import com.testingez.testingez.services.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,12 +43,11 @@ public class UserServiceImpl implements UserService {
         return "success";
     }
 
-    public UserProfileDTO getUserProfileData(Long id) {
-        Optional<User> byId = this.userRepository.findById(id);
-        if (byId.isEmpty()) {
-            throw new IllegalArgumentException("No user found with id = " + id);
-        }
-        return this.modelMapper.map(byId.get(), UserProfileDTO.class);
+    @Override
+    public UserProfileDTO getUserProfileData(String username) {
+        return this.modelMapper.map(this.userRepository.findByUsername(username)
+                .orElseThrow(() ->
+                        new UsernameNotFoundException("No user found with username: " + username + "!")), UserProfileDTO.class);
     }
 
     @Override

@@ -8,7 +8,8 @@ public interface UserService {
 
     String register(UserSignUpDTO userSignUpData);
 
-    UserProfileDTO getUserProfileData(Long id);
+    UserProfileDTO getUserProfileData(String username);
 
     String editProfileData(UserProfileDTO userProfileData, Long id);
+
 }

@@ -4,8 +4,9 @@ import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.services.TestService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -22,9 +23,9 @@ public class TestController {
         return new TestCreateDTO();
     }
 
-    @ModelAttribute
-    public void addAttributes(Model model) {
-        model.addAttribute("username", "username");
+    @ModelAttribute("username")
+    public String username(@AuthenticationPrincipal UserDetails userDetails) {
+        return userDetails.getUsername();
     }
 
     @GetMapping("/join")

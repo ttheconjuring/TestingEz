@@ -1,4 +1,4 @@
-package com.testingez.testingez;
+package com.testingez.testingez.init;
 
 import com.testingez.testingez.models.entities.Role;
 import com.testingez.testingez.models.enums.UserRole;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 @Component
-public class init implements CommandLineRunner {
+public class InitializeData implements CommandLineRunner {
 
     private final RoleRepository roleRepository;
 
