@@ -8,6 +8,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
+import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter;
+
+import static org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter.Directive.*;
 
 @Configuration
 public class SecurityConfig {
@@ -47,11 +51,15 @@ public class SecurityConfig {
                                     // What is the logout URL
                                     .logoutUrl("/account/logout")
                                     // Where should we go after logout
-                                    .logoutSuccessUrl("/")
+                                    .logoutSuccessUrl("/account/login")
                                     // Delete the session id cookie
                                     .deleteCookies("JSESSIONID")
                                     // Invalidate session after logout
-                                    .invalidateHttpSession(true);
+                                    .invalidateHttpSession(true)
+                                    .addLogoutHandler(
+                                            new HeaderWriterLogoutHandler(
+                                                    new ClearSiteDataHeaderWriter(
+                                                            CACHE, COOKIES, STORAGE)));
                         }
                 )
                 .build();

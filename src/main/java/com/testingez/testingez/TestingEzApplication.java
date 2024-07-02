@@ -10,7 +10,6 @@ public class TestingEzApplication {
         SpringApplication.run(TestingEzApplication.class, args);
     }
 
-
 	/*TODO:
             1.Implement Spring Security
 	  	    3.Create new template for /user/home endpoint

@@ -51,10 +51,17 @@
                     >My Tests</a>
                 </div>
                 <div class="navbar-nav ms-auto">
-                    <a
-                            class="nav-link bg-light rounded shadow px-3 fs-5 text-center text-black mt-3 mt-lg-0 border border-black border-2"
-                            href=""
-                    >Log out</a>
+                    <form
+                            class="text-center"
+                            method="post"
+                            th:action="@{/account/logout}">
+                        <button
+                                class="bnt bg-light rounded shadow px-3 py-2 fs-5 text-center text-black mt-3 mt-lg-0 border border-black border-2"
+                                type="submit"
+                        >
+                            Log out
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
