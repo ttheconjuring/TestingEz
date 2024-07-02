@@ -7,8 +7,8 @@ spring:
 
   jpa:
     # properties:
-      # hibernate.format_sql: TRUE
-      # hibernate.dialect: org.hibernate.dialect.MySQLDialect
+    # hibernate.format_sql: TRUE
+    # hibernate.dialect: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
 
@@ -18,3 +18,7 @@ logging:
     blog: WARN
     # org.hibernate.SQL: DEBUG
     # org.hibernate.type.descriptor: TRACE
+api:
+  ninjas:
+    url: https://api.api-ninjas.com/v1/facts
+    apiKey: ${NINJAS_API_KEY}

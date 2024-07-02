@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec='http://www.thymeleaf.org/extras/spring-security'>
 <div th:replace="~{fragments/heads :: head}"></div>
 <body class="font">
 
@@ -16,7 +18,7 @@
                         width="35"
                         height="35"
                         class="d-inline-block align-text-middle me-1"
-                /><span th:text="${username}"/></a
+                /><span sec:authentication="name"></span></a
             >
             <button
                     class="navbar-toggler"
@@ -34,27 +36,42 @@
                     <a
                             class="nav-link text-center fs-5 link-light active"
                             aria-current="page"
-                            href="/test/join"
-                    >Join Test</a
-                    >
+                            th:href="@{/user/home}"
+                    >Home</a>
+                    <a
+                            class="nav-link text-center fs-5 link-light active"
+                            aria-current="page"
+                            th:href="@{/test/join}"
+                    >Join Test</a>
                     <a
                             class="nav-link text-center fs-5 link-light"
-                            href="/test/create"
-                    >Create Test</a
-                    >
+                            th:href="@{/test/create}"
+                    >Create Test</a>
                     <a class="nav-link text-center fs-5 link-light" href="#"
-                    >My Results</a
-                    >
+                    >My Results</a>
                     <a class="nav-link text-center fs-5 link-light" href="#"
-                    >My Tests</a
-                    >
+                    >My Tests</a>
+                    <a class="nav-link text-center text-success-emphasis fs-5 link-light"
+                       href="#"
+                       sec:authorize="hasRole('ROLE_ADMINISTRATOR')"
+                    >All Tests</a>
+                    <a class="nav-link text-center text-success-emphasis fs-5 link-light"
+                       href="#"
+                       sec:authorize="hasRole('ROLE_ADMINISTRATOR')"
+                    >All Users</a>
                 </div>
                 <div class="navbar-nav ms-auto">
-                    <a
-                            class="nav-link bg-light rounded shadow px-3 fs-5 text-center text-black mt-3 mt-lg-0 border border-black border-2"
-                            href=""
-                    >Log out</a
-                    >
+                    <form
+                            class="text-center"
+                            method="post"
+                            th:action="@{/account/logout}">
+                        <button
+                                class="bnt bg-light rounded shadow px-3 py-2 fs-5 text-center text-black mt-3 mt-lg-0 border border-black border-2"
+                                type="submit"
+                        >
+                            Log out
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

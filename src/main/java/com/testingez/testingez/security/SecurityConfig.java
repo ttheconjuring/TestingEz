@@ -1,15 +1,21 @@
 package com.testingez.testingez.security;
 
 import com.testingez.testingez.repositories.UserRepository;
+import com.testingez.testingez.security.utils.CustomAuthenticationFailureHandler;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
+@EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Bean
@@ -36,9 +42,9 @@ public class SecurityConfig {
                                     // What is the name of the password parameter in the login POST request
                                     .passwordParameter("password")
                                     // What will happen if login is successful
-                                    .defaultSuccessUrl("/user/home")
+                                    .defaultSuccessUrl("/user/home", true)
                                     // What will happen if login is unsuccessful
-                                    .failureUrl("/account/login?error=invalidCredentials");
+                                    .failureHandler(authenticationFailureHandler());
                         }
                 )
                 .logout(
@@ -47,7 +53,7 @@ public class SecurityConfig {
                                     // What is the logout URL
                                     .logoutUrl("/account/logout")
                                     // Where should we go after logout
-                                    .logoutSuccessUrl("/")
+                                    .logoutSuccessUrl("/account/login")
                                     // Delete the session id cookie
                                     .deleteCookies("JSESSIONID")
                                     // Invalidate session after logout
@@ -65,6 +71,11 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
     }
 
 }
