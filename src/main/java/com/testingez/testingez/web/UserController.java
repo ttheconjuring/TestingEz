@@ -22,16 +22,13 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/home")
-    public String home(@AuthenticationPrincipal UserDetails userDetails,
-                       Model model) {
-        model.addAttribute("username", userDetails.getUsername());
+    public String home() {
         return "test-join";
     }
 
     @GetMapping("/profile")
     public String profile(@AuthenticationPrincipal UserDetails userDetails,
                           Model model) {
-        model.addAttribute("username", userDetails.getUsername());
         model.addAttribute("userProfileData", this.userService.getUserProfileData(userDetails.getUsername()));
         return "user-profile";
     }
@@ -39,7 +36,6 @@ public class UserController {
     @GetMapping("/profile/edit")
     public String edit(@AuthenticationPrincipal UserDetails userDetails,
                        Model model) {
-        model.addAttribute("username", userDetails.getUsername());
         if (!model.containsAttribute("userProfileData")) {
             model.addAttribute("userProfileData", this.userService.getUserProfileData(userDetails.getUsername()));
         }

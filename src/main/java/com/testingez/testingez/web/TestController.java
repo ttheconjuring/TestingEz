@@ -23,11 +23,6 @@ public class TestController {
         return new TestCreateDTO();
     }
 
-    @ModelAttribute("username")
-    public String username(@AuthenticationPrincipal UserDetails userDetails) {
-        return userDetails.getUsername();
-    }
-
     @GetMapping("/join")
     public String join() {
         return "test-join";
