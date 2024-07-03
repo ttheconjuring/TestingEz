@@ -5,6 +5,7 @@ import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
 import com.testingez.testingez.models.entities.User;
 import com.testingez.testingez.repositories.RoleRepository;
 import com.testingez.testingez.repositories.UserRepository;
+import com.testingez.testingez.services.UserHelperService;
 import com.testingez.testingez.services.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -25,6 +26,7 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
+    private final UserHelperService userHelperService;
 
     @Override
     public String register(UserSignUpDTO userSignUpData) {
@@ -44,19 +46,15 @@ public class UserServiceImpl implements UserService {
         this.userRepository.saveAndFlush(newUser);
         return "success";
     }
-  
+
     @Override
-    public UserProfileDTO getUserProfileData(String username) {
-        return this.modelMapper.map(this.userRepository.findByUsername(username)
-                .orElseThrow(() ->
-                        new UsernameNotFoundException("No user found with username: " + username + "!")), UserProfileDTO.class);
+    public UserProfileDTO getUserProfileData() {
+        return this.modelMapper.map(this.userHelperService.getLoggedUser(), UserProfileDTO.class);
     }
 
     @Override
-    public String editProfileData(UserProfileDTO userProfileData, String username) {
-        return updateUserProfileData(userProfileData,
-                this.userRepository.findByUsername(username)
-                        .orElseThrow(() -> new UsernameNotFoundException("No user found with username: " + username + "!")));
+    public String editProfileData(UserProfileDTO userProfileData) {
+        return updateUserProfileData(userProfileData, this.userHelperService.getLoggedUser());
     }
 
     private String verifyUniqueCredentials(UserSignUpDTO userSignUpData) {

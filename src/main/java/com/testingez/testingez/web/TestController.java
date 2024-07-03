@@ -4,8 +4,6 @@ import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.services.TestService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -34,8 +32,7 @@ public class TestController {
     }
 
     @PostMapping("/create")
-    public String create(@AuthenticationPrincipal UserDetails userDetails,
-                         @Valid TestCreateDTO testCreateData,
+    public String create(@Valid TestCreateDTO testCreateData,
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -43,7 +40,7 @@ public class TestController {
             redirectAttributes.addFlashAttribute("testCreateData", testCreateData);
             return "redirect:/test/create";
         }
-        this.testService.create(testCreateData, userDetails.getUsername());
+        this.testService.create(testCreateData);
         return "redirect:/questions?questionsCount=" + testCreateData.getQuestionsCount();
     }
 

@@ -29,7 +29,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .withUsername(user.getUsername())
                 .password(user.getPassword())
                 .authorities(List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().getRole().name())))
-                .disabled(false)
                 .build();
     }
 
