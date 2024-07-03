@@ -44,7 +44,7 @@ public class SecurityConfig {
                                     // What will happen if login is successful
                                     .defaultSuccessUrl("/user/home", true)
                                     // What will happen if login is unsuccessful
-                                    .failureHandler(authenticationFailureHandler());
+                                    .failureUrl("/account/login?error=invalidCredentials");
                         }
                 )
                 .logout(
@@ -71,11 +71,6 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public AuthenticationFailureHandler authenticationFailureHandler() {
-        return new CustomAuthenticationFailureHandler();
     }
 
 }
