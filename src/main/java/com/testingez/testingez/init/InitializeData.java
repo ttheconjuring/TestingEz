@@ -3,8 +3,10 @@ package com.testingez.testingez.init;
 import com.testingez.testingez.api.ninja.NinjaService;
 import com.testingez.testingez.api.ninja.entities.Fact;
 import com.testingez.testingez.api.ninja.entities.Joke;
+import com.testingez.testingez.api.ninja.entities.Trivia;
 import com.testingez.testingez.api.ninja.repositories.FactRepository;
 import com.testingez.testingez.api.ninja.repositories.JokeRepository;
+import com.testingez.testingez.api.ninja.repositories.TriviaRepository;
 import com.testingez.testingez.models.entities.Role;
 import com.testingez.testingez.models.enums.UserRole;
 import com.testingez.testingez.repositories.RoleRepository;
@@ -22,12 +24,14 @@ public class InitializeData implements CommandLineRunner {
     private final RoleRepository roleRepository;
     private final FactRepository factRepository;
     private final JokeRepository jokeRepository;
+    private final TriviaRepository triviaRepository;
     private final NinjaService ninjaService;
     private final ModelMapper modelMapper;
 
     @Override
     public void run(String... args) {
         seedRoles();
+        seedTrivia();
         seedJokes();
         seedFacts();
     }
@@ -60,6 +64,17 @@ public class InitializeData implements CommandLineRunner {
                     .forEach(factDTO ->
                             this.factRepository.saveAndFlush(
                                     this.modelMapper.map(factDTO, Fact.class)
+                            )
+                    );
+        }
+    }
+
+    private void seedTrivia() {
+        if (this.triviaRepository.count() == 0) {
+            Arrays.stream(this.ninjaService.fetchTrivia())
+                    .forEach(triviaDTO ->
+                            this.triviaRepository.saveAndFlush(
+                                    this.modelMapper.map(triviaDTO, Trivia.class)
                             )
                     );
         }

@@ -25,3 +25,5 @@ api:
       url: https://api.api-ninjas.com/v1/facts
     jokes:
       url: https://api.api-ninjas.com/v1/jokes
+    trivia:
+      url: https://api.api-ninjas.com/v1/trivia

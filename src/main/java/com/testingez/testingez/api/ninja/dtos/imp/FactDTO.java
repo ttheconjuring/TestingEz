@@ -1,4 +1,4 @@
-package com.testingez.testingez.api.ninja.dtos;
+package com.testingez.testingez.api.ninja.dtos.imp;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class JokeDTO {
+public class FactDTO {
 
-    private String joke;
+    private String fact;
 
 }

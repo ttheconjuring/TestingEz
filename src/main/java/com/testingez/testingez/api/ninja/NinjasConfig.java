@@ -17,12 +17,14 @@ public class NinjasConfig {
     private String apiKey;
     private ApiConfig facts = new ApiConfig();
     private ApiConfig jokes = new ApiConfig();
+    private ApiConfig trivia = new ApiConfig();
 
     @PostConstruct
     public void checkConfiguration() {
         verifyNotNullOrEmpty("apiKey", apiKey);
         facts.checkConfiguration("facts");
         jokes.checkConfiguration("jokes");
+        trivia.checkConfiguration("trivia");
     }
 
     @Getter
