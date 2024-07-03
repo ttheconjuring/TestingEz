@@ -1,4 +1,4 @@
-package com.testingez.testingez.models.dtos.ninja;
+package com.testingez.testingez.api.ninja.dtos;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

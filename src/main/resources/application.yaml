@@ -20,5 +20,8 @@ logging:
     # org.hibernate.type.descriptor: TRACE
 api:
   ninjas:
-    url: https://api.api-ninjas.com/v1/facts
     apiKey: ${NINJAS_API_KEY}
+    facts:
+      url: https://api.api-ninjas.com/v1/facts
+    jokes:
+      url: https://api.api-ninjas.com/v1/jokes

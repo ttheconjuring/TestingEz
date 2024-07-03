@@ -1,4 +1,4 @@
-package com.testingez.testingez.config;
+package com.testingez.testingez.api.ninja;
 
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
@@ -12,16 +12,30 @@ import org.springframework.context.annotation.Configuration;
 @NoArgsConstructor
 @Configuration
 @ConfigurationProperties(prefix = "api.ninjas")
-public class NinjasApiConfig {
-
-    private String url;
+public class NinjasConfig {
 
     private String apiKey;
+    private ApiConfig facts = new ApiConfig();
+    private ApiConfig jokes = new ApiConfig();
 
     @PostConstruct
     public void checkConfiguration() {
-        verifyNotNullOrEmpty("url", url);
         verifyNotNullOrEmpty("apiKey", apiKey);
+        facts.checkConfiguration("facts");
+        jokes.checkConfiguration("jokes");
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class ApiConfig {
+
+        private String url;
+
+        public void checkConfiguration(String configName) {
+            verifyNotNullOrEmpty(configName + ".url", url);
+        }
+
     }
 
     private static void verifyNotNullOrEmpty(String name, String value) {
