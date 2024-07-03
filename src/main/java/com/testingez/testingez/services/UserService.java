@@ -7,8 +7,8 @@ public interface UserService {
 
     String register(UserSignUpDTO userSignUpData);
 
-    UserProfileDTO getUserProfileData(String username);
+    UserProfileDTO getUserProfileData();
 
-    String editProfileData(UserProfileDTO userProfileData, String username);
+    String editProfileData(UserProfileDTO userProfileData);
 
 }

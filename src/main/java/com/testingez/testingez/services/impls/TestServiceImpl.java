@@ -6,6 +6,7 @@ import com.testingez.testingez.models.enums.TestStatus;
 import com.testingez.testingez.repositories.TestRepository;
 import com.testingez.testingez.repositories.UserRepository;
 import com.testingez.testingez.services.TestService;
+import com.testingez.testingez.services.UserHelperService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,19 +19,16 @@ import java.time.LocalDateTime;
 public class TestServiceImpl implements TestService {
 
     private final TestRepository testRepository;
-    private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final UserHelperService userHelperService;
 
     @Override
-    public void create(TestCreateDTO testCreateDTO, String creator) {
+    public void create(TestCreateDTO testCreateDTO) {
         Test newTest = modelMapper.map(testCreateDTO, Test.class);
         newTest.setStatus(testCreateDTO.getStatus().equals("open") ? TestStatus.OPEN : TestStatus.CLOSED);
         newTest.setDateCreated(LocalDateTime.now());
         newTest.setDateUpdated(LocalDateTime.now());
-        newTest.setCreator(
-                this.userRepository.findByUsername(creator)
-                        .orElseThrow(() -> new UsernameNotFoundException(creator))
-        );
+        newTest.setCreator(this.userHelperService.getLoggedUser());
         this.testRepository.saveAndFlush(newTest);
     }
 

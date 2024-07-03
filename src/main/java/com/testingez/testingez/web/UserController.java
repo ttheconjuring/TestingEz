@@ -4,8 +4,6 @@ import com.testingez.testingez.models.dtos.exp.UserProfileDTO;
 import com.testingez.testingez.services.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,24 +25,21 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String profile(@AuthenticationPrincipal UserDetails userDetails,
-                          Model model) {
-        model.addAttribute("userProfileData", this.userService.getUserProfileData(userDetails.getUsername()));
+    public String profile(Model model) {
+        model.addAttribute("userProfileData", this.userService.getUserProfileData());
         return "user-profile";
     }
 
     @GetMapping("/profile/edit")
-    public String edit(@AuthenticationPrincipal UserDetails userDetails,
-                       Model model) {
+    public String edit(Model model) {
         if (!model.containsAttribute("userProfileData")) {
-            model.addAttribute("userProfileData", this.userService.getUserProfileData(userDetails.getUsername()));
+            model.addAttribute("userProfileData", this.userService.getUserProfileData());
         }
         return "user-profile-edit";
     }
 
     @PostMapping("/profile/edit")
-    public String edit(@AuthenticationPrincipal UserDetails userDetails,
-                       @Valid UserProfileDTO userProfileData,
+    public String edit(@Valid UserProfileDTO userProfileData,
                        BindingResult bindingResult,
                        RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -54,7 +49,7 @@ public class UserController {
             return "redirect:/user/profile/edit";
         }
 
-        String result = this.userService.editProfileData(userProfileData, userDetails.getUsername());
+        String result = this.userService.editProfileData(userProfileData);
 
         if (!result.equals("success")) {
             String errors = result.trim();
