@@ -38,12 +38,12 @@ public class InitializeData implements CommandLineRunner {
 
     private void seedRoles() {
         if (this.roleRepository.count() == 0) {
-            Role standartRole = new Role();
-            standartRole.setRole(UserRole.STANDARD);
             Role adminRole = new Role();
             adminRole.setRole(UserRole.ADMINISTRATOR);
-            this.roleRepository.saveAndFlush(standartRole);
             this.roleRepository.saveAndFlush(adminRole);
+            Role standartRole = new Role();
+            standartRole.setRole(UserRole.STANDARD);
+            this.roleRepository.saveAndFlush(standartRole);
         }
     }
 

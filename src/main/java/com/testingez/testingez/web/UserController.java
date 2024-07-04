@@ -21,7 +21,7 @@ public class UserController {
 
     @GetMapping("/home")
     public String home() {
-        return "test-join";
+        return "user-home";
     }
 
     @GetMapping("/profile")
