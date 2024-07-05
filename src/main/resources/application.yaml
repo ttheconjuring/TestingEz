@@ -10,8 +10,8 @@ spring:
 
   jpa:
     # properties:
-    # hibernate.format_sql: TRUE
-    # hibernate.dialect: org.hibernate.dialect.MySQLDialect
+      # hibernate.format_sql: TRUE
+      # hibernate.dialect: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
 
