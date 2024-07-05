@@ -10,7 +10,7 @@
                     class="needs-validation"
                     method="post"
                     novalidate
-                    th:action="@{/questions}"
+                    th:action="@{/questions/create}"
                     th:object="${testQuestionsData}"
             >
                 <div th:each="question, questionIndex : ${testQuestionsData.questions}">

@@ -21,23 +21,23 @@ public class QuestionsController {
 
     private final QuestionService questionService;
 
-    @GetMapping
-    public String writeQuestions(@RequestParam int questionsCount, Model model) {
-        model.addAttribute("questionsCount", questionsCount);
+    @GetMapping("/create")
+    public String writeQuestions(Model model) {
         if (!model.containsAttribute("testQuestionsData")) {
-            model.addAttribute("testQuestionsData", testQuestionsDTO(questionsCount));
+            model.addAttribute("testQuestionsData",
+                    testQuestionsDTO(this.questionService.getQuestionsCountOfTheLastAddedTest()));
         }
         return "questions-create";
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public String putDownQuestions(@Valid TestQuestionsDTO testQuestionsData,
                                    BindingResult bindingResult,
                                    RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.testQuestionsData", bindingResult);
             redirectAttributes.addFlashAttribute("testQuestionsData", testQuestionsData);
-            return "redirect:/questions?questionsCount=" + testQuestionsData.getQuestions().size();
+            return "redirect:/questions/create";
         }
 
         boolean success = this.questionService.putDown(testQuestionsData);

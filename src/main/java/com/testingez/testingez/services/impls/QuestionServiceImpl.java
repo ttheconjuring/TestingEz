@@ -37,4 +37,13 @@ public class QuestionServiceImpl implements QuestionService {
         return true;
     }
 
+    @Override
+    public int getQuestionsCountOfTheLastAddedTest() {
+        return this.testRepository
+                .findLastAdded()
+                .orElseThrow(() ->
+                        new NullPointerException("The last added test was not found!"))
+                .getQuestionsCount();
+    }
+
 }

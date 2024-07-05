@@ -6,4 +6,6 @@ public interface QuestionService {
 
     boolean putDown(TestQuestionsDTO testQuestionsDTO);
 
+    int getQuestionsCountOfTheLastAddedTest();
+
 }
