@@ -41,7 +41,7 @@ public class TestController {
             return "redirect:/test/create";
         }
         this.testService.create(testCreateData);
-        return "redirect:/questions?questionsCount=" + testCreateData.getQuestionsCount();
+        return "redirect:/questions/create";
     }
 
     @PostMapping("/delete")

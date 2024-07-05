@@ -9,7 +9,6 @@ import com.testingez.testingez.services.UserHelperService;
 import com.testingez.testingez.services.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,11 +36,11 @@ public class UserServiceImpl implements UserService {
         User newUser = this.modelMapper.map(userSignUpData, User.class);
         newUser.setPassword(passwordEncoder.encode(userSignUpData.getPassword()));
         if (this.userRepository.count() == 0) {
-            newUser.setRole(this.roleRepository.findById(2L)
-                    .orElseThrow(() -> new IllegalArgumentException("No role could be found with id: 2")));
-        } else {
             newUser.setRole(this.roleRepository.findById(1L)
                     .orElseThrow(() -> new IllegalArgumentException("No role could be found with id: 1")));
+        } else {
+            newUser.setRole(this.roleRepository.findById(2L)
+                    .orElseThrow(() -> new IllegalArgumentException("No role could be found with id: 2")));
         }
         this.userRepository.saveAndFlush(newUser);
         return "success";
