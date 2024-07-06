@@ -1,18 +1,19 @@
 package com.testingez.testingez.services.impls;
 
+import com.testingez.testingez.models.dtos.TestJoinDTO;
+import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.models.entities.Test;
 import com.testingez.testingez.models.enums.TestStatus;
 import com.testingez.testingez.repositories.TestRepository;
-import com.testingez.testingez.repositories.UserRepository;
 import com.testingez.testingez.services.TestService;
 import com.testingez.testingez.services.UserHelperService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -43,6 +44,27 @@ public class TestServiceImpl implements TestService {
         } else {
             this.testRepository.deleteById(id);
         }
+    }
+
+    @Override
+    public String checkUponTest(String code) {
+        Optional<Test> byCode = this.testRepository.findByCode(code);
+        if (byCode.isEmpty()) {
+            return "not found";
+        }
+        if (byCode.get().getStatus().equals(TestStatus.CLOSED)) {
+            return "closed";
+        }
+        return "ok";
+    }
+
+    @Override
+    public TestPreviewDTO getTestPreviewData(String code) {
+        Test test = this.testRepository.findByCode(code)
+                .orElseThrow(() ->
+                        new IllegalArgumentException("No test found with code: " + code));
+        TestPreviewDTO map = this.modelMapper.map(test, TestPreviewDTO.class);
+        return map;
     }
 
 }

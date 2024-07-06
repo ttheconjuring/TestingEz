@@ -1,10 +1,13 @@
 package com.testingez.testingez.web;
 
+import com.testingez.testingez.models.dtos.TestJoinDTO;
+import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.services.TestService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -21,9 +24,43 @@ public class TestController {
         return new TestCreateDTO();
     }
 
+    @ModelAttribute("testJoinData")
+    public TestJoinDTO testJoinData() {
+        return new TestJoinDTO();
+    }
+
     @GetMapping("/join")
     public String join() {
         return "test-join";
+    }
+
+    @PostMapping("/join")
+    public String join(@Valid TestJoinDTO testJoinData,
+                       BindingResult bindingResult,
+                       RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("testJoinData", testJoinData);
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.testJoinDTO", bindingResult);
+            return "redirect:/test/join";
+        }
+        String result = this.testService.checkUponTest(testJoinData.getCode());
+        if (result.equals("not found")) {
+            redirectAttributes.addFlashAttribute("testNotFound", true);
+            return "redirect:/test/join";
+        }
+        if (result.equals("closed")) {
+            redirectAttributes.addFlashAttribute("testClosed", true);
+            return "redirect:/test/join";
+        }
+        redirectAttributes.addAttribute("code", testJoinData.getCode());
+        return "redirect:/test/join/preview";
+    }
+
+    @GetMapping("/join/preview")
+    public String preview(@RequestParam("code") String code, Model model) {
+        TestPreviewDTO testPreviewData = this.testService.getTestPreviewData(code);
+        model.addAttribute("testPreviewData", testPreviewData);
+        return "test-preview";
     }
 
     @GetMapping("/create")
