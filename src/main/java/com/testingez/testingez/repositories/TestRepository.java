@@ -13,4 +13,6 @@ public interface TestRepository extends JpaRepository<Test, Long> {
     @Query("SELECT t FROM Test t ORDER BY t.id DESC LIMIT 1")
     Optional<Test> findLastAdded();
 
+    Optional<Test> findByCode(String code);
+
 }

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{fragments/heads :: head}"></div>
+<body class="font">
+<div class="d-flex flex-column vh-100 gap-5">
+    <div th:replace="~{fragments/headers :: header}"></div>
+
+    <main class="container d-flex justify-content-center flex-grow-1">
+        <div class="bg-secondary shadow rounded p-3 text-white border border-2 border-black fs-5">
+            <form
+                    class="d-flex flex-column align-items-center justify-content-center"
+                    th:object="${testPreviewData}"
+                    th:action="@{/test/join/preview}"
+                    th:method="post"
+            >
+                <h2>"<span th:text="*{name}"></span>"</h2>
+                <h4>Made by <span th:text="*{creatorUsername}"></span></h4>
+                <h4>Created at: <span th:text="*{dateCreated}"></span></h4>
+                <br>
+                <div class="align-self-start">
+                    <p>Description: <span th:text="*{description}"></span></p>
+                    <p>Time for response: <span th:text="*{responseTime}">min</span></p>
+                    <p>Passing score: <span th:text="*{passingScore}"></span></p>
+                    <p>Questions count: <span th:text="*{questionsCount}"></span></p>
+                    <p>Status: <span th:text="*{status}"></span></p>
+                </div>
+                <br>
+                <button
+                        type="submit"
+                        class="btn btn-light px-5 border border-black border-2 shadow rounded">
+                    Start
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <div th:replace="~{fragments/footers :: footer}"></div>
+</div>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>
