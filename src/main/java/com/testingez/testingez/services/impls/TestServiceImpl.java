@@ -60,11 +60,11 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public TestPreviewDTO getTestPreviewData(String code) {
-        Test test = this.testRepository.findByCode(code)
-                .orElseThrow(() ->
-                        new IllegalArgumentException("No test found with code: " + code));
-        TestPreviewDTO map = this.modelMapper.map(test, TestPreviewDTO.class);
-        return map;
+        return this.modelMapper.map(
+                this.testRepository.findByCode(code)
+                        .orElseThrow(() ->
+                                new IllegalArgumentException("No test found with code: " + code)),
+                TestPreviewDTO.class);
     }
 
 }

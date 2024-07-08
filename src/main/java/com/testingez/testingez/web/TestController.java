@@ -1,6 +1,7 @@
 package com.testingez.testingez.web;
 
 import com.testingez.testingez.models.dtos.TestJoinDTO;
+import com.testingez.testingez.models.dtos.TestStartDTO;
 import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.services.TestService;
@@ -61,6 +62,18 @@ public class TestController {
         TestPreviewDTO testPreviewData = this.testService.getTestPreviewData(code);
         model.addAttribute("testPreviewData", testPreviewData);
         return "test-preview";
+    }
+
+    @PostMapping("/join/preview")
+    public String preview(@Valid TestStartDTO testStartData,
+                          BindingResult bindingResult,
+                          RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            // add custom exception handle for invalid test id
+            return null;
+        }
+        redirectAttributes.addAttribute("testId", testStartData.getId());
+        return "redirect:/questions";
     }
 
     @GetMapping("/create")
