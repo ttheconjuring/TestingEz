@@ -26,6 +26,7 @@
                     <p>Status: <span th:text="*{status}"></span></p>
                 </div>
                 <br>
+                <input type="hidden" name="myHiddenValue" th:field="*{id}" th:value="*{id}">
                 <button
                         type="submit"
                         class="btn btn-light px-5 border border-black border-2 shadow rounded">

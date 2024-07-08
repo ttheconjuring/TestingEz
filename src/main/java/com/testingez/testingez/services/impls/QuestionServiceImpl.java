@@ -1,5 +1,6 @@
 package com.testingez.testingez.services.impls;
 
+import com.testingez.testingez.models.dtos.exp.QuestionAnswerDTO;
 import com.testingez.testingez.models.dtos.imp.QuestionCreateDTO;
 import com.testingez.testingez.models.dtos.imp.TestQuestionsDTO;
 import com.testingez.testingez.models.entities.Question;
@@ -44,6 +45,15 @@ public class QuestionServiceImpl implements QuestionService {
                 .orElseThrow(() ->
                         new NullPointerException("The last added test was not found!"))
                 .getQuestionsCount();
+    }
+
+    @Override
+    public List<QuestionAnswerDTO> getQuestionsByTestId(Long testId) {
+       return this.questionRepository.findAllByTestId(testId)
+               .stream()
+               .map(question ->
+                        this.modelMapper.map(question, QuestionAnswerDTO.class))
+                .toList();
     }
 
 }
