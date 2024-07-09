@@ -1,11 +1,10 @@
 package com.testingez.testingez.web;
 
-import com.testingez.testingez.models.dtos.exp.QuestionAnswerDTO;
 import com.testingez.testingez.models.dtos.imp.QuestionCreateDTO;
 import com.testingez.testingez.models.dtos.imp.TestQuestionsDTO;
 import com.testingez.testingez.services.QuestionService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,24 +14,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Controller
 @RequestMapping("/questions")
 public class QuestionsController {
 
     private final QuestionService questionService;
-    private int currentQuestionIndex = 0;
 
-    @GetMapping
-    public String answer(@RequestParam("testId") Long testId, Model model) {
-        List<QuestionAnswerDTO> questionsByTestId = this.questionService.getQuestionsByTestId(testId);
-        if (currentQuestionIndex < questionsByTestId.size()) {
-            model.addAttribute("question", questionsByTestId.get(currentQuestionIndex));
-            currentQuestionIndex++;
-        } else {
-            model.addAttribute("completed", true);
-            currentQuestionIndex = 0;
-        }
+    @GetMapping("/{testId}/{questionNumber}")
+    public String answer(@PathVariable Long testId,
+                         @PathVariable Integer questionNumber,
+                         Model model) {
+        model.addAttribute("questionData",
+                this.questionService.fetchQuestionData(testId, questionNumber));
         return null;
     }
 

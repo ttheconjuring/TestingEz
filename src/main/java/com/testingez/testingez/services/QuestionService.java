@@ -11,6 +11,5 @@ public interface QuestionService {
 
     int getQuestionsCountOfTheLastAddedTest();
 
-    List<QuestionAnswerDTO> getQuestionsByTestId(Long testId);
-
+    QuestionAnswerDTO fetchQuestionData(Long testId, Integer questionNumber);
 }

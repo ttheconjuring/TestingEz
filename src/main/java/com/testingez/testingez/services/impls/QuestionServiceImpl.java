@@ -30,9 +30,10 @@ public class QuestionServiceImpl implements QuestionService {
         if (lastAddedTest.isEmpty()) {
             return false;
         }
-        for (QuestionCreateDTO questionCreateDTO : questions) {
-            Question question = this.modelMapper.map(questionCreateDTO, Question.class);
+        for (int i = 0; i < questions.size(); i++) {
+            Question question = this.modelMapper.map(questions.get(i), Question.class);
             question.setTest(lastAddedTest.get());
+            question.setNumber(i + 1);
             this.questionRepository.saveAndFlush(question);
         }
         return true;
@@ -48,12 +49,14 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<QuestionAnswerDTO> getQuestionsByTestId(Long testId) {
-       return this.questionRepository.findAllByTestId(testId)
-               .stream()
-               .map(question ->
-                        this.modelMapper.map(question, QuestionAnswerDTO.class))
-                .toList();
+    public QuestionAnswerDTO fetchQuestionData(Long testId, Integer questionNumber) {
+        Optional<Question> byTestIdAndNumber = this.questionRepository.findByTestIdAndNumber(testId, questionNumber);
+        if (byTestIdAndNumber.isEmpty()) {
+            return null;
+        }
+        QuestionAnswerDTO map = this.modelMapper.map(byTestIdAndNumber.get(), QuestionAnswerDTO.class);
+        map.setResponseTime(this.testRepository.findById(testId).get().getResponseTime());
+        return map;
     }
 
 }
