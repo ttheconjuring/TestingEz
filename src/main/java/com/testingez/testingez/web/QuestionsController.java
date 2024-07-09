@@ -27,7 +27,7 @@ public class QuestionsController {
                          Model model) {
         model.addAttribute("questionData",
                 this.questionService.fetchQuestionData(testId, questionNumber));
-        return null;
+        return "question-answer";
     }
 
     @GetMapping("/create")
