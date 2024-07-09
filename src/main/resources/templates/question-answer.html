@@ -40,16 +40,22 @@
                 </div>
             </div>
             <div class="w-100">
-                <form>
+                <form
+                        th:action="@{/response/save}"
+                        th:object="${responseData}"
+                        method="post">
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
                             <div class="form-check">
                                 <input class="form-check-input"
                                        id="answer1"
                                        name="answer"
-                                       type="radio">
+                                       type="radio"
+                                       th:field="*{responseText}"
+                                       th:value="${questionData.answer1}"
+                                >
                                 <label class="form-check-label" for="answer1">
-                                    <span th:text="*{answer1}">?????</span>
+                                    <span th:text="${questionData.answer1}">?????</span>
                                 </label>
                             </div>
                         </div>
@@ -58,9 +64,11 @@
                                 <input class="form-check-input"
                                        id="answer2"
                                        name="answer"
-                                       type="radio">
+                                       type="radio"
+                                       th:field="*{responseText}"
+                                       th:value="${questionData.answer2}">
                                 <label class="form-check-label" for="answer2">
-                                    <span th:text="*{answer2}">?????</span>
+                                    <span th:text="${questionData.answer2}">?????</span>
                                 </label>
                             </div>
                         </div>
@@ -71,9 +79,11 @@
                                 <input class="form-check-input"
                                        id="answer3"
                                        name="answer"
-                                       type="radio">
+                                       type="radio"
+                                       th:field="*{responseText}"
+                                       th:value="${questionData.answer3}">
                                 <label class="form-check-label" for="answer3">
-                                    <span th:text="*{answer3}">?????</span>
+                                    <span th:text="${questionData.answer3}">?????</span>
                                 </label>
                             </div>
                         </div>
@@ -82,13 +92,20 @@
                                 <input class="form-check-input"
                                        id="answer4"
                                        name="answer"
-                                       type="radio">
+                                       type="radio"
+                                       th:field="*{responseText}"
+                                       th:value="${questionData.answer4}">
                                 <label class="form-check-label" for="answer4">
-                                    <span th:text="*{answer4}">?????</span>
+                                    <span th:text="${questionData.answer4}">?????</span>
                                 </label>
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" id="questionId" name="questionId" th:value="${questionData.id}">
+                    <!-- those are required to navigate to the next question -->
+                    <input type="hidden" id="testId" name="testId" th:value="${questionData.testId}">
+                    <input type="hidden" id="questionNumber" name="questionNumber" th:value="${questionData.number}">
+                    <!-- --------------------------------------------------- -->
                     <div class="row w-100">
                         <div class="col text-center">
                             <button class="btn btn-secondary border border-2 border-black fs-4 px-4"

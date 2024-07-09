@@ -1,6 +1,7 @@
 package com.testingez.testingez.web;
 
 import com.testingez.testingez.models.dtos.imp.QuestionCreateDTO;
+import com.testingez.testingez.models.dtos.imp.ResponseCreateDTO;
 import com.testingez.testingez.models.dtos.imp.TestQuestionsDTO;
 import com.testingez.testingez.services.QuestionService;
 import jakarta.validation.Valid;
@@ -27,6 +28,7 @@ public class QuestionsController {
                          Model model) {
         model.addAttribute("questionData",
                 this.questionService.fetchQuestionData(testId, questionNumber));
+        model.addAttribute("responseData", new ResponseCreateDTO());
         return "question-answer";
     }
 

@@ -56,6 +56,7 @@ public class QuestionServiceImpl implements QuestionService {
         }
         QuestionAnswerDTO map = this.modelMapper.map(byTestIdAndNumber.get(), QuestionAnswerDTO.class);
         map.setResponseTime(this.testRepository.findById(testId).get().getResponseTime());
+        map.setTestId(testId);
         return map;
     }
 

@@ -27,4 +27,6 @@ public class QuestionAnswerDTO {
 
     private Integer responseTime;
 
+    private Long testId;
+
 }
