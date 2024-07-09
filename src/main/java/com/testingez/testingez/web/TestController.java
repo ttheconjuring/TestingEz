@@ -72,8 +72,7 @@ public class TestController {
             // add custom exception handle for invalid test id
             return null;
         }
-        redirectAttributes.addAttribute("testId", testStartData.getId());
-        return "redirect:/questions";
+        return String.format("redirect:/questions/%d/%d", testStartData.getId(), 1);
     }
 
     @GetMapping("/create")

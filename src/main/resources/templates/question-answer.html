@@ -20,29 +20,42 @@
 </head>
 <body class="bg-secondary vh-100 d-flex justify-content-center align-items-center font">
 <div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="bg-light p-3 border border-black border-3 shadow rounded fs-3">
-        <div class="container d-flex flex-column align-items-center gap-4">
+    <div class="bg-light p-3 border border-black border-3 shadow rounded fs-3 w-50">
+        <div class="container d-flex flex-column align-items-center gap-4"
+             th:object="${questionData}">
             <div class="row w-100">
-                <div class="col text-start">#1</div>
-                <div class="col text-center bg-secondary rounded shadow border border-2 border-black text-warning">
-                    0:45
+                <div class="col-sm-12 col-md-4 text-center">
+                    <span th:text="'#' + *{number}">№?</span>
                 </div>
-                <div class="col text-end">2p.</div>
+                <div class="col-sm-12 col-md-4 text-center bg-secondary rounded shadow border border-2 border-black text-warning">
+                    <span>??:??</span>
+                </div>
+                <div class="col-sm-12 col-md-4 text-center">
+                    <span th:text="'p.' + *{points}">p.?</span>
+                </div>
             </div>
             <div class="row w-100 text-center bg-secondary text-white border border-2 border-black rounded shadow">
-                <div class="col">Question?</div>
+                <div class="col">
+                    <span th:text="*{question}">???????????</span>
+                </div>
             </div>
             <div class="w-100">
-                <form>
+                <form
+                        th:action="@{/response/save}"
+                        th:object="${responseData}"
+                        method="post">
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
                             <div class="form-check">
                                 <input class="form-check-input"
                                        id="answer1"
                                        name="answer"
-                                       type="radio">
+                                       type="radio"
+                                       th:field="*{responseText}"
+                                       th:value="${questionData.answer1}"
+                                >
                                 <label class="form-check-label" for="answer1">
-                                    Default radio
+                                    <span th:text="${questionData.answer1}">?????</span>
                                 </label>
                             </div>
                         </div>
@@ -51,9 +64,11 @@
                                 <input class="form-check-input"
                                        id="answer2"
                                        name="answer"
-                                       type="radio">
+                                       type="radio"
+                                       th:field="*{responseText}"
+                                       th:value="${questionData.answer2}">
                                 <label class="form-check-label" for="answer2">
-                                    Default radio
+                                    <span th:text="${questionData.answer2}">?????</span>
                                 </label>
                             </div>
                         </div>
@@ -64,9 +79,11 @@
                                 <input class="form-check-input"
                                        id="answer3"
                                        name="answer"
-                                       type="radio">
+                                       type="radio"
+                                       th:field="*{responseText}"
+                                       th:value="${questionData.answer3}">
                                 <label class="form-check-label" for="answer3">
-                                    Default radio
+                                    <span th:text="${questionData.answer3}">?????</span>
                                 </label>
                             </div>
                         </div>
@@ -75,13 +92,20 @@
                                 <input class="form-check-input"
                                        id="answer4"
                                        name="answer"
-                                       type="radio">
+                                       type="radio"
+                                       th:field="*{responseText}"
+                                       th:value="${questionData.answer4}">
                                 <label class="form-check-label" for="answer4">
-                                    Default radio
+                                    <span th:text="${questionData.answer4}">?????</span>
                                 </label>
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" id="questionId" name="questionId" th:value="${questionData.id}">
+                    <!-- those are required to navigate to the next question -->
+                    <input type="hidden" id="testId" name="testId" th:value="${questionData.testId}">
+                    <input type="hidden" id="questionNumber" name="questionNumber" th:value="${questionData.number}">
+                    <!-- --------------------------------------------------- -->
                     <div class="row w-100">
                         <div class="col text-center">
                             <button class="btn btn-secondary border border-2 border-black fs-4 px-4"

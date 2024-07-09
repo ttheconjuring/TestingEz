@@ -37,6 +37,9 @@ public class Question {
     @Column(nullable = false)
     private Integer points;
 
+    @Column(nullable = false)
+    private Integer number;
+
     @ManyToOne
     @JoinColumn(name = "test_id", referencedColumnName = "id")
     private Test test;

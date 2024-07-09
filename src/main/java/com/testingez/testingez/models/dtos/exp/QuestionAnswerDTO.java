@@ -23,4 +23,10 @@ public class QuestionAnswerDTO {
 
     private Integer points;
 
+    private Integer number;
+
+    private Integer responseTime;
+
+    private Long testId;
+
 }
