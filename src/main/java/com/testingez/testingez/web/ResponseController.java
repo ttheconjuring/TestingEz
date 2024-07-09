@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/response")
 public class ResponseController {
 
-    @PostMapping(value = "/save")
+    @PostMapping("/save")
     public String saveResponse(@Valid ResponseCreateDTO responseData) {
         // TODO: handle the response
         return String.format("redirect:/questions/%d/%d",
