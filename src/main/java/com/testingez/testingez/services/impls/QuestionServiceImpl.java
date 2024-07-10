@@ -13,7 +13,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -26,13 +25,11 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public boolean putDown(TestQuestionsDTO testQuestionsDTO) {
         List<QuestionCreateDTO> questions = testQuestionsDTO.getQuestions();
-        Optional<Test> lastAddedTest = this.testRepository.findLastAdded();
-        if (lastAddedTest.isEmpty()) {
-            return false;
-        }
+        Test lastAddedTest = this.testRepository.findLastAdded()
+                .orElseThrow(() -> new NullPointerException("The last added test was not found!"));
         for (int i = 0; i < questions.size(); i++) {
             Question question = this.modelMapper.map(questions.get(i), Question.class);
-            question.setTest(lastAddedTest.get());
+            question.setTest(lastAddedTest);
             question.setNumber(i + 1);
             this.questionRepository.saveAndFlush(question);
         }
@@ -50,12 +47,16 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public QuestionAnswerDTO fetchQuestionData(Long testId, Integer questionNumber) {
-        Optional<Question> byTestIdAndNumber = this.questionRepository.findByTestIdAndNumber(testId, questionNumber);
-        if (byTestIdAndNumber.isEmpty()) {
+        Test test = this.testRepository.findById(testId)
+                .orElseThrow(() -> new NullPointerException("Test with id: " + testId + " was not found!"));
+        if (test.getQuestionsCount() < questionNumber) {
             return null;
         }
-        QuestionAnswerDTO map = this.modelMapper.map(byTestIdAndNumber.get(), QuestionAnswerDTO.class);
-        map.setResponseTime(this.testRepository.findById(testId).get().getResponseTime());
+        Question question = this.questionRepository.findByTestIdAndNumber(testId, questionNumber)
+                        .orElseThrow(() -> new NullPointerException("Question(#" + questionNumber + ") associated with test: " + testId +
+                                "was not found!"));
+        QuestionAnswerDTO map = this.modelMapper.map(question, QuestionAnswerDTO.class);
+        map.setResponseTime(test.getResponseTime());
         map.setTestId(testId);
         return map;
     }

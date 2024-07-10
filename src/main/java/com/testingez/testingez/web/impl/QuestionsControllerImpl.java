@@ -1,5 +1,6 @@
 package com.testingez.testingez.web.impl;
 
+import com.testingez.testingez.models.dtos.exp.QuestionAnswerDTO;
 import com.testingez.testingez.models.dtos.imp.QuestionCreateDTO;
 import com.testingez.testingez.models.dtos.imp.ResponseCreateDTO;
 import com.testingez.testingez.models.dtos.imp.TestQuestionsDTO;
@@ -28,8 +29,13 @@ public class QuestionsControllerImpl implements QuestionsController {
     public String answer(@PathVariable Long testId,
                          @PathVariable Integer questionNumber,
                          Model model) {
-        model.addAttribute("questionData",
-                this.questionService.fetchQuestionData(testId, questionNumber));
+        QuestionAnswerDTO questionAnswerDTO = this.questionService.fetchQuestionData(testId, questionNumber);
+        if (questionAnswerDTO == null) {
+            // TODO: redirect to result page
+            model.addAttribute("The test is over!");
+            return "redirect:/operation/success";
+        }
+        model.addAttribute("questionData", questionAnswerDTO);
         model.addAttribute("responseData", new ResponseCreateDTO());
         return "question-answer";
     }

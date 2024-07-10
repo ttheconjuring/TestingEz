@@ -53,7 +53,7 @@ public class SecurityConfig {
                                     // What is the logout URL
                                     .logoutUrl("/account/logout")
                                     // Where should we go after logout
-                                    .logoutSuccessUrl("/account/login")
+                                    .logoutSuccessUrl("/")
                                     // Delete the session id cookie
                                     .deleteCookies("JSESSIONID")
                                     // Invalidate session after logout
