@@ -1,60 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Failure Page</title>
-    <style>
-        body {
-            background-color: #2d2d2d;
-            color: #f0f0f0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .container {
-            text-align: center;
-            padding: 20px;
-            border: 1px solid #4d4d4d;
-            border-radius: 10px;
-            background-color: #3d3d3d;
-        }
-
-        h1 {
-            font-size: 48px;
-            color: #e0e0e0;
-        }
-
-        p {
-            font-size: 24px;
-            color: #c0c0c0;
-        }
-
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 18px;
-            color: #fff;
-            background-color: #5a5a5a;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-
-        a:hover {
-            background-color: #7a7a7a;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h1>Something Went Wrong</h1>
-    <p>We're sorry, but something is not alright.</p>
-    <a href="#">Go Back</a>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{fragments/heads :: head}"></div>
+<body class="font">
+<div class="d-flex flex-column align-items-center justify-content-center vh-100 bg-secondary">
+    <div class="bg-light shadow rounded p-5 text-center border border-black border-2">
+        <h1>Oops! Something went wrong...</h1>
+        <p class="fs-3"><span th:text="${message}"></span></p>
+        <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover fs-3"
+           href="/user/home">Home Page</a>
+    </div>
 </div>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>
