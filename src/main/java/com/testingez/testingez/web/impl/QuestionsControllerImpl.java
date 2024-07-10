@@ -28,11 +28,12 @@ public class QuestionsControllerImpl implements QuestionsController {
     @GetMapping("/{testId}/{questionNumber}")
     public String answer(@PathVariable Long testId,
                          @PathVariable Integer questionNumber,
-                         Model model) {
+                         Model model,
+                         RedirectAttributes redirectAttributes) {
         QuestionAnswerDTO questionAnswerDTO = this.questionService.fetchQuestionData(testId, questionNumber);
         if (questionAnswerDTO == null) {
             // TODO: redirect to result page
-            model.addAttribute("The test is over!");
+            redirectAttributes.addFlashAttribute("message", "You completed the test!");
             return "redirect:/operation/success";
         }
         model.addAttribute("questionData", questionAnswerDTO);

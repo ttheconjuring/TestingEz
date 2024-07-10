@@ -1,7 +1,6 @@
 package com.testingez.testingez.web;
 
 import com.testingez.testingez.models.dtos.TestJoinDTO;
-import com.testingez.testingez.models.dtos.TestStartDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,8 +13,6 @@ public interface TestController {
     String join(TestJoinDTO testJoinData, BindingResult bindingResult, RedirectAttributes redirectAttributes);
 
     String preview(String code, Model model);
-
-    String preview(TestStartDTO testStartData, BindingResult bindingResult, RedirectAttributes redirectAttributes);
 
     String create();
 

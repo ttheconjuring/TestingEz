@@ -26,12 +26,12 @@
                     <p>Status: <span th:text="*{status}"></span></p>
                 </div>
                 <br>
-                <input type="hidden" name="myHiddenValue" th:field="*{id}" th:value="*{id}">
-                <button
+                <a
+                        th:href="@{/questions/{id}/1(id=*{id})}"
                         type="submit"
                         class="btn btn-light px-5 border border-black border-2 shadow rounded">
                     Start
-                </button>
+                </a>
             </form>
         </div>
     </main>

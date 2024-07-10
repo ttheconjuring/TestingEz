@@ -1,7 +1,6 @@
 package com.testingez.testingez.web.impl;
 
 import com.testingez.testingez.models.dtos.TestJoinDTO;
-import com.testingez.testingez.models.dtos.TestStartDTO;
 import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.services.TestService;
@@ -47,6 +46,7 @@ public class TestControllerImpl implements TestController {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.testJoinDTO", bindingResult);
             return "redirect:/test/join";
         }
+        // TODO: add case for when the user has already attended the test
         String result = this.testService.checkUponTest(testJoinData.getCode());
         if (result.equals("not found")) {
             redirectAttributes.addFlashAttribute("testNotFound", true);
@@ -66,18 +66,6 @@ public class TestControllerImpl implements TestController {
         TestPreviewDTO testPreviewData = this.testService.getTestPreviewData(code);
         model.addAttribute("testPreviewData", testPreviewData);
         return "test-preview";
-    }
-
-    @Override
-    @PostMapping("/join/preview")
-    public String preview(@Valid TestStartDTO testStartData,
-                          BindingResult bindingResult,
-                          RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            // add custom exception handle for invalid test id
-            return null;
-        }
-        return String.format("redirect:/questions/%d/%d", testStartData.getId(), 1);
     }
 
     @Override

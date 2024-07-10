@@ -7,7 +7,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 public interface QuestionsController {
 
-    String answer(Long testId, Integer questionNumber, Model model);
+    String answer(Long testId, Integer questionNumber, Model model, RedirectAttributes redirectAttributes);
 
     String writeQuestions(Model model);
 
