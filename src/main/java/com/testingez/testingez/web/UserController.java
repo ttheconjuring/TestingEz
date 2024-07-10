@@ -1,73 +1,18 @@
 package com.testingez.testingez.web;
 
 import com.testingez.testingez.models.dtos.exp.UserProfileDTO;
-import com.testingez.testingez.services.UserService;
-import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@AllArgsConstructor
-@Controller
-@RequestMapping("/user")
-public class UserController {
+public interface UserController {
 
-    private final UserService userService;
+    String home();
 
-    @GetMapping("/home")
-    public String home() {
-        return "user-home";
-    }
+    String profile(Model model);
 
-    @GetMapping("/profile")
-    public String profile(Model model) {
-        model.addAttribute("userProfileData", this.userService.getUserProfileData());
-        return "user-profile";
-    }
+    String edit(Model model);
 
-    @GetMapping("/profile/edit")
-    public String edit(Model model) {
-        if (!model.containsAttribute("userProfileData")) {
-            model.addAttribute("userProfileData", this.userService.getUserProfileData());
-        }
-        return "user-profile-edit";
-    }
-
-    @PostMapping("/profile/edit")
-    public String edit(@Valid UserProfileDTO userProfileData,
-                       BindingResult bindingResult,
-                       RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userProfileData",
-                    bindingResult);
-            redirectAttributes.addFlashAttribute("userProfileData", userProfileData);
-            return "redirect:/user/profile/edit";
-        }
-
-        String result = this.userService.editProfileData(userProfileData);
-
-        if (!result.equals("success")) {
-            String errors = result.trim();
-            if (errors.contains("username")) {
-                redirectAttributes.addFlashAttribute("invalidUsername", true);
-            }
-            if (errors.contains("email")) {
-                redirectAttributes.addFlashAttribute("invalidEmail", true);
-            }
-            if (errors.contains("phone")) {
-                redirectAttributes.addFlashAttribute("invalidPhone", true);
-            }
-            redirectAttributes.addFlashAttribute("userProfileData", userProfileData);
-            return "redirect:/user/profile/edit";
-        }
-
-        redirectAttributes.addFlashAttribute("message", "profile updated successfully");
-        return "redirect:/operation/success";
-    }
+    String edit(UserProfileDTO userProfileData, BindingResult bindingResult, RedirectAttributes redirectAttributes);
 
 }
