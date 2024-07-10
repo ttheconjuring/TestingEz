@@ -26,5 +26,5 @@ public class GeneralConfig {
     public RestClient restClient() {
         return RestClient.create();
     }
-
+    
 }
