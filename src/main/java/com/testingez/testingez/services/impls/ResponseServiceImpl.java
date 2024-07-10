@@ -29,8 +29,14 @@ public class ResponseServiceImpl implements ResponseService {
         Response response = new Response();
         Question question = this.questionRepository.findById(responseData.getQuestionId())
                 .orElseThrow(() -> new IllegalArgumentException("Question that should be associated with a response could not be found!"));
-        response.setResponseText(responseData.getResponseText());
-        response.setIsCorrect(responseData.getResponseText().equals(question.getCorrectAnswer()));
+        String responseText = responseData.getResponseText();
+        if (responseText == null) {
+            response.setResponseText("(no selected answer)");
+            response.setIsCorrect(false);
+        } else {
+            response.setResponseText(responseText);
+            response.setIsCorrect(responseText.equals(question.getCorrectAnswer()));
+        }
         response.setSubmittedOn(LocalDateTime.now());
         response.setUser(this.userHelperService.getLoggedUser());
         response.setQuestion(question);
