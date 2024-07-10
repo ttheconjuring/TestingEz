@@ -27,10 +27,10 @@ public class Response {
     @Column(name = "submitten_on", nullable = false)
     private LocalDateTime submittedOn;
 
-    @OneToOne
+    @ManyToOne
     private User user;
 
-    @OneToOne
+    @ManyToOne
     private Question question;
 
 }
