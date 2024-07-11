@@ -8,36 +8,36 @@ import lombok.*;
 @NoArgsConstructor
 public class TestCreateDTO {
 
-    @NotNull(message = "Test name should not be null.")
-    @Size(min = 5, max = 25, message = "Test name should be between 5 and 25 symbols.")
+    @NotNull(message = "{property.should.not.be.null}")
+    @Size(min = 5, max = 25, message = "{test.name.should.be.between}")
     private String name;
 
-    @NotNull(message = "Description should not be null.")
-    @Size(max = 50, message = "Description should be up to 50 symbols.")
+    @NotNull(message = "{property.should.not.be.null}")
+    @Size(max = 50, message = "{description.should.be.up.to}")
     private String description;
 
-    @NotNull(message = "Code should not be null.")
+    @NotNull(message = "{property.should.not.be.null}")
     @Pattern(regexp = "^(?=.*[A-Za-z].*[A-Za-z])(?=.*\\d.*\\d)(?=.*[!@#$%^&*].*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{6}$",
-            message = "Code should contain 2 letter, 2 digits and 2 special symbols.")
+            message = "{code.should.contain}")
     private String code;
 
-    @NotNull(message = "Response time should not be null.")
-    @Positive(message = "Response time should be a positive number.")
-    @Max(value = 10, message = "Response time should up to 10 minutes.")
+    @NotNull(message = "{property.should.not.be.null}")
+    @Positive(message = "{property.should.be.positive}")
+    @Max(value = 10, message = "{response.time.should.be.up.to}")
     private Integer responseTime;
 
-    @NotNull(message = "Passing score should not be null.")
-    @Min(value = 0, message = "Passing score should be 0 or more.")
-    @Max(value = 100, message = "Passing score should be up to 100.")
+    @NotNull(message = "{property.should.not.be.null}")
+    @Min(value = 0, message = "{passing.score.should.be}")
+    @Max(value = 100, message = "{passing.score.should.be.up.to}")
     private Integer passingScore;
 
-    @NotNull(message = "Questions count should not be null.")
-    @Positive(message = "Questions count should be positive number.")
-    @Max(value = 50, message = "Questions count should be up to 50 questions.")
+    @NotNull(message = "{property.should.not.be.null}")
+    @Positive(message = "{property.should.be.positive}")
+    @Max(value = 50, message = "{questions.count.should.be.up.to}")
     private Integer questionsCount;
 
-    @NotNull(message = "Status should not be null.")
-    @Pattern(regexp = "^(open|closed)$", message = "Status should be either open or closed.")
+    @NotNull(message = "{property.should.not.be.null}")
+    @Pattern(regexp = "^(open|closed)$", message = "{status.should.be.either}")
     private String status;
 
 }

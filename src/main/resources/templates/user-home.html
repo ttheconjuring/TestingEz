@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{fragments/heads :: head}"></div>
 <body class="font">
 <div class="d-flex flex-column vh-100 gap-5">
@@ -8,7 +8,7 @@
     <main class="container d-flex justify-content-center flex-grow-1">
         <div class="row justify-content-around align-items-center flex-fill gap-3">
             <div class="col-sm-11 col-md-11 col-lg-6">
-                <h1 class="mb-3">Test of the Day</h1>
+                <h1 class="mb-3" th:text="#{testOfTheDay}">Test of the Day</h1>
                 <div class="bg-secondary rounded shadow border border-2 border-black p-2 fs-5 text-white text-center overflow-auto"
                      style="height: 545px">
                     <div class="question">
@@ -18,7 +18,7 @@
                                 <input class="bg-light rounded shadow border border-2 border-black py-1"
                                        id="q1">
                             </label>
-                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded">
+                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded" th:text="#{check}">
                                 check
                             </button>
                         </div>
@@ -30,7 +30,7 @@
                                 <input class="bg-light rounded shadow border border-2 border-black py-1"
                                        id="q1">
                             </label>
-                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded">
+                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded" th:text="#{check}">
                                 check
                             </button>
                         </div>
@@ -42,7 +42,7 @@
                                 <input class="bg-light rounded shadow border border-2 border-black py-1"
                                        id="q1">
                             </label>
-                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded">
+                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded" th:text="#{check}">
                                 check
                             </button>
                         </div>
@@ -54,7 +54,7 @@
                                 <input class="bg-light rounded shadow border border-2 border-black py-1"
                                        id="q1">
                             </label>
-                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded">
+                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded" th:text="#{check}">
                                 check
                             </button>
                         </div>
@@ -66,7 +66,7 @@
                                 <input class="bg-light rounded shadow border border-2 border-black py-1"
                                        id="q1">
                             </label>
-                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded">
+                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded" th:text="#{check}">
                                 check
                             </button>
                         </div>
@@ -78,7 +78,7 @@
                                 <input class="bg-light rounded shadow border border-2 border-black py-1"
                                        id="q1">
                             </label>
-                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded">
+                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded" th:text="#{check}">
                                 check
                             </button>
                         </div>
@@ -90,7 +90,7 @@
                                 <input class="bg-light rounded shadow border border-2 border-black py-1"
                                        id="q1">
                             </label>
-                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded">
+                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded" th:text="#{check}">
                                 check
                             </button>
                         </div>
@@ -102,7 +102,7 @@
                                 <input class="bg-light rounded shadow border border-2 border-black py-1"
                                        id="q1">
                             </label>
-                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded">
+                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded" th:text="#{check}">
                                 check
                             </button>
                         </div>
@@ -114,7 +114,7 @@
                                 <input class="bg-light rounded shadow border border-2 border-black py-1"
                                        id="q1">
                             </label>
-                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded">
+                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded" th:text="#{check}">
                                 check
                             </button>
                         </div>
@@ -126,7 +126,7 @@
                                 <input class="bg-light rounded shadow border border-2 border-black py-1"
                                        id="q1">
                             </label>
-                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded">
+                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded" th:text="#{check}">
                                 check
                             </button>
                         </div>
@@ -134,32 +134,35 @@
                 </div>
             </div>
             <div class="col-sm-11 col-md-11 col-lg-5">
-                <h1 class="mb-3">Miscellaneous</h1>
+                <h1 class="mb-3" th:text="#{miscellaneous}">Miscellaneous</h1>
                 <div class="bg-secondary shadow rounded border border-2 border-black p-3 text-black flex-column gap-2">
                     <div class="card shadow mb-2">
                         <div class="card-body">
-                            <h5 class="card-title">Random Fact</h5>
+                            <h5 class="card-title" th:text="#{randomFact}">Random Fact</h5>
                             <p class="card-text">With supporting text below as a natural lead-in to additional
                                 content.</p>
-                            <button class="btn btn-secondary border border-black border-2 shadow rounded">Generate
+                            <button class="btn btn-secondary border border-black border-2 shadow rounded" th:text="#{generate}">
+                                Generate
                             </button>
                         </div>
                     </div>
                     <div class="card shadow mb-2">
                         <div class="card-body">
-                            <h5 class="card-title">Random Joke</h5>
+                            <h5 class="card-title" th:text="#{randomJoke}">Random Joke</h5>
                             <p class="card-text">With supporting text below as a natural lead-in to additional
                                 content.</p>
-                            <button class="btn btn-secondary border border-black border-2 shadow rounded">Generate
+                            <button class="btn btn-secondary border border-black border-2 shadow rounded" th:text="#{generate}">
+                                Generate
                             </button>
                         </div>
                     </div>
                     <div class="card shadow">
                         <div class="card-body">
-                            <h5 class="card-title">Random Quote</h5>
+                            <h5 class="card-title" th:text="#{randomQuote}">Random Quote</h5>
                             <p class="card-text">With supporting text below as a natural lead-in to additional
                                 content.</p>
-                            <button class="btn btn-secondary border border-black border-2 shadow rounded">Generate
+                            <button class="btn btn-secondary border border-black border-2 shadow rounded" th:text="#{generate}">
+                                Generate
                             </button>
                         </div>
                     </div>

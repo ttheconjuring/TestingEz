@@ -8,34 +8,34 @@ import lombok.*;
 @NoArgsConstructor
 public class QuestionCreateDTO {
 
-    @NotNull(message = "Question should not be null.")
-    @NotEmpty(message = "Question should not be empty.")
+    @NotNull(message = "{property.should.not.be.null}")
+    @NotEmpty(message = "{property.should.not.be.empty}")
     private String question;
 
-    @NotNull(message = "Answers should not be null.")
-    @NotEmpty(message = "Answers should not be empty.")
+    @NotNull(message = "{property.should.not.be.null}")
+    @NotEmpty(message = "{property.should.not.be.empty}")
     private String answer1;
 
-    @NotNull(message = "Answers should not be null.")
-    @NotEmpty(message = "Answers should not be empty.")
+    @NotNull(message = "{property.should.not.be.null}")
+    @NotEmpty(message = "{property.should.not.be.empty}")
     private String answer2;
 
-    @NotNull(message = "Answers should not be null.")
-    @NotEmpty(message = "Answers should not be empty.")
+    @NotNull(message = "{property.should.not.be.null}")
+    @NotEmpty(message = "{property.should.not.be.empty}")
     private String answer3;
 
-    @NotNull(message = "Answers should not be null.")
-    @NotEmpty(message = "Answers should not be empty.")
+    @NotNull(message = "{property.should.not.be.null}")
+    @NotEmpty(message = "{property.should.not.be.empty}")
     private String answer4;
 
-    @NotNull(message = "Answers should not be null.")
-    @NotEmpty(message = "Answers should not be empty.")
+    @NotNull(message = "{property.should.not.be.null}")
+    @NotEmpty(message = "{property.should.not.be.empty}")
     private String correctAnswer;
 
-    @NotNull(message = "Points should not be null.")
-    @Digits(integer = 3, fraction = 0, message = "Points should be a number.")
-    @Max(value = 100, message = "Points should be up to 100.")
-    @Positive(message = "Points should be a positive number.")
+    @NotNull(message = "{property.should.not.be.null}")
+    @Digits(integer = 3, fraction = 0, message = "{points.should.be.a.number}")
+    @Max(value = 100, message = "{points.should.be.up.to}")
+    @Positive(message = "{property.should.be.positive}")
     private Integer points;
 
 }
