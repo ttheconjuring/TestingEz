@@ -59,16 +59,7 @@
     <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $(".flag").click(function () {
-            var selectedOption = $(this).attr('id');
-            if (selectedOption !== '') {
-                window.location.replace('/?lang=' + selectedOption);
-            }
-        });
-    });
-</script>
+<script src="/js/change-language.js"></script>
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>
