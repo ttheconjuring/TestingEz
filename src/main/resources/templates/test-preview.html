@@ -15,21 +15,22 @@
                     th:method="post"
             >
                 <h2>"<span th:text="*{name}"></span>"</h2>
-                <h4>Made by <span th:text="*{creatorUsername}"></span></h4>
-                <h4>Created at: <span th:text="*{dateCreated}"></span></h4>
+                <h4><span th:text="#{madeBy}">Made by</span> <span th:text="*{creatorUsername}"></span></h4>
+                <h4><span th:text="#{createdAt}">Created at:</span> <span th:text="*{dateCreated}"></span></h4>
                 <br>
                 <div class="align-self-start">
-                    <p>Description: <span th:text="*{description}"></span></p>
-                    <p>Time for response: <span th:text="*{responseTime}">min</span></p>
-                    <p>Passing score: <span th:text="*{passingScore}"></span></p>
-                    <p>Questions count: <span th:text="*{questionsCount}"></span></p>
-                    <p>Status: <span th:text="*{status}"></span></p>
+                    <p><span th:text="#{description}">Description:</span> <span th:text="*{description}"></span></p>
+                    <p><span th:text="#{timeForResponse}">Time for response:</span> <span th:text="*{responseTime}">min</span></p>
+                    <p><span th:text="#{passingScore}">Passing score:</span> <span th:text="*{passingScore}"></span></p>
+                    <p><span th:text="#{questionsCount}">Questions count:</span> <span th:text="*{questionsCount}"></span></p>
+                    <p><span th:text="#{status}">Status:</span> <span th:text="*{status}"></span></p>
                 </div>
                 <br>
                 <a
                         th:href="@{/questions/{id}/1(id=*{id})}"
                         type="submit"
-                        class="btn btn-light px-5 border border-black border-2 shadow rounded">
+                        class="btn btn-light px-5 border border-black border-2 shadow rounded"
+                        th:text="#{start}">
                     Start
                 </a>
             </form>

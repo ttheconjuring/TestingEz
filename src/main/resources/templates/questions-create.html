@@ -14,12 +14,12 @@
                     th:object="${testQuestionsData}"
             >
                 <div th:each="question, questionIndex : ${testQuestionsData.questions}">
-                    <h2 class="text-center">Question #<span th:text="${questionIndex.index + 1}"></span></h2>
+                    <h2 class="text-center"><span th:text="#{questionNumber}">Question #</span><span th:text="${questionIndex.index + 1}"></span></h2>
                     <div class="form-group mb-3">
                         <input class="form-control border border-black border-2 shadow fs-5 text-center"
                                id="question"
                                name="question"
-                               placeholder="Enter your question"
+                               th:placeholder="#{enterYourQuestion}"
                                th:classappend="${#fields.hasErrors('questions[' + questionIndex.index + '].question')} ? 'is-invalid' : ''"
                                th:field="*{questions[__${questionIndex.index}__].question}"
                                type="text">
@@ -34,7 +34,7 @@
                                 <input class="form-control border border-black shadow fs-5"
                                        id="answer1"
                                        name="answer1"
-                                       placeholder="Enter answer 1"
+                                       th:placeholder="#{enterAnswer1}"
                                        th:classappend="${#fields.hasErrors('questions[' + questionIndex.index + '].answer1')} ? 'is-invalid' : ''"
                                        th:field="*{questions[__${questionIndex.index}__].answer1}"
                                        type="text">
@@ -48,8 +48,8 @@
                             <div class="form-group">
                                 <input class="form-control border border-black shadow fs-5"
                                        id="answer2"
-                                       name="answer1"
-                                       placeholder="Enter answer 2"
+                                       name="answer2"
+                                       th:placeholder="#{enterAnswer2}"
                                        th:classappend="${#fields.hasErrors('questions[' + questionIndex.index + '].answer2')} ? 'is-invalid' : ''"
                                        th:field="*{questions[__${questionIndex.index}__].answer2}"
                                        type="text">
@@ -63,8 +63,8 @@
                             <div class="form-group">
                                 <input class="form-control border border-black shadow fs-5"
                                        id="answer3"
-                                       name="answer1"
-                                       placeholder="Enter answer 3"
+                                       name="answer3"
+                                       th:placeholder="#{enterAnswer3}"
                                        th:classappend="${#fields.hasErrors('questions[' + questionIndex.index + '].answer3')} ? 'is-invalid' : ''"
                                        th:field="*{questions[__${questionIndex.index}__].answer3}"
                                        type="text">
@@ -78,8 +78,8 @@
                             <div class="form-group">
                                 <input class="form-control border border-black shadow fs-5"
                                        id="answer4"
-                                       name="answer1"
-                                       placeholder="Enter answer 4"
+                                       name="answer4"
+                                       th:placeholder="#{enterAnswer4}"
                                        th:classappend="${#fields.hasErrors('questions[' + questionIndex.index + '].answer4')} ? 'is-invalid' : ''"
                                        th:field="*{questions[__${questionIndex.index}__].answer4}"
                                        type="text">
@@ -95,7 +95,7 @@
                             <input class="form-control border border-black shadow fs-5"
                                    id="correctAnswer"
                                    name="correctAnswer"
-                                   placeholder="correct answer"
+                                   th:placeholder="#{correctAnswer}"
                                    th:classappend="${#fields.hasErrors('questions[' + questionIndex.index + '].correctAnswer')} ? 'is-invalid' : ''"
                                    th:field="*{questions[__${questionIndex.index}__].correctAnswer}"
                                    type="text">
@@ -108,7 +108,7 @@
                             <input class="form-control border border-black shadow fs-5 text-center"
                                    id="points"
                                    name="points"
-                                   placeholder="points"
+                                   th:placeholder="#{points}"
                                    th:classappend="${#fields.hasErrors('questions[' + questionIndex.index + '].points')} ? 'is-invalid' : ''"
                                    th:field="*{questions[__${questionIndex.index}__].points}"
                                    type="number">
@@ -120,14 +120,14 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center gap-1 mt-3">
-                    <button type="submit" class="btn btn-success border border-black border-2 shadow fs-4">
+                    <button type="submit" class="btn btn-success border border-black border-2 shadow fs-4" th:text="#{complete}">
                         Complete
                     </button>
                 </div>
             </form>
             <div class="d-flex justify-content-center gap-1 mt-3">
                 <form th:action="@{/test/delete}" method="post">
-                    <button type="submit" class="btn btn-danger border border-black border-2 shadow fs-4">
+                    <button type="submit" class="btn btn-danger border border-black border-2 shadow fs-4" th:text="#{cancel}">
                         Cancel
                     </button>
                 </form>

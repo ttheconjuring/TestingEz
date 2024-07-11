@@ -6,9 +6,8 @@
     <main class="container d-flex flex-column flex-fill align-item-center justify-content-center flex-grow-1 bg-secondary">
         <div class="row justify-content-center">
             <div class="col-sm-12 col-md-10 col-lg-8 bg-light shadow rounded border border-2 border-black p-3">
-                <h2 class="text-center">Register</h2>
+                <h2 class="text-center" th:text="#{register}">Register</h2>
                 <form
-                        action="#"
                         class="needs-validation"
                         method="post"
                         novalidate
@@ -17,7 +16,7 @@
                 >
                     <div class="row justify-content-center">
                         <div class="col">
-                            <label for="username" class="form-label">Username:</label>
+                            <label for="username" class="form-label" th:text="#{registerUsername}">Username:</label>
                             <div class="input-group has-validation">
                                 <input
                                         aria-describedby="inputGroupPrepend"
@@ -36,7 +35,7 @@
                                  th:errors="*{username}"
                                  th:if="${#fields.hasErrors('username')}">
                             </div>
-                            <div th:if="${invalidUsername}" class="text-danger fs-6">This username is
+                            <div th:if="${invalidUsername}" class="text-danger fs-6" th:text="#{usernameInUse}">This username is
                                 already in use.
                             </div>
                         </div>
@@ -44,7 +43,7 @@
 
                     <div class="row justify-content-center">
                         <div class="col">
-                            <label for="password" class="form-label">Password:</label>
+                            <label for="password" class="form-label" th:text="#{registerPassword}">Password:</label>
                             <div class="input-group has-validation">
                                 <input
                                         class="form-control border border-black fs-6"
@@ -61,13 +60,13 @@
                                  th:errors="*{password}"
                                  th:if="${#fields.hasErrors('password')}">
                             </div>
-                            <div th:if="${invalidPasswords}" class="text-danger fs-6">Passwords do not match.</div>
+                            <div th:if="${invalidPasswords}" class="text-danger fs-6" th:text="#{passwordsNotMatching}">Passwords DO NOT match.</div>
                         </div>
                     </div>
 
                     <div class="row justify-content-center">
                         <div class="col">
-                            <label for="confirmPassword" class="form-label">Confirm password:</label>
+                            <label for="confirmPassword" class="form-label" th:text="#{confirmPassword}">Confirm password:</label>
                             <div class="input-group has-validation">
                                 <input
                                         class="form-control border border-black fs-6"
@@ -89,7 +88,7 @@
 
                     <div class="row justify-content-center">
                         <div class="col">
-                            <label for="firstName" class="form-label">First Name:</label>
+                            <label for="firstName" class="form-label" th:text="#{firstName}">First Name:</label>
                             <div class="input-group has-validation">
                                 <input
                                         class="form-control border border-black fs-6"
@@ -110,7 +109,7 @@
 
                     <div class="row justify-content-center">
                         <div class="col">
-                            <label for="lastName" class="form-label">Last Name:</label>
+                            <label for="lastName" class="form-label" th:text="#{lastName}">Last Name:</label>
                             <div class="input-group has-validation">
                                 <input
                                         class="form-control border border-black fs-6"
@@ -131,7 +130,7 @@
 
                     <div class="row justify-content-center">
                         <div class="col">
-                            <label for="email" class="form-label">Email:</label>
+                            <label for="email" class="form-label" th:text="#{registerEmail}">Email:</label>
                             <div class="input-group has-validation">
                                 <input
                                         class="form-control border border-black fs-6"
@@ -148,7 +147,7 @@
                                  th:errors="*{email}"
                                  th:if="${#fields.hasErrors('email')}">
                             </div>
-                            <div th:if="${invalidEmail}" class="text-danger fs-6">This email is
+                            <div th:if="${invalidEmail}" class="text-danger fs-6" th:text="#{emailInUse}">This email is
                                 already in use.
                             </div>
                         </div>
@@ -156,7 +155,7 @@
 
                     <div class="row justify-content-center">
                         <div class="col">
-                            <label for="phone" class="form-label">Phone number:</label>
+                            <label for="phone" class="form-label" th:text="#{registerPhone}">Phone number:</label>
                             <div class="input-group has-validation">
                                 <input
                                         class="form-control border border-black fs-6"
@@ -174,7 +173,7 @@
                                  th:errors="*{phone}"
                                  th:if="${#fields.hasErrors('phone')}">
                             </div>
-                            <div th:if="${invalidPhone}" class="text-danger fs-6">This phone is
+                            <div th:if="${invalidPhone}" class="text-danger fs-6" th:text="#{phoneInUse}">This phone is
                                 already in use.
                             </div>
                         </div>
@@ -185,6 +184,7 @@
                             <button
                                     type="submit"
                                     class="btn btn-secondary border border-black border-2 shadow rounded fs-5 px-5 mt-3"
+                                    th:text="#{signUp}"
                             >
                                 Sign Up
                             </button>

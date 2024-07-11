@@ -20,18 +20,29 @@
         </nav>
     </header>
 
-    <main
-            class="d-flex justify-content-center align-items-center flex-grow-1 bg-light text-center"
-    >
+    <main class="d-flex justify-content-center align-items-center flex-grow-1 bg-light text-center">
         <div class="container">
-            <p class="m-0 fs-1">Welcome to TestingEz</p>
-            <p class="fs-5">
-                Start testing whomever you want <br/>on whatever you want!
+            <div class="d-flex justify-content-center gap-1">
+                <img src="/images/united-kingdom-flag.png" alt="UN flag" id="en" class="flag"
+                     style="height: auto; width: 30px; cursor: pointer">
+                <img src="/images/germany-flag.png" alt="DE flag" id="de" class="flag"
+                     style="height: auto; width: 30px; cursor: pointer">
+                <img src="/images/france-flag.png" alt="FR flag" id="fr" class="flag"
+                     style="height: auto; width: 30px; cursor: pointer">
+                <img src="/images/bulgaria-flag.png" alt="BG flag" id="bg" class="flag"
+                     style="height: auto; width: 30px; cursor: pointer">
+                <img src="/images/russia-flag.png" alt="RU flag" id="ru" class="flag"
+                     style="height: auto; width: 30px; cursor: pointer">
+            </div>
+            <p class="m-0 fs-1" th:text="#{welcome}">Welcome to TestingEz</p>
+            <p class="fs-5" th:text="#{slogan}">
+                Start testing whomever you want on whatever you want!
             </p>
             <a
                     href="/account/login"
                     class="btn btn-secondary btn-lg me-3 px-5 border border-black border-2 shadow rounded"
                     role="button"
+                    th:text="#{signIn}"
             >
                 Sign In
             </a>
@@ -39,15 +50,25 @@
                     href="/account/create"
                     class="btn btn-secondary btn-lg px-5 border border-black border-2 shadow rounded"
                     role="button"
+                    th:text="#{signUp}"
             >
                 Sign Up
             </a>
         </div>
     </main>
-
     <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".flag").click(function () {
+            var selectedOption = $(this).attr('id');
+            if (selectedOption !== '') {
+                window.location.replace('/?lang=' + selectedOption);
+            }
+        });
+    });
+</script>
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>

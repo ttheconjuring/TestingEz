@@ -4,10 +4,11 @@
 <body class="font">
 <div class="d-flex flex-column align-items-center justify-content-center vh-100 bg-secondary">
     <div class="bg-light shadow rounded p-5 text-center border border-black border-2">
-        <h1>Everything is alright!</h1>
+        <h1 th:text="#{successMessage}">Everything is alright!</h1>
         <p class="fs-3"><span th:text="${message}"></span></p>
         <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover fs-3"
-           href="/user/home">Home Page</a>
+           href="/user/home"
+           th:text="#{homePage}">Home Page</a>
     </div>
 </div>
 <div th:replace="~{fragments/scripts :: scripts}"></div>
