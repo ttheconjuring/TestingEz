@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class TestQuestionsDTO {
 
-    @NotNull(message = "Question list should not be null.")
+    @NotNull(message = "{property.should.not.be.null}")
     private List<@Valid QuestionCreateDTO> questions;
 
 }

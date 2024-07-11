@@ -11,11 +11,13 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserSignInDTO {
 
-    @NotNull(message = "Username should not be null.")
+    // TODO: try if it works without it
+
+    @NotNull(message = "{property.should.not.be.null}")
     @Size(min = 5, max = 25, message = "Username should be between 5 and 25 symbols.")
     private String username;
 
-    @NotNull(message = "Password should not be null.")
+    @NotNull(message = "{property.should.not.be.null}")
     @Size(min = 8, message = "Password should be at least 8 symbols.")
     private String password;
 

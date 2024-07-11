@@ -10,25 +10,25 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserProfileDTO {
 
-    @NotNull(message = "Username should not be null.")
-    @Size(min = 5, max = 25, message = "Username should be between 5 and 25 symbols.")
+    @NotNull(message = "{property.should.not.be.null}")
+    @Size(min = 5, max = 25, message = "{username.should.be.between}")
     private String username;
 
-    @NotBlank(message = "First name should not be null or empty.")
+    @NotBlank(message = "{property.should.not.be.null.or.empty}")
     private String firstName;
 
-    @NotBlank(message = "First name should not be null or empty.")
+    @NotBlank(message = "{property.should.not.be.null.or.empty}")
     private String lastName;
 
-    @NotBlank(message = "Email should not be null or empty.")
-    @Email(message = "Email should be in valid format.")
+    @NotBlank(message = "{property.should.not.be.null.or.empty}")
+    @Email(message = "{property.should.be.in.valid.format}")
     private String email;
 
-    @NotNull(message = "Phone should no be null.")
-    @Pattern(regexp = "^[0-9]{3}-[0-9]{3}-[0-9]{4}$", message = "Phone should be in valid format.")
+    @NotNull(message = "{property.should.not.be.null}")
+    @Pattern(regexp = "^[0-9]{3}-[0-9]{3}-[0-9]{4}$", message = "{property.should.be.in.valid.format}")
     private String phone;
 
-    @Pattern(regexp = "^(STANDARD|ADMINISTRATOR)$", message = "Role should be either STANDARD or ADMINISTRATOR.")
+    @Pattern(regexp = "^(STANDARD|ADMINISTRATOR)$", message = "{user.role.should.be.either}")
     private String role;
 
 }
