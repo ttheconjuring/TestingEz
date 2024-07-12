@@ -11,10 +11,12 @@
                 <h1 class="mb-3" th:text="#{testOfTheDay}">Test of the Day</h1>
                 <div class="bg-secondary rounded shadow border border-2 border-black p-2 fs-5 text-white text-center overflow-auto"
                      style="height: 570px">
-                    <div class="question">
-                        <p>1.In Greek mythology, who did Jocasta marry?</p>
+                    <div th:each="questionData, iStat: ${testOfTheDay}">
+                        <p th:text="${iStat.index + 1} + '.' + ${questionData.question}"></p>
                         <div class="d-flex justify-content-center gap-2">
-                            <input class="bg-light rounded shadow border border-2 border-black py-1 w-75 text-center">
+                            <input
+                                    class="bg-light rounded shadow border border-2 border-black py-1 w-75 text-center"
+                                    th:value="${questionData.answer}">
                             <button class="btn btn-light px-3 border border-black border-2 shadow rounded"
                                     th:text="#{check}">
                                 check
