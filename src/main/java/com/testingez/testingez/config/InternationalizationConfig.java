@@ -1,6 +1,5 @@
 package com.testingez.testingez.config;
 
-import org.aspectj.bridge.Message;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

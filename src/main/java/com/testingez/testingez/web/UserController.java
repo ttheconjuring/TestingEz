@@ -7,7 +7,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 public interface UserController {
 
-    String home();
+    String home(Model mode);
 
     String profile(Model model);
 
