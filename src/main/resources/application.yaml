@@ -10,8 +10,8 @@ spring:
 
   jpa:
     # properties:
-      # hibernate.format_sql: TRUE
-      # hibernate.dialect: org.hibernate.dialect.MySQLDialect
+    # hibernate.format_sql: TRUE
+    # hibernate.dialect: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
 
@@ -21,3 +21,12 @@ logging:
     blog: WARN
     # org.hibernate.SQL: DEBUG
     # org.hibernate.type.descriptor: TRACE
+
+ninja:
+  api:
+    trivia:
+      url: http://localhost:8081/ninja/api/trivia
+    facts:
+      url: http://localhost:8081/ninja/api/facts
+    jokes:
+      url: http://localhost:8081/ninja/api/jokes

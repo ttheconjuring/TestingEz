@@ -1,6 +1,7 @@
 package com.testingez.testingez.web.impl;
 
 import com.testingez.testingez.models.dtos.exp.UserProfileDTO;
+import com.testingez.testingez.services.NinjaService;
 import com.testingez.testingez.services.UserService;
 import com.testingez.testingez.web.UserController;
 import jakarta.validation.Valid;
@@ -19,10 +20,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UserControllerImpl implements UserController {
 
     private final UserService userService;
+    private final NinjaService ninjaService;
 
     @Override
     @GetMapping("/home")
-    public String home() {
+    public String home(Model model) {
+        model.addAttribute("testOfTheDay", this.ninjaService.fetchTrivia());
+        model.addAttribute("factsOfTheDay", this.ninjaService.fetchFacts());
+        model.addAttribute("jokesOfTheDay", this.ninjaService.fetchJokes());
         return "user-home";
     }
 
