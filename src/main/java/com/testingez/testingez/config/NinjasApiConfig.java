@@ -17,12 +17,14 @@ public class NinjasApiConfig {
     private ApiConfig trivia = new ApiConfig();
     private ApiConfig facts = new ApiConfig();
     private ApiConfig jokes = new ApiConfig();
+    private ApiConfig quotes = new ApiConfig();
 
     @PostConstruct
     public void checkConfiguration() {
         trivia.checkConfiguration("trivia");
         facts.checkConfiguration("facts");
         jokes.checkConfiguration("jokes");
+        jokes.checkConfiguration("quotes");
     }
 
     @Getter

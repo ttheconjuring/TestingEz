@@ -28,6 +28,7 @@ public class UserControllerImpl implements UserController {
         model.addAttribute("testOfTheDay", this.ninjaService.fetchTrivia());
         model.addAttribute("factsOfTheDay", this.ninjaService.fetchFacts());
         model.addAttribute("jokesOfTheDay", this.ninjaService.fetchJokes());
+        model.addAttribute("quotesOfTheDay", this.ninjaService.fetchQuotes());
         return "user-home";
     }
 

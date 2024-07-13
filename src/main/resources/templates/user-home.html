@@ -11,12 +11,12 @@
                 <h1 class="mb-3" th:text="#{testOfTheDay}">Test of the Day</h1>
                 <div class="bg-secondary rounded shadow border border-2 border-black p-2 fs-5 text-white text-center overflow-auto"
                      style="height: 570px">
-                    <div th:each="questionData, iStat: ${testOfTheDay}">
-                        <p th:text="${iStat.index + 1} + '.' + ${questionData.question}"></p>
+                    <div th:each="questionObject, iStat: ${testOfTheDay}">
+                        <p th:text="${iStat.index + 1} + '.' + ${questionObject.question}"></p>
                         <div class="d-flex justify-content-center gap-2">
                             <input
                                     class="bg-light rounded shadow border border-2 border-black py-1 w-75 text-center"
-                                    th:value="${questionData.answer}">
+                                    th:value="${questionObject.answer}">
                             <button class="btn btn-light px-3 border border-black border-2 shadow rounded"
                                     th:text="#{check}">
                                 check
@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="col-sm-12 col-lg-4">
-                <h1 class="mb-3" th:text="#{testOfTheDay}">Bored?</h1>
+                <h1 class="mb-3">Bored?</h1>
                 <div class="text-center p-2 mb-3 bg-secondary border border-2 border-black text-white rounded shadow">
                     <h2>Click the Button Game</h2>
                     <p>Click the button as many times as you can in 10 seconds!</p>
@@ -55,94 +55,32 @@
             <h1 class="mb-3" th:text="#{miscellaneous}">Miscellaneous</h1>
             <div class="col-sm-12 col-md-4">
                 <div id="factsCarousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-item active">
-                        <div class="card shadow mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title">Random Joke 1</h5>
-                                <p class="card-text">This is the first joke with supporting text below as a natural
-                                    lead-in to additional content.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card shadow mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title">Random Joke 2</h5>
-                                <p class="card-text">This is the second joke with supporting text below as a natural
-                                    lead-in to additional content.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card shadow mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title">Random Joke 3</h5>
-                                <p class="card-text">This is the third joke with supporting text below as a natural
-                                    lead-in to additional content.</p>
-                            </div>
-                        </div>
+                    <div class="carousel-item p-2 shadow rounded border border-2"
+                         th:each="factObject, iStat : ${factsOfTheDay}"
+                         th:classappend="${iStat.index == 0} ? 'active' : ''">
+                        <p class="card-title fw-bold fs-5" th:text="'Random Fact №' + ${iStat.index + 1}"></p>
+                        <span class="card-text fs-6" th:text="${factObject.fact}"></span>
                     </div>
                 </div>
             </div>
             <div class="col-sm-12 col-md-4">
                 <div id="jokesCarousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-item active">
-                        <div class="card shadow mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title">Random Joke 1</h5>
-                                <p class="card-text">This is the first joke with supporting text below as a natural
-                                    lead-in to additional content.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card shadow mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title">Random Joke 2</h5>
-                                <p class="card-text">This is the second joke with supporting text below as a natural
-                                    lead-in to additional content.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card shadow mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title">Random Joke 3</h5>
-                                <p class="card-text">This is the third joke with supporting text below as a natural
-                                    lead-in to additional content.</p>
-                            </div>
-                        </div>
+                    <div class="carousel-item p-2 shadow rounded border border-2"
+                         th:each="jokeObject, iStat : ${jokesOfTheDay}"
+                         th:classappend="${iStat.index == 0} ? 'active' : ''">
+                        <p class="card-title fw-bold fs-5" th:text="'Random Joke №' + ${iStat.index + 1}"></p>
+                        <span class="card-text fs-6" th:text="${jokeObject.joke}"></span>
                     </div>
                 </div>
             </div>
             <div class="col-sm-12 col-md-4">
                 <div id="quotesCarousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-item active">
-                        <div class="card shadow mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title">Random Joke 1</h5>
-                                <p class="card-text">This is the first joke with supporting text below as a natural
-                                    lead-in to additional content.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card shadow mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title">Random Joke 2</h5>
-                                <p class="card-text">This is the second joke with supporting text below as a natural
-                                    lead-in to additional content.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card shadow mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title">Random Joke 3</h5>
-                                <p class="card-text">This is the third joke with supporting text below as a natural
-                                    lead-in to additional content.</p>
-                            </div>
-                        </div>
+                    <div class="carousel-item p-2 shadow rounded border border-2"
+                         th:each="quoteObject, iStat : ${quotesOfTheDay}"
+                         th:classappend="${iStat.index == 0} ? 'active' : ''">
+                        <p class="card-title fw-bold fs-5" th:text="'Random Quote №' + ${iStat.index + 1}"></p>
+                        <p class="card-text fs-6 fst-italic" th:text="${quoteObject.quote}"></p>
+                        <span class="card-text fs-6 text-end fw-bold" th:text="'- ' + ${quoteObject.author}"></span>
                     </div>
                 </div>
             </div>
