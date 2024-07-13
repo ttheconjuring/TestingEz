@@ -3,6 +3,7 @@ package com.testingez.testingez.services.impls;
 import com.testingez.testingez.config.NinjasApiConfig;
 import com.testingez.testingez.models.dtos.ninja.FactDTO;
 import com.testingez.testingez.models.dtos.ninja.JokeDTO;
+import com.testingez.testingez.models.dtos.ninja.QuoteDTO;
 import com.testingez.testingez.models.dtos.ninja.TriviaDTO;
 import com.testingez.testingez.services.NinjaService;
 import lombok.AllArgsConstructor;
@@ -53,6 +54,18 @@ public class NinjaServiceImpl implements NinjaService {
                         .accept(MediaType.APPLICATION_JSON)
                         .retrieve()
                         .body(JokeDTO[].class))
+        );
+    }
+
+    @Override
+    public List<QuoteDTO> fetchQuotes() {
+        return List.of(
+                Objects.requireNonNull(this.restClient
+                        .get()
+                        .uri(this.ninjasApiConfig.getQuotes().getUrl())
+                        .accept(MediaType.APPLICATION_JSON)
+                        .retrieve()
+                        .body(QuoteDTO[].class))
         );
     }
 }
