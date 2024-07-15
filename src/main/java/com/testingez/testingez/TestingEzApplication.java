@@ -2,7 +2,11 @@ package com.testingez.testingez;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
+@EnableCaching
+@EnableScheduling
 @SpringBootApplication
 public class TestingEzApplication {
 
@@ -10,9 +14,4 @@ public class TestingEzApplication {
         SpringApplication.run(TestingEzApplication.class, args);
     }
 
-	/*TODO:
-            1.Implement Spring Security
-	  	    3.Create new template for /user/home endpoint
-		    4.Add Unit Tests
-	 */
 }

@@ -7,6 +7,7 @@ import com.testingez.testingez.models.dtos.ninja.QuoteDTO;
 import com.testingez.testingez.models.dtos.ninja.TriviaDTO;
 import com.testingez.testingez.services.NinjaService;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -21,6 +22,7 @@ public class NinjaServiceImpl implements NinjaService {
     private final RestClient restClient;
     private final NinjasApiConfig ninjasApiConfig;
 
+    @Cacheable(value = "home", key = "'trivia'")
     @Override
     public List<TriviaDTO> fetchTrivia() {
         return List.of(
@@ -33,6 +35,7 @@ public class NinjaServiceImpl implements NinjaService {
         );
     }
 
+    @Cacheable(value = "home", key = "'facts'")
     @Override
     public List<FactDTO> fetchFacts() {
         return List.of(
@@ -45,6 +48,7 @@ public class NinjaServiceImpl implements NinjaService {
         );
     }
 
+    @Cacheable(value = "home", key = "'jokes'")
     @Override
     public List<JokeDTO> fetchJokes() {
         return List.of(
@@ -57,6 +61,7 @@ public class NinjaServiceImpl implements NinjaService {
         );
     }
 
+    @Cacheable(value = "home", key = "'quotes'")
     @Override
     public List<QuoteDTO> fetchQuotes() {
         return List.of(
@@ -68,4 +73,5 @@ public class NinjaServiceImpl implements NinjaService {
                         .body(QuoteDTO[].class))
         );
     }
+
 }
