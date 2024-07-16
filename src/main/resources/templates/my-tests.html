@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <title>Tests</title>
+</head>
+<body>
+<h1>Test List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="test : ${paginatedTests}">
+        <td th:text="${test.name}">Name</td>
+        <td th:text="${test.status}">Status</td>
+    </tr>
+    </tbody>
+</table>
+<div>
+    <span th:text="'Page ' + ${paginatedTests.number + 1} + ' of ' + ${paginatedTests.totalPages}"></span>
+    <ul>
+        <li th:if="${paginatedTests.hasPrevious()}">
+            <a th:href="@{/tests(page=${paginatedTests.number - 1}, size=${paginatedTests.size})}">Previous</a>
+        </li>
+        <li th:if="${paginatedTests.hasNext()}">
+            <a th:href="@{/tests(page=${paginatedTests.number + 1}, size=${paginatedTests.size})}">Next</a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
