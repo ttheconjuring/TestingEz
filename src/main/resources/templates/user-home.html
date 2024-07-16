@@ -9,16 +9,17 @@
         <div class="row align-items-center">
             <div class="col-sm-12 col-lg-8">
                 <h1 class="mb-3" th:text="#{testOfTheDay}">Test of the Day</h1>
-                <div class="bg-secondary rounded shadow border border-2 border-black p-2 fs-5 text-white text-center overflow-auto"
-                     style="height: 570px">
+                <div class="bg-secondary rounded shadow border border-2 border-black p-2 fs-5 text-white text-center overflow-auto">
                     <div th:each="questionObject, iStat: ${testOfTheDay}">
                         <p th:text="${iStat.index + 1} + '.' + ${questionObject.question}"></p>
                         <div class="d-flex justify-content-center gap-2">
                             <input
                                     class="bg-light rounded shadow border border-2 border-black py-1 w-75 text-center"
-                                    th:value="${questionObject.answer}">
-                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded"
-                                    th:text="#{check}">
+                                    th:data-answer="${questionObject.answer}"
+                                    th:id="'answer-' + ${iStat.index}">
+                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded check-btn"
+                                    th:text="#{check}"
+                                    th:data-index="${iStat.index}">
                                 check
                             </button>
                         </div>
@@ -92,6 +93,7 @@
 
 <script src="/js/clicker-game.js"></script>
 <script src="/js/guess-the-number-game.js"></script>
+<script src="/js/reveal-answer.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
