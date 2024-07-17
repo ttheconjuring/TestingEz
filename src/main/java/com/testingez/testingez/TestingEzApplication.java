@@ -10,7 +10,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 public class TestingEzApplication {
 
-    // TODO: continue the work on my-tests
     public static void main(String[] args) {
         SpringApplication.run(TestingEzApplication.class, args);
     }
