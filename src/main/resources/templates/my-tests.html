@@ -105,6 +105,10 @@
 
     <main class="container d-flex flex-column justify-content-center flex-grow-1">
         <div class="container shadow rounded border border-2 p-5">
+            <span class="fs-4"
+                  th:if="${paginatedTests.isEmpty()}">
+                You don't have any created tests so far.
+            </span>
             <div class="row align-items-center border border-2 shadow rounded p-2 mb-2"
                  th:each="test, iStat : ${paginatedTests}">
                 <div class="col-sm-12 col-md-3">
