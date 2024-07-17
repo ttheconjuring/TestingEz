@@ -63,7 +63,7 @@ public class RegistrationControllerImpl implements RegistrationController {
             return "redirect:/account/create";
         }
 
-        return "redirect:/user/home";
+        return "redirect:/account/login";
     }
 
 }
