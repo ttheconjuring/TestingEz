@@ -1,11 +1,14 @@
 package com.testingez.testingez.web.impl;
 
+import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.exp.UserProfileDTO;
 import com.testingez.testingez.services.NinjaService;
 import com.testingez.testingez.services.UserService;
 import com.testingez.testingez.web.UserController;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -79,6 +82,14 @@ public class UserControllerImpl implements UserController {
 
         redirectAttributes.addFlashAttribute("message", "profile updated successfully");
         return "redirect:/operation/success";
+    }
+
+    @Override
+    @GetMapping("/my-tests")
+    public String userTests(Pageable pageable, Model model) {
+        Page<TestPeekDTO> paginatedTests = this.userService.getPaginatedTests(pageable);
+        model.addAttribute("paginatedTests", paginatedTests);
+        return "my-tests";
     }
 
 }
