@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<TestPeekDTO> getPaginatedTests(Pageable pageable) {
-        Page<Test> tests = this.testRepository.findAll(pageable);
+        Page<Test> tests = this.testRepository.findAllByCreatorId(this.userHelperService.getLoggedUser().getId(), pageable);
         return tests.map(test -> modelMapper.map(test, TestPeekDTO.class));
     }
 
