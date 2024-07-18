@@ -1,5 +1,6 @@
 package com.testingez.testingez.models.entities;
 
+import com.testingez.testingez.models.enums.ResultStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,29 +12,26 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "responses")
-public class Response {
+@Table(name = "results")
+public class Result {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "response_text", nullable = false)
-    private String responseText;
+    @Column(nullable = false)
+    private Integer score;
 
-    @Column(name = "is_correct", nullable = false)
-    private Boolean isCorrect;
+    @Column(name = "completed_at", nullable = false)
+    private LocalDateTime completedAt;
 
-    @Column(name = "submitten_on", nullable = false)
-    private LocalDateTime submittedOn;
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ResultStatus status;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "question_id", referencedColumnName = "id")
-    private Question question;
 
     @ManyToOne
     @JoinColumn(name = "test_id", referencedColumnName = "id")

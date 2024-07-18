@@ -5,6 +5,7 @@ import com.testingez.testingez.models.entities.Question;
 import com.testingez.testingez.models.entities.Response;
 import com.testingez.testingez.repositories.QuestionRepository;
 import com.testingez.testingez.repositories.ResponseRepository;
+import com.testingez.testingez.repositories.TestRepository;
 import com.testingez.testingez.services.ResponseService;
 import com.testingez.testingez.services.UserHelperService;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ public class ResponseServiceImpl implements ResponseService {
     private final ResponseRepository responseRepository;
     private final QuestionRepository questionRepository;
     private final UserHelperService userHelperService;
+    private final TestRepository testRepository;
 
     @Override
     public void insert(ResponseCreateDTO responseData) {
@@ -40,6 +42,9 @@ public class ResponseServiceImpl implements ResponseService {
         response.setSubmittedOn(LocalDateTime.now());
         response.setUser(this.userHelperService.getLoggedUser());
         response.setQuestion(question);
+        response.setTest(this.testRepository.findById(responseData.getTestId())
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Test that should be associated with a response could not be found!")));
         return response;
     }
 

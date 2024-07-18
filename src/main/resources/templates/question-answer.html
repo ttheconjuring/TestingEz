@@ -25,18 +25,18 @@
              th:object="${questionData}">
             <div class="row w-100">
                 <div class="col-sm-12 col-md-4 text-center">
-                    <span th:text="'#' + *{number}">№?</span>
+                    <span th:text="'#' + *{number}"></span>
                 </div>
                 <div class="col-sm-12 col-md-4 text-center bg-secondary rounded shadow border border-2 border-black text-warning">
                     <span>??:??</span>
                 </div>
                 <div class="col-sm-12 col-md-4 text-center">
-                    <span th:text="'p.' + *{points}">p.?</span>
+                    <span th:text="'p.' + *{points}"></span>
                 </div>
             </div>
             <div class="row w-100 text-center bg-secondary text-white border border-2 border-black rounded shadow">
                 <div class="col">
-                    <span th:text="*{question}">???????????</span>
+                    <span th:text="*{question}"></span>
                 </div>
             </div>
             <div class="w-100">
@@ -55,7 +55,7 @@
                                        th:value="${questionData.answer1}"
                                 >
                                 <label class="form-check-label" for="answer1">
-                                    <span th:text="${questionData.answer1}">?????</span>
+                                    <span th:text="${questionData.answer1}"></span>
                                 </label>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                                        th:field="*{responseText}"
                                        th:value="${questionData.answer2}">
                                 <label class="form-check-label" for="answer2">
-                                    <span th:text="${questionData.answer2}">?????</span>
+                                    <span th:text="${questionData.answer2}"></span>
                                 </label>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                                        th:field="*{responseText}"
                                        th:value="${questionData.answer3}">
                                 <label class="form-check-label" for="answer3">
-                                    <span th:text="${questionData.answer3}">?????</span>
+                                    <span th:text="${questionData.answer3}"></span>
                                 </label>
                             </div>
                         </div>
@@ -96,7 +96,7 @@
                                        th:field="*{responseText}"
                                        th:value="${questionData.answer4}">
                                 <label class="form-check-label" for="answer4">
-                                    <span th:text="${questionData.answer4}">?????</span>
+                                    <span th:text="${questionData.answer4}"></span>
                                 </label>
                             </div>
                         </div>
