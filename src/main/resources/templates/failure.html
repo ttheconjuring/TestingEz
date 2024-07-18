@@ -7,7 +7,7 @@
         <h1 th:text="#{failureMessage}">Oops! Something went wrong...</h1>
         <p class="fs-3"><span th:text="${message}"></span></p>
         <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover fs-3"
-           href="/user/home"
+           th:href="@{/user/home}"
         th:text="#{homePage}">Home Page</a>
     </div>
 </div>

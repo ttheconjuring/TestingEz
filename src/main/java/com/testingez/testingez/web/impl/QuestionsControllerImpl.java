@@ -5,6 +5,7 @@ import com.testingez.testingez.models.dtos.imp.QuestionCreateDTO;
 import com.testingez.testingez.models.dtos.imp.ResponseCreateDTO;
 import com.testingez.testingez.models.dtos.imp.TestQuestionsDTO;
 import com.testingez.testingez.services.QuestionService;
+import com.testingez.testingez.services.UserHelperService;
 import com.testingez.testingez.web.QuestionsController;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,7 @@ import java.util.List;
 public class QuestionsControllerImpl implements QuestionsController {
 
     private final QuestionService questionService;
+    private final UserHelperService userHelperService;
 
     @Override
     @GetMapping("/{testId}/{questionNumber}")
@@ -32,9 +34,8 @@ public class QuestionsControllerImpl implements QuestionsController {
                          RedirectAttributes redirectAttributes) {
         QuestionAnswerDTO questionAnswerDTO = this.questionService.fetchQuestionData(testId, questionNumber);
         if (questionAnswerDTO == null) {
-            // TODO: redirect to result page
-            redirectAttributes.addFlashAttribute("message", "You completed the test!");
-            return "redirect:/operation/success";
+            return String.format("redirect:/results/%d/%d",
+                    testId, this.userHelperService.getLoggedUser().getId());
         }
         model.addAttribute("questionData", questionAnswerDTO);
         model.addAttribute("responseData", new ResponseCreateDTO());
