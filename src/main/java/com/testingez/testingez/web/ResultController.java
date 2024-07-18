@@ -1,7 +1,9 @@
 package com.testingez.testingez.web;
 
+import org.springframework.ui.Model;
+
 public interface ResultController {
 
-    String result(Long testId, Long userId);
+    String result(Model model, Long testId, Long userId);
 
 }

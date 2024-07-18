@@ -1,5 +1,6 @@
 package com.testingez.testingez.models.entities;
 
+import com.testingez.testingez.models.enums.ResultStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,11 +19,15 @@ public class Result {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private Integer score;
 
+    @Column(name = "completed_at", nullable = false)
     private LocalDateTime completedAt;
 
-    private String status;
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ResultStatus status;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

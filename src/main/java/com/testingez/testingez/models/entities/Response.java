@@ -28,9 +28,15 @@ public class Response {
     private LocalDateTime submittedOn;
 
     @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     @ManyToOne
+    @JoinColumn(name = "question_id", referencedColumnName = "id")
     private Question question;
+
+    @ManyToOne
+    @JoinColumn(name = "test_id", referencedColumnName = "id")
+    private Test test;
 
 }
