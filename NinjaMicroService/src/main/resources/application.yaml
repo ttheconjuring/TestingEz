@@ -1,0 +1,34 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ninja_api_db?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: 1234
+
+  jpa:
+    # properties:
+    # hibernate.format_sql: TRUE
+    # hibernate.dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    org: WARN
+    blog: WARN
+    # org.hibernate.SQL: DEBUG
+    # org.hibernate.type.descriptor: TRACE
+api:
+  ninjas:
+    apiKey: ${NINJAS_API_KEY}
+    facts:
+      url: https://api.api-ninjas.com/v1/facts
+    jokes:
+      url: https://api.api-ninjas.com/v1/jokes
+    trivia:
+      url: https://api.api-ninjas.com/v1/trivia
+    quotes:
+      url: https://api.api-ninjas.com/v1/quotes

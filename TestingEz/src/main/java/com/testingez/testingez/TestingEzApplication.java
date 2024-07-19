@@ -12,12 +12,16 @@ public class TestingEzApplication {
 
     /**
      * TODO:
-     *  1.Create table results and implement all the necessary logic behind it - done
-     *  2.Make it possible for users to see their own individual results on My Results page
-     *  3.Let a user do a test only once
-     *  4.Unit tests
-     *  5.Integration tests
-     *  6.Work on admin privileges, a.k.a All Users and All Tests
+     *  1.Work on My Results
+     *  2.Prevent a user to join a test twice
+     *  3.Unit tests
+     *  4.Integration tests
+     *  5.Work on admin privileges, a.k.a All Users and All Tests
+     *
+     *  To fix:
+     *  - the timer on question-answer.html resets when page is refreshed or redirected to
+     *  - when I try to get back to an answered question multiple times (3-4 attempts)
+     *      I get redirected to test-preview.html
      */
 
     public static void main(String[] args) {
