@@ -20,7 +20,10 @@ public class Result {
     private Long id;
 
     @Column(nullable = false)
-    private Integer score;
+    private Integer points;
+
+    @Column(nullable = false)
+    private String result;
 
     @Column(name = "completed_at", nullable = false)
     private LocalDateTime completedAt;

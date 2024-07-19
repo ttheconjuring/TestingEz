@@ -27,6 +27,14 @@ public class ResponseServiceImpl implements ResponseService {
         this.responseRepository.saveAndFlush(map(responseData));
     }
 
+    @Override
+    public boolean isQuestionAnswered(Long testId, Integer questionNumber) {
+        return this.responseRepository.findByTestIdAndQuestionIdAndUserId(testId,
+                this.questionRepository.findByTestIdAndNumber(testId, questionNumber)
+                        .orElseThrow(() -> new RuntimeException("Question not found")).getId(),
+                this.userHelperService.getLoggedUser().getId()).isPresent();
+    }
+
     private Response map(ResponseCreateDTO responseData) {
         Response response = new Response();
         Question question = this.questionRepository.findById(responseData.getQuestionId())

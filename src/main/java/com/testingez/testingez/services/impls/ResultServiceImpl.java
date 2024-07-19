@@ -31,13 +31,16 @@ public class ResultServiceImpl implements ResultService {
     public void calculateResult(Long testId, Long userId) {
         Result result = new Result();
         int totalPoints = 0;
+        int correctAnswers = 0;
         List<Response> responses = this.responseRepository.findAllByTestIdAndUserId(testId, userId);
         for (Response response : responses) {
             if (response.getIsCorrect()) {
+                correctAnswers++;
                 totalPoints += response.getQuestion().getPoints();
             }
         }
-        result.setScore(totalPoints);
+        result.setPoints(totalPoints);
+        result.setResult(correctAnswers + "/" + responses.size());
         Test test = this.testRepository.findById(testId)
                 .orElseThrow(() -> new RuntimeException("Test not found"));
         if (totalPoints >= test.getPassingScore()) {
