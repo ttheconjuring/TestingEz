@@ -6,4 +6,5 @@ public interface ResponseService {
 
     void insert(ResponseCreateDTO responseData);
 
+    boolean isQuestionAnswered(Long testId, Integer questionNumber);
 }

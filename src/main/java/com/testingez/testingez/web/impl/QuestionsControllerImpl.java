@@ -5,6 +5,7 @@ import com.testingez.testingez.models.dtos.imp.QuestionCreateDTO;
 import com.testingez.testingez.models.dtos.imp.ResponseCreateDTO;
 import com.testingez.testingez.models.dtos.imp.TestQuestionsDTO;
 import com.testingez.testingez.services.QuestionService;
+import com.testingez.testingez.services.ResponseService;
 import com.testingez.testingez.services.ResultService;
 import com.testingez.testingez.services.UserHelperService;
 import com.testingez.testingez.web.QuestionsController;
@@ -27,6 +28,7 @@ public class QuestionsControllerImpl implements QuestionsController {
     private final QuestionService questionService;
     private final UserHelperService userHelperService;
     private final ResultService resultService;
+    private final ResponseService responseService;
 
     @Override
     @GetMapping("/{testId}/{questionNumber}")
@@ -40,6 +42,10 @@ public class QuestionsControllerImpl implements QuestionsController {
             this.resultService.calculateResult(testId, userId);
             return String.format("redirect:/results/%d/%d",
                     testId, userId);
+        }
+        if (this.responseService.isQuestionAnswered(testId, questionNumber)) {
+            return String.format("redirect:/questions/%d/%d",
+                    testId, questionNumber + 1);
         }
         model.addAttribute("questionData", questionAnswerDTO);
         model.addAttribute("responseData", new ResponseCreateDTO());
