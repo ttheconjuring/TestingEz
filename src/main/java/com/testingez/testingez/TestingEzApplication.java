@@ -14,9 +14,10 @@ public class TestingEzApplication {
      * TODO:
      *  1.Create table results and implement all the necessary logic behind it - done
      *  2.Make it possible for users to see their own individual results on My Results page
-     *  3.Unit tests
-     *  4.Integration tests
-     *  5.Work on admin privileges, a.k.a All Users and All Tests
+     *  3.Let a user do a test only once
+     *  4.Unit tests
+     *  5.Integration tests
+     *  6.Work on admin privileges, a.k.a All Users and All Tests
      */
 
     public static void main(String[] args) {

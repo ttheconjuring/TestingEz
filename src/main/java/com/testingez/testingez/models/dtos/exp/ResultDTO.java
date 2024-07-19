@@ -9,7 +9,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ResultDTO {
 
-    private Integer score;
+    private Integer points;
+
+    private String result;
 
     private String status;
 
