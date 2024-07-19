@@ -11,7 +11,8 @@
                     <span th:text="'#' + *{number}"></span>
                 </div>
                 <div class="col-sm-12 col-md-4 text-center bg-secondary rounded shadow border border-2 border-black text-warning">
-                    <span>??:??</span>
+                    <input type="hidden" th:value="*{responseTime}" th:id="responseTime">
+                    <span th:id="countdown"></span>
                 </div>
                 <div class="col-sm-12 col-md-4 text-center">
                     <span th:text="'p.' + *{points}"></span>
@@ -102,6 +103,7 @@
         </div>
     </div>
 </div>
+<script src="/js/answer-question-timer.js"></script>
 <script src="/js/block-back.js"></script>
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
