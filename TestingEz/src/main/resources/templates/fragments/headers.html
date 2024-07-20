@@ -50,7 +50,9 @@
                             th:href="@{/test/create}"
                             th:text="#{createTest}"
                     >Create Test</a>
-                    <a class="nav-link text-center text-dark fs-5 link-light" href="#" th:text="#{myResults}">
+                    <a class="nav-link text-center text-dark fs-5 link-light"
+                       th:href="@{/user/my-results(page=0, size=5)}"
+                       th:text="#{myResults}">
                         My Results
                     </a>
                     <a class="nav-link text-center text-dark fs-5 link-light"

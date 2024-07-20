@@ -18,4 +18,6 @@ public interface UserController {
 
     String userTests(Pageable pageable, Model model);
 
+    String userResults(Pageable pageable, Model model);
+
 }

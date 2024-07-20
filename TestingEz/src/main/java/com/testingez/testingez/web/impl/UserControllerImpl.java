@@ -1,5 +1,6 @@
 package com.testingez.testingez.web.impl;
 
+import com.testingez.testingez.models.dtos.exp.ResultPeekDTO;
 import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.exp.UserProfileDTO;
 import com.testingez.testingez.services.NinjaService;
@@ -90,6 +91,14 @@ public class UserControllerImpl implements UserController {
         Page<TestPeekDTO> paginatedTests = this.userService.getPaginatedTests(pageable);
         model.addAttribute("paginatedTests", paginatedTests);
         return "my-tests";
+    }
+
+    @Override
+    @GetMapping("/my-results")
+    public String userResults(Pageable pageable, Model model) {
+        Page<ResultPeekDTO> paginatedResults = this.userService.getPaginatedResults(pageable);
+        model.addAttribute("paginatedResults", paginatedResults);
+        return "my-results";
     }
 
 }
