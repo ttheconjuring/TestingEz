@@ -4,6 +4,7 @@ import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.models.entities.Test;
 import com.testingez.testingez.models.enums.TestStatus;
+import com.testingez.testingez.repositories.ResultRepository;
 import com.testingez.testingez.repositories.TestRepository;
 import com.testingez.testingez.services.TestService;
 import com.testingez.testingez.services.UserHelperService;
@@ -21,6 +22,7 @@ public class TestServiceImpl implements TestService {
     private final TestRepository testRepository;
     private final ModelMapper modelMapper;
     private final UserHelperService userHelperService;
+    private final ResultRepository resultRepository;
 
     @Override
     public void create(TestCreateDTO testCreateDTO) {
@@ -51,8 +53,15 @@ public class TestServiceImpl implements TestService {
         if (byCode.isEmpty()) {
             return "not found";
         }
-        if (byCode.get().getStatus().equals(TestStatus.CLOSED)) {
+        Test test = byCode.get();
+        if (test.getStatus().equals(TestStatus.CLOSED)) {
             return "closed";
+        }
+        if (this.resultRepository
+                .findByTestIdAndUserId(test.getId(),
+                        this.userHelperService.getLoggedUser().getId())
+                .isPresent()) {
+            return "completed";
         }
         return "ok";
     }

@@ -34,6 +34,9 @@
                         <div th:if="${testClosed}" class="text-warning fs-6" th:text="#{testClosed}">
                             Sorry, seems like the test is closed!
                         </div>
+                        <div th:if="${testCompleted}" class="text-warning fs-6">
+                            Sorry, you have already attended this test!
+                        </div>
                         <div class="text-warning fs-6"
                              th:errors="*{code}"
                              th:if="${#fields.hasErrors('code')}">

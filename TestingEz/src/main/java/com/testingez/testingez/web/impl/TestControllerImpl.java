@@ -56,6 +56,10 @@ public class TestControllerImpl implements TestController {
             redirectAttributes.addFlashAttribute("testClosed", true);
             return "redirect:/test/join";
         }
+        if (result.equals("completed")) {
+            redirectAttributes.addFlashAttribute("testCompleted", true);
+            return "redirect:/test/join";
+        }
         redirectAttributes.addAttribute("code", testJoinData.getCode());
         return "redirect:/test/join/preview";
     }
