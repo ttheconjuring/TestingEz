@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface QuestionService {
 
-    boolean putDown(TestQuestionsDTO testQuestionsDTO);
+    void putDown(TestQuestionsDTO testQuestionsDTO, Long testId);
 
-    int getQuestionsCountOfTheLastAddedTest();
+    Integer getQuestionsCountOfTheTest(Long testId);
 
     QuestionAnswerDTO fetchQuestionData(Long testId, Integer questionNumber);
 }

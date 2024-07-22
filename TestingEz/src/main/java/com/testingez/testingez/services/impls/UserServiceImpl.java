@@ -1,10 +1,14 @@
 package com.testingez.testingez.services.impls;
 
+import com.testingez.testingez.exceptions.custom.TestNotFoundException;
+import com.testingez.testingez.models.dtos.exp.ResultPeekDTO;
 import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.exp.UserProfileDTO;
 import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
+import com.testingez.testingez.models.entities.Result;
 import com.testingez.testingez.models.entities.Test;
 import com.testingez.testingez.models.entities.User;
+import com.testingez.testingez.repositories.ResultRepository;
 import com.testingez.testingez.repositories.RoleRepository;
 import com.testingez.testingez.repositories.TestRepository;
 import com.testingez.testingez.repositories.UserRepository;
@@ -32,6 +36,7 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final UserHelperService userHelperService;
     private final TestRepository testRepository;
+    private final ResultRepository resultRepository;
 
     @Override
     public String register(UserSignUpDTO userSignUpData) {
@@ -66,6 +71,20 @@ public class UserServiceImpl implements UserService {
     public Page<TestPeekDTO> getPaginatedTests(Pageable pageable) {
         Page<Test> tests = this.testRepository.findAllByCreatorId(this.userHelperService.getLoggedUser().getId(), pageable);
         return tests.map(test -> modelMapper.map(test, TestPeekDTO.class));
+    }
+
+    @Override
+    public Page<ResultPeekDTO> getPaginatedResults(Pageable pageable) {
+        Page<Result> results = this.resultRepository.findAllByUserId(this.userHelperService.getLoggedUser().getId(), pageable);
+        return results.map(result -> {
+            ResultPeekDTO resultPeekDTO = modelMapper.map(result, ResultPeekDTO.class);
+            resultPeekDTO.setTestName(
+                    this.testRepository.findById(result.getTest().getId())
+                            .orElseThrow(() -> new TestNotFoundException("We couldn't " +
+                                    "find test with id: " +
+                                    result.getTest().getId() + "!")).getName());
+            return resultPeekDTO;
+        });
     }
 
     private String verifyUniqueCredentials(UserSignUpDTO userSignUpData) {

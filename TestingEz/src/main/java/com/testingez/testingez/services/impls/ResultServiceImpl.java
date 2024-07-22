@@ -1,5 +1,7 @@
 package com.testingez.testingez.services.impls;
 
+import com.testingez.testingez.exceptions.custom.TestNotFoundException;
+import com.testingez.testingez.exceptions.custom.UserNotFoundException;
 import com.testingez.testingez.models.dtos.exp.ResultDTO;
 import com.testingez.testingez.models.entities.Response;
 import com.testingez.testingez.models.entities.Result;
@@ -14,6 +16,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.lang.module.ResolutionException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -42,7 +45,7 @@ public class ResultServiceImpl implements ResultService {
         result.setPoints(totalPoints);
         result.setResult(correctAnswers + "/" + responses.size());
         Test test = this.testRepository.findById(testId)
-                .orElseThrow(() -> new RuntimeException("Test not found"));
+                .orElseThrow(() -> new TestNotFoundException("We couldn't find test with id: " + testId + "!"));
         if (totalPoints >= test.getPassingScore()) {
             result.setStatus(ResultStatus.PASS);
         } else {
@@ -51,7 +54,7 @@ public class ResultServiceImpl implements ResultService {
         result.setCompletedAt(LocalDateTime.now());
         result.setTest(test);
         result.setUser(this.userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User Not Found")));
+                .orElseThrow(() -> new UserNotFoundException("We couldn't find user with id: " + userId + "!")));
         this.resultRepository.saveAndFlush(result);
     }
 
@@ -60,7 +63,7 @@ public class ResultServiceImpl implements ResultService {
         return this.modelMapper.map(
                 this.resultRepository.findByTestIdAndUserId(testId, userId)
                         .orElseThrow(() ->
-                                new NullPointerException("Result on testId: " + testId + " by userId: " + userId + " was not found!")),
+                                new ResolutionException("We couldn't find result on test id: " + testId + " by user id: " + userId + "!")),
                 ResultDTO.class);
     }
 

@@ -9,8 +9,8 @@ public interface QuestionsController {
 
     String answer(Long testId, Integer questionNumber, Model model, RedirectAttributes redirectAttributes);
 
-    String writeQuestions(Model model);
+    String writeQuestions(Long testId, Model model);
 
-    String putDownQuestions(TestQuestionsDTO testQuestionsData, BindingResult bindingResult, RedirectAttributes redirectAttributes);
+    String putDownQuestions(Long testId, TestQuestionsDTO testQuestionsData, BindingResult bindingResult, RedirectAttributes redirectAttributes);
 
 }

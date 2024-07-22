@@ -10,11 +10,11 @@
                     class="needs-validation"
                     method="post"
                     novalidate
-                    th:action="@{/questions/create}"
-                    th:object="${testQuestionsData}"
-            >
+                    th:action="@{/questions/{testId}/create(testId=*{testId})}"
+                    th:object="${testQuestionsData}">
                 <div th:each="question, questionIndex : ${testQuestionsData.questions}">
-                    <h2 class="text-center"><span th:text="#{questionNumber}">Question #</span><span th:text="${questionIndex.index + 1}"></span></h2>
+                    <h2 class="text-center"><span th:text="#{questionNumber}">Question #</span><span
+                            th:text="${questionIndex.index + 1}"></span></h2>
                     <div class="form-group mb-3">
                         <input class="form-control border border-black border-2 shadow fs-5 text-center"
                                id="question"
@@ -120,14 +120,18 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center gap-1 mt-3">
-                    <button type="submit" class="btn btn-success border border-black border-2 shadow fs-4" th:text="#{complete}">
+                    <button type="submit" class="btn btn-success border border-black border-2 shadow fs-4"
+                            th:text="#{complete}">
                         Complete
                     </button>
                 </div>
             </form>
             <div class="d-flex justify-content-center gap-1 mt-3">
-                <form th:action="@{/test/delete}" method="post">
-                    <button type="submit" class="btn btn-danger border border-black border-2 shadow fs-4" th:text="#{cancel}">
+                <form method="post"
+                      th:action="@{/test/delete/{testId}(testId=*{testId})}"
+                      th:object="${testQuestionsData}">
+                    <button type="submit" class="btn btn-danger border border-black border-2 shadow fs-4"
+                            th:text="#{cancel}">
                         Cancel
                     </button>
                 </form>

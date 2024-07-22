@@ -53,38 +53,36 @@ public class QuestionsControllerImpl implements QuestionsController {
     }
 
     @Override
-    @GetMapping("/create")
-    public String writeQuestions(Model model) {
+    @GetMapping("/{testId}/create")
+    public String writeQuestions(@PathVariable Long testId, Model model) {
         if (!model.containsAttribute("testQuestionsData")) {
             model.addAttribute("testQuestionsData",
-                    testQuestionsDTO(this.questionService.getQuestionsCountOfTheLastAddedTest()));
+                    testQuestionsDTO(this.questionService.getQuestionsCountOfTheTest(testId), testId));
         }
         return "questions-create";
     }
 
     @Override
-    @PostMapping("/create")
-    public String putDownQuestions(@Valid TestQuestionsDTO testQuestionsData,
+    @PostMapping("/{testId}/create")
+    public String putDownQuestions(@PathVariable Long testId,
+                                   @Valid TestQuestionsDTO testQuestionsData,
                                    BindingResult bindingResult,
                                    RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.testQuestionsData", bindingResult);
             redirectAttributes.addFlashAttribute("testQuestionsData", testQuestionsData);
-            return "redirect:/questions/create";
+            return String.format("redirect:/questions/%d/create", testId);
         }
 
-        boolean success = this.questionService.putDown(testQuestionsData);
-
-        if (!success) {
-            return null;
-        }
+        this.questionService.putDown(testQuestionsData, testId);
 
         redirectAttributes.addFlashAttribute("message", "You successfully created a test!");
         return "redirect:/operation/success";
     }
 
-    private TestQuestionsDTO testQuestionsDTO(int questionsCount) {
+    private TestQuestionsDTO testQuestionsDTO(int questionsCount, Long testId) {
         TestQuestionsDTO testQuestionsDTO = new TestQuestionsDTO();
+        testQuestionsDTO.setTestId(testId);
         List<QuestionCreateDTO> questions = new ArrayList<>();
         for (int i = 0; i < questionsCount; i++) {
             questions.add(new QuestionCreateDTO());
