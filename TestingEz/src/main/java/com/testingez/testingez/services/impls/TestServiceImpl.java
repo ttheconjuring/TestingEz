@@ -26,26 +26,18 @@ public class TestServiceImpl implements TestService {
     private final ResultRepository resultRepository;
 
     @Override
-    public void create(TestCreateDTO testCreateDTO) {
+    public Long create(TestCreateDTO testCreateDTO) {
         Test newTest = modelMapper.map(testCreateDTO, Test.class);
         newTest.setStatus(testCreateDTO.getStatus().equals("open") ? TestStatus.OPEN : TestStatus.CLOSED);
         newTest.setDateCreated(LocalDateTime.now());
         newTest.setDateUpdated(LocalDateTime.now());
         newTest.setCreator(this.userHelperService.getLoggedUser());
-        this.testRepository.saveAndFlush(newTest);
+        return this.testRepository.saveAndFlush(newTest).getId();
     }
 
     @Override
     public void delete(Long id) {
-        if (id == -1) {
-            this.testRepository.deleteById(
-                    this.testRepository.findLastAdded()
-                            .orElseThrow(() -> new TestNotFoundException("We couldn't find the last added test!"))
-                            .getId()
-            );
-        } else {
-            this.testRepository.deleteById(id);
-        }
+        this.testRepository.deleteById(id);
     }
 
     @Override

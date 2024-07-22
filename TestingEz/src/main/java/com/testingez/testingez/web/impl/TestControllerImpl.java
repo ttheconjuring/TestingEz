@@ -88,15 +88,15 @@ public class TestControllerImpl implements TestController {
             redirectAttributes.addFlashAttribute("testCreateData", testCreateData);
             return "redirect:/test/create";
         }
-        this.testService.create(testCreateData);
-        return "redirect:/questions/create";
+        Long testId = this.testService.create(testCreateData);
+        return String.format("redirect:/questions/%d/create", testId);
     }
 
     @Override
-    @PostMapping("/delete")
-    public String delete(@RequestParam(required = false, defaultValue = "-1") Long id,
+    @PostMapping("/delete/{testId}")
+    public String delete(@PathVariable Long testId,
                          RedirectAttributes redirectAttributes) {
-        this.testService.delete(id);
+        this.testService.delete(testId);
         redirectAttributes.addFlashAttribute("message", "You cancelled the test.");
         return "redirect:/operation/success";
     }

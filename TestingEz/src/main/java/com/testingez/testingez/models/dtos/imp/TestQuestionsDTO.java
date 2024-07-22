@@ -16,6 +16,9 @@ import java.util.List;
 public class TestQuestionsDTO {
 
     @NotNull(message = "{property.should.not.be.null}")
+    private Long testId;
+
+    @NotNull(message = "{property.should.not.be.null}")
     private List<@Valid QuestionCreateDTO> questions;
 
 }

@@ -25,10 +25,10 @@ public class QuestionServiceImpl implements QuestionService {
     private final ModelMapper modelMapper;
 
     @Override
-    public void putDown(TestQuestionsDTO testQuestionsDTO) {
+    public void putDown(TestQuestionsDTO testQuestionsDTO, Long testId) {
         List<QuestionCreateDTO> questions = testQuestionsDTO.getQuestions();
-        Test lastAddedTest = this.testRepository.findLastAdded()
-                .orElseThrow(() -> new TestNotFoundException("We couldn't find the desired test to associate the questions with!"));
+        Test lastAddedTest = this.testRepository.findById(testId)
+                .orElseThrow(() -> new TestNotFoundException("We couldn't test with id: " + testId + "!"));
         for (int i = 0; i < questions.size(); i++) {
             Question question = this.modelMapper.map(questions.get(i), Question.class);
             question.setTest(lastAddedTest);
@@ -38,11 +38,11 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public int getQuestionsCountOfTheLastAddedTest() {
+    public Integer getQuestionsCountOfTheTest(Long testId) {
         return this.testRepository
-                .findLastAdded()
+                .findById(testId)
                 .orElseThrow(() ->
-                        new TestNotFoundException("We couldn't find the desired test to count the questions!"))
+                        new TestNotFoundException("We couldn't test with id: " + testId + "!"))
                 .getQuestionsCount();
     }
 
