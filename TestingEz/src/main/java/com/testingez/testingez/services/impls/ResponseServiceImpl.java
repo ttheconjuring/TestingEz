@@ -1,5 +1,7 @@
 package com.testingez.testingez.services.impls;
 
+import com.testingez.testingez.exceptions.custom.QuestionNotFoundException;
+import com.testingez.testingez.exceptions.custom.TestNotFoundException;
 import com.testingez.testingez.models.dtos.imp.ResponseCreateDTO;
 import com.testingez.testingez.models.entities.Question;
 import com.testingez.testingez.models.entities.Response;
@@ -31,14 +33,17 @@ public class ResponseServiceImpl implements ResponseService {
     public boolean isQuestionAnswered(Long testId, Integer questionNumber) {
         return this.responseRepository.findByTestIdAndQuestionIdAndUserId(testId,
                 this.questionRepository.findByTestIdAndNumber(testId, questionNumber)
-                        .orElseThrow(() -> new RuntimeException("Question not found")).getId(),
+                        .orElseThrow(() -> new QuestionNotFoundException("We couldn't " +
+                                "find question №" + questionNumber + " associated " +
+                                "with test id:" + testId + " to see if it is " +
+                                "answered or not!")).getId(),
                 this.userHelperService.getLoggedUser().getId()).isPresent();
     }
 
     private Response map(ResponseCreateDTO responseData) {
         Response response = new Response();
         Question question = this.questionRepository.findById(responseData.getQuestionId())
-                .orElseThrow(() -> new IllegalArgumentException("Question that should be associated with a response could not be found!"));
+                .orElseThrow(() -> new QuestionNotFoundException("We couldn't find question with id: " + responseData.getQuestionId() + "!"));
         String responseText = responseData.getResponseText();
         if (responseText == null) {
             response.setResponseText("(no selected answer)");
@@ -52,7 +57,7 @@ public class ResponseServiceImpl implements ResponseService {
         response.setQuestion(question);
         response.setTest(this.testRepository.findById(responseData.getTestId())
                 .orElseThrow(() ->
-                        new IllegalArgumentException("Test that should be associated with a response could not be found!")));
+                        new TestNotFoundException("We couldn't find test with id: " + responseData.getTestId() + "!")));
         return response;
     }
 

@@ -1,5 +1,6 @@
 package com.testingez.testingez.services.impls;
 
+import com.testingez.testingez.exceptions.custom.TestNotFoundException;
 import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.models.entities.Test;
@@ -39,7 +40,7 @@ public class TestServiceImpl implements TestService {
         if (id == -1) {
             this.testRepository.deleteById(
                     this.testRepository.findLastAdded()
-                            .orElseThrow(() -> new IllegalArgumentException("No test found with id: " + id))
+                            .orElseThrow(() -> new TestNotFoundException("We couldn't find the last added test!"))
                             .getId()
             );
         } else {
@@ -71,7 +72,7 @@ public class TestServiceImpl implements TestService {
         return this.modelMapper.map(
                 this.testRepository.findByCode(code)
                         .orElseThrow(() ->
-                                new IllegalArgumentException("No test found with code: " + code)),
+                                new TestNotFoundException("We couldn't find test with code: " + code + "!")),
                 TestPreviewDTO.class);
     }
 

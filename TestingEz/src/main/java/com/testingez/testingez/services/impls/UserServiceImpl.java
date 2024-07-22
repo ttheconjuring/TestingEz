@@ -1,5 +1,6 @@
 package com.testingez.testingez.services.impls;
 
+import com.testingez.testingez.exceptions.custom.TestNotFoundException;
 import com.testingez.testingez.models.dtos.exp.ResultPeekDTO;
 import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.exp.UserProfileDTO;
@@ -79,7 +80,9 @@ public class UserServiceImpl implements UserService {
             ResultPeekDTO resultPeekDTO = modelMapper.map(result, ResultPeekDTO.class);
             resultPeekDTO.setTestName(
                     this.testRepository.findById(result.getTest().getId())
-                            .orElseThrow(() -> new NullPointerException("No test found")).getName());
+                            .orElseThrow(() -> new TestNotFoundException("We couldn't " +
+                                    "find test with id: " +
+                                    result.getTest().getId() + "!")).getName());
             return resultPeekDTO;
         });
     }
