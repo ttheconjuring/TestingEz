@@ -12,7 +12,7 @@ public class TestingEzApplication {
 
     /**
      * TODO:
-     *  1.Work on My Results
+     *  1.Do All Users
      *  2.Unit tests
      *  3.Integration tests
      *  4.Work on admin privileges, a.k.a All Users and All Tests
