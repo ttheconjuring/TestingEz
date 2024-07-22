@@ -61,7 +61,7 @@
                         My Tests
                     </a>
                     <a class="nav-link text-center text-dark fs-5 link-light"
-                       href="#"
+                       th:href="@{/test/all(page=0, size=5)}"
                        sec:authorize="hasRole('ROLE_ADMINISTRATOR')"
                        th:text="#{allTests}"
                     >All Tests</a>

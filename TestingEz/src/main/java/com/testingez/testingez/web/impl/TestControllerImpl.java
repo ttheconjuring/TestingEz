@@ -1,12 +1,16 @@
 package com.testingez.testingez.web.impl;
 
 import com.testingez.testingez.models.dtos.TestJoinDTO;
+import com.testingez.testingez.models.dtos.exp.ResultPeekDTO;
+import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.services.TestService;
 import com.testingez.testingez.web.TestController;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -99,5 +103,13 @@ public class TestControllerImpl implements TestController {
         this.testService.delete(testId);
         redirectAttributes.addFlashAttribute("message", "You cancelled the test.");
         return "redirect:/operation/success";
+    }
+
+    @Override
+    @GetMapping("/all")
+    public String showAll(Pageable pageable, Model model) {
+        Page<TestPeekDTO> paginatedTests = this.testService.getPaginatedTests(pageable);
+        model.addAttribute("paginatedTests", paginatedTests);
+        return "all-tests";
     }
 }

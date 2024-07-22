@@ -1,6 +1,8 @@
 package com.testingez.testingez.services.impls;
 
 import com.testingez.testingez.exceptions.custom.TestNotFoundException;
+import com.testingez.testingez.models.dtos.exp.ResultPeekDTO;
+import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.models.entities.Test;
@@ -11,6 +13,8 @@ import com.testingez.testingez.services.TestService;
 import com.testingez.testingez.services.UserHelperService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -66,6 +70,12 @@ public class TestServiceImpl implements TestService {
                         .orElseThrow(() ->
                                 new TestNotFoundException("We couldn't find test with code: " + code + "!")),
                 TestPreviewDTO.class);
+    }
+
+    @Override
+    public Page<TestPeekDTO> getPaginatedTests(Pageable pageable) {
+        Page<Test> tests = this.testRepository.findAll(pageable);
+        return tests.map(test -> modelMapper.map(test, TestPeekDTO.class));
     }
 
 }
