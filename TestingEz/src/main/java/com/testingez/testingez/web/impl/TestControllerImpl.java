@@ -46,7 +46,7 @@ public class TestControllerImpl implements TestController {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.testJoinDTO", bindingResult);
             return "redirect:/test/join";
         }
-        // TODO: add case for when the user has already attended the test
+
         String result = this.testService.checkUponTest(testJoinData.getCode());
         if (result.equals("not found")) {
             redirectAttributes.addFlashAttribute("testNotFound", true);

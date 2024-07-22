@@ -23,7 +23,7 @@ public class QuestionServiceImpl implements QuestionService {
     private final ModelMapper modelMapper;
 
     @Override
-    public boolean putDown(TestQuestionsDTO testQuestionsDTO) {
+    public void putDown(TestQuestionsDTO testQuestionsDTO) {
         List<QuestionCreateDTO> questions = testQuestionsDTO.getQuestions();
         Test lastAddedTest = this.testRepository.findLastAdded()
                 .orElseThrow(() -> new NullPointerException("The last added test was not found!"));
@@ -33,7 +33,6 @@ public class QuestionServiceImpl implements QuestionService {
             question.setNumber(i + 1);
             this.questionRepository.saveAndFlush(question);
         }
-        return true;
     }
 
     @Override
@@ -53,8 +52,8 @@ public class QuestionServiceImpl implements QuestionService {
             return null;
         }
         Question question = this.questionRepository.findByTestIdAndNumber(testId, questionNumber)
-                        .orElseThrow(() -> new NullPointerException("Question(#" + questionNumber + ") associated with test: " + testId +
-                                "was not found!"));
+                .orElseThrow(() -> new NullPointerException("Question(#" + questionNumber + ") associated with test: " + testId +
+                        "was not found!"));
         QuestionAnswerDTO map = this.modelMapper.map(question, QuestionAnswerDTO.class);
         map.setResponseTime(test.getResponseTime());
         map.setTestId(testId);

@@ -73,11 +73,7 @@ public class QuestionsControllerImpl implements QuestionsController {
             return "redirect:/questions/create";
         }
 
-        boolean success = this.questionService.putDown(testQuestionsData);
-
-        if (!success) {
-            return null;
-        }
+        this.questionService.putDown(testQuestionsData);
 
         redirectAttributes.addFlashAttribute("message", "You successfully created a test!");
         return "redirect:/operation/success";

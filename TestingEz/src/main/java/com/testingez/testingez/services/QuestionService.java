@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface QuestionService {
 
-    boolean putDown(TestQuestionsDTO testQuestionsDTO);
+    void putDown(TestQuestionsDTO testQuestionsDTO);
 
     int getQuestionsCountOfTheLastAddedTest();
 
