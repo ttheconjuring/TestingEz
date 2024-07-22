@@ -1,5 +1,6 @@
 package com.testingez.testingez.web;
 
+import com.testingez.testingez.exceptions.custom.NinjaMicroServiceException;
 import com.testingez.testingez.models.dtos.exp.UserProfileDTO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
@@ -8,7 +9,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 public interface UserController {
 
-    String home(Model mode);
+    String home(Model mode) throws NinjaMicroServiceException;
 
     String profile(Model model);
 

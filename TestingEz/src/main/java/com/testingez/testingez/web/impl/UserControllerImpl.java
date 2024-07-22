@@ -1,5 +1,6 @@
 package com.testingez.testingez.web.impl;
 
+import com.testingez.testingez.exceptions.custom.NinjaMicroServiceException;
 import com.testingez.testingez.models.dtos.exp.ResultPeekDTO;
 import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.exp.UserProfileDTO;
@@ -28,7 +29,7 @@ public class UserControllerImpl implements UserController {
 
     @Override
     @GetMapping("/home")
-    public String home(Model model) {
+    public String home(Model model) throws NinjaMicroServiceException {
         model.addAttribute("testOfTheDay", this.ninjaService.fetchTrivia());
         model.addAttribute("factsOfTheDay", this.ninjaService.fetchFacts());
         model.addAttribute("jokesOfTheDay", this.ninjaService.fetchJokes());

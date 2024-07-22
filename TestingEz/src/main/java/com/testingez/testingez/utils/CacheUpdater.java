@@ -1,5 +1,6 @@
 package com.testingez.testingez.utils;
 
+import com.testingez.testingez.exceptions.custom.NinjaMicroServiceException;
 import com.testingez.testingez.services.NinjaService;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
@@ -18,13 +19,18 @@ public class CacheUpdater {
     private final ConcurrentMapCacheManager cacheManager;
 
     @Scheduled(fixedRate = 360000) // 6 min
-    public void updateCache() {
+    public void updateCache() throws NinjaMicroServiceException {
         LOGGER.info("Updating cache");
         Objects.requireNonNull(cacheManager.getCache("home")).clear();
-        this.ninjaService.fetchTrivia();
-        this.ninjaService.fetchFacts();
-        this.ninjaService.fetchJokes();
-        this.ninjaService.fetchQuotes();
+        try {
+            this.ninjaService.fetchTrivia();
+            this.ninjaService.fetchFacts();
+            this.ninjaService.fetchJokes();
+            this.ninjaService.fetchQuotes();
+        } catch (Exception error) {
+            throw new NinjaMicroServiceException("We couldn't update cache due to " +
+                    "NinjaMicroService issues.", error);
+        }
         LOGGER.info("Cache updated");
     }
 
