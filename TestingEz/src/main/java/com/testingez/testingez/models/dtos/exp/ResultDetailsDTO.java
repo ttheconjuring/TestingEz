@@ -4,15 +4,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
-public class ResultDTO {
+public class ResultDetailsDTO {
 
-    private Integer points;
+    private String testName;
+
+    private String status;
 
     private String result;
 
-    private String status;
+    private Integer points;
+
+    private LocalDateTime completedAt;
 
 }

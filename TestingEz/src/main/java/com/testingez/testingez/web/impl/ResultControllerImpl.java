@@ -21,15 +21,15 @@ public class ResultControllerImpl implements ResultController {
     public String resultSummary(Model model,
                                 @PathVariable Long testId,
                                 @PathVariable Long userId) {
-        model.addAttribute("resultData", this.resultService.getResult(testId, userId));
+        model.addAttribute("resultData", this.resultService.getResultSummary(testId, userId));
         return "show-result";
     }
 
     @Override
     @GetMapping("/details/{resultId}")
     public String resultDetails(@PathVariable Long resultId, Model model) {
-        model.addAttribute("summaryData", null);
-        model.addAttribute("questions", null);
+        model.addAttribute("resultDetails", this.resultService.getResultDetails(resultId));
+        // model.addAttribute("questions", null);
         return "result-details";
     }
 

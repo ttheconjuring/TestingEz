@@ -1,8 +1,10 @@
 package com.testingez.testingez.services.impls;
 
+import com.testingez.testingez.exceptions.custom.ResultNotFoundException;
 import com.testingez.testingez.exceptions.custom.TestNotFoundException;
 import com.testingez.testingez.exceptions.custom.UserNotFoundException;
-import com.testingez.testingez.models.dtos.exp.ResultDTO;
+import com.testingez.testingez.models.dtos.exp.ResultSummaryDTO;
+import com.testingez.testingez.models.dtos.exp.ResultDetailsDTO;
 import com.testingez.testingez.models.entities.Response;
 import com.testingez.testingez.models.entities.Result;
 import com.testingez.testingez.models.entities.Test;
@@ -16,7 +18,6 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.lang.module.ResolutionException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -59,12 +60,23 @@ public class ResultServiceImpl implements ResultService {
     }
 
     @Override
-    public ResultDTO getResult(Long testId, Long userId) {
+    public ResultSummaryDTO getResultSummary(Long testId, Long userId) {
         return this.modelMapper.map(
                 this.resultRepository.findByTestIdAndUserId(testId, userId)
                         .orElseThrow(() ->
-                                new ResolutionException("We couldn't find result on test id: " + testId + " by user id: " + userId + "!")),
-                ResultDTO.class);
+                                new ResultNotFoundException("We couldn't find result on test id: " + testId + " by user id: " + userId + "!")),
+                ResultSummaryDTO.class);
+    }
+
+    @Override
+    public ResultDetailsDTO getResultDetails(Long resultId) {
+        Result result = this.resultRepository.findById(resultId)
+                .orElseThrow(() -> new ResultNotFoundException("We couldn't find result with id: " + resultId + "!"));
+        ResultDetailsDTO details = this.modelMapper.map(result, ResultDetailsDTO.class);
+        Long testId = result.getTest().getId();
+        details.setTestName(this.testRepository.findById(testId)
+                .orElseThrow(() -> new TestNotFoundException("We couldn't find test with id: " + testId + "!")).getName());
+        return details;
     }
 
 }

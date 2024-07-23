@@ -7,7 +7,7 @@
     <main class="container flex-grow-1">
         <div class="row justify-content-center">
             <div class="col-sm-12 col-md-8 col-lg-6 shadow text-center rounded border border-2"
-                 th:object="${summaryData}">
+                 th:object="${resultDetails}">
                 <h2 th:text="*{testName}"></h2>
                 <p th:text="'STATUS: ' + *{status}"></p>
                 <p th:text="'RESULT: ' + *{result}"></p>
@@ -18,14 +18,14 @@
         <br>
         <div class="row justify-content-center">
             <div class="col-sm-12 col-md-8 col-lg-6 shadow rounded border border-2 p-3">
-                <div class="p-2 rounded border border-2 mb-2"
-                     th:each="questionData : ${questions}">
-                    <p th:text="*{question}">Question?</p>
-                    <p th:text="*{answer1}"></p>
-                    <p th:text="*{answer2}"></p>
-                    <p th:text="*{answer3}"></p>
-                    <p th:text="*{answer4}"></p>
-                </div>
+<!--                <div class="p-2 rounded border border-2 mb-2"-->
+<!--                     th:each="questionData : ${questions}">-->
+<!--                    <p th:text="*{question}">Question?</p>-->
+<!--                    <p th:text="*{answer1}"></p>-->
+<!--                    <p th:text="*{answer2}"></p>-->
+<!--                    <p th:text="*{answer3}"></p>-->
+<!--                    <p th:text="*{answer4}"></p>-->
+<!--                </div>-->
             </div>
         </div>
     </main>
