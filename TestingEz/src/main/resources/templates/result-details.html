@@ -21,10 +21,14 @@
                 <div class="p-2 rounded border border-2 mb-2"
                      th:each="questionData : ${answeredQuestions}">
                     <p th:text="${questionData.number} + '.' + ${questionData.question} + ' (' + ${questionData.points} + 'p.)'"></p>
-                    <p th:text="${questionData.answer1}"></p>
-                    <p th:text="${questionData.answer2}"></p>
-                    <p th:text="${questionData.answer3}"></p>
-                    <p th:text="${questionData.answer4}"></p>
+                    <p th:text="${questionData.answer1}"
+                       th:classappend="${questionData.answer1 == questionData.correctAnswer} ? 'border border-2 border-success rounded ps-2' : ''"></p>
+                    <p th:text="${questionData.answer2}"
+                       th:classappend="${questionData.answer2 == questionData.correctAnswer} ? 'border border-2 border-success rounded ps-2' : ''"></p>
+                    <p th:text="${questionData.answer3}"
+                       th:classappend="${questionData.answer3 == questionData.correctAnswer} ? 'border border-2 border-success rounded ps-2' : ''"></p>
+                    <p th:text="${questionData.answer4}"
+                       th:classappend="${questionData.answer4 == questionData.correctAnswer} ? 'border border-2 border-success rounded ps-2' : ''"></p>
                 </div>
             </div>
         </div>

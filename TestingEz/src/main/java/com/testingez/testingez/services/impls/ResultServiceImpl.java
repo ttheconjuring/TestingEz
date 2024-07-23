@@ -78,15 +78,4 @@ public class ResultServiceImpl implements ResultService {
         return details;
     }
 
-    @Override
-    public List<AnsweredQuestionDTO> getAnsweredQuestionsData(Long resultId) {
-        Result result = this.resultRepository.findById(resultId)
-                .orElseThrow(() -> new ResultNotFoundException("We couldn't find result with id: " + resultId + "!"));
-        Long testId = result.getTest().getId();
-        return this.questionRepository.findAllByTestId(testId)
-                .stream()
-                .map(question -> this.modelMapper.map(question, AnsweredQuestionDTO.class))
-                .toList();
-    }
-
 }
