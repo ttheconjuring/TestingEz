@@ -3,16 +3,14 @@ package com.testingez.testingez.services.impls;
 import com.testingez.testingez.exceptions.custom.ResultNotFoundException;
 import com.testingez.testingez.exceptions.custom.TestNotFoundException;
 import com.testingez.testingez.exceptions.custom.UserNotFoundException;
+import com.testingez.testingez.models.dtos.exp.AnsweredQuestionDTO;
 import com.testingez.testingez.models.dtos.exp.ResultSummaryDTO;
 import com.testingez.testingez.models.dtos.exp.ResultDetailsDTO;
 import com.testingez.testingez.models.entities.Response;
 import com.testingez.testingez.models.entities.Result;
 import com.testingez.testingez.models.entities.Test;
 import com.testingez.testingez.models.enums.ResultStatus;
-import com.testingez.testingez.repositories.ResponseRepository;
-import com.testingez.testingez.repositories.ResultRepository;
-import com.testingez.testingez.repositories.TestRepository;
-import com.testingez.testingez.repositories.UserRepository;
+import com.testingez.testingez.repositories.*;
 import com.testingez.testingez.services.ResultService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -30,6 +28,7 @@ public class ResultServiceImpl implements ResultService {
     private final UserRepository userRepository;
     private final TestRepository testRepository;
     private final ModelMapper modelMapper;
+    private final QuestionRepository questionRepository;
 
     @Override
     public void calculateResult(Long testId, Long userId) {
@@ -77,6 +76,17 @@ public class ResultServiceImpl implements ResultService {
         details.setTestName(this.testRepository.findById(testId)
                 .orElseThrow(() -> new TestNotFoundException("We couldn't find test with id: " + testId + "!")).getName());
         return details;
+    }
+
+    @Override
+    public List<AnsweredQuestionDTO> getAnsweredQuestionsData(Long resultId) {
+        Result result = this.resultRepository.findById(resultId)
+                .orElseThrow(() -> new ResultNotFoundException("We couldn't find result with id: " + resultId + "!"));
+        Long testId = result.getTest().getId();
+        return this.questionRepository.findAllByTestId(testId)
+                .stream()
+                .map(question -> this.modelMapper.map(question, AnsweredQuestionDTO.class))
+                .toList();
     }
 
 }

@@ -29,7 +29,7 @@ public class ResultControllerImpl implements ResultController {
     @GetMapping("/details/{resultId}")
     public String resultDetails(@PathVariable Long resultId, Model model) {
         model.addAttribute("resultDetails", this.resultService.getResultDetails(resultId));
-        // model.addAttribute("questions", null);
+        model.addAttribute("answeredQuestions", this.resultService.getAnsweredQuestionsData(resultId));
         return "result-details";
     }
 

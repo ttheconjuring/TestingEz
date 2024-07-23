@@ -1,7 +1,10 @@
 package com.testingez.testingez.services;
 
+import com.testingez.testingez.models.dtos.exp.AnsweredQuestionDTO;
 import com.testingez.testingez.models.dtos.exp.ResultSummaryDTO;
 import com.testingez.testingez.models.dtos.exp.ResultDetailsDTO;
+
+import java.util.List;
 
 public interface ResultService {
 
@@ -11,4 +14,5 @@ public interface ResultService {
 
     ResultDetailsDTO getResultDetails(Long resultId);
 
+    List<AnsweredQuestionDTO> getAnsweredQuestionsData(Long resultId);
 }
