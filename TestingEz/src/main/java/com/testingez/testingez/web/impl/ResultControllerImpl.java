@@ -18,11 +18,19 @@ public class ResultControllerImpl implements ResultController {
 
     @Override
     @GetMapping("/{testId}/{userId}")
-    public String result(Model model,
-                         @PathVariable Long testId,
-                         @PathVariable Long userId) {
+    public String resultSummary(Model model,
+                                @PathVariable Long testId,
+                                @PathVariable Long userId) {
         model.addAttribute("resultData", this.resultService.getResult(testId, userId));
         return "show-result";
+    }
+
+    @Override
+    @GetMapping("/details/{resultId}")
+    public String resultDetails(@PathVariable Long resultId, Model model) {
+        model.addAttribute("summaryData", null);
+        model.addAttribute("questions", null);
+        return "result-details";
     }
 
 }
