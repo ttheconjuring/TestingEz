@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ResultPeekDTO {
 
+    private Long id;
+
     private String testName;
 
     private LocalDateTime completedAt;
