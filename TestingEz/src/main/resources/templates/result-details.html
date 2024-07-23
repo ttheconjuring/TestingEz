@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{fragments/heads :: head}"></div>
+<body class="font">
+<div class="d-flex flex-column vh-100 gap-5">
+    <div th:replace="~{fragments/headers :: header}"></div>
+    <main class="container flex-grow-1">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-8 col-lg-6 shadow text-center rounded border border-2"
+                 th:object="${resultDetails}">
+                <h2 th:text="*{testName}"></h2>
+                <p th:text="'STATUS: ' + *{status}"></p>
+                <p th:text="'RESULT: ' + *{result}"></p>
+                <p th:text="'POINTS: ' + *{points}"></p>
+                <p th:text="'DATE: ' + *{completedAt}"></p>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-8 col-lg-6 shadow rounded border border-2 p-3">
+                <div class="p-2 rounded border border-2 mb-2"
+                     th:each="questionData : ${answeredQuestions}">
+                    <p th:text="${questionData.number} + '.' + ${questionData.question} + ' (' + ${questionData.points} + 'p.)'"></p>
+                    <p th:text="${questionData.answer1}"
+                       th:classappend="${questionData.answer1 == questionData.correctAnswer} ? 'border border-2 border-success rounded ps-2' : ''"></p>
+                    <p th:text="${questionData.answer2}"
+                       th:classappend="${questionData.answer2 == questionData.correctAnswer} ? 'border border-2 border-success rounded ps-2' : ''"></p>
+                    <p th:text="${questionData.answer3}"
+                       th:classappend="${questionData.answer3 == questionData.correctAnswer} ? 'border border-2 border-success rounded ps-2' : ''"></p>
+                    <p th:text="${questionData.answer4}"
+                       th:classappend="${questionData.answer4 == questionData.correctAnswer} ? 'border border-2 border-success rounded ps-2' : ''"></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div th:replace="~{fragments/footers :: footer}"></div>
+</div>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>

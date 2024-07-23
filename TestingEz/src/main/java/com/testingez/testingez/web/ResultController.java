@@ -4,6 +4,8 @@ import org.springframework.ui.Model;
 
 public interface ResultController {
 
-    String result(Model model, Long testId, Long userId);
+    String resultSummary(Model model, Long testId, Long userId);
+
+    String resultDetails(Long resultId, Model model);
 
 }

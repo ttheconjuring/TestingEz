@@ -4,20 +4,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class ResultPeekDTO {
+public class ResultSummaryDTO {
 
-    private Long id;
+    private Integer points;
 
-    private String testName;
-
-    private LocalDateTime completedAt;
+    private String result;
 
     private String status;
-
 
 }
