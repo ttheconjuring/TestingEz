@@ -18,7 +18,6 @@ public class ResultControllerImpl implements ResultController {
 
     private final ResultService resultService;
     private final QuestionService questionService;
-    private final ResponseService responseService;
 
     @Override
     @GetMapping("/{testId}/{userId}")
@@ -34,7 +33,6 @@ public class ResultControllerImpl implements ResultController {
     public String resultDetails(@PathVariable Long resultId, Model model) {
         model.addAttribute("resultDetails", this.resultService.getResultDetails(resultId));
         model.addAttribute("answeredQuestions", this.questionService.getAnsweredQuestionsData(resultId));
-        // model.addAttribute("responses", this.responseService.getResponses)
         return "result-details";
     }
 

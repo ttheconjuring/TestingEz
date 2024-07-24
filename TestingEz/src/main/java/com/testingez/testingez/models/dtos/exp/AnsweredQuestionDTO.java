@@ -21,6 +21,8 @@ public class AnsweredQuestionDTO {
 
     private String correctAnswer;
 
+    private String givenAnswer;
+
     private Integer points;
 
     private Integer number;
