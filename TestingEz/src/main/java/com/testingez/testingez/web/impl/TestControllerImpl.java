@@ -1,10 +1,10 @@
 package com.testingez.testingez.web.impl;
 
 import com.testingez.testingez.models.dtos.TestJoinDTO;
-import com.testingez.testingez.models.dtos.exp.ResultPeekDTO;
 import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
+import com.testingez.testingez.services.QuestionService;
 import com.testingez.testingez.services.TestService;
 import com.testingez.testingez.web.TestController;
 import jakarta.validation.Valid;
@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class TestControllerImpl implements TestController {
 
     private final TestService testService;
+    private final QuestionService questionService;
 
     @ModelAttribute("testCreateData")
     public TestCreateDTO testCreateData() {
@@ -111,5 +112,13 @@ public class TestControllerImpl implements TestController {
         Page<TestPeekDTO> paginatedTests = this.testService.getPaginatedTests(pageable);
         model.addAttribute("paginatedTests", paginatedTests);
         return "all-tests";
+    }
+
+    @Override
+    @GetMapping("/details/{testId}")
+    public String testDetails(@PathVariable Long testId, Model model) {
+        model.addAttribute("testDetails", this.testService.getTestDetails(testId));
+        model.addAttribute("testQuestions", this.questionService.getQuestionsOfATest(testId));
+        return "test-details";
     }
 }

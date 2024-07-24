@@ -1,5 +1,6 @@
 package com.testingez.testingez.services;
 
+import com.testingez.testingez.models.dtos.exp.TestDetailsDTO;
 import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
@@ -17,4 +18,6 @@ public interface TestService {
     TestPreviewDTO getTestPreviewData(String code);
 
     Page<TestPeekDTO> getPaginatedTests(Pageable pageable);
+
+    TestDetailsDTO getTestDetails(Long testId);
 }

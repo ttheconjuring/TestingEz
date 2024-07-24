@@ -5,6 +5,7 @@ import com.testingez.testingez.exceptions.custom.ResultNotFoundException;
 import com.testingez.testingez.exceptions.custom.TestNotFoundException;
 import com.testingez.testingez.models.dtos.exp.AnsweredQuestionDTO;
 import com.testingez.testingez.models.dtos.exp.QuestionAnswerDTO;
+import com.testingez.testingez.models.dtos.exp.QuestionDetailsDTO;
 import com.testingez.testingez.models.dtos.exp.ResponseToQuestionDTO;
 import com.testingez.testingez.models.dtos.imp.QuestionCreateDTO;
 import com.testingez.testingez.models.dtos.imp.TestQuestionsDTO;
@@ -21,7 +22,6 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -94,6 +94,14 @@ public class QuestionServiceImpl implements QuestionService {
             questions.get(i).setGivenAnswer(responses.get(i).getResponseText());
         }
         return questions;
+    }
+
+    @Override
+    public List<QuestionDetailsDTO> getQuestionsOfATest(Long testId) {
+        return this.questionRepository.findAllByTestId(testId)
+                .stream().map(question ->
+                        this.modelMapper.map(question, QuestionDetailsDTO.class)
+                ).toList();
     }
 
 }
