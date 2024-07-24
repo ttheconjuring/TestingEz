@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AnsweredQuestionDTO {
+public class QuestionDetailsDTO {
 
     private String question;
 
@@ -21,10 +21,8 @@ public class AnsweredQuestionDTO {
 
     private String correctAnswer;
 
-    private String givenAnswer;
+    private Integer number;
 
     private Integer points;
-
-    private Integer number;
 
 }

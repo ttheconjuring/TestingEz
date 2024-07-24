@@ -23,4 +23,6 @@ public interface TestController {
 
     String showAll(Pageable pageable, Model model);
 
+    String testDetails(Long testId, Model model);
+
 }

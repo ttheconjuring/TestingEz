@@ -9,14 +9,26 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TestPeekDTO {
-
-    private Long id;
+public class TestDetailsDTO {
 
     private String name;
 
+    private String description;
+
+    private String code;
+
+    private Integer responseTime;
+
+    private Integer passingScore;
+
+    private Integer questionsCount;
+
     private String status;
 
+    private LocalDateTime dateCreated;
+
     private LocalDateTime dateUpdated;
+
+    private String creatorUsername;
 
 }

@@ -2,6 +2,7 @@ package com.testingez.testingez.services.impls;
 
 import com.testingez.testingez.exceptions.custom.TestNotFoundException;
 import com.testingez.testingez.models.dtos.exp.ResultPeekDTO;
+import com.testingez.testingez.models.dtos.exp.TestDetailsDTO;
 import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
@@ -76,6 +77,14 @@ public class TestServiceImpl implements TestService {
     public Page<TestPeekDTO> getPaginatedTests(Pageable pageable) {
         Page<Test> tests = this.testRepository.findAll(pageable);
         return tests.map(test -> modelMapper.map(test, TestPeekDTO.class));
+    }
+
+    @Override
+    public TestDetailsDTO getTestDetails(Long testId) {
+        return this.modelMapper.map(this.testRepository.findById(testId)
+                        .orElseThrow(
+                                () -> new TestNotFoundException("We couldn't find test with id: " + testId)),
+                TestDetailsDTO.class);
     }
 
 }

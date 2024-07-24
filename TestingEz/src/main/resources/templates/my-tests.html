@@ -25,9 +25,10 @@
                     <span th:text="'Last updated: ' + ${test.dateUpdated}"></span>
                 </div>
                 <div class="col-sm-12 col-md-3 text-end">
-                    <button class="btn btn-light px-3 border border-2 shadow rounded">
+                    <a class="btn btn-light px-3 border border-2 shadow rounded"
+                       th:href="@{/test/details/{id}(id=${test.id})}">
                         details
-                    </button>
+                    </a>
                 </div>
             </div>
             <div class="d-flex justify-content-center gap-1">
