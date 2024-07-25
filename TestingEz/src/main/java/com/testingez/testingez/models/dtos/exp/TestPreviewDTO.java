@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,8 +22,6 @@ public class TestPreviewDTO {
     private Integer questionsCount;
 
     private String status;
-
-    private LocalDateTime dateCreated;
 
     private String creatorUsername;
 

@@ -1,7 +1,7 @@
 package com.testingez.testingez.web;
 
 import com.testingez.testingez.exceptions.custom.NinjaMicroServiceException;
-import com.testingez.testingez.models.dtos.exp.UserProfileDTO;
+import com.testingez.testingez.models.dtos.UserProfileDTO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
