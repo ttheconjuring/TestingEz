@@ -3,6 +3,7 @@ package com.testingez.testingez.services;
 import com.testingez.testingez.models.dtos.exp.AnsweredQuestionDTO;
 import com.testingez.testingez.models.dtos.exp.QuestionAnswerDTO;
 import com.testingez.testingez.models.dtos.exp.QuestionDetailsDTO;
+import com.testingez.testingez.models.dtos.imp.QuestionEditDTO;
 import com.testingez.testingez.models.dtos.imp.TestQuestionsDTO;
 
 import java.util.List;
@@ -18,4 +19,8 @@ public interface QuestionService {
     List<AnsweredQuestionDTO> getAnsweredQuestionsData(Long resultId);
 
     List<QuestionDetailsDTO> getQuestionsOfATest(Long testId);
+
+    QuestionEditDTO fetchQuestionData(Long questionId);
+
+    void editQuestion(QuestionEditDTO questionEditDTO);
 }
