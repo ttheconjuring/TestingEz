@@ -13,4 +13,6 @@ public interface QuestionsController {
 
     String putDownQuestions(Long testId, TestQuestionsDTO testQuestionsData, BindingResult bindingResult, RedirectAttributes redirectAttributes);
 
+    String edit(Long questionId, Model model);
+
 }

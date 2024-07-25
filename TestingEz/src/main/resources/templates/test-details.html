@@ -23,21 +23,28 @@
         <div class="row justify-content-center">
             <div class="col-sm-12 col-md-8 col-lg-6 shadow rounded border border-2 p-3">
                 <div class="p-2 rounded border border-2 mb-2"
-                th:each="questionData : ${testQuestions}">
-                <p th:text="'Number: ' + ${questionData.number}"></p>
-                <p th:text="'Points: ' + ${questionData.points}"></p>
-                <p th:text="${questionData.question}"></p>
-                <p th:text="${questionData.answer1}"></p>
-                <p th:text="${questionData.answer2}"></p>
-                <p th:text="${questionData.answer3}"></p>
-                <p th:text="${questionData.answer4}"></p>
-                <p th:text="'Correct answer: ' + ${questionData.correctAnswer} "></p>
+                     th:each="questionData : ${testQuestions}">
+                    <div class="d-flex justify-content-between">
+                        <span th:text="'№: ' + ${questionData.number}"></span>
+                        <a
+                                class="btn btn-light border border-2 rounded"
+                                th:href="@{/questions/edit/{id}(id=${questionData.id})}">
+                            <img src="/images/edit.png" style="width: 25px; height: auto" alt="edit">
+                        </a>
+                    </div>
+                    <p th:text="'Points: ' + ${questionData.points}"></p>
+                    <p th:text="${questionData.question}"></p>
+                    <p th:text="${questionData.answer1}"></p>
+                    <p th:text="${questionData.answer2}"></p>
+                    <p th:text="${questionData.answer3}"></p>
+                    <p th:text="${questionData.answer4}"></p>
+                    <p th:text="'Correct answer: ' + ${questionData.correctAnswer} "></p>
+                </div>
             </div>
         </div>
-</div>
-</main>
+    </main>
 
-<div th:replace="~{fragments/footers :: footer}"></div>
+    <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>

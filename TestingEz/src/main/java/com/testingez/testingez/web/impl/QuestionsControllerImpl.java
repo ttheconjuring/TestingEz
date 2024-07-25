@@ -80,6 +80,13 @@ public class QuestionsControllerImpl implements QuestionsController {
         return "redirect:/operation/success";
     }
 
+    @Override
+    @GetMapping("/edit/{questionId}")
+    public String edit(@PathVariable Long questionId, Model model) {
+        System.out.println(questionId);
+        return null;
+    }
+
     private TestQuestionsDTO testQuestionsDTO(int questionsCount, Long testId) {
         TestQuestionsDTO testQuestionsDTO = new TestQuestionsDTO();
         testQuestionsDTO.setTestId(testId);
