@@ -2,6 +2,7 @@ package com.testingez.testingez.web.impl;
 
 import com.testingez.testingez.models.dtos.exp.QuestionAnswerDTO;
 import com.testingez.testingez.models.dtos.imp.QuestionCreateDTO;
+import com.testingez.testingez.models.dtos.imp.QuestionEditDTO;
 import com.testingez.testingez.models.dtos.imp.ResponseCreateDTO;
 import com.testingez.testingez.models.dtos.imp.TestQuestionsDTO;
 import com.testingez.testingez.services.QuestionService;
@@ -83,8 +84,25 @@ public class QuestionsControllerImpl implements QuestionsController {
     @Override
     @GetMapping("/edit/{questionId}")
     public String edit(@PathVariable Long questionId, Model model) {
-        System.out.println(questionId);
-        return null;
+        if (!model.containsAttribute("questionData")) {
+            model.addAttribute("questionData", this.questionService.fetchQuestionData(questionId));
+        }
+        return "question-edit";
+    }
+
+    @Override
+    @PostMapping("/edit/{questionId}")
+    public String edit(@PathVariable Long questionId,
+                       @Valid QuestionEditDTO questionEditDTO,
+                       BindingResult bindingResult,
+                       RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.testQuestionsData", bindingResult);
+            redirectAttributes.addFlashAttribute("questionData", questionEditDTO);
+            return String.format("redirect:/questions/edit/%d", questionId);
+        }
+        this.questionService.editQuestion(questionEditDTO);
+        return String.format("redirect:/test/details/%d", questionEditDTO.getTestId());
     }
 
     private TestQuestionsDTO testQuestionsDTO(int questionsCount, Long testId) {

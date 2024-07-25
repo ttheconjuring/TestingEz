@@ -8,6 +8,7 @@ import com.testingez.testingez.models.dtos.exp.QuestionAnswerDTO;
 import com.testingez.testingez.models.dtos.exp.QuestionDetailsDTO;
 import com.testingez.testingez.models.dtos.exp.ResponseToQuestionDTO;
 import com.testingez.testingez.models.dtos.imp.QuestionCreateDTO;
+import com.testingez.testingez.models.dtos.imp.QuestionEditDTO;
 import com.testingez.testingez.models.dtos.imp.TestQuestionsDTO;
 import com.testingez.testingez.models.entities.Question;
 import com.testingez.testingez.models.entities.Result;
@@ -102,6 +103,29 @@ public class QuestionServiceImpl implements QuestionService {
                 .stream().map(question ->
                         this.modelMapper.map(question, QuestionDetailsDTO.class)
                 ).toList();
+    }
+
+    @Override
+    public QuestionEditDTO fetchQuestionData(Long questionId) {
+        return this.modelMapper.map(
+                this.questionRepository.findById(questionId)
+                        .orElseThrow(
+                                () -> new QuestionNotFoundException("We couldn't find question with id: " + questionId + "!")
+                        ), QuestionEditDTO.class
+        );
+    }
+
+    @Override
+    public void editQuestion(QuestionEditDTO questionEditDTO) {
+        Question question = this.questionRepository.findById(questionEditDTO.getId())
+                .orElseThrow(() -> new QuestionNotFoundException("We couldn't find question with id: " + questionEditDTO.getId() + "!"));
+        question.setQuestion(questionEditDTO.getQuestion());
+        question.setAnswer1(questionEditDTO.getAnswer1());
+        question.setAnswer2(questionEditDTO.getAnswer2());
+        question.setAnswer3(questionEditDTO.getAnswer3());
+        question.setAnswer4(questionEditDTO.getAnswer4());
+        question.setCorrectAnswer(questionEditDTO.getCorrectAnswer());
+        this.questionRepository.saveAndFlush(question);
     }
 
 }
