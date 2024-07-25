@@ -97,7 +97,7 @@ public class QuestionsControllerImpl implements QuestionsController {
                        BindingResult bindingResult,
                        RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.testQuestionsData", bindingResult);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.questionData", bindingResult);
             redirectAttributes.addFlashAttribute("questionData", questionEditDTO);
             return String.format("redirect:/questions/edit/%d", questionId);
         }
