@@ -1,6 +1,6 @@
 package com.testingez.testingez.config;
 
-import com.testingez.testingez.models.dtos.exp.UserProfileDTO;
+import com.testingez.testingez.models.dtos.UserProfileDTO;
 import com.testingez.testingez.models.entities.User;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;

@@ -20,6 +20,11 @@ public class LoginControllerImpl implements LoginController {
         return new UserSignInDTO();
     }
 
+    /*
+     * This method leads to a login page. Username and password are required in order
+     * to sign in. A request param, saying "invalid credentials", is received, when
+     * the users are entering invalid username or password.
+     */
     @Override
     @GetMapping("/login")
     public String login(@RequestParam(required = false, name = "error") String error,

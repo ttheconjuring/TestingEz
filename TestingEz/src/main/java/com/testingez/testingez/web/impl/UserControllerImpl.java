@@ -3,7 +3,7 @@ package com.testingez.testingez.web.impl;
 import com.testingez.testingez.exceptions.custom.NinjaMicroServiceException;
 import com.testingez.testingez.models.dtos.exp.ResultPeekDTO;
 import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
-import com.testingez.testingez.models.dtos.exp.UserProfileDTO;
+import com.testingez.testingez.models.dtos.UserProfileDTO;
 import com.testingez.testingez.services.NinjaService;
 import com.testingez.testingez.services.UserService;
 import com.testingez.testingez.web.UserController;
@@ -27,6 +27,12 @@ public class UserControllerImpl implements UserController {
     private final UserService userService;
     private final NinjaService ninjaService;
 
+    /*
+     * This method leads to the home page. It fetches the data, required for the
+     * home page to be functioning correctly from the separate microservice, and
+     * then passes it to the template. It throws custom exception, when the
+     * microservice does not respond.
+     */
     @Override
     @GetMapping("/home")
     public String home(Model model) throws NinjaMicroServiceException {
@@ -37,22 +43,47 @@ public class UserControllerImpl implements UserController {
         return "user-home";
     }
 
+    /*
+     * This method leads to the user's profile. It gets the user profile data and
+     * passes it to the template. This is where users can check upon their
+     * own profiles.
+     */
     @Override
     @GetMapping("/profile")
     public String profile(Model model) {
-        model.addAttribute("userProfileData", this.userService.getUserProfileData());
+        addUserProfileDataToModel(model);
         return "user-profile";
     }
 
+    /*
+     * This method leads to page where users are allowed to edit their profile data.
+     * If the user hits the endpoint before they have made changes, the model will
+     * accept the profile data from the database. Otherwise, when redirected due to
+     * invalid data given, the model will pass the data that is not accepted and will
+     * display appropriate messages in order to help the user understand the problem.
+     */
     @Override
     @GetMapping("/profile/edit")
     public String edit(Model model) {
         if (!model.containsAttribute("userProfileData")) {
-            model.addAttribute("userProfileData", this.userService.getUserProfileData());
+            addUserProfileDataToModel(model);
         }
         return "user-profile-edit";
     }
 
+    /*
+     * This method receives the object that holds the edited profile data. First,
+     * it validates the object. Then, if there is a problem, redirects the user to
+     * the upper method, where the error messages are displayed. The invalid data is
+     * sent too, so there is no need for the user to type it over and over again. If
+     * there is no problem with the new edited data, the object is passed to a method
+     * that tries to apply the changes. There are 4 scenarios:
+     *   1.The user tries to use already taken username. (gets redirected back to change it)
+     *   2.The user tries to use already taken email. (gets redirected back to change it)
+     *   3.The user tries to use already taken phone. (gets redirected back to change it)
+     *   4.The user profile is updated successfully.
+     * After successful update, the user is sent to a page saying changes are made.
+     */
     @Override
     @PostMapping("/profile/edit")
     public String edit(@Valid UserProfileDTO userProfileData,
@@ -68,17 +99,7 @@ public class UserControllerImpl implements UserController {
         String result = this.userService.editProfileData(userProfileData);
 
         if (!result.equals("success")) {
-            String errors = result.trim();
-            if (errors.contains("username")) {
-                redirectAttributes.addFlashAttribute("invalidUsername", true);
-            }
-            if (errors.contains("email")) {
-                redirectAttributes.addFlashAttribute("invalidEmail", true);
-            }
-            if (errors.contains("phone")) {
-                redirectAttributes.addFlashAttribute("invalidPhone", true);
-            }
-            redirectAttributes.addFlashAttribute("userProfileData", userProfileData);
+            handleProfileEditErrors(result, userProfileData, redirectAttributes);
             return "redirect:/user/profile/edit";
         }
 
@@ -86,6 +107,12 @@ public class UserControllerImpl implements UserController {
         return "redirect:/operation/success";
     }
 
+    /*
+     * This method leads the users to page, where their own tests are displayed.
+     * Only 5 tests are shown at a time. Pages are available to navigate over
+     * the tests. Small portion of data is shown for each test. There is button
+     *  for more details on each test.
+     */
     @Override
     @GetMapping("/my-tests")
     public String userTests(Pageable pageable, Model model) {
@@ -94,12 +121,36 @@ public class UserControllerImpl implements UserController {
         return "my-tests";
     }
 
+    /*
+     * This method leads the users to page, where their own results are displayed.
+     * Only 5 results are shown at a time. Pages are available to navigate over the tests.
+     * Small portion of data is shown for each result. There is button for more details
+     * on each result.
+     */
     @Override
     @GetMapping("/my-results")
     public String userResults(Pageable pageable, Model model) {
         Page<ResultPeekDTO> paginatedResults = this.userService.getPaginatedResults(pageable);
         model.addAttribute("paginatedResults", paginatedResults);
         return "my-results";
+    }
+
+    private void handleProfileEditErrors(String result, UserProfileDTO userProfileData, RedirectAttributes redirectAttributes) {
+        String errors = result.trim();
+        if (errors.contains("username")) {
+            redirectAttributes.addFlashAttribute("invalidUsername", true);
+        }
+        if (errors.contains("email")) {
+            redirectAttributes.addFlashAttribute("invalidEmail", true);
+        }
+        if (errors.contains("phone")) {
+            redirectAttributes.addFlashAttribute("invalidPhone", true);
+        }
+        redirectAttributes.addFlashAttribute("userProfileData", userProfileData);
+    }
+
+    private void addUserProfileDataToModel(Model model) {
+        model.addAttribute("userProfileData", this.userService.getUserProfileData());
     }
 
 }

@@ -16,6 +16,14 @@ public class ResponseControllerImpl implements ResponseController {
 
     private final ResponseService responseService;
 
+    /*
+     * This method simply saves user's response to question. Response is considered
+     * a selected and submitted answer. It validates object, holding the response text
+     * (the selected option text), the question id (so the response can be associated with
+     * a one), test id and question number (so it can navigate to the next question, after
+     * the response is saved). After response is inserted in the database, the users proceed
+     * to the next question.
+     */
     @Override
     @PostMapping("/save")
     public String save(@Valid ResponseCreateDTO responseData) {

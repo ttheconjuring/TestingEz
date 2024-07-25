@@ -1,4 +1,4 @@
-package com.testingez.testingez.models.dtos.exp;
+package com.testingez.testingez.models.dtos;
 
 import jakarta.validation.constraints.*;
 import lombok.Getter;
