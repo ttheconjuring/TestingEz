@@ -10,6 +10,7 @@
                  th:object="${testDetails}">
                 <h2 th:text="*{name}"></h2>
                 <p th:text="'Description: ' + *{description}"></p>
+                <p th:text="'Code: ' + *{code}"></p>
                 <p th:text="'Response time: ' + *{responseTime}"></p>
                 <p th:text="'Passing score: ' + *{passingScore}"></p>
                 <p th:text="'Questions count: ' + *{questionsCount}"></p>
