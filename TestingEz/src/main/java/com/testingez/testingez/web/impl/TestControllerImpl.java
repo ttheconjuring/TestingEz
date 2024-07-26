@@ -105,7 +105,7 @@ public class TestControllerImpl implements TestController {
      * the database and eventually returns the id of the test created. The id returned is
      * required for successful redirection to the next step in creating a test - the questions.
      * The questions should be associated with test id and that is why the endpoint contains
-     * the test id: /questions/{testId}/create.
+     * the test id: /questions/{id}/create.
      */
     @Override
     @PostMapping("/create")
@@ -117,8 +117,8 @@ public class TestControllerImpl implements TestController {
             redirectAttributes.addFlashAttribute("testCreateData", testCreateData);
             return "redirect:/test/create";
         }
-        Long testId = this.testService.create(testCreateData);
-        return String.format("redirect:/questions/%d/create", testId);
+        Long id = this.testService.create(testCreateData);
+        return String.format("redirect:/questions/%d/create", id);
     }
 
     /* TODO: add some logic if the deletion is not successful
@@ -126,10 +126,10 @@ public class TestControllerImpl implements TestController {
      * Redirects to page that says the deletion was successful.
      */
     @Override
-    @PostMapping("/delete/{testId}")
-    public String delete(@PathVariable Long testId,
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Long id,
                          RedirectAttributes redirectAttributes) {
-        this.testService.delete(testId);
+        this.testService.delete(id);
         redirectAttributes.addFlashAttribute("message", "You deleted the test.");
         return "redirect:/operation/success";
     }
@@ -148,16 +148,28 @@ public class TestControllerImpl implements TestController {
 
     /* TODO: make it possible to open/close a test
      * This method leads to a page with all the information about a test, including the
-     * questions. It accepts testId that is used to fetch all the required data. Two objects
+     * questions. It accepts id that is used to fetch all the required data. Two objects
      * are received then - test data and questions data. Both are passed to the template and
      * shown to the user. It also gives opportunity to edit the questions of the test.
      */
     @Override
-    @GetMapping("/details/{testId}")
-    public String testDetails(@PathVariable Long testId, Model model) {
-        model.addAttribute("testDetails", this.testService.getTestDetails(testId));
-        model.addAttribute("testQuestions", this.questionService.getQuestionsOfATest(testId));
+    @GetMapping("/details/{id}")
+    public String testDetails(@PathVariable Long id, Model model) {
+        model.addAttribute("testDetails", this.testService.getTestDetails(id));
+        model.addAttribute("testQuestions", this.questionService.getQuestionsOfATest(id));
         return "test-details";
+    }
+
+    /*
+     * This method accepts object, holding the current test status and also the test id, needed for
+     * the redirection after that. Another method tries to change the status. If the test is OPEN,
+     *  it becomes CLOSED and vice versa. Then users are redirected back to the test details page.
+     */
+    @Override
+    @GetMapping("/status/change/{id}")
+    public String changeTestStatus(@PathVariable Long id) {
+        this.testService.changeTestStatus(id);
+        return String.format("redirect:/test/details/%d", id);
     }
 
     private String takeAction(String status, String code, TestJoinDTO testJoinData, RedirectAttributes redirectAttributes) {

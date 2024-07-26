@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class TestDetailsDTO {
 
+    private Long id;
+
     private String name;
 
     private String description;
