@@ -18,6 +18,7 @@ import com.testingez.testingez.repositories.ResponseRepository;
 import com.testingez.testingez.repositories.ResultRepository;
 import com.testingez.testingez.repositories.TestRepository;
 import com.testingez.testingez.services.QuestionService;
+import com.testingez.testingez.services.ResultService;
 import com.testingez.testingez.services.UserHelperService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -35,6 +36,7 @@ public class QuestionServiceImpl implements QuestionService {
     private final ResultRepository resultRepository;
     private final ResponseRepository responseRepository;
     private final UserHelperService userHelperService;
+    private final ResultService resultService;
 
     @Override
     public void putDown(TestQuestionsDTO testQuestionsDTO, Long testId) {
@@ -63,6 +65,8 @@ public class QuestionServiceImpl implements QuestionService {
         Test test = this.testRepository.findById(testId)
                 .orElseThrow(() -> new TestNotFoundException("We couldn't find test with id: " + testId + "!"));
         if (test.getQuestionsCount() < questionNumber) {
+            this.resultService.calculateResult(testId,
+                    this.userHelperService.getLoggedUser().getId());
             return null;
         }
         Question question = this.questionRepository.findByTestIdAndNumber(testId, questionNumber)

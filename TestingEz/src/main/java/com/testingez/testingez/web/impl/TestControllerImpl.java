@@ -121,7 +121,7 @@ public class TestControllerImpl implements TestController {
         return String.format("redirect:/questions/%d/create", id);
     }
 
-    /* TODO: add some logic if the deletion is not successful
+    /*
      * This method receives an id of a test as path variable and tries to delete it.
      * Redirects to page that says the deletion was successful.
      */
@@ -146,7 +146,7 @@ public class TestControllerImpl implements TestController {
         return "all-tests";
     }
 
-    /* TODO: make it possible to open/close a test
+    /*
      * This method leads to a page with all the information about a test, including the
      * questions. It accepts id that is used to fetch all the required data. Two objects
      * are received then - test data and questions data. Both are passed to the template and
@@ -161,9 +161,9 @@ public class TestControllerImpl implements TestController {
     }
 
     /*
-     * This method accepts object, holding the current test status and also the test id, needed for
-     * the redirection after that. Another method tries to change the status. If the test is OPEN,
-     *  it becomes CLOSED and vice versa. Then users are redirected back to the test details page.
+     * This method changes the current test status. If it is OPEN, it becomes CLOSED and vice versa.
+     * The method depends on the path variable that holds the test id. After status is updated, users
+     * are redirected back to the test details page.
      */
     @Override
     @GetMapping("/status/change/{id}")
