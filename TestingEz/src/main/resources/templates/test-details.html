@@ -14,7 +14,10 @@
                 <p th:text="'Response time: ' + *{responseTime}"></p>
                 <p th:text="'Passing score: ' + *{passingScore}"></p>
                 <p th:text="'Questions count: ' + *{questionsCount}"></p>
-                <p th:text="'Status: ' + *{status}"></p>
+                <p>Status: <a class="btn border border-2"
+                              th:classappend="*{status} == 'OPEN' ? 'bg-success' : 'bg-danger'"
+                              th:href="@{/test/status/change/{id}(id=*{id})}"
+                              th:text="*{status}"></a></p>
                 <p th:text="'Created At: ' + *{dateCreated}"></p>
                 <p th:text="'Updated At: ' + *{dateUpdated}"></p>
                 <p th:text="'Creator: ' + *{creatorUsername}"></p>

@@ -65,24 +65,29 @@ public class RegistrationControllerImpl implements RegistrationController {
         String result = this.userService.register(userSignUpData);
 
         if (!result.equals("success")) {
-            String errors = result.trim();
-            if (errors.contains("username")) {
-                redirectAttributes.addFlashAttribute("invalidUsername", true);
-            }
-            if (errors.contains("email")) {
-                redirectAttributes.addFlashAttribute("invalidEmail", true);
-            }
-            if (errors.contains("phone")) {
-                redirectAttributes.addFlashAttribute("invalidPhone", true);
-            }
-            if (errors.contains("passwords")) {
-                redirectAttributes.addFlashAttribute("invalidPasswords", true);
-            }
-            redirectAttributes.addFlashAttribute("userSignUpData", userSignUpData);
+            handleRegistrationErrors(result, redirectAttributes, userSignUpData);
             return "redirect:/account/create";
         }
 
         return "redirect:/account/login";
+    }
+
+    private void handleRegistrationErrors(String result,
+                                          RedirectAttributes redirectAttributes,
+                                          UserSignUpDTO userSignUpData) {
+        if (result.contains("username")) {
+            redirectAttributes.addFlashAttribute("invalidUsername", true);
+        }
+        if (result.contains("email")) {
+            redirectAttributes.addFlashAttribute("invalidEmail", true);
+        }
+        if (result.contains("phone")) {
+            redirectAttributes.addFlashAttribute("invalidPhone", true);
+        }
+        if (result.contains("passwords")) {
+            redirectAttributes.addFlashAttribute("invalidPasswords", true);
+        }
+        redirectAttributes.addFlashAttribute("userSignUpData", userSignUpData);
     }
 
 }

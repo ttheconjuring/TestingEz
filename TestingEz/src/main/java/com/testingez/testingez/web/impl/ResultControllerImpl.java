@@ -35,7 +35,7 @@ public class ResultControllerImpl implements ResultController {
         return "show-result";
     }
 
-    /* TODO: cache the result since it never changes
+    /*
      * This method leads to a page that contains detailed information about the result and the performance
      * of the user. It accepts the result id that is passed to two methods: the first one fetches data about
      * the result itself and the second one fetches the data about how the user has answered every question.

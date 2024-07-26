@@ -20,7 +20,7 @@ public class CacheUpdater {
 
     @Scheduled(fixedRate = 360000) // 6 min
     public void updateCache() throws NinjaMicroServiceException {
-        LOGGER.info("Updating cache");
+        LOGGER.info("Updating home page cache");
         Objects.requireNonNull(cacheManager.getCache("home")).clear();
         try {
             this.ninjaService.fetchTrivia();
@@ -31,7 +31,7 @@ public class CacheUpdater {
             throw new NinjaMicroServiceException("We couldn't update cache due to " +
                     "NinjaMicroService issues.", error);
         }
-        LOGGER.info("Cache updated");
+        LOGGER.info("Home page cache updated");
     }
 
 }

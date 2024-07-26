@@ -3,7 +3,6 @@ package com.testingez.testingez.services.impls;
 import com.testingez.testingez.exceptions.custom.ResultNotFoundException;
 import com.testingez.testingez.exceptions.custom.TestNotFoundException;
 import com.testingez.testingez.exceptions.custom.UserNotFoundException;
-import com.testingez.testingez.models.dtos.exp.AnsweredQuestionDTO;
 import com.testingez.testingez.models.dtos.exp.ResultSummaryDTO;
 import com.testingez.testingez.models.dtos.exp.ResultDetailsDTO;
 import com.testingez.testingez.models.entities.Response;
@@ -14,10 +13,12 @@ import com.testingez.testingez.repositories.*;
 import com.testingez.testingez.services.ResultService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.logging.Logger;
 
 @AllArgsConstructor
 @Service
@@ -28,7 +29,8 @@ public class ResultServiceImpl implements ResultService {
     private final UserRepository userRepository;
     private final TestRepository testRepository;
     private final ModelMapper modelMapper;
-    private final QuestionRepository questionRepository;
+
+    private static final Logger LOGGER = Logger.getLogger(ResultServiceImpl.class.getName());
 
     @Override
     public void calculateResult(Long testId, Long userId) {
@@ -67,8 +69,10 @@ public class ResultServiceImpl implements ResultService {
                 ResultSummaryDTO.class);
     }
 
+    @Cacheable(value = "result")
     @Override
     public ResultDetailsDTO getResultDetails(Long resultId) {
+        LOGGER.info("Caching result details for: " + resultId);
         Result result = this.resultRepository.findById(resultId)
                 .orElseThrow(() -> new ResultNotFoundException("We couldn't find result with id: " + resultId + "!"));
         ResultDetailsDTO details = this.modelMapper.map(result, ResultDetailsDTO.class);

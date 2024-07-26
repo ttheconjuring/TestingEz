@@ -87,4 +87,16 @@ public class TestServiceImpl implements TestService {
                 TestDetailsDTO.class);
     }
 
+    @Override
+    public void changeTestStatus(Long id) {
+        Test test = this.testRepository.findById(id)
+                .orElseThrow(() -> new TestNotFoundException("We couldn't find test with id: " + id));
+        if (test.getStatus().equals(TestStatus.CLOSED)) {
+            test.setStatus(TestStatus.OPEN);
+        } else {
+            test.setStatus(TestStatus.CLOSED);
+        }
+        this.testRepository.saveAndFlush(test);
+    }
+
 }

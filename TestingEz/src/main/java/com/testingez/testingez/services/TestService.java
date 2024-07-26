@@ -20,4 +20,6 @@ public interface TestService {
     Page<TestPeekDTO> getPaginatedTests(Pageable pageable);
 
     TestDetailsDTO getTestDetails(Long testId);
+
+    void changeTestStatus(Long id);
 }

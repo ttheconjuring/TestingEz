@@ -28,10 +28,9 @@ public class QuestionsControllerImpl implements QuestionsController {
 
     private final QuestionService questionService;
     private final UserHelperService userHelperService;
-    private final ResultService resultService;
     private final ResponseService responseService;
 
-    /* TODO: make the timer server side | try to move the first if clause in the service
+    /* TODO: make the timer server side
      * This method leads to a page where a question with answers are given and the users
      * should select one and submit it. It also has a timer counting down to 0 that puts
      * limited time for response. The method accepts test id and question number to be able
@@ -52,10 +51,8 @@ public class QuestionsControllerImpl implements QuestionsController {
                                  RedirectAttributes redirectAttributes) {
         QuestionAnswerDTO questionAnswerDTO = this.questionService.fetchQuestionData(testId, questionNumber);
         if (questionAnswerDTO == null) {
-            Long userId = this.userHelperService.getLoggedUser().getId();
-            this.resultService.calculateResult(testId, userId);
             return String.format("redirect:/results/%d/%d",
-                    testId, userId);
+                    testId, this.userHelperService.getLoggedUser().getId());
         }
         if (this.responseService.isQuestionAnswered(testId, questionNumber)) {
             return String.format("redirect:/questions/%d/%d",
