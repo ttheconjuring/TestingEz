@@ -62,29 +62,14 @@ public class TestControllerImpl implements TestController {
     public String join(@Valid TestJoinDTO testJoinData,
                        BindingResult bindingResult,
                        RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("testJoinData", testJoinData);
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.testJoinDTO", bindingResult);
+            redirectAttributes.addFlashAttribute("testJoinData", testJoinData);
             return "redirect:/test/join";
         }
-
-        String result = this.testService.checkUponTest(testJoinData.getCode());
-        switch (result) {
-            case "not found" -> {
-                redirectAttributes.addFlashAttribute("testNotFound", true);
-                return "redirect:/test/join";
-            }
-            case "closed" -> {
-                redirectAttributes.addFlashAttribute("testClosed", true);
-                return "redirect:/test/join";
-            }
-            case "completed" -> {
-                redirectAttributes.addFlashAttribute("testCompleted", true);
-                return "redirect:/test/join";
-            }
-        }
-        redirectAttributes.addAttribute("code", testJoinData.getCode());
-        return "redirect:/test/join/preview";
+        String code = testJoinData.getCode();
+        String status = this.testService.checkUponTest(code);
+        return takeAction(status, code, testJoinData, redirectAttributes);
     }
 
     /*
@@ -174,4 +159,30 @@ public class TestControllerImpl implements TestController {
         model.addAttribute("testQuestions", this.questionService.getQuestionsOfATest(testId));
         return "test-details";
     }
+
+    private String takeAction(String status, String code, TestJoinDTO testJoinData, RedirectAttributes redirectAttributes) {
+        return switch (status) {
+            case "not found" -> {
+                redirectAttributes.addFlashAttribute("testNotFound", true);
+                redirectAttributes.addFlashAttribute("testJoinData", testJoinData);
+                yield "redirect:/test/join";
+            }
+            case "closed" -> {
+                redirectAttributes.addFlashAttribute("testClosed", true);
+                redirectAttributes.addFlashAttribute("testJoinData", testJoinData);
+                yield "redirect:/test/join";
+            }
+            case "completed" -> {
+                redirectAttributes.addFlashAttribute("testCompleted", true);
+                redirectAttributes.addFlashAttribute("testJoinData", testJoinData);
+                yield "redirect:/test/join";
+            }
+            case "ok" -> {
+                redirectAttributes.addAttribute("code", code);
+                yield "redirect:/test/join/preview";
+            }
+            default -> throw new IllegalStateException("Unexpected test status: " + status);
+        };
+    }
+
 }
