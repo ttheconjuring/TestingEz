@@ -22,4 +22,6 @@ public interface NinjaService {
     QuoteDTO[] getQuotes();
 
     ImprovementDTO[] getImprovements();
+
+    void processImprovement(ImprovementDTO improvementDTO);
 }

@@ -3,11 +3,11 @@ package bg.softuni.ninjamicroservice.ninja.web.impl;
 import bg.softuni.ninjamicroservice.ninja.dtos.*;
 import bg.softuni.ninjamicroservice.ninja.service.NinjaService;
 import bg.softuni.ninjamicroservice.ninja.web.NinjaController;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
 @RestController
@@ -44,6 +44,19 @@ public class NinjaControllerImpl implements NinjaController {
     @GetMapping("/improvements")
     public ResponseEntity<ImprovementDTO[]> getImprovements() {
         return ResponseEntity.ok(this.ninjaService.getImprovements());
+    }
+
+    @Override
+    @PostMapping("/improvements/post")
+    public ResponseEntity<String> postImprovement(@Valid @RequestBody ImprovementDTO improvement) {
+        try {
+            this.ninjaService.processImprovement(improvement);
+            return new ResponseEntity<>("Request processed successfully", HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>("Invalid request data", HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

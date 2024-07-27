@@ -15,4 +15,6 @@ public interface NinjaController {
 
     ResponseEntity<ImprovementDTO[]> getImprovements();
 
+    ResponseEntity<String> postImprovement(ImprovementDTO improvement);
+
 }

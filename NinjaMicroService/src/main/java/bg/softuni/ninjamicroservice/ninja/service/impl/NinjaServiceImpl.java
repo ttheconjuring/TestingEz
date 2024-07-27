@@ -2,6 +2,7 @@ package bg.softuni.ninjamicroservice.ninja.service.impl;
 
 import bg.softuni.ninjamicroservice.ninja.config.NinjasConfig;
 import bg.softuni.ninjamicroservice.ninja.dtos.*;
+import bg.softuni.ninjamicroservice.ninja.entities.Improvement;
 import bg.softuni.ninjamicroservice.ninja.repositories.*;
 import bg.softuni.ninjamicroservice.ninja.service.NinjaService;
 import lombok.AllArgsConstructor;
@@ -134,6 +135,12 @@ public class NinjaServiceImpl implements NinjaService {
                 .stream()
                 .map(improvement -> this.modelMapper.map(improvement, ImprovementDTO.class))
                 .toArray(ImprovementDTO[]::new);
+    }
+
+    @Override
+    public void processImprovement(ImprovementDTO improvementDTO) {
+        this.improvementRepository.saveAndFlush(
+                this.modelMapper.map(improvementDTO, Improvement.class));
     }
 
 }
