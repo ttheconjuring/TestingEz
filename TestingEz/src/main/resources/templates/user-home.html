@@ -6,18 +6,18 @@
     <div th:replace="~{fragments/headers :: header}"></div>
 
     <main class="container d-flex flex-column justify-content-center flex-grow-1 gap-3">
-        <div class="row align-items-center">
-            <div class="col-sm-12 col-lg-8">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-sm-10 col-lg-8">
                 <h1 class="mb-3" th:text="#{testOfTheDay}">Test of the Day</h1>
-                <div class="bg-secondary rounded shadow border border-2 border-black p-2 fs-5 text-white text-center overflow-auto">
+                <div class="rounded border border-2 p-2 fs-5 text-center">
                     <div th:each="questionObject, iStat: ${testOfTheDay}">
                         <p th:text="${iStat.index + 1} + '.' + ${questionObject.question}"></p>
                         <div class="d-flex justify-content-center gap-2">
                             <input
-                                    class="bg-light rounded shadow border border-2 border-black py-1 w-75 text-center"
+                                    class="bg-light rounded border border-2 py-1 w-75 text-center"
                                     th:data-answer="${questionObject.answer}"
                                     th:id="'answer-' + ${iStat.index}">
-                            <button class="btn btn-light px-3 border border-black border-2 shadow rounded check-btn"
+                            <button class="btn btn-light px-3 border border-2 rounded check-btn"
                                     th:text="#{check}"
                                     th:data-index="${iStat.index}">
                                 check
@@ -26,37 +26,37 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-lg-4">
+            <div class="col-sm-10 col-lg-4">
                 <h1 class="mb-3">Bored?</h1>
-                <div class="text-center p-2 mb-3 bg-secondary border border-2 border-black text-white rounded shadow">
+                <div class="text-center p-2 mb-3 border border-2 rounded">
                     <h2>Click the Button Game</h2>
                     <p>Click the button as many times as you can in 10 seconds!</p>
-                    <button id="game-button" class="btn btn-light px-3 border border-black border-2 shadow rounded">
+                    <button id="game-button" class="btn btn-light px-3 border border-2 rounded">
                         Click Me!
                     </button>
                     <p class="mt-3">Score: <span id="score" class="score">0</span></p>
                     <p id="message" class="mt-3"></p>
                 </div>
-                <div class="text-center p-2 bg-secondary border border-2 border-black text-white rounded shadow">
+                <div class="text-center p-2 border border-2 rounded ">
                     <h2>Guess the Number Game</h2>
                     <p>Guess a number between 1 and 100!</p>
                     <input type="number"
                            id="guess-input"
-                           class="form-control bg-light rounded shadow border border-2 border-black text-center"
+                           class="form-control bg-light rounded border border-2 text-center"
                            placeholder="Enter your guess">
                     <button id="guess-button"
-                            class="btn btn-light px-3 border border-black border-2 shadow rounded mt-3">
+                            class="btn btn-light px-3 border border-2 rounded mt-3">
                         Guess!
                     </button>
                     <p class="mt-3 feedback" id="feedback"></p>
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row mb-5 justify-content-center">
             <h1 class="mb-3" th:text="#{miscellaneous}">Miscellaneous</h1>
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-10 col-md-4 mb-2">
                 <div id="factsCarousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-item p-2 shadow rounded border border-2"
+                    <div class="carousel-item p-2 rounded border border-2"
                          th:each="factObject, iStat : ${factsOfTheDay}"
                          th:classappend="${iStat.index == 0} ? 'active' : ''">
                         <p class="card-title fw-bold fs-5" th:text="'Random Fact №' + ${iStat.index + 1}"></p>
@@ -64,9 +64,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-10 col-md-4 mb-2">
                 <div id="jokesCarousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-item p-2 shadow rounded border border-2"
+                    <div class="carousel-item p-2 rounded border border-2"
                          th:each="jokeObject, iStat : ${jokesOfTheDay}"
                          th:classappend="${iStat.index == 0} ? 'active' : ''">
                         <p class="card-title fw-bold fs-5" th:text="'Random Joke №' + ${iStat.index + 1}"></p>
@@ -74,9 +74,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-10 col-md-4 mb-2">
                 <div id="quotesCarousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-item p-2 shadow rounded border border-2"
+                    <div class="carousel-item p-2 rounded border border-2"
                          th:each="quoteObject, iStat : ${quotesOfTheDay}"
                          th:classappend="${iStat.index == 0} ? 'active' : ''">
                         <p class="card-title fw-bold fs-5" th:text="'Random Quote №' + ${iStat.index + 1}"></p>
@@ -86,11 +86,25 @@
                 </div>
             </div>
         </div>
+        <div class="row justify-content-center border-top border-2">
+            <div class="col-sm-10 col-md-6 my-5">
+                <div class="border border-2 rounded p-3 d-flex flex-column justify-content-center align-items-center">
+                    <h4>Help us make "TestingEz" better!</h4>
+                    <span>How to improve?</span>
+                    <input class="border border-2 rounded px-1 w-100 mb-1"
+                           id="idea"
+                           type="text">
+                    <button class="btn btn-dark border border-2 px-5" id="is">SEND</button>
+                    <span class="bg-success d-none" id="mes">Thanks!</span>
+                </div>
+            </div>
+        </div>
     </main>
 
     <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
 
+<script src="/js/send-improvement-idea.js"></script>
 <script src="/js/clicker-game.js"></script>
 <script src="/js/guess-the-number-game.js"></script>
 <script src="/js/reveal-answer.js"></script>

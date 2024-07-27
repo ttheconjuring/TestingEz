@@ -1,4 +1,4 @@
-package bg.softuni.ninjamicroservice.ninja.dtos;
+package com.testingez.testingez.models.dtos.ninja;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,3 +16,4 @@ public class ImprovementDTO {
     private Boolean disapproved;
 
 }
+

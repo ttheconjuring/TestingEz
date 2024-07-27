@@ -18,6 +18,7 @@ public class NinjasApiConfig {
     private ApiConfig facts = new ApiConfig();
     private ApiConfig jokes = new ApiConfig();
     private ApiConfig quotes = new ApiConfig();
+    private ApiConfig improvements = new ApiConfig();
 
     @PostConstruct
     public void checkConfiguration() {
@@ -25,6 +26,7 @@ public class NinjasApiConfig {
         facts.checkConfiguration("facts");
         jokes.checkConfiguration("jokes");
         jokes.checkConfiguration("quotes");
+        jokes.checkConfiguration("improvements");
     }
 
     @Getter

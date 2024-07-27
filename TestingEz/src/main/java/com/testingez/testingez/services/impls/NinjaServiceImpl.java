@@ -2,10 +2,7 @@ package com.testingez.testingez.services.impls;
 
 import com.testingez.testingez.config.NinjasApiConfig;
 import com.testingez.testingez.exceptions.custom.NinjaMicroServiceException;
-import com.testingez.testingez.models.dtos.ninja.FactDTO;
-import com.testingez.testingez.models.dtos.ninja.JokeDTO;
-import com.testingez.testingez.models.dtos.ninja.QuoteDTO;
-import com.testingez.testingez.models.dtos.ninja.TriviaDTO;
+import com.testingez.testingez.models.dtos.ninja.*;
 import com.testingez.testingez.services.NinjaService;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
@@ -100,6 +97,26 @@ public class NinjaServiceImpl implements NinjaService {
                     "required quotes due to NinjaMicroService issues.", error);
         }
         return quoteDTOList;
+    }
+
+    @Cacheable(value = "home", key = "'improvements'")
+    @Override
+    public List<ImprovementDTO> fetchImprovements() throws NinjaMicroServiceException {
+        List<ImprovementDTO> improvementDTOList;
+        try {
+            improvementDTOList = new ArrayList<>(List.of(
+                    Objects.requireNonNull(this.restClient
+                            .get()
+                            .uri(this.ninjasApiConfig.getImprovements().getUrl())
+                            .accept(MediaType.APPLICATION_JSON)
+                            .retrieve()
+                            .body(ImprovementDTO[].class))
+            ));
+        } catch (Exception error) {
+            throw new NinjaMicroServiceException("We couldn't fetch the" +
+                    "required improvements due to NinjaMicroService issues.", error);
+        }
+        return improvementDTOList;
     }
 
 }

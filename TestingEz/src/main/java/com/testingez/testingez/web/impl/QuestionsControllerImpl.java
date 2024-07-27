@@ -7,7 +7,6 @@ import com.testingez.testingez.models.dtos.imp.ResponseCreateDTO;
 import com.testingez.testingez.models.dtos.imp.TestQuestionsDTO;
 import com.testingez.testingez.services.QuestionService;
 import com.testingez.testingez.services.ResponseService;
-import com.testingez.testingez.services.ResultService;
 import com.testingez.testingez.services.UserHelperService;
 import com.testingez.testingez.web.QuestionsController;
 import jakarta.validation.Valid;

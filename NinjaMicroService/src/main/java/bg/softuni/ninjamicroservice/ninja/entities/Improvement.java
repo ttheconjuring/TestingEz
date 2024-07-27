@@ -23,12 +23,6 @@ public class Improvement {
     private String idea;
 
     @Column(nullable = false)
-    private Integer likes;
-
-    @Column(nullable = false)
-    private Integer dislikes;
-
-    @Column(nullable = false)
     private Boolean approved;
 
     @Column(nullable = false)

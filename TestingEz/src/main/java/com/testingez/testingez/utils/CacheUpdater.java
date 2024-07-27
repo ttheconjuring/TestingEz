@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 public class CacheUpdater {
 
     private static final Logger LOGGER = Logger.getLogger(CacheUpdater.class.getName());
+
     private final NinjaService ninjaService;
     private final ConcurrentMapCacheManager cacheManager;
 
@@ -27,6 +28,7 @@ public class CacheUpdater {
             this.ninjaService.fetchFacts();
             this.ninjaService.fetchJokes();
             this.ninjaService.fetchQuotes();
+            this.ninjaService.fetchImprovements();
         } catch (Exception error) {
             throw new NinjaMicroServiceException("We couldn't update cache due to " +
                     "NinjaMicroService issues.", error);
