@@ -32,3 +32,5 @@ ninja:
       url: http://localhost:8081/ninja/api/jokes
     quotes:
       url: http://localhost:8081/ninja/api/quotes
+    improvements:
+      url: http://localhost:8081/ninja/api/improvements

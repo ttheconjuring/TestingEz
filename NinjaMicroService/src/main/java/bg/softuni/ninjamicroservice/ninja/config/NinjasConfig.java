@@ -1,4 +1,4 @@
-package com.testingez.testingez.config;
+package bg.softuni.ninjamicroservice.ninja.config;
 
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
@@ -11,22 +11,22 @@ import org.springframework.context.annotation.Configuration;
 @Setter
 @NoArgsConstructor
 @Configuration
-@ConfigurationProperties(prefix = "ninja.api")
-public class NinjasApiConfig {
+@ConfigurationProperties(prefix = "api.ninjas")
+public class NinjasConfig {
 
-    private ApiConfig trivia = new ApiConfig();
+    private String apiKey;
     private ApiConfig facts = new ApiConfig();
     private ApiConfig jokes = new ApiConfig();
+    private ApiConfig trivia = new ApiConfig();
     private ApiConfig quotes = new ApiConfig();
-    private ApiConfig improvements = new ApiConfig();
 
     @PostConstruct
     public void checkConfiguration() {
-        trivia.checkConfiguration("trivia");
+        verifyNotNullOrEmpty("apiKey", apiKey);
         facts.checkConfiguration("facts");
         jokes.checkConfiguration("jokes");
-        jokes.checkConfiguration("quotes");
-        jokes.checkConfiguration("improvements");
+        trivia.checkConfiguration("trivia");
+        trivia.checkConfiguration("quotes");
     }
 
     @Getter
