@@ -1,9 +1,6 @@
 package bg.softuni.testmicroservice.ninja.web.impl;
 
-import bg.softuni.testmicroservice.ninja.dtos.FactDTO;
-import bg.softuni.testmicroservice.ninja.dtos.JokeDTO;
-import bg.softuni.testmicroservice.ninja.dtos.QuoteDTO;
-import bg.softuni.testmicroservice.ninja.dtos.TriviaDTO;
+import bg.softuni.testmicroservice.ninja.dtos.*;
 import bg.softuni.testmicroservice.ninja.service.NinjaService;
 import bg.softuni.testmicroservice.ninja.web.NinjaController;
 import lombok.AllArgsConstructor;
@@ -41,6 +38,12 @@ public class NinjaControllerImpl implements NinjaController {
     @GetMapping("/quotes")
     public ResponseEntity<QuoteDTO[]> getQuotes() {
         return ResponseEntity.ok(this.ninjaService.getQuotes());
+    }
+
+    @Override
+    @GetMapping("/improvements")
+    public ResponseEntity<ImprovementDTO[]> getImprovements() {
+        return ResponseEntity.ok(this.ninjaService.getImprovements());
     }
 
 }

@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.UuidGenerator;
+
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -13,8 +16,8 @@ import lombok.Setter;
 public class Improvement {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @UuidGenerator(style = UuidGenerator.Style.RANDOM)
+    private UUID id;
 
     @Column(nullable = false)
     private String idea;
@@ -24,5 +27,11 @@ public class Improvement {
 
     @Column(nullable = false)
     private Integer dislikes;
+
+    @Column(nullable = false)
+    private Boolean approved;
+
+    @Column(nullable = false)
+    private Boolean disapproved;
 
 }

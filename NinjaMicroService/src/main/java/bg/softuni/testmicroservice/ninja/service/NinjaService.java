@@ -1,10 +1,7 @@
 package bg.softuni.testmicroservice.ninja.service;
 
 
-import bg.softuni.testmicroservice.ninja.dtos.FactDTO;
-import bg.softuni.testmicroservice.ninja.dtos.JokeDTO;
-import bg.softuni.testmicroservice.ninja.dtos.QuoteDTO;
-import bg.softuni.testmicroservice.ninja.dtos.TriviaDTO;
+import bg.softuni.testmicroservice.ninja.dtos.*;
 
 public interface NinjaService {
 
@@ -24,4 +21,5 @@ public interface NinjaService {
 
     QuoteDTO[] getQuotes();
 
+    ImprovementDTO[] getImprovements();
 }

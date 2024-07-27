@@ -1,9 +1,6 @@
 package bg.softuni.testmicroservice.ninja.web;
 
-import bg.softuni.testmicroservice.ninja.dtos.FactDTO;
-import bg.softuni.testmicroservice.ninja.dtos.JokeDTO;
-import bg.softuni.testmicroservice.ninja.dtos.QuoteDTO;
-import bg.softuni.testmicroservice.ninja.dtos.TriviaDTO;
+import bg.softuni.testmicroservice.ninja.dtos.*;
 import org.springframework.http.ResponseEntity;
 
 public interface NinjaController {
@@ -15,5 +12,7 @@ public interface NinjaController {
     ResponseEntity<TriviaDTO[]> getTrivia();
 
     ResponseEntity<QuoteDTO[]> getQuotes();
+
+    ResponseEntity<ImprovementDTO[]> getImprovements();
 
 }

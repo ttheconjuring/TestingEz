@@ -1,14 +1,8 @@
 package bg.softuni.testmicroservice.ninja.service.impl;
 
 import bg.softuni.testmicroservice.ninja.config.NinjasConfig;
-import bg.softuni.testmicroservice.ninja.dtos.FactDTO;
-import bg.softuni.testmicroservice.ninja.dtos.JokeDTO;
-import bg.softuni.testmicroservice.ninja.dtos.QuoteDTO;
-import bg.softuni.testmicroservice.ninja.dtos.TriviaDTO;
-import bg.softuni.testmicroservice.ninja.repositories.FactRepository;
-import bg.softuni.testmicroservice.ninja.repositories.JokeRepository;
-import bg.softuni.testmicroservice.ninja.repositories.QuoteRepository;
-import bg.softuni.testmicroservice.ninja.repositories.TriviaRepository;
+import bg.softuni.testmicroservice.ninja.dtos.*;
+import bg.softuni.testmicroservice.ninja.repositories.*;
 import bg.softuni.testmicroservice.ninja.service.NinjaService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -28,6 +22,7 @@ public class NinjaServiceImpl implements NinjaService {
     private final JokeRepository jokeRepository;
     private final TriviaRepository triviaRepository;
     private final QuoteRepository quoteRepository;
+    private final ImprovementRepository improvementRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -131,6 +126,14 @@ public class NinjaServiceImpl implements NinjaService {
                 .stream()
                 .map(quote -> this.modelMapper.map(quote, QuoteDTO.class))
                 .toArray(QuoteDTO[]::new);
+    }
+
+    @Override
+    public ImprovementDTO[] getImprovements() {
+        return this.improvementRepository.findAll()
+                .stream()
+                .map(improvement -> this.modelMapper.map(improvement, ImprovementDTO.class))
+                .toArray(ImprovementDTO[]::new);
     }
 
 }
