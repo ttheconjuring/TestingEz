@@ -2,7 +2,6 @@ package com.testingez.testingez.services;
 
 import com.testingez.testingez.exceptions.custom.NinjaMicroServiceException;
 import com.testingez.testingez.models.dtos.ninja.*;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
