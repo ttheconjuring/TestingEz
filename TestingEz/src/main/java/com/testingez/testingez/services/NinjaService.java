@@ -17,4 +17,5 @@ public interface NinjaService {
 
     List<ImprovementDTO> fetchImprovements() throws NinjaMicroServiceException;
 
+    void postImprovement(ImprovementDTO improvementData) throws NinjaMicroServiceException;
 }
