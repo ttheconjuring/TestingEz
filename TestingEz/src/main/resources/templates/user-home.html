@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec='http://www.thymeleaf.org/extras/spring-security'>
 <div th:replace="~{fragments/heads :: head}"></div>
 <body class="font">
 <div class="d-flex flex-column vh-100 gap-3">
@@ -114,7 +115,16 @@
             </div>
         </div>
     </main>
-
+    <div class="position-fixed bottom-0 end-0 p-3">
+        <a th:href="@{/user/improvement/ideas}"
+           class="nav-link"
+           th:if="${ideasAvailable == true}"
+           sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
+            <img src="/images/idea.png"
+                 style="width: 35px; height: auto;"
+                 alt="ideas">
+        </a>
+    </div>
     <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
 <script src="/js/clicker-game.js"></script>

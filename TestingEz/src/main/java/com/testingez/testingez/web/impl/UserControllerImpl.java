@@ -41,6 +41,7 @@ public class UserControllerImpl implements UserController {
         model.addAttribute("factsOfTheDay", this.ninjaService.fetchFacts());
         model.addAttribute("jokesOfTheDay", this.ninjaService.fetchJokes());
         model.addAttribute("quotesOfTheDay", this.ninjaService.fetchQuotes());
+        model.addAttribute("ideasAvailable", !this.ninjaService.fetchImprovements().isEmpty());
         if (!model.containsAttribute("improvementData")) {
             model.addAttribute("improvementData", new ImprovementDTO());
         }
