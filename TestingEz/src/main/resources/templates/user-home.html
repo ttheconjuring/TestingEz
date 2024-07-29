@@ -91,10 +91,24 @@
                 <div class="border border-2 rounded p-3 d-flex flex-column justify-content-center align-items-center">
                     <h4>Help us make "TestingEz" better!</h4>
                     <span>How to improve?</span>
-                    <input class="border border-2 rounded px-1 w-100 mb-1"
-                           id="idea"
-                           type="text">
-                    <button class="btn btn-dark border border-2 px-5" id="is">SEND</button>
+                    <form
+                            th:action="@{/user/post-improvement}"
+                            th:object="${improvementData}"
+                            method="post"
+                            class="text-center">
+                        <input class="border border-2 rounded px-1 w-100 mb-1"
+                               id="idea"
+                               type="text"
+                               th:field="*{idea}">
+                        <button class="btn btn-dark border border-2 px-5" id="is" type="submit">SEND</button>
+                        <div class="text-danger fs-6"
+                             th:errors="*{idea}"
+                             th:if="${#fields.hasErrors('idea')}">
+                        </div>
+                        <div th:if="${sent}" class="text-success fs-6">
+                            Thanks! Your improvement idea was sent!
+                        </div>
+                    </form>
                     <span class="bg-success d-none" id="mes">Thanks!</span>
                 </div>
             </div>
@@ -103,9 +117,6 @@
 
     <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
-
-<!--TODO: The script can't send the request successfully-->
-<script src="/js/send-improvement-idea.js"></script>
 <script src="/js/clicker-game.js"></script>
 <script src="/js/guess-the-number-game.js"></script>
 <script src="/js/reveal-answer.js"></script>

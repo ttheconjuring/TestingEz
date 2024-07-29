@@ -119,4 +119,20 @@ public class NinjaServiceImpl implements NinjaService {
         return improvementDTOList;
     }
 
+    @Override
+    public void postImprovement(ImprovementDTO improvementData) throws NinjaMicroServiceException {
+        try {
+            this.restClient
+                    .post()
+                    .uri("http://localhost:8081/ninja/api/improvements/post")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(improvementData)
+                    .retrieve()
+                    .toBodilessEntity();
+        } catch (Exception error) {
+            throw new NinjaMicroServiceException("We couldn't send the" +
+                    "improvement idea ):", error);
+        }
+    }
+
 }

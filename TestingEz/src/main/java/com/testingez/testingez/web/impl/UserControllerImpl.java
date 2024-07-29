@@ -41,6 +41,9 @@ public class UserControllerImpl implements UserController {
         model.addAttribute("factsOfTheDay", this.ninjaService.fetchFacts());
         model.addAttribute("jokesOfTheDay", this.ninjaService.fetchJokes());
         model.addAttribute("quotesOfTheDay", this.ninjaService.fetchQuotes());
+        if (!model.containsAttribute("improvementData")) {
+            model.addAttribute("improvementData", new ImprovementDTO());
+        }
         return "user-home";
     }
 
@@ -134,6 +137,32 @@ public class UserControllerImpl implements UserController {
         Page<ResultPeekDTO> paginatedResults = this.userService.getPaginatedResults(pageable);
         model.addAttribute("paginatedResults", paginatedResults);
         return "my-results";
+    }
+
+    /*
+     * This method accepts the object sent from user home page that contains the improvement idea.
+     * The object is validated and if there are violations, then users are alerted. Then, a POST
+     * request is made with rest client to endpoint: /ninja/api/improvements/post where
+     * the data is proceed by the rest controller and put in the database. If the request
+     * is successful, a polite green-text message is shown, indicating the job is done.
+     */
+    @Override
+    @PostMapping("/post-improvement")
+    public String postImprovement(@Valid ImprovementDTO improvementData, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.improvementData", bindingResult);
+            redirectAttributes.addFlashAttribute("improvementData", improvementData);
+            return "redirect:/user/home";
+        }
+
+        try {
+            this.ninjaService.postImprovement(improvementData);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        redirectAttributes.addFlashAttribute("sent", true);
+        return "redirect:/user/home";
     }
 
     private void handleProfileEditErrors(String result, UserProfileDTO userProfileData, RedirectAttributes redirectAttributes) {
