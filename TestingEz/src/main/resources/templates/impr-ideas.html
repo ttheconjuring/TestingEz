@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<div th:replace="~{fragments/heads :: head}"></div>
+<body class="font">
+<div class="d-flex flex-column vh-100 gap-3">
+    <div th:replace="~{fragments/headers :: header}"></div>
+
+    <main class="container d-flex flex-column justify-content-center flex-grow-1">
+        <h3>Improvement Ideas</h3>
+        <div class="container rounded border border-2 p-5">
+            <span class="fs-4"
+                  th:if="${paginatedIdeas.isEmpty()}">
+                There are no any improvement ideas so far.
+            </span>
+            <div class="row align-items-center border border-2 rounded p-2 mb-2"
+                 th:each="ideaData, iStat : ${paginatedIdeas}">
+                <p th:text="${ideaData.idea}">oierngoierngioenrgionerginergpianrpginaerpingapergnaeprgnae</p>
+                <div class="d-flex gap-1 flex-wrap">
+                    <button class="w-50 btn border border-2 rounded">Approve</button>
+                    <button class="w-50 btn border border-2 rounded">Disapprove</button>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center gap-1">
+                <a class="btn btn-light text-center px-3 py-1 shadow rounded border border-2"
+                   th:href="@{/user/improvement/ideas(page=${paginatedIdeas.number - 1}, size=${paginatedIdeas.size})}"
+                   th:if="${paginatedIdeas.hasPrevious()}">
+                    <img src="/images/left-arrow.png" alt="<<" style="width: 25px; height: auto;">
+                </a>
+                <a class="btn btn-light text-center px-3 py-1 shadow rounded border border-2"
+                   th:href="@{/user/improvement/ideas(page=${paginatedIdeas.number + 1}, size=${paginatedIdeas.size})}"
+                   th:if="${paginatedIdeas.hasNext()}">
+                    <img src="/images/right-arrow.png" alt=">>" style="width: 25px; height: auto;">
+                </a>
+            </div>
+        </div>
+    </main>
+    <div th:replace="~{fragments/footers :: footer}"></div>
+</div>
+
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>

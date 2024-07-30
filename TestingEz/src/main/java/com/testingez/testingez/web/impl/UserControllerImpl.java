@@ -6,6 +6,7 @@ import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.UserProfileDTO;
 import com.testingez.testingez.models.dtos.ninja.ImprovementDTO;
 import com.testingez.testingez.services.NinjaService;
+import com.testingez.testingez.services.ResultService;
 import com.testingez.testingez.services.UserService;
 import com.testingez.testingez.web.UserController;
 import jakarta.validation.Valid;
@@ -27,6 +28,7 @@ public class UserControllerImpl implements UserController {
 
     private final UserService userService;
     private final NinjaService ninjaService;
+    private final ResultService resultService;
 
     /*
      * This method leads to the home page. It fetches the data, required for the
@@ -135,7 +137,7 @@ public class UserControllerImpl implements UserController {
     @Override
     @GetMapping("/my-results")
     public String userResults(Pageable pageable, Model model) {
-        Page<ResultPeekDTO> paginatedResults = this.userService.getPaginatedResults(pageable);
+        Page<ResultPeekDTO> paginatedResults = this.resultService.getPaginatedResults(pageable);
         model.addAttribute("paginatedResults", paginatedResults);
         return "my-results";
     }
@@ -164,6 +166,14 @@ public class UserControllerImpl implements UserController {
 
         redirectAttributes.addFlashAttribute("sent", true);
         return "redirect:/user/home";
+    }
+
+    @Override
+    @GetMapping("/improvement/ideas")
+    public String checkImprovements(Pageable pageable, Model model) {
+        // Page<ImprovementDTO> paginatedIdeas = this.ninjaService.getPaginatedIdeas(pageable);
+        // model.addAttribute("paginatedIdeas", paginatedIdeas);
+        return "impr-ideas";
     }
 
     private void handleProfileEditErrors(String result, UserProfileDTO userProfileData, RedirectAttributes redirectAttributes) {

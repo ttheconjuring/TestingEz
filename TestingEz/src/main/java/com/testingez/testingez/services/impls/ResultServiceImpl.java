@@ -3,6 +3,7 @@ package com.testingez.testingez.services.impls;
 import com.testingez.testingez.exceptions.custom.ResultNotFoundException;
 import com.testingez.testingez.exceptions.custom.TestNotFoundException;
 import com.testingez.testingez.exceptions.custom.UserNotFoundException;
+import com.testingez.testingez.models.dtos.exp.ResultPeekDTO;
 import com.testingez.testingez.models.dtos.exp.ResultSummaryDTO;
 import com.testingez.testingez.models.dtos.exp.ResultDetailsDTO;
 import com.testingez.testingez.models.entities.Response;
@@ -11,9 +12,12 @@ import com.testingez.testingez.models.entities.Test;
 import com.testingez.testingez.models.enums.ResultStatus;
 import com.testingez.testingez.repositories.*;
 import com.testingez.testingez.services.ResultService;
+import com.testingez.testingez.services.UserHelperService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -29,6 +33,7 @@ public class ResultServiceImpl implements ResultService {
     private final UserRepository userRepository;
     private final TestRepository testRepository;
     private final ModelMapper modelMapper;
+    private final UserHelperService userHelperService;
 
     private static final Logger LOGGER = Logger.getLogger(ResultServiceImpl.class.getName());
 
@@ -80,6 +85,20 @@ public class ResultServiceImpl implements ResultService {
         details.setTestName(this.testRepository.findById(testId)
                 .orElseThrow(() -> new TestNotFoundException("We couldn't find test with id: " + testId + "!")).getName());
         return details;
+    }
+
+    @Override
+    public Page<ResultPeekDTO> getPaginatedResults(Pageable pageable) {
+        Page<Result> results = this.resultRepository.findAllByUserId(this.userHelperService.getLoggedUser().getId(), pageable);
+        return results.map(result -> {
+            ResultPeekDTO resultPeekDTO = modelMapper.map(result, ResultPeekDTO.class);
+            resultPeekDTO.setTestName(
+                    this.testRepository.findById(result.getTest().getId())
+                            .orElseThrow(() -> new TestNotFoundException("We couldn't " +
+                                    "find test with id: " +
+                                    result.getTest().getId() + "!")).getName());
+            return resultPeekDTO;
+        });
     }
 
 }

@@ -1,6 +1,5 @@
 package com.testingez.testingez.services;
 
-import com.testingez.testingez.models.dtos.exp.ResultPeekDTO;
 import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.UserProfileDTO;
 import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
@@ -17,5 +16,4 @@ public interface UserService {
 
     Page<TestPeekDTO> getPaginatedTests(Pageable pageable);
 
-    Page<ResultPeekDTO> getPaginatedResults(Pageable pageable);
 }
