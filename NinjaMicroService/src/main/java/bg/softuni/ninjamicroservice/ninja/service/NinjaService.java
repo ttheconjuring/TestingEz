@@ -3,6 +3,8 @@ package bg.softuni.ninjamicroservice.ninja.service;
 
 import bg.softuni.ninjamicroservice.ninja.dtos.*;
 
+import java.util.UUID;
+
 public interface NinjaService {
 
     FactDTO[] fetchFacts();
@@ -23,5 +25,7 @@ public interface NinjaService {
 
     ImprovementDTO[] getImprovements();
 
-    void processImprovement(ImprovementDTO improvementDTO);
+    ImprovementDTO processImprovement(ImprovementDTO improvementDTO);
+
+    ImprovementDTO deleteImprovement(UUID id);
 }

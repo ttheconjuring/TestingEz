@@ -73,20 +73,6 @@ public class UserServiceImpl implements UserService {
         return tests.map(test -> modelMapper.map(test, TestPeekDTO.class));
     }
 
-    @Override
-    public Page<ResultPeekDTO> getPaginatedResults(Pageable pageable) {
-        Page<Result> results = this.resultRepository.findAllByUserId(this.userHelperService.getLoggedUser().getId(), pageable);
-        return results.map(result -> {
-            ResultPeekDTO resultPeekDTO = modelMapper.map(result, ResultPeekDTO.class);
-            resultPeekDTO.setTestName(
-                    this.testRepository.findById(result.getTest().getId())
-                            .orElseThrow(() -> new TestNotFoundException("We couldn't " +
-                                    "find test with id: " +
-                                    result.getTest().getId() + "!")).getName());
-            return resultPeekDTO;
-        });
-    }
-
     private String verifyUniqueCredentials(UserSignUpDTO userSignUpData) {
         StringBuilder errors = new StringBuilder();
         // List of checks to perform

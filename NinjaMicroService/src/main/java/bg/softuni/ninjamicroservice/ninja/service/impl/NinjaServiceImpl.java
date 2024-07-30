@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Service
@@ -138,11 +140,22 @@ public class NinjaServiceImpl implements NinjaService {
     }
 
     @Override
-    public void processImprovement(ImprovementDTO improvementDTO) {
+    public ImprovementDTO processImprovement(ImprovementDTO improvementDTO) {
         improvementDTO.setApproved(false);
         improvementDTO.setDisapproved(false);
-        this.improvementRepository.saveAndFlush(
-                this.modelMapper.map(improvementDTO, Improvement.class));
+        return this.modelMapper.map(this.improvementRepository.saveAndFlush(
+                this.modelMapper.map(improvementDTO, Improvement.class)), ImprovementDTO.class);
+    }
+
+    @Override
+    public ImprovementDTO deleteImprovement(UUID id) {
+        Optional<Improvement> byId = this.improvementRepository.findById(id);
+        if (byId.isEmpty()) {
+            return null;
+        }
+        ImprovementDTO map = this.modelMapper.map(byId.get(), ImprovementDTO.class);
+        this.improvementRepository.delete(byId.get());
+        return map;
     }
 
 }

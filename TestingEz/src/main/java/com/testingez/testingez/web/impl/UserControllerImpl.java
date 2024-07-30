@@ -6,6 +6,7 @@ import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.UserProfileDTO;
 import com.testingez.testingez.models.dtos.ninja.ImprovementDTO;
 import com.testingez.testingez.services.NinjaService;
+import com.testingez.testingez.services.ResultService;
 import com.testingez.testingez.services.UserService;
 import com.testingez.testingez.web.UserController;
 import jakarta.validation.Valid;
@@ -16,9 +17,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Controller
@@ -27,6 +32,7 @@ public class UserControllerImpl implements UserController {
 
     private final UserService userService;
     private final NinjaService ninjaService;
+    private final ResultService resultService;
 
     /*
      * This method leads to the home page. It fetches the data, required for the
@@ -135,7 +141,7 @@ public class UserControllerImpl implements UserController {
     @Override
     @GetMapping("/my-results")
     public String userResults(Pageable pageable, Model model) {
-        Page<ResultPeekDTO> paginatedResults = this.userService.getPaginatedResults(pageable);
+        Page<ResultPeekDTO> paginatedResults = this.resultService.getPaginatedResults(pageable);
         model.addAttribute("paginatedResults", paginatedResults);
         return "my-results";
     }
@@ -148,7 +154,7 @@ public class UserControllerImpl implements UserController {
      * is successful, a polite green-text message is shown, indicating the job is done.
      */
     @Override
-    @PostMapping("/post-improvement")
+    @PostMapping("/improvements/post")
     public String postImprovement(@Valid ImprovementDTO improvementData, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.improvementData", bindingResult);
@@ -164,6 +170,37 @@ public class UserControllerImpl implements UserController {
 
         redirectAttributes.addFlashAttribute("sent", true);
         return "redirect:/user/home";
+    }
+
+    /*
+     * This method leads to the page where the users improvement ideas are revealed.
+     * Here, admin can approve and disapprove them by clicking buttons. The data
+     * is fetched from the microservice and passed to the model.
+     */
+
+    @Override
+    @GetMapping("/improvement/ideas")
+    public String checkImprovements(Model model) {
+        List<ImprovementDTO> improvementIdeas;
+        try {
+            improvementIdeas = this.ninjaService.fetchImprovements();
+        } catch (NinjaMicroServiceException e) {
+            throw new RuntimeException(e);
+        }
+        model.addAttribute("improvementIdeas", improvementIdeas);
+        return "impr-ideas";
+    }
+
+    @Override
+    @GetMapping("/improvements/delete/{id}")
+    public String deleteImprovement(@PathVariable UUID id) {
+        try {
+            this.ninjaService.deleteImprovement(id);
+        } catch (NinjaMicroServiceException e) {
+            throw new RuntimeException(e);
+        }
+        // TODO: update cache
+        return "redirect:/user/improvement/ideas";
     }
 
     private void handleProfileEditErrors(String result, UserProfileDTO userProfileData, RedirectAttributes redirectAttributes) {

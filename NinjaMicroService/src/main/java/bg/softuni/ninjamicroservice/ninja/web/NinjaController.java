@@ -3,6 +3,8 @@ package bg.softuni.ninjamicroservice.ninja.web;
 import bg.softuni.ninjamicroservice.ninja.dtos.*;
 import org.springframework.http.ResponseEntity;
 
+import java.util.UUID;
+
 public interface NinjaController {
 
     ResponseEntity<FactDTO[]> getFacts();
@@ -15,6 +17,8 @@ public interface NinjaController {
 
     ResponseEntity<ImprovementDTO[]> getImprovements();
 
-    ResponseEntity<String> postImprovement(ImprovementDTO improvement);
+    ResponseEntity<?> postImprovement(ImprovementDTO improvement);
+
+    ResponseEntity<?> deleteImprovement(UUID id);
 
 }

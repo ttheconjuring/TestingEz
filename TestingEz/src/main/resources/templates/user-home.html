@@ -93,7 +93,7 @@
                     <h4>Help us make "TestingEz" better!</h4>
                     <span>How to improve?</span>
                     <form
-                            th:action="@{/user/post-improvement}"
+                            th:action="@{/user/improvements/post}"
                             th:object="${improvementData}"
                             method="post"
                             class="text-center">
@@ -116,7 +116,7 @@
         </div>
     </main>
     <div class="position-fixed bottom-0 end-0 p-3">
-        <a th:href="@{/user/improvement/ideas}"
+        <a th:href="@{/user/improvement/ideas(page=0, size=5)}"
            class="nav-link"
            th:if="${ideasAvailable == true}"
            sec:authorize="hasRole('ROLE_ADMINISTRATOR')">

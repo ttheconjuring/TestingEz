@@ -13,6 +13,7 @@ import org.springframework.web.client.RestClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Service
@@ -124,13 +125,27 @@ public class NinjaServiceImpl implements NinjaService {
         try {
             this.restClient
                     .post()
-                    .uri("http://localhost:8081/ninja/api/improvements/post")
+                    .uri(this.ninjasApiConfig.getImprovements().getUrl() + "/post")
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(improvementData)
                     .retrieve()
                     .toBodilessEntity();
         } catch (Exception error) {
             throw new NinjaMicroServiceException("We couldn't send the" +
+                    "improvement idea ):", error);
+        }
+    }
+
+    @Override
+    public void deleteImprovement(UUID id) throws NinjaMicroServiceException {
+        try {
+            this.restClient
+                    .delete()
+                    .uri(this.ninjasApiConfig.getImprovements().getUrl() + "/delete/" + id)
+                    .retrieve()
+                    .toBodilessEntity();
+        } catch (Exception error) {
+            throw new NinjaMicroServiceException("We couldn't delete the" +
                     "improvement idea ):", error);
         }
     }
