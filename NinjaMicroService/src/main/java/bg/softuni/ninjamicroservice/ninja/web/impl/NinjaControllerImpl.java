@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @AllArgsConstructor
 @RestController
 @RequestMapping("/ninja/api")
@@ -48,10 +50,26 @@ public class NinjaControllerImpl implements NinjaController {
 
     @Override
     @PostMapping("/improvements/post")
-    public ResponseEntity<String> postImprovement(@Valid @RequestBody ImprovementDTO improvement) {
+    public ResponseEntity<?> postImprovement(@Valid @RequestBody ImprovementDTO improvement) {
         try {
-            this.ninjaService.processImprovement(improvement);
-            return new ResponseEntity<>("Request processed successfully", HttpStatus.CREATED);
+            return new ResponseEntity<>(this.ninjaService.processImprovement(improvement), HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>("Invalid request data", HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    @DeleteMapping("/improvements/delete/{id}")
+    public ResponseEntity<?> deleteImprovement(@PathVariable UUID id) {
+        try {
+            ImprovementDTO improvementDTO = this.ninjaService.deleteImprovement(id);
+            if (improvementDTO != null) {
+                return new ResponseEntity<>(improvementDTO, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("We couldn't find such improvement idea!", HttpStatus.NOT_FOUND);
+            }
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>("Invalid request data", HttpStatus.BAD_REQUEST);
         } catch (Exception e) {

@@ -170,6 +170,12 @@ public class UserControllerImpl implements UserController {
         return "redirect:/user/home";
     }
 
+    /*
+     * This method leads to the page where the users improvement ideas are revealed.
+     * Here, admin can approve and disapprove them by clicking buttons. The data
+     * is fetched from the microservice and passed to the model.
+     */
+
     @Override
     @GetMapping("/improvement/ideas")
     public String checkImprovements(Model model) {
