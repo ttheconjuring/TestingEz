@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Controller
 @RequestMapping("/user")
@@ -170,9 +172,14 @@ public class UserControllerImpl implements UserController {
 
     @Override
     @GetMapping("/improvement/ideas")
-    public String checkImprovements(Pageable pageable, Model model) {
-        // Page<ImprovementDTO> paginatedIdeas = this.ninjaService.getPaginatedIdeas(pageable);
-        // model.addAttribute("paginatedIdeas", paginatedIdeas);
+    public String checkImprovements(Model model) {
+        List<ImprovementDTO> improvementIdeas;
+        try {
+            improvementIdeas = this.ninjaService.fetchImprovements();
+        } catch (NinjaMicroServiceException e) {
+            throw new RuntimeException(e);
+        }
+        model.addAttribute("improvementIdeas", improvementIdeas);
         return "impr-ideas";
     }
 

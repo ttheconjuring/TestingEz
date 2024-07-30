@@ -24,6 +24,6 @@ public interface UserController {
 
     String postImprovement(ImprovementDTO improvementDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes);
 
-    String checkImprovements(Pageable pageable, Model model);
+    String checkImprovements(Model model);
 
 }
