@@ -13,7 +13,8 @@
                 <p class="text-wrap" th:text="${ideaData.idea}"></p>
                 <div class="d-flex gap-1">
                     <button class="w-50 btn border border-2 rounded">Approve</button>
-                    <button class="w-50 btn border border-2 rounded">Disapprove</button>
+                    <a class="w-50 btn border border-2 rounded dis"
+                       th:href="@{/user/improvements/delete/{id}(id=${ideaData.id})}">Disapprove</a>
                 </div>
             </div>
         </div>

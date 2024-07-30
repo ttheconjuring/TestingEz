@@ -17,11 +17,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Controller
@@ -152,7 +154,7 @@ public class UserControllerImpl implements UserController {
      * is successful, a polite green-text message is shown, indicating the job is done.
      */
     @Override
-    @PostMapping("/post-improvement")
+    @PostMapping("/improvements/post")
     public String postImprovement(@Valid ImprovementDTO improvementData, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.improvementData", bindingResult);
@@ -187,6 +189,18 @@ public class UserControllerImpl implements UserController {
         }
         model.addAttribute("improvementIdeas", improvementIdeas);
         return "impr-ideas";
+    }
+
+    @Override
+    @GetMapping("/improvements/delete/{id}")
+    public String deleteImprovement(@PathVariable UUID id) {
+        try {
+            this.ninjaService.deleteImprovement(id);
+        } catch (NinjaMicroServiceException e) {
+            throw new RuntimeException(e);
+        }
+        // TODO: update cache
+        return "redirect:/user/improvement/ideas";
     }
 
     private void handleProfileEditErrors(String result, UserProfileDTO userProfileData, RedirectAttributes redirectAttributes) {

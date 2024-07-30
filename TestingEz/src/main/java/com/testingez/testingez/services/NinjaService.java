@@ -4,6 +4,7 @@ import com.testingez.testingez.exceptions.custom.NinjaMicroServiceException;
 import com.testingez.testingez.models.dtos.ninja.*;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface NinjaService {
 
@@ -18,4 +19,6 @@ public interface NinjaService {
     List<ImprovementDTO> fetchImprovements() throws NinjaMicroServiceException;
 
     void postImprovement(ImprovementDTO improvementData) throws NinjaMicroServiceException;
+
+    void deleteImprovement(UUID id) throws NinjaMicroServiceException;
 }

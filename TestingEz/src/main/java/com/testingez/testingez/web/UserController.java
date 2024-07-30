@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.UUID;
+
 public interface UserController {
 
     String home(Model mode) throws NinjaMicroServiceException;
@@ -25,5 +27,7 @@ public interface UserController {
     String postImprovement(ImprovementDTO improvementDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes);
 
     String checkImprovements(Model model);
+
+    String deleteImprovement(UUID id);
 
 }
