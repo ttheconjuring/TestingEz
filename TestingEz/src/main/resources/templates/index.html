@@ -2,11 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{fragments/heads :: head}"></div>
 <body class="font">
-<div class="d-flex flex-column vh-100 bg-secondary">
-    <header class="flex-shrink-0 shadow border-bottom border-black">
-        <nav class="container navbar bg-secondary">
+<div class="d-flex flex-column vh-100 bg-light">
+    <header class="flex-shrink-0 shadow border-bottom border-2">
+        <nav class="container navbar bg-light">
             <div class="container-fluid justify-content-center">
-                <a class="navbar-brand text-white fs-3" href="#">
+                <a class="navbar-brand fs-3" href="#">
                     <img
                             src="/images/school.png"
                             alt="Logo"
@@ -40,7 +40,7 @@
             </p>
             <a
                     href="/account/login"
-                    class="btn btn-secondary btn-lg me-3 px-5 border border-black border-2 rounded"
+                    class="btn btn-light btn-lg me-3 px-5 border border-2 rounded"
                     role="button"
                     th:text="#{signIn}"
             >
@@ -48,7 +48,7 @@
             </a>
             <a
                     href="/account/create"
-                    class="btn btn-secondary btn-lg px-5 border border-black border-2 rounded"
+                    class="btn btn-light btn-lg px-5 border border-2 rounded"
                     role="button"
                     th:text="#{signUp}"
             >
