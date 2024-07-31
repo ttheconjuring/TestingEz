@@ -13,7 +13,7 @@
                   th:if="${paginatedResults.isEmpty()}">
                 You don't have any results to show.
             </span>
-            <div class="row align-items-center border border-2 shadow rounded p-2 mb-2 text-white border-black"
+            <div class="row align-items-center border border-2 shadow rounded p-2 mb-2"
                  th:each="result, iStat : ${paginatedResults}"
                  th:classappend="${result.status == 'PASS'} ? 'bg-success' : 'bg-danger'">
                 <div class="col-sm-12 col-md-3">
@@ -26,7 +26,7 @@
                     <span th:text="'Date: ' + ${result.completedAt}"></span>
                 </div>
                 <div class="col-sm-12 col-md-3 text-end">
-                    <a class="btn btn-light px-3 border border-2 border-black shadow rounded"
+                    <a class="btn btn-light px-3 border border-2 shadow rounded"
                        th:href="@{/results/details/{id}(id=${result.id})}">
                         details
                     </a>
@@ -48,7 +48,10 @@
     </main>
     <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
-
+<script
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/@bufferhead/nightowl@0.0.14/dist/nightowl.js"
+></script>
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>

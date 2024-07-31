@@ -8,23 +8,23 @@
 
     <main class="container d-flex flex-column flex-fill align-item-center justify-content-center gap-3 flex-grow-1">
         <h1 class="text-center" th:text="#{myProfile}">My Profile</h1>
-        <div class="row bg-secondary shadow rounded border border-2 border-black p-3">
+        <div class="row bg-light shadow rounded border border-2 p-3">
             <div class="col-sm-12 col-md-5 mb-3 mb-sm-3 mb-md-0 d-flex flex-column align-items-center gap-2">
                 <img
                         src="/images/astronaut.png"
                         alt="profile-picture"
                         width="300px"
                         height="300px"
-                        class="shadow rounded-circle border border-2 border-black"
+                        class="shadow rounded-circle border border-2"
                 />
-                <button class="btn bg-light rounded shadow text-center text-black border border-black border-2 w-50 fs-5"
+                <button class="btn bg-light rounded text-center border border-2 w-50 fs-5"
                         th:text="#{change}">
                     change
                 </button>
             </div>
             <div class="col-sm-12 col-md-7 d-flex flex-column align-items-center" th:object="${userProfileData}">
                 <input
-                        class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
+                        class="form-control border border-2 rounded fs-5 mb-2"
                         disabled
                         id="username"
                         placeholder="(username)"
@@ -32,7 +32,7 @@
                         type="text"
                         th:value="'Username: ' + *{username}">
                 <input
-                        class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
+                        class="form-control border border-2 rounded fs-5 mb-2"
                         disabled
                         id="firstName"
                         placeholder="(first name)"
@@ -40,7 +40,7 @@
                         type="text"
                         th:value="'First name: ' + *{firstName}">
                 <input
-                        class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
+                        class="form-control border border-2 rounded fs-5 mb-2"
                         disabled
                         id="lastName"
                         placeholder="(last name)"
@@ -48,7 +48,7 @@
                         type="text"
                         th:value="'Last name: ' + *{lastName}">
                 <input
-                        class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
+                        class="form-control border border-2 rounded fs-5 mb-2"
                         disabled
                         id="email"
                         placeholder="(email)"
@@ -56,7 +56,7 @@
                         type="email"
                         th:value="'Email: ' + *{email}">
                 <input
-                        class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
+                        class="form-control border border-2 rounded fs-5 mb-2"
                         disabled
                         id="phone"
                         placeholder="(phone)"
@@ -64,7 +64,7 @@
                         type="text"
                         th:value="'Phone: ' + *{phone}">
                 <input
-                        class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
+                        class="form-control border border-2 rounded fs-5 mb-2"
                         disabled
                         id="role"
                         placeholder="(role)"
@@ -72,7 +72,7 @@
                         type="text"
                         th:value="'Role: ' + *{role}">
                 <a th:href=" @{/user/profile/edit}"
-                   class="btn bg-warning rounded shadow text-center text-black border border-black border-2 w-50 fs-5"
+                   class="btn bg-warning rounded text-center border border-2 w-50 fs-5"
                    th:text="#{editProfile}">
                     Edit profile
                 </a>
@@ -80,7 +80,7 @@
         </div>
         <div class="row justify-content-center text-center">
             <div class="col-sm-8 col-md-4">
-                <button class="btn btn-danger rounded shadow text-center text-black border border-black border-2 fs-5 px-3"
+                <button class="btn btn-danger rounded text-center border border-2 fs-5 px-3"
                         th:text="#{deleteAccount}">
                     Delete Account
                 </button>
@@ -90,6 +90,10 @@
 
     <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
+<script
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/@bufferhead/nightowl@0.0.14/dist/nightowl.js"
+></script>
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>

@@ -25,7 +25,7 @@
                     <span th:text="'Last updated: ' + ${test.dateUpdated}"></span>
                 </div>
                 <div class="col-sm-12 col-md-3 text-end">
-                    <a class="btn btn-light px-3 border border-2 shadow rounded"
+                    <a class="btn btn-light px-3 border border-2 rounded"
                        th:href="@{/test/details/{id}(id=${test.id})}">
                         details
                     </a>
@@ -47,7 +47,10 @@
     </main>
     <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
-
+<script
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/@bufferhead/nightowl@0.0.14/dist/nightowl.js"
+></script>
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>

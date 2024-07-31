@@ -14,36 +14,36 @@
                             th:object="${testJoinData}"
                             th:action="@{/test/join}"
                             id="testEntranceForm"
-                            class="bg-secondary rounded shadow border border-black border-2 p-5 d-flex flex-column">
+                            class="bg-light rounded shadow border border-2 p-5 d-flex flex-column">
                         <div class="mb-3 flex-fill text-center">
-                            <label for="testCode" class="form-label fs-4 text-white" th:text="#{enterTestCode}">
+                            <label for="testCode" class="form-label fs-4" th:text="#{enterTestCode}">
                                 Enter Test Code:
                             </label>
                             <input
                                     type="text"
                                     th:field="*{code}"
-                                    class="form-control border border-black fs-6"
+                                    class="form-control border fs-6"
                                     id="testCode"
                                     placeholder="e.g., r%s12#t^"
                                     required
                             />
-                            <div th:if="${testNotFound}" class="text-warning fs-6" th:text="#{testNotFound}">
+                            <div th:if="${testNotFound}" class="text-danger fs-6" th:text="#{testNotFound}">
                                 Sorry, we couldn't find this test!
                             </div>
-                            <div th:if="${testClosed}" class="text-warning fs-6" th:text="#{testClosed}">
+                            <div th:if="${testClosed}" class="text-danger fs-6" th:text="#{testClosed}">
                                 Sorry, seems like the test is closed!
                             </div>
-                            <div th:if="${testCompleted}" class="text-warning fs-6">
+                            <div th:if="${testCompleted}" class="text-danger fs-6">
                                 Sorry, you have already attended this test!
                             </div>
-                            <div class="text-warning fs-6"
+                            <div class="text-danger fs-6"
                                  th:errors="*{code}"
                                  th:if="${#fields.hasErrors('code')}">
                             </div>
                         </div>
                         <button
                                 type="submit"
-                                class="btn bg-light text-black border border-black border-2 shadow rounded fs-5"
+                                class="btn bg-light border border-2 rounded fs-5"
                                 th:text="#{join}">
                             join
                         </button>
@@ -55,7 +55,10 @@
 
     <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
-
+<script
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/@bufferhead/nightowl@0.0.14/dist/nightowl.js"
+></script>
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>

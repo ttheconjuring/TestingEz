@@ -8,16 +8,16 @@
 
     <main class="container d-flex flex-column flex-fill align-item-center justify-content-center gap-3 flex-grow-1">
         <h1 class="text-center" th:text="#{myProfile}">My Profile</h1>
-        <div class="row bg-secondary shadow rounded border border-2 border-black p-3">
+        <div class="row bg-light shadow rounded border border-2 p-3">
             <div class="col-sm-12 col-md-5 mb-3 mb-sm-3 mb-md-0 d-flex flex-column align-items-center gap-2">
                 <img
                         src="/images/astronaut.png"
                         alt="profile-picture"
                         width="300px"
                         height="300px"
-                        class="shadow rounded-circle border border-2 border-black"
+                        class="shadow rounded-circle border border-2"
                 />
-                <button class="btn bg-light rounded shadow text-center text-black border border-black border-2 w-50 fs-5"
+                <button class="btn bg-light rounded text-center border border-2 w-50 fs-5"
                         th:text="#{change}">
                     change
                 </button>
@@ -29,82 +29,83 @@
                         novalidate
                         th:action="@{/user/profile/edit}"
                         th:object="${userProfileData}">
-                    <div class="text-warning fs-6"
+                    <div class="text-danger fs-6"
                          th:errors="*{username}"
                          th:if="${#fields.hasErrors('username')}">
                     </div>
-                    <div th:if="${invalidUsername}" class="text-warning fs-6" th:text="#{usernameInUse}">This username is
+                    <div th:if="${invalidUsername}" class="text-danger fs-6" th:text="#{usernameInUse}">This username
+                        is
                         already in use.
                     </div>
                     <input
-                            class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
+                            class="form-control border border-2 rounded fs-5 mb-2"
                             id="username"
                             placeholder="(username)"
                             th:field="*{username}"
                             type="text"
                     >
-                    <div class="text-warning fs-6"
+                    <div class="text-danger fs-6"
                          th:errors="*{firstName}"
                          th:if="${#fields.hasErrors('firstName')}">
                     </div>
                     <input
-                            class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
+                            class="form-control border border-2 rounded fs-5 mb-2"
                             id="firstName"
                             placeholder="(first name)"
                             th:field="*{firstName}"
                             type="text"
                     >
-                    <div class="text-warning fs-6"
+                    <div class="text-danger fs-6"
                          th:errors="*{lastName}"
                          th:if="${#fields.hasErrors('lastName')}">
                     </div>
                     <input
-                            class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
+                            class="form-control border border-2 rounded fs-5 mb-2"
                             id="lastName"
                             placeholder="(last name)"
                             th:field="*{lastName}"
                             type="text">
-                    <div class="text-warning fs-6"
+                    <div class="text-danger fs-6"
                          th:errors="*{email}"
                          th:if="${#fields.hasErrors('email')}">
                     </div>
-                    <div th:if="${invalidEmail}" class="text-warning fs-6" th:text="#{emailInUse}">This email is
+                    <div th:if="${invalidEmail}" class="text-danger fs-6" th:text="#{emailInUse}">This email is
                         already in use.
                     </div>
                     <input
-                            class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
+                            class="form-control border border-2 rounded fs-5 mb-2"
                             id="email"
                             placeholder="(email)"
                             th:field="*{email}"
                             type="email">
-                    <div class="text-warning fs-6"
+                    <div class="text-danger fs-6"
                          th:errors="*{phone}"
                          th:if="${#fields.hasErrors('phone')}">
                     </div>
-                    <div th:if="${invalidPhone}" class="text-warning fs-6" th:text="#{phoneInUse}">This phone is
+                    <div th:if="${invalidPhone}" class="text-danger fs-6" th:text="#{phoneInUse}">This phone is
                         already in use.
                     </div>
                     <input
-                            class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
+                            class="form-control border border-2 rounded fs-5 mb-2"
                             id="phone"
                             placeholder="(phone)"
                             th:field="*{phone}"
                             type="text">
                     <input
-                            class="form-control border border-2 border-black shadow rounded fs-5 mb-2"
+                            class="form-control border border-2 rounded fs-5 mb-2"
                             id="role"
                             placeholder="(role)"
                             th:field="*{role}"
                             readonly
                             type="text">
                     <div class="d-flex justify-content-center gap-2 w-100">
-                        <button class="btn btn-success rounded shadow text-center text-black border border-black border-2 w-50 fs-5"
+                        <button class="btn btn-success rounded text-center border border-2 w-50 fs-5"
                                 type="submit"
                                 th:text="#{save}">
                             save
                         </button>
                         <a th:href="@{/user/profile}"
-                           class="btn bg-light rounded shadow text-center text-black border border-black border-2 w-50 fs-5"
+                           class="btn bg-light rounded text-center border border-2 w-50 fs-5"
                            th:text="#{cancel}">
                             cancel
                         </a>
@@ -114,7 +115,7 @@
         </div>
         <div class="row justify-content-center text-center">
             <div class="col-sm-8 col-md-4">
-                <button class="btn btn-danger rounded shadow text-center text-black border border-black border-2 fs-5 px-3"
+                <button class="btn btn-danger rounded text-center border border-2 fs-5 px-3"
                         th:text="#{deleteAccount}">
                     Delete Account
                 </button>
@@ -124,6 +125,10 @@
 
     <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
+<script
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/@bufferhead/nightowl@0.0.14/dist/nightowl.js"
+></script>
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>
