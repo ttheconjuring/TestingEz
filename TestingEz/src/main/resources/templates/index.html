@@ -3,7 +3,7 @@
 <div th:replace="~{fragments/heads :: head}"></div>
 <body class="font">
 <div class="d-flex flex-column vh-100 bg-secondary">
-    <header class="flex-shrink-0 shadow rounded border-bottom border-black">
+    <header class="flex-shrink-0 shadow border-bottom border-black">
         <nav class="container navbar bg-secondary">
             <div class="container-fluid justify-content-center">
                 <a class="navbar-brand text-white fs-3" href="#">
@@ -40,7 +40,7 @@
             </p>
             <a
                     href="/account/login"
-                    class="btn btn-secondary btn-lg me-3 px-5 border border-black border-2 shadow rounded"
+                    class="btn btn-secondary btn-lg me-3 px-5 border border-black border-2 rounded"
                     role="button"
                     th:text="#{signIn}"
             >
@@ -48,7 +48,7 @@
             </a>
             <a
                     href="/account/create"
-                    class="btn btn-secondary btn-lg px-5 border border-black border-2 shadow rounded"
+                    class="btn btn-secondary btn-lg px-5 border border-black border-2 rounded"
                     role="button"
                     th:text="#{signUp}"
             >
@@ -58,6 +58,10 @@
     </main>
     <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
+<script
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/@bufferhead/nightowl@0.0.14/dist/nightowl.js"
+></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="/js/change-language.js"></script>
 <div th:replace="~{fragments/scripts :: scripts}"></div>
