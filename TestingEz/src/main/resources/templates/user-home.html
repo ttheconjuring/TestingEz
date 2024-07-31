@@ -3,14 +3,14 @@
       xmlns:sec='http://www.thymeleaf.org/extras/spring-security'>
 <div th:replace="~{fragments/heads :: head}"></div>
 <body class="font">
-<div class="d-flex flex-column vh-100 gap-3">
+<div class="d-flex flex-column bg-light gap-3">
     <div th:replace="~{fragments/headers :: header}"></div>
 
-    <main class="container d-flex flex-column justify-content-center flex-grow-1 gap-3">
+    <main class="container d-flex flex-column bg-light justify-content-center flex-grow-1 gap-3">
         <div class="row align-items-center justify-content-center">
             <div class="col-sm-10 col-lg-8">
                 <h1 class="mb-3" th:text="#{testOfTheDay}">Test of the Day</h1>
-                <div class="rounded border border-2 p-2 fs-5 text-center">
+                <div class="rounded shadow border border-2 p-2 fs-5 text-center">
                     <div th:each="questionObject, iStat: ${testOfTheDay}">
                         <p th:text="${iStat.index + 1} + '.' + ${questionObject.question}"></p>
                         <div class="d-flex justify-content-center gap-2">
@@ -29,7 +29,7 @@
             </div>
             <div class="col-sm-10 col-lg-4">
                 <h1 class="mb-3">Bored?</h1>
-                <div class="text-center p-2 mb-3 border border-2 rounded">
+                <div class="text-center p-2 mb-3 border border-2 rounded shadow">
                     <h2>Click the Button Game</h2>
                     <p>Click the button as many times as you can in 10 seconds!</p>
                     <button id="game-button" class="btn btn-light px-3 border border-2 rounded">
@@ -38,7 +38,7 @@
                     <p class="mt-3">Score: <span id="score" class="score">0</span></p>
                     <p id="message" class="mt-3"></p>
                 </div>
-                <div class="text-center p-2 border border-2 rounded ">
+                <div class="text-center p-2 border border-2 rounded shadow">
                     <h2>Guess the Number Game</h2>
                     <p>Guess a number between 1 and 100!</p>
                     <input type="number"
@@ -57,7 +57,7 @@
             <h1 class="mb-3" th:text="#{miscellaneous}">Miscellaneous</h1>
             <div class="col-sm-10 col-md-4 mb-2">
                 <div id="factsCarousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-item p-2 rounded border border-2"
+                    <div class="carousel-item p-2 rounded border border-2 shadow"
                          th:each="factObject, iStat : ${factsOfTheDay}"
                          th:classappend="${iStat.index == 0} ? 'active' : ''">
                         <p class="card-title fw-bold fs-5" th:text="'Random Fact №' + ${iStat.index + 1}"></p>
@@ -67,7 +67,7 @@
             </div>
             <div class="col-sm-10 col-md-4 mb-2">
                 <div id="jokesCarousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-item p-2 rounded border border-2"
+                    <div class="carousel-item p-2 rounded border border-2 shadow"
                          th:each="jokeObject, iStat : ${jokesOfTheDay}"
                          th:classappend="${iStat.index == 0} ? 'active' : ''">
                         <p class="card-title fw-bold fs-5" th:text="'Random Joke №' + ${iStat.index + 1}"></p>
@@ -77,7 +77,7 @@
             </div>
             <div class="col-sm-10 col-md-4 mb-2">
                 <div id="quotesCarousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-item p-2 rounded border border-2"
+                    <div class="carousel-item p-2 rounded border border-2 shadow"
                          th:each="quoteObject, iStat : ${quotesOfTheDay}"
                          th:classappend="${iStat.index == 0} ? 'active' : ''">
                         <p class="card-title fw-bold fs-5" th:text="'Random Quote №' + ${iStat.index + 1}"></p>
@@ -89,7 +89,7 @@
         </div>
         <div class="row justify-content-center border-top border-2">
             <div class="col-sm-10 col-md-6 my-5">
-                <div class="border border-2 rounded p-3 d-flex flex-column justify-content-center align-items-center">
+                <div class="border border-2 rounded shadow p-3 d-flex flex-column justify-content-center align-items-center">
                     <h4>Help us make "TestingEz" better!</h4>
                     <span>How to improve?</span>
                     <form
