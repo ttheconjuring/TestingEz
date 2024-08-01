@@ -15,7 +15,8 @@
                     <button type="button" class="w-50 btn btn-dark border border-black border-2 rounded">Approve
                     </button>
                     <a class="w-50 btn btn-dark border border-2 rounded dis"
-                       th:href="@{/user/improvements/delete/{id}(id=${ideaData.id})}"><!--TODO-->Disapprove</a>
+                       th:text="#{disapprove}"
+                       th:href="@{/user/improvements/delete/{id}(id=${ideaData.id})}"></a>
                 </div>
             </div>
         </div>

@@ -10,10 +10,10 @@
                  th:object="${resultDetails}"
                  th:classappend="${resultDetails.status == 'PASS'} ? 'border-success' : 'border-danger'">
                 <h2 th:text="*{testName}"></h2>
-                <p th:text="'STATUS: ' + *{status}"></p>
-                <p th:text="'RESULT: ' + *{result}"></p>
-                <p th:text="'POINTS: ' + *{points}"></p>
-                <p th:text="'DATE: ' + *{completedAt}"></p>
+                <p th:text="#{status} + ' ' + *{status}"></p>
+                <p th:text="'Result: ' + *{result}"></p>
+                <p th:text="#{pointss} + ' ' + *{points}"></p>
+                <p th:text="#{date} + ' ' + *{completedAt}"></p>
             </div>
         </div>
         <br>

@@ -30,9 +30,7 @@
                             </div>
                             <div th:if="${testClosed}" class="text-danger fs-6" th:text="#{testClosed}">
                             </div>
-                            <div th:if="${testCompleted}" class="text-danger fs-6">
-                                <!-- TODO -->
-                                Sorry, you have already attended this test!
+                            <div th:if="${testCompleted}" class="text-danger fs-6" th:text="#{testAttended}">
                             </div>
                             <div class="text-danger fs-6"
                                  th:errors="*{code}"

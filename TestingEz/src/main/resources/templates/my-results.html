@@ -7,30 +7,28 @@
     <div th:replace="~{fragments/headers :: header}"></div>
 
     <main class="container d-flex flex-column justify-content-center flex-grow-1">
-        <!-- TODO -->
-        <h3>My Results</h3>
+        <h3 th:text="#{myResults}"></h3>
         <div class="container shadow rounded border border-2 p-5">
             <span class="fs-4"
+                  th:text="#{youDontHaveAnyResultsToShow}"
                   th:if="${paginatedResults.isEmpty()}">
-                <!-- TODO -->
-                You don't have any results to show.
             </span>
             <div class="row align-items-center border border-2 shadow rounded p-2 mb-2"
                  th:each="result, iStat : ${paginatedResults}"
                  th:classappend="${result.status == 'PASS'} ? 'bg-success' : 'bg-danger'">
                 <div class="col-sm-12 col-md-3">
-                    <span th:text="'Test name: ' + ${result.testName}"></span>
+                    <span th:text="#{testName} + ' ' + ${result.testName}"></span>
                 </div>
                 <div class="col-sm-12 col-md-3">
-                    <span th:text="'STATUS: ' + ${result.status}"></span>
+                    <span th:text="#{status} + ' ' + ${result.status}"></span>
                 </div>
                 <div class="col-sm-12 col-md-3">
-                    <span th:text="'Date: ' + ${result.completedAt}"></span>
+                    <span th:text="#{date} + ' ' + ${result.completedAt}"></span>
                 </div>
                 <div class="col-sm-12 col-md-3 text-end">
                     <a class="btn btn-light px-3 border border-2 shadow rounded"
+                       th:text="#{details}"
                        th:href="@{/results/details/{id}(id=${result.id})}">
-                        details <!-- TODO -->
                     </a>
                 </div>
             </div>
