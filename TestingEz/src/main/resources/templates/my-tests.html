@@ -7,10 +7,12 @@
     <div th:replace="~{fragments/headers :: header}"></div>
 
     <main class="container d-flex flex-column justify-content-center flex-grow-1">
+        <!-- TODO -->
         <h3>My Tests</h3>
         <div class="container shadow rounded border border-2 p-5">
             <span class="fs-4"
                   th:if="${paginatedTests.isEmpty()}">
+                <!-- TODO -->
                 You don't have any created tests so far.
             </span>
             <div class="row align-items-center border border-2 shadow rounded p-2 mb-2"
@@ -25,19 +27,20 @@
                     <span th:text="'Last updated: ' + ${test.dateUpdated}"></span>
                 </div>
                 <div class="col-sm-12 col-md-3 text-end">
-                    <a class="btn btn-light px-3 border border-2 rounded"
+                    <a class="btn btn-dark px-3 border border-2 rounded"
                        th:href="@{/test/details/{id}(id=${test.id})}">
+                        <!-- TODO -->
                         details
                     </a>
                 </div>
             </div>
             <div class="d-flex justify-content-center gap-1">
-                <a class="btn btn-light text-center px-3 py-1 shadow rounded border border-2"
+                <a class="btn btn-dark text-center px-3 py-1 shadow rounded border border-2"
                    th:href="@{/user/my-tests(page=${paginatedTests.number - 1}, size=${paginatedTests.size})}"
                    th:if="${paginatedTests.hasPrevious()}">
                     <img src="/images/left-arrow.png" alt="<<" style="width: 25px; height: auto;">
                 </a>
-                <a class="btn btn-light text-center px-3 py-1 shadow rounded border border-2"
+                <a class="btn btn-dark text-center px-3 py-1 shadow rounded border border-2"
                    th:href="@{/user/my-tests(page=${paginatedTests.number + 1}, size=${paginatedTests.size})}"
                    th:if="${paginatedTests.hasNext()}">
                     <img src="/images/right-arrow.png" alt=">>" style="width: 25px; height: auto;">

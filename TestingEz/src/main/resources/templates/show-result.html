@@ -6,13 +6,14 @@
      th:classappend="${resultData.status == 'PASS'} ? 'bg-success' : 'bg-danger'">
     <div class="bg-light shadow rounded p-5 text-center border border-2"
          th:object="${resultData}">
+        <!-- TODO -->
         <h1>Result Summary</h1>
         <p class="fs-3"><span th:text="'Status: ' + *{status}"></span></p>
         <p class="fs-4"><span th:text="'Score: ' + *{result}"></span></p>
         <p class="fs-4"><span th:text="'Points: ' + *{points}"></span></p>
         <a class="link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover fs-3"
            href="/user/home"
-           th:text="#{homePage}">Home Page</a>
+           th:text="#{homePage}"></a>
     </div>
 </div>
 <div th:replace="~{fragments/scripts :: scripts}"></div>

@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{fragments/heads :: head}"></div>
-<body class="bg-secondary vh-100 d-flex justify-content-center align-items-center font">
+<body class="bg-лигхт vh-100 d-flex justify-content-center align-items-center font">
 <div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="bg-light p-3 border border-black border-3 shadow rounded fs-3 w-50">
+    <div class="bg-light p-3 border border-3 shadow rounded fs-3 w-50">
         <div class="container d-flex flex-column align-items-center gap-4"
              th:object="${questionData}">
             <div class="row w-100">
                 <div class="col-sm-12 col-md-4 text-center">
                     <span th:text="'#' + *{number}"></span>
                 </div>
-                <div class="col-sm-12 col-md-4 text-center bg-secondary rounded shadow border border-2 border-black text-warning">
+                <div class="col-sm-12 col-md-4 text-center bg-light rounded shadow border border-2">
                     <input type="hidden" th:value="*{responseTime}" th:id="responseTime">
                     <span th:id="countdown"></span>
                 </div>
@@ -18,7 +18,7 @@
                     <span th:text="'p.' + *{points}"></span>
                 </div>
             </div>
-            <div class="row w-100 text-center bg-secondary text-white border border-2 border-black rounded shadow">
+            <div class="row w-100 text-center bg-лигхт border border-2 rounded shadow">
                 <div class="col">
                     <span th:text="*{question}"></span>
                 </div>
@@ -92,9 +92,9 @@
                     <!-- --------------------------------------------------- -->
                     <div class="row w-100">
                         <div class="col text-center">
-                            <button class="btn btn-secondary border border-2 border-black fs-4 px-4"
+                            <button class="btn btn-dark border border-black border-2 fs-4 px-4"
                                     type="submit"
-                                    th:text="#{submit}">submit
+                                    th:text="#{submit}">
                             </button>
                         </div>
                     </div>
@@ -103,6 +103,10 @@
         </div>
     </div>
 </div>
+<script
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/@bufferhead/nightowl@0.0.14/dist/nightowl.js"
+></script>
 <script src="/js/answer-question-timer.js"></script>
 <script src="/js/block-back.js"></script>
 <div th:replace="~{fragments/scripts :: scripts}"></div>

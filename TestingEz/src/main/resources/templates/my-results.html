@@ -7,10 +7,12 @@
     <div th:replace="~{fragments/headers :: header}"></div>
 
     <main class="container d-flex flex-column justify-content-center flex-grow-1">
+        <!-- TODO -->
         <h3>My Results</h3>
         <div class="container shadow rounded border border-2 p-5">
             <span class="fs-4"
                   th:if="${paginatedResults.isEmpty()}">
+                <!-- TODO -->
                 You don't have any results to show.
             </span>
             <div class="row align-items-center border border-2 shadow rounded p-2 mb-2"
@@ -28,17 +30,17 @@
                 <div class="col-sm-12 col-md-3 text-end">
                     <a class="btn btn-light px-3 border border-2 shadow rounded"
                        th:href="@{/results/details/{id}(id=${result.id})}">
-                        details
+                        details <!-- TODO -->
                     </a>
                 </div>
             </div>
             <div class="d-flex justify-content-center gap-1">
-                <a class="btn btn-light text-center px-3 py-1 shadow rounded border border-2"
+                <a class="btn btn-dark text-center px-3 py-1 shadow rounded border border-2"
                    th:href="@{/user/my-results(page=${paginatedResults.number - 1}, size=${paginatedResults.size})}"
                    th:if="${paginatedResults.hasPrevious()}">
                     <img src="/images/left-arrow.png" alt="<<" style="width: 25px; height: auto;">
                 </a>
-                <a class="btn btn-light text-center px-3 py-1 shadow rounded border border-2"
+                <a class="btn btn-dark text-center px-3 py-1 shadow rounded border border-2"
                    th:href="@{/user/my-results(page=${paginatedResults.number + 1}, size=${paginatedResults.size})}"
                    th:if="${paginatedResults.hasNext()}">
                     <img src="/images/right-arrow.png" alt=">>" style="width: 25px; height: auto;">

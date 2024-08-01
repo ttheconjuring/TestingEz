@@ -17,7 +17,6 @@
                             class="bg-light rounded shadow border border-2 p-5 d-flex flex-column">
                         <div class="mb-3 flex-fill text-center">
                             <label for="testCode" class="form-label fs-4" th:text="#{enterTestCode}">
-                                Enter Test Code:
                             </label>
                             <input
                                     type="text"
@@ -28,12 +27,11 @@
                                     required
                             />
                             <div th:if="${testNotFound}" class="text-danger fs-6" th:text="#{testNotFound}">
-                                Sorry, we couldn't find this test!
                             </div>
                             <div th:if="${testClosed}" class="text-danger fs-6" th:text="#{testClosed}">
-                                Sorry, seems like the test is closed!
                             </div>
                             <div th:if="${testCompleted}" class="text-danger fs-6">
+                                <!-- TODO -->
                                 Sorry, you have already attended this test!
                             </div>
                             <div class="text-danger fs-6"
@@ -43,9 +41,8 @@
                         </div>
                         <button
                                 type="submit"
-                                class="btn bg-light border border-2 rounded fs-5"
+                                class="btn btn-dark border border-2 border-black rounded fs-5"
                                 th:text="#{join}">
-                            join
                         </button>
                     </form>
                 </div>

@@ -13,7 +13,7 @@
                     th:action="@{/questions/{testId}/create(testId=*{testId})}"
                     th:object="${testQuestionsData}">
                 <div th:each="question, questionIndex : ${testQuestionsData.questions}">
-                    <h2 class="text-center"><span th:text="#{questionNumber}">Question #</span><span
+                    <h2 class="text-center"><span th:text="#{questionNumber}"></span><span
                             th:text="${questionIndex.index + 1}"></span></h2>
                     <div class="form-group mb-3">
                         <input class="form-control border border-2 fs-5 shadow text-center"
@@ -120,9 +120,8 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center gap-1 mt-3">
-                    <button type="submit" class="btn btn-success border border-2 shadow fs-4"
+                    <button type="submit" class="btn btn-success border border-2 border-black shadow fs-4"
                             th:text="#{complete}">
-                        Complete
                     </button>
                 </div>
             </form>
@@ -130,9 +129,8 @@
                 <form method="post"
                       th:action="@{/test/delete/{testId}(testId=*{testId})}"
                       th:object="${testQuestionsData}">
-                    <button type="submit" class="btn btn-danger border border-2 shadow fs-4"
+                    <button type="submit" class="btn btn-danger border border-2 border-black shadow fs-4"
                             th:text="#{cancel}">
-                        Cancel
                     </button>
                 </form>
             </div>

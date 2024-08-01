@@ -14,10 +14,10 @@
                     novalidate
                     th:action="@{/test/create}"
                     th:object="${testCreateData}">
-                <h1 class="text-center" th:text="#{createTest}">Create Test</h1>
+                <h1 class="text-center" th:text="#{createTest}"></h1>
                 <div class="row row-cols-1 row-cols-md-2 mb-2">
                     <div class="col">
-                        <label for="name" class="form-label" th:text="#{testName}">Test name:</label>
+                        <label for="name" class="form-label" th:text="#{testName}"></label>
                     </div>
                     <div class="col">
                         <div class="input-group has-validation">
@@ -41,7 +41,7 @@
                 </div>
                 <div class="row row-cols-1 row-cols-md-2 mb-2">
                     <div class="col">
-                        <label for="description" class="form-label" th:text="#{description}">Description:</label>
+                        <label for="description" class="form-label" th:text="#{description}"></label>
                     </div>
                     <div class="col">
                         <div class="input-group has-validation">
@@ -64,7 +64,7 @@
                 </div>
                 <div class="row row-cols-1 row-cols-md-2 mb-2">
                     <div class="col">
-                        <label for="code" class="form-label" th:text="#{testCode}">Code:</label>
+                        <label for="code" class="form-label" th:text="#{testCode}"></label>
                     </div>
                     <div class="col">
                         <div class="input-group has-validation gap-1">
@@ -78,11 +78,10 @@
                                     th:field="*{code}"
                                     type="text"
                             />
-                            <button class="btn bg-light border border-2 rounded fs-5"
+                            <button class="btn btn-dark border border-2 border-black rounded fs-5"
                                     onclick="generateCode()"
                                     type="button"
                                     th:text="#{generate}">
-                                generate
                             </button>
                         </div>
                         <div class="text-danger fs-6"
@@ -94,7 +93,6 @@
                 <div class="row row-cols-1 row-cols-md-2 mb-2">
                     <div class="col">
                         <label for="responseTime" class="form-label" th:text="#{timeForResponse}">
-                            Time for response:
                         </label>
                     </div>
                     <div class="col">
@@ -119,7 +117,6 @@
                 <div class="row row-cols-1 row-cols-md-2 mb-2">
                     <div class="col">
                         <label for="passingScore" class="form-label" th:text="#{passingScore}">
-                            Passing score:
                         </label>
                     </div>
                     <div class="col">
@@ -142,7 +139,6 @@
                 <div class="row row-cols-1 row-cols-md-2 mb-2">
                     <div class="col">
                         <label for="questionsCount" class="form-label" th:text="#{questionsCount}">
-                            Questions count:
                         </label>
                     </div>
                     <div class="col">
@@ -166,7 +162,6 @@
                 <div class="row row-cols-1 row-cols-md-2 mb-2">
                     <div class="col">
                         <label for="status" class="form-label" th:text="#{status}">
-                            Status:
                         </label>
                     </div>
                     <div class="col">
@@ -191,9 +186,8 @@
                 <div class="row">
                     <div class="col text-center">
                         <button type="submit"
-                                class="btn bg-light border border-2 rounded fs-5 px-5 mt-3"
+                                class="btn btn-dark border border-2 border-black rounded fs-5 px-5 mt-3"
                                 th:text="#{next}">
-                            next
                         </button>
                     </div>
                 </div>

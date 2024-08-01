@@ -34,25 +34,22 @@
                 <img src="/images/russia-flag.png" alt="RU flag" id="ru" class="flag"
                      style="height: auto; width: 30px; cursor: pointer">
             </div>
-            <p class="m-0 fs-1" th:text="#{welcome}">Welcome to TestingEz</p>
+            <p class="m-0 fs-1" th:text="#{welcome}"></p>
             <p class="fs-5" th:text="#{slogan}">
-                Start testing whomever you want on whatever you want!
             </p>
             <a
                     href="/account/login"
-                    class="btn btn-light btn-lg me-3 px-5 border border-2 rounded shadow"
+                    class="btn btn-dark btn-lg me-3 px-5 border border-2 rounded shadow"
                     role="button"
                     th:text="#{signIn}"
             >
-                Sign In
             </a>
             <a
                     href="/account/create"
-                    class="btn btn-light btn-lg px-5 border border-2 rounded shadow"
+                    class="btn btn-dark btn-lg px-5 border border-2 rounded shadow"
                     role="button"
                     th:text="#{signUp}"
             >
-                Sign Up
             </a>
         </div>
     </main>

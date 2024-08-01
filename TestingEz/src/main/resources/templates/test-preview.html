@@ -15,24 +15,23 @@
                     th:method="post"
             >
                 <h2>"<span th:text="*{name}"></span>"</h2>
-                <h4><span th:text="#{madeBy}">Made by</span> <span th:text="*{creatorUsername}"></span></h4>
+                <h4><span th:text="#{madeBy}"></span> <span th:text="*{creatorUsername}"></span></h4>
                 <br>
                 <div class="align-self-start">
-                    <p><span th:text="#{description}">Description:</span> <span th:text="*{description}"></span></p>
-                    <p><span th:text="#{timeForResponse}">Time for response:</span> <span
+                    <p><span th:text="#{description}"></span> <span th:text="*{description}"></span></p>
+                    <p><span th:text="#{timeForResponse}"></span> <span
                             th:text="*{responseTime}">min</span></p>
-                    <p><span th:text="#{passingScore}">Passing score:</span> <span th:text="*{passingScore}"></span></p>
-                    <p><span th:text="#{questionsCount}">Questions count:</span> <span
+                    <p><span th:text="#{passingScore}"></span> <span th:text="*{passingScore}"></span></p>
+                    <p><span th:text="#{questionsCount}"></span> <span
                             th:text="*{questionsCount}"></span></p>
-                    <p><span th:text="#{status}">Status:</span> <span th:text="*{status}"></span></p>
+                    <p><span th:text="#{status}"></span> <span th:text="*{status}"></span></p>
                 </div>
                 <br>
                 <a
                         th:href="@{/questions/{id}/1(id=*{id})}"
                         type="submit"
-                        class="btn btn-light px-5 border border-2 rounded"
+                        class="btn btn-dark px-5 border border-2 rounded"
                         th:text="#{start}">
-                    Start
                 </a>
             </form>
         </div>

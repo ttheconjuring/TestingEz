@@ -96,6 +96,7 @@ public class TestServiceImpl implements TestService {
         } else {
             test.setStatus(TestStatus.CLOSED);
         }
+        test.setDateUpdated(LocalDateTime.now());
         this.testRepository.saveAndFlush(test);
     }
 

@@ -9,6 +9,7 @@
             <div class="col-sm-12 col-md-8 col-lg-6 shadow rounded border border-2"
                  th:object="${testDetails}">
                 <h2 th:text="*{name}"></h2>
+                <!-- TODO -->
                 <p th:text="'Description: ' + *{description}"></p>
                 <p th:text="'Code: ' + *{code}"></p>
                 <p th:text="'Response time: ' + *{responseTime}"></p>
@@ -31,7 +32,7 @@
                     <div class="d-flex justify-content-between">
                         <span th:text="'№: ' + ${questionData.number}"></span>
                         <a
-                                class="btn btn-light border border-2 rounded"
+                                class="btn btn-dark border border-2 rounded"
                                 th:href="@{/questions/edit/{id}(id=${questionData.id})}">
                             <img src="/images/edit.png" style="width: 25px; height: auto" alt="edit">
                         </a>
