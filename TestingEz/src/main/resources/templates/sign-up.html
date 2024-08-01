@@ -2,11 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{fragments/heads :: head}"></div>
 <body class="font">
-<div class="d-flex flex-column min-vh-100 gap-5 bg-secondary p-3">
-    <main class="container d-flex flex-column flex-fill align-item-center justify-content-center flex-grow-1 bg-secondary">
+<div class="d-flex flex-column min-vh-100 gap-5 bg-light p-3">
+    <main class="container d-flex flex-column flex-fill align-item-center justify-content-center flex-grow-1 bg-light">
         <div class="row justify-content-center">
-            <div class="col-sm-12 col-md-10 col-lg-8 bg-light shadow rounded border border-2 border-black p-3">
-                <h2 class="text-center" th:text="#{register}">Register</h2>
+            <div class="col-sm-12 col-md-10 col-lg-8 bg-light rounded border border-2 p-3 shadow">
+                <h2 class="text-center" th:text="#{register}"></h2>
                 <form
                         class="needs-validation"
                         method="post"
@@ -16,11 +16,11 @@
                 >
                     <div class="row justify-content-center">
                         <div class="col">
-                            <label for="username" class="form-label" th:text="#{registerUsername}">Username:</label>
+                            <label for="username" class="form-label" th:text="#{registerUsername}"></label>
                             <div class="input-group has-validation">
                                 <input
                                         aria-describedby="inputGroupPrepend"
-                                        class="form-control border border-black fs-6"
+                                        class="form-control border fs-6"
                                         id="username"
                                         maxlength="25"
                                         minlength="5"
@@ -35,18 +35,17 @@
                                  th:errors="*{username}"
                                  th:if="${#fields.hasErrors('username')}">
                             </div>
-                            <div th:if="${invalidUsername}" class="text-danger fs-6" th:text="#{usernameInUse}">This username is
-                                already in use.
+                            <div th:if="${invalidUsername}" class="text-danger fs-6" th:text="#{usernameInUse}">
                             </div>
                         </div>
                     </div>
 
                     <div class="row justify-content-center">
                         <div class="col">
-                            <label for="password" class="form-label" th:text="#{registerPassword}">Password:</label>
+                            <label for="password" class="form-label" th:text="#{registerPassword}"></label>
                             <div class="input-group has-validation">
                                 <input
-                                        class="form-control border border-black fs-6"
+                                        class="form-control border fs-6"
                                         id="password"
                                         minlength="8"
                                         name="password"
@@ -60,16 +59,17 @@
                                  th:errors="*{password}"
                                  th:if="${#fields.hasErrors('password')}">
                             </div>
-                            <div th:if="${invalidPasswords}" class="text-danger fs-6" th:text="#{passwordsNotMatching}">Passwords DO NOT match.</div>
+                            <div th:if="${invalidPasswords}" class="text-danger fs-6" th:text="#{passwordsNotMatching}">
+                            </div>
                         </div>
                     </div>
 
                     <div class="row justify-content-center">
                         <div class="col">
-                            <label for="confirmPassword" class="form-label" th:text="#{confirmPassword}">Confirm password:</label>
+                            <label for="confirmPassword" class="form-label" th:text="#{confirmPassword}"></label>
                             <div class="input-group has-validation">
                                 <input
-                                        class="form-control border border-black fs-6"
+                                        class="form-control border fs-6"
                                         id="confirmPassword"
                                         minlength="8"
                                         name="confirmPassword"
@@ -88,10 +88,10 @@
 
                     <div class="row justify-content-center">
                         <div class="col">
-                            <label for="firstName" class="form-label" th:text="#{firstName}">First Name:</label>
+                            <label for="firstName" class="form-label" th:text="#{firstName}"></label>
                             <div class="input-group has-validation">
                                 <input
-                                        class="form-control border border-black fs-6"
+                                        class="form-control border fs-6"
                                         id="firstName"
                                         name="firstName"
                                         required
@@ -109,10 +109,10 @@
 
                     <div class="row justify-content-center">
                         <div class="col">
-                            <label for="lastName" class="form-label" th:text="#{lastName}">Last Name:</label>
+                            <label for="lastName" class="form-label" th:text="#{lastName}"></label>
                             <div class="input-group has-validation">
                                 <input
-                                        class="form-control border border-black fs-6"
+                                        class="form-control border fs-6"
                                         id="lastName"
                                         name="lastName"
                                         required
@@ -130,10 +130,10 @@
 
                     <div class="row justify-content-center">
                         <div class="col">
-                            <label for="email" class="form-label" th:text="#{registerEmail}">Email:</label>
+                            <label for="email" class="form-label" th:text="#{registerEmail}"></label>
                             <div class="input-group has-validation">
                                 <input
-                                        class="form-control border border-black fs-6"
+                                        class="form-control border fs-6"
                                         id="email"
                                         name="email"
                                         placeholder="name@example.com"
@@ -147,18 +147,17 @@
                                  th:errors="*{email}"
                                  th:if="${#fields.hasErrors('email')}">
                             </div>
-                            <div th:if="${invalidEmail}" class="text-danger fs-6" th:text="#{emailInUse}">This email is
-                                already in use.
+                            <div th:if="${invalidEmail}" class="text-danger fs-6" th:text="#{emailInUse}">
                             </div>
                         </div>
                     </div>
 
                     <div class="row justify-content-center">
                         <div class="col">
-                            <label for="phone" class="form-label" th:text="#{registerPhone}">Phone number:</label>
+                            <label for="phone" class="form-label" th:text="#{registerPhone}"></label>
                             <div class="input-group has-validation">
                                 <input
-                                        class="form-control border border-black fs-6"
+                                        class="form-control border fs-6"
                                         id="phone"
                                         name="phone"
                                         pattern="^[0-9]{3}-[0-9]{3}-[0-9]{4}$"
@@ -173,8 +172,7 @@
                                  th:errors="*{phone}"
                                  th:if="${#fields.hasErrors('phone')}">
                             </div>
-                            <div th:if="${invalidPhone}" class="text-danger fs-6" th:text="#{phoneInUse}">This phone is
-                                already in use.
+                            <div th:if="${invalidPhone}" class="text-danger fs-6" th:text="#{phoneInUse}">
                             </div>
                         </div>
                     </div>
@@ -183,10 +181,9 @@
                         <div class="col d-flex justify-content-center">
                             <button
                                     type="submit"
-                                    class="btn btn-secondary border border-black border-2 shadow rounded fs-5 px-5 mt-3"
+                                    class="btn btn-dark border border-2 border-black rounded fs-5 px-5 mt-3"
                                     th:text="#{signUp}"
                             >
-                                Sign Up
                             </button>
                         </div>
                     </div>
@@ -195,7 +192,10 @@
         </div>
     </main>
 </div>
-
+<script
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/@bufferhead/nightowl@0.0.14/dist/nightowl.js"
+></script>
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>

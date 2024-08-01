@@ -2,15 +2,19 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{fragments/heads :: head}"></div>
 <body class="font">
-<div class="d-flex flex-column align-items-center justify-content-center vh-100 bg-secondary">
-    <div class="bg-light shadow rounded p-5 text-center border border-black border-2">
-        <h1 th:text="#{failureMessage}">Oops! Something went wrong...</h1>
+<div class="d-flex flex-column align-items-center justify-content-center vh-100 bg-light">
+    <div class="bg-light shadow rounded p-5 text-center border border-2">
+        <h1 th:text="#{failureMessage}"></h1>
         <p class="fs-3"><span th:text="${message}"></span></p>
-        <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover fs-3"
+        <a class="link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover fs-3"
            th:href="@{/user/home}"
-        th:text="#{homePage}">Home Page</a>
+           th:text="#{homePage}"></a>
     </div>
 </div>
+<script
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/@bufferhead/nightowl@0.0.14/dist/nightowl.js"
+></script>
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>

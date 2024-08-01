@@ -2,25 +2,26 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{fragments/heads :: head}"></div>
 <body class="font">
-<div class="d-flex flex-column vh-100 gap-5">
+<div class="d-flex flex-column gap-5">
     <div th:replace="~{fragments/headers :: header}"></div>
     <main class="container flex-grow-1">
         <div class="row justify-content-center">
             <div class="col-sm-12 col-md-8 col-lg-6 shadow rounded border border-2"
                  th:object="${testDetails}">
                 <h2 th:text="*{name}"></h2>
-                <p th:text="'Description: ' + *{description}"></p>
-                <p th:text="'Code: ' + *{code}"></p>
-                <p th:text="'Response time: ' + *{responseTime}"></p>
-                <p th:text="'Passing score: ' + *{passingScore}"></p>
-                <p th:text="'Questions count: ' + *{questionsCount}"></p>
-                <p>Status: <a class="btn border border-2"
-                              th:classappend="*{status} == 'OPEN' ? 'bg-success' : 'bg-danger'"
-                              th:href="@{/test/status/change/{id}(id=*{id})}"
-                              th:text="*{status}"></a></p>
-                <p th:text="'Created At: ' + *{dateCreated}"></p>
-                <p th:text="'Updated At: ' + *{dateUpdated}"></p>
-                <p th:text="'Creator: ' + *{creatorUsername}"></p>
+                <p th:text="#{description} + ' ' + *{description}"></p>
+                <p th:text="#{testCode} + ' ' + *{code}"></p>
+                <p th:text="#{responseTime} + ' ' + *{responseTime}"></p>
+                <p th:text="#{passingScore} + ' ' + *{passingScore}"></p>
+                <p th:text="#{questionsCount} + ' ' + *{questionsCount}"></p>
+                <p><span th:text="#{status}"></span>
+                    <a class="btn border border-2"
+                       th:classappend="*{status} == 'OPEN' ? 'bg-success' : 'bg-danger'"
+                       th:href="@{/test/status/change/{id}(id=*{id})}"
+                       th:text="*{status}"></a></p>
+                <p th:text="#{createdAt} + ' ' + *{dateCreated}"></p>
+                <p th:text="#{updatedAt} + ' ' + *{dateUpdated}"></p>
+                <p th:text="#{creator} + ' ' + *{creatorUsername}"></p>
             </div>
         </div>
         <br>
@@ -31,18 +32,18 @@
                     <div class="d-flex justify-content-between">
                         <span th:text="'№: ' + ${questionData.number}"></span>
                         <a
-                                class="btn btn-light border border-2 rounded"
+                                class="btn btn-dark border border-2 rounded"
                                 th:href="@{/questions/edit/{id}(id=${questionData.id})}">
                             <img src="/images/edit.png" style="width: 25px; height: auto" alt="edit">
                         </a>
                     </div>
-                    <p th:text="'Points: ' + ${questionData.points}"></p>
+                    <p th:text="#{pointss} + ' ' + ${questionData.points}"></p>
                     <p th:text="${questionData.question}"></p>
                     <p th:text="${questionData.answer1}"></p>
                     <p th:text="${questionData.answer2}"></p>
                     <p th:text="${questionData.answer3}"></p>
                     <p th:text="${questionData.answer4}"></p>
-                    <p th:text="'Correct answer: ' + ${questionData.correctAnswer} "></p>
+                    <p th:text="#{correctAnswerr} + ' ' + ${questionData.correctAnswer} "></p>
                 </div>
             </div>
         </div>
@@ -50,6 +51,10 @@
 
     <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
+<script
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/@bufferhead/nightowl@0.0.14/dist/nightowl.js"
+></script>
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>

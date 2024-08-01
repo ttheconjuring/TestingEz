@@ -7,38 +7,38 @@
     <div th:replace="~{fragments/headers :: header}"></div>
 
     <main class="container d-flex flex-column justify-content-center flex-grow-1">
-        <h3>My Results</h3>
+        <h3 th:text="#{myResults}"></h3>
         <div class="container shadow rounded border border-2 p-5">
             <span class="fs-4"
+                  th:text="#{youDontHaveAnyResultsToShow}"
                   th:if="${paginatedResults.isEmpty()}">
-                You don't have any results to show.
             </span>
-            <div class="row align-items-center border border-2 shadow rounded p-2 mb-2 text-white border-black"
+            <div class="row align-items-center border border-2 shadow rounded p-2 mb-2"
                  th:each="result, iStat : ${paginatedResults}"
                  th:classappend="${result.status == 'PASS'} ? 'bg-success' : 'bg-danger'">
                 <div class="col-sm-12 col-md-3">
-                    <span th:text="'Test name: ' + ${result.testName}"></span>
+                    <span th:text="#{testName} + ' ' + ${result.testName}"></span>
                 </div>
                 <div class="col-sm-12 col-md-3">
-                    <span th:text="'STATUS: ' + ${result.status}"></span>
+                    <span th:text="#{status} + ' ' + ${result.status}"></span>
                 </div>
                 <div class="col-sm-12 col-md-3">
-                    <span th:text="'Date: ' + ${result.completedAt}"></span>
+                    <span th:text="#{date} + ' ' + ${result.completedAt}"></span>
                 </div>
                 <div class="col-sm-12 col-md-3 text-end">
-                    <a class="btn btn-light px-3 border border-2 border-black shadow rounded"
+                    <a class="btn btn-light px-3 border border-2 shadow rounded"
+                       th:text="#{details}"
                        th:href="@{/results/details/{id}(id=${result.id})}">
-                        details
                     </a>
                 </div>
             </div>
             <div class="d-flex justify-content-center gap-1">
-                <a class="btn btn-light text-center px-3 py-1 shadow rounded border border-2"
+                <a class="btn btn-dark text-center px-3 py-1 shadow rounded border border-2"
                    th:href="@{/user/my-results(page=${paginatedResults.number - 1}, size=${paginatedResults.size})}"
                    th:if="${paginatedResults.hasPrevious()}">
                     <img src="/images/left-arrow.png" alt="<<" style="width: 25px; height: auto;">
                 </a>
-                <a class="btn btn-light text-center px-3 py-1 shadow rounded border border-2"
+                <a class="btn btn-dark text-center px-3 py-1 shadow rounded border border-2"
                    th:href="@{/user/my-results(page=${paginatedResults.number + 1}, size=${paginatedResults.size})}"
                    th:if="${paginatedResults.hasNext()}">
                     <img src="/images/right-arrow.png" alt=">>" style="width: 25px; height: auto;">
@@ -48,7 +48,10 @@
     </main>
     <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
-
+<script
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/@bufferhead/nightowl@0.0.14/dist/nightowl.js"
+></script>
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>

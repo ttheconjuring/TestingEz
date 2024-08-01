@@ -191,6 +191,14 @@ public class UserControllerImpl implements UserController {
         return "impr-ideas";
     }
 
+    /*
+     * This method accepts UUID id and tries to delete the improvement idea. After that,
+     * users are redirected to the page with all improvement ideas. If an idea is deleted
+     * successfully, there should be some sort of alert, saying the process was done. Otherwise,
+     * another alert should appear, telling the users that the improvement idea was not deleted
+     * due to some reasons.
+     */
+
     @Override
     @GetMapping("/improvements/delete/{id}")
     public String deleteImprovement(@PathVariable UUID id) {
@@ -199,7 +207,6 @@ public class UserControllerImpl implements UserController {
         } catch (NinjaMicroServiceException e) {
             throw new RuntimeException(e);
         }
-        // TODO: update cache
         return "redirect:/user/improvement/ideas";
     }
 

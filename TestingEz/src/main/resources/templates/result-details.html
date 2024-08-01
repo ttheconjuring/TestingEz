@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{fragments/heads :: head}"></div>
 <body class="font">
-<div class="d-flex flex-column vh-100 gap-5">
+<div class="d-flex flex-column gap-5">
     <div th:replace="~{fragments/headers :: header}"></div>
     <main class="container flex-grow-1">
         <div class="row justify-content-center">
@@ -10,10 +10,10 @@
                  th:object="${resultDetails}"
                  th:classappend="${resultDetails.status == 'PASS'} ? 'border-success' : 'border-danger'">
                 <h2 th:text="*{testName}"></h2>
-                <p th:text="'STATUS: ' + *{status}"></p>
-                <p th:text="'RESULT: ' + *{result}"></p>
-                <p th:text="'POINTS: ' + *{points}"></p>
-                <p th:text="'DATE: ' + *{completedAt}"></p>
+                <p th:text="#{status} + ' ' + *{status}"></p>
+                <p th:text="'Result: ' + *{result}"></p>
+                <p th:text="#{pointss} + ' ' + *{points}"></p>
+                <p th:text="#{date} + ' ' + *{completedAt}"></p>
             </div>
         </div>
         <br>
@@ -41,6 +41,10 @@
 
     <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
+<script
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/@bufferhead/nightowl@0.0.14/dist/nightowl.js"
+></script>
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>

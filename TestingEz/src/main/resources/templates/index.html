@@ -2,11 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{fragments/heads :: head}"></div>
 <body class="font">
-<div class="d-flex flex-column vh-100 bg-secondary">
-    <header class="flex-shrink-0 shadow rounded border-bottom border-black">
-        <nav class="container navbar bg-secondary">
+<div class="d-flex flex-column vh-100 bg-light">
+    <header class="flex-shrink-0 shadow border-bottom border-2">
+        <nav class="container navbar bg-light">
             <div class="container-fluid justify-content-center">
-                <a class="navbar-brand text-white fs-3" href="#">
+                <a class="navbar-brand fs-3" href="#">
                     <img
                             src="/images/school.png"
                             alt="Logo"
@@ -34,30 +34,31 @@
                 <img src="/images/russia-flag.png" alt="RU flag" id="ru" class="flag"
                      style="height: auto; width: 30px; cursor: pointer">
             </div>
-            <p class="m-0 fs-1" th:text="#{welcome}">Welcome to TestingEz</p>
+            <p class="m-0 fs-1" th:text="#{welcome}"></p>
             <p class="fs-5" th:text="#{slogan}">
-                Start testing whomever you want on whatever you want!
             </p>
             <a
                     href="/account/login"
-                    class="btn btn-secondary btn-lg me-3 px-5 border border-black border-2 shadow rounded"
+                    class="btn btn-dark btn-lg me-3 px-5 border border-2 rounded shadow"
                     role="button"
                     th:text="#{signIn}"
             >
-                Sign In
             </a>
             <a
                     href="/account/create"
-                    class="btn btn-secondary btn-lg px-5 border border-black border-2 shadow rounded"
+                    class="btn btn-dark btn-lg px-5 border border-2 rounded shadow"
                     role="button"
                     th:text="#{signUp}"
             >
-                Sign Up
             </a>
         </div>
     </main>
     <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
+<script
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/@bufferhead/nightowl@0.0.14/dist/nightowl.js"
+></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="/js/change-language.js"></script>
 <div th:replace="~{fragments/scripts :: scripts}"></div>

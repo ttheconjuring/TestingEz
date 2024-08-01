@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{fragments/heads :: head}"></div>
-<body class="bg-secondary vh-100 d-flex justify-content-center align-items-center font">
+<body class="bg-light vh-100 d-flex justify-content-center align-items-center font">
 <div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="bg-light p-5 border border-black border-3 shadow rounded fs-5">
-        <h2 class="text-center" th:text="#{login}">Login</h2>
+    <div class="bg-light p-5 border border-2 rounded fs-5 shadow">
+        <h2 class="text-center" th:text="#{login}"></h2>
         <form action="#"
               class="d-flex flex-column"
               method="post"
@@ -12,14 +12,13 @@
               th:action="@{/account/login}"
               th:object="${userSignInData}">
             <div th:if="${error}" class="text-danger fs-6 text-center" th:text="#{invalidCredentials}">
-                invalid credentials
             </div>
-            <label for="username" class="form-label" th:text="#{loginUsername}">Username:</label>
+            <label for="username" class="form-label" th:text="#{loginUsername}"></label>
             <div class="input-group">
-                <span class="input-group-text border-black" id="inputGroupPrepend">@</span>
+                <span class="input-group-text" id="inputGroupPrepend">@</span>
                 <input
                         aria-describedby="inputGroupPrepend"
-                        class="form-control border border-black fs-6"
+                        class="form-control border fs-6"
                         id="username"
                         th:placeholder="#{enterUsername}"
                         required
@@ -31,10 +30,10 @@
                     th:if="${#fields.hasErrors('username')}"
                     th:errors="*{username}"
                     class="text-danger fs-6"></div>
-            <label for="password" class="form-label" th:text="#{loginPassword}">Password:</label>
+            <label for="password" class="form-label" th:text="#{loginPassword}"></label>
             <div class="input-group">
                 <input
-                        class="form-control border border-black fs-6"
+                        class="form-control border fs-6"
                         id="password"
                         name="password"
                         th:placeholder="#{enterPassword}"
@@ -49,15 +48,17 @@
                     class="text-danger fs-6"></div>
             <button
                     type="submit"
-                    class="btn btn-secondary border border-black border-2 shadow rounded fs-5 mt-3"
+                    class="btn btn-dark border border-2 border-black rounded fs-5 mt-3"
                     th:text="#{signIn}"
             >
-                Sign In
             </button>
         </form>
     </div>
 </div>
-
+<script
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/@bufferhead/nightowl@0.0.14/dist/nightowl.js"
+></script>
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>

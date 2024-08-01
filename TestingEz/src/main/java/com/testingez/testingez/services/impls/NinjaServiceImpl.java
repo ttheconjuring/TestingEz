@@ -132,7 +132,7 @@ public class NinjaServiceImpl implements NinjaService {
                     .toBodilessEntity();
         } catch (Exception error) {
             throw new NinjaMicroServiceException("We couldn't send the" +
-                    "improvement idea ):", error);
+                    " improvement idea ):", error);
         }
     }
 
@@ -146,7 +146,7 @@ public class NinjaServiceImpl implements NinjaService {
                     .toBodilessEntity();
         } catch (Exception error) {
             throw new NinjaMicroServiceException("We couldn't delete the" +
-                    "improvement idea ):", error);
+                    " improvement idea ):", error);
         }
     }
 
