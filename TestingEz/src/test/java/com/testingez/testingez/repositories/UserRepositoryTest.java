@@ -25,41 +25,29 @@ class UserRepositoryTest {
     }
 
     @Test
-    void returnsNonEmptyOptionalOfExistingUserWhenExistingUsernameIsGiven() {
+    void returnsNonEmptyOptionalOfUserWhenExistingUsernameIsGiven() {
         // given
-        User user = new User();
-        user.setUsername("username");
-        user.setPassword("password");
-        user.setFirstName("Petar");
-        user.setLastName("Kele-sho");
-        user.setEmail("pesho@aes.vas");
-        user.setPhone("048-581-5853");
+        User user = sampleUser();
         underTest.save(user);
 
         // when
         Optional<User> userOptional = underTest.findByUsername(user.getUsername());
 
         // then
-        assertThat(userOptional.isPresent()).isTrue();
+        assertThat(userOptional).isPresent();
     }
 
     @Test
     void returnsEmptyOptionalOfUserWhenNonExistingUsernameIsGiven() {
         // given
-        User user = new User();
-        user.setUsername("username");
-        user.setPassword("password");
-        user.setFirstName("Petar");
-        user.setLastName("Kele-sho");
-        user.setEmail("pesho@aes.vas");
-        user.setPhone("048-581-5853");
+        User user = sampleUser();
         underTest.save(user);
 
         // when
         Optional<User> userOptional = underTest.findByUsername("non-existing-username");
 
         // then
-        assertThat(userOptional.isPresent()).isFalse();
+        assertThat(userOptional).isEmpty();
     }
 
     @Test
@@ -71,45 +59,33 @@ class UserRepositoryTest {
         Optional<User> userOptional = underTest.findByUsername(username);
 
         // then
-        assertThat(userOptional.isPresent()).isFalse();
+        assertThat(userOptional).isEmpty();
     }
 
     @Test
-    void returnsNonEmptyOptionalOfExistingUserWhenExistingEmailsIsGiven() {
+    void returnsNonEmptyOptionalOfUserWhenExistingEmailsIsGiven() {
         // given
-        User user = new User();
-        user.setUsername("username");
-        user.setPassword("password");
-        user.setFirstName("Petar");
-        user.setLastName("Kele-sho");
-        user.setEmail("pesho@aes.vas");
-        user.setPhone("048-581-5853");
+        User user = sampleUser();
         underTest.save(user);
 
         // when
         Optional<User> userOptional = underTest.findByEmail(user.getEmail());
 
         // then
-        assertThat(userOptional.isPresent()).isTrue();
+        assertThat(userOptional).isPresent();
     }
 
     @Test
     void returnsEmptyOptionalOfUserWhenNonExistingEmailsIsGiven() {
         // given
-        User user = new User();
-        user.setUsername("username");
-        user.setPassword("password");
-        user.setFirstName("Petar");
-        user.setLastName("Kele-sho");
-        user.setEmail("pesho@aes.vas");
-        user.setPhone("048-581-5853");
+        User user = sampleUser();
         underTest.save(user);
 
         // when
         Optional<User> userOptional = underTest.findByEmail("non-existing-email");
 
         // then
-        assertThat(userOptional.isPresent()).isFalse();
+        assertThat(userOptional).isEmpty();
     }
 
     @Test
@@ -121,45 +97,33 @@ class UserRepositoryTest {
         Optional<User> userOptional = underTest.findByEmail(email);
 
         // then
-        assertThat(userOptional.isPresent()).isFalse();
+        assertThat(userOptional).isEmpty();
     }
 
     @Test
-    void returnsNonEmptyOptionalOfExistingUserWhenExistingPhoneIsGiven() {
+    void returnsNonEmptyOptionalOfUserWhenExistingPhoneIsGiven() {
         // given
-        User user = new User();
-        user.setUsername("username");
-        user.setPassword("password");
-        user.setFirstName("Petar");
-        user.setLastName("Kele-sho");
-        user.setEmail("pesho@aes.vas");
-        user.setPhone("048-581-5853");
+        User user = sampleUser();
         underTest.save(user);
 
         // when
         Optional<User> userOptional = underTest.findByPhone(user.getPhone());
 
         // then
-        assertThat(userOptional.isPresent()).isTrue();
+        assertThat(userOptional).isPresent();
     }
 
     @Test
     void returnsEmptyOptionalOfUserWhenNonExistingPhoneIsGiven() {
         // given
-        User user = new User();
-        user.setUsername("username");
-        user.setPassword("password");
-        user.setFirstName("Petar");
-        user.setLastName("Kele-sho");
-        user.setEmail("pesho@aes.vas");
-        user.setPhone("048-581-5853");
+        User user = sampleUser();
         underTest.save(user);
 
         // when
         Optional<User> userOptional = underTest.findByUsername("non-existing-phone");
 
         // then
-        assertThat(userOptional.isPresent()).isFalse();
+        assertThat(userOptional).isEmpty();
     }
 
     @Test
@@ -171,7 +135,18 @@ class UserRepositoryTest {
         Optional<User> userOptional = underTest.findByUsername(phone);
 
         // then
-        assertThat(userOptional.isPresent()).isFalse();
+        assertThat(userOptional).isEmpty();
+    }
+
+    private static User sampleUser() {
+        User user = new User();
+        user.setUsername("username");
+        user.setPassword("password");
+        user.setFirstName("Petar");
+        user.setLastName("Kele-sho");
+        user.setEmail("pesho@aes.vas");
+        user.setPhone("048-581-5853");
+        return user;
     }
 
 }
