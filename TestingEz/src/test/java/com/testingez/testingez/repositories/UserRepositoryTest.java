@@ -1,5 +1,6 @@
 package com.testingez.testingez.repositories;
 
+import com.testingez.testingez.SampleObjects;
 import com.testingez.testingez.models.entities.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +28,7 @@ class UserRepositoryTest {
     @Test
     void returnsNonEmptyOptionalOfUserWhenExistingUsernameIsGiven() {
         // given
-        User user = sampleUser();
+        User user = SampleObjects.sampleUser();
         underTest.save(user);
 
         // when
@@ -40,7 +41,7 @@ class UserRepositoryTest {
     @Test
     void returnsEmptyOptionalOfUserWhenNonExistingUsernameIsGiven() {
         // given
-        User user = sampleUser();
+        User user = SampleObjects.sampleUser();
         underTest.save(user);
 
         // when
@@ -65,7 +66,7 @@ class UserRepositoryTest {
     @Test
     void returnsNonEmptyOptionalOfUserWhenExistingEmailsIsGiven() {
         // given
-        User user = sampleUser();
+        User user = SampleObjects.sampleUser();
         underTest.save(user);
 
         // when
@@ -78,7 +79,7 @@ class UserRepositoryTest {
     @Test
     void returnsEmptyOptionalOfUserWhenNonExistingEmailsIsGiven() {
         // given
-        User user = sampleUser();
+        User user = SampleObjects.sampleUser();
         underTest.save(user);
 
         // when
@@ -103,7 +104,7 @@ class UserRepositoryTest {
     @Test
     void returnsNonEmptyOptionalOfUserWhenExistingPhoneIsGiven() {
         // given
-        User user = sampleUser();
+        User user = SampleObjects.sampleUser();
         underTest.save(user);
 
         // when
@@ -116,7 +117,7 @@ class UserRepositoryTest {
     @Test
     void returnsEmptyOptionalOfUserWhenNonExistingPhoneIsGiven() {
         // given
-        User user = sampleUser();
+        User user = SampleObjects.sampleUser();
         underTest.save(user);
 
         // when
@@ -136,17 +137,6 @@ class UserRepositoryTest {
 
         // then
         assertThat(userOptional).isEmpty();
-    }
-
-    private static User sampleUser() {
-        User user = new User();
-        user.setUsername("username");
-        user.setPassword("password");
-        user.setFirstName("Petar");
-        user.setLastName("Kele-sho");
-        user.setEmail("pesho@aes.vas");
-        user.setPhone("048-581-5853");
-        return user;
     }
 
 }
