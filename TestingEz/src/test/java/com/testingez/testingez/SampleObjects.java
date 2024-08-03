@@ -1,8 +1,10 @@
 package com.testingez.testingez;
 
+import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
 import com.testingez.testingez.models.entities.*;
 import com.testingez.testingez.models.enums.ResultStatus;
 import com.testingez.testingez.models.enums.TestStatus;
+import com.testingez.testingez.models.enums.UserRole;
 
 import java.time.LocalDateTime;
 
@@ -64,6 +66,32 @@ public class SampleObjects {
         question.setPoints(2);
         question.setNumber(1);
         return question;
+    }
+
+    public static UserSignUpDTO userSignUpDTO() {
+        UserSignUpDTO userSignUpDTO = new UserSignUpDTO();
+        userSignUpDTO.setUsername("username");
+        userSignUpDTO.setPassword("password");
+        userSignUpDTO.setConfirmPassword("password");
+        userSignUpDTO.setFirstName("Petar");
+        userSignUpDTO.setLastName("Kele-sho");
+        userSignUpDTO.setEmail("pesho@aes.vas");
+        userSignUpDTO.setPhone("048-581-5853");
+        return userSignUpDTO;
+    }
+
+    public static Role adminRole() {
+        Role role = new Role();
+        role.setId(1L);
+        role.setRole(UserRole.ADMINISTRATOR);
+        return role;
+    }
+
+    public static Role standardRole() {
+        Role role = new Role();
+        role.setId(2L);
+        role.setRole(UserRole.STANDARD);
+        return role;
     }
 
 }
