@@ -1,7 +1,7 @@
 package com.testingez.testingez.repositories;
 
+import com.testingez.testingez.SampleObjects;
 import com.testingez.testingez.models.entities.User;
-import com.testingez.testingez.models.enums.TestStatus;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +37,7 @@ class TestRepositoryTest {
     @Test
     void returnsNonEmptyOptionalOfTestWhenExistingCodeIsGiven() {
         // given
-        com.testingez.testingez.models.entities.Test test = sampleTest();
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
         underTest.save(test);
 
         // when
@@ -51,7 +50,7 @@ class TestRepositoryTest {
     @Test
     void returnsEmptyOptionalOfTestWhenNonExistingCodeIsGiven() {
         // given
-        com.testingez.testingez.models.entities.Test test = sampleTest();
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
         underTest.save(test);
 
         // when
@@ -91,8 +90,8 @@ class TestRepositoryTest {
         // given
         Long creatorId = 2L; // 2L because the creator is 1L
         Pageable pageable = PageRequest.of(0, 10);
-        com.testingez.testingez.models.entities.Test test = sampleTest();
-        User creator = sampleUser();
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
+        User creator = SampleObjects.user();
         userRepository.save(creator);
         test.setCreator(creator);
         underTest.save(test);
@@ -109,8 +108,8 @@ class TestRepositoryTest {
         // given
         Long creatorId = 1L;
         Pageable pageable = PageRequest.of(0, 10);
-        com.testingez.testingez.models.entities.Test test = sampleTest();
-        User creator = sampleUser();
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
+        User creator = SampleObjects.user();
         userRepository.save(creator);
         test.setCreator(creator);
         underTest.save(test);
@@ -128,10 +127,10 @@ class TestRepositoryTest {
         // given
         Long creatorId = 1L;
         Pageable pageable = PageRequest.of(0, 10);
-        com.testingez.testingez.models.entities.Test test1 = sampleTest();
-        com.testingez.testingez.models.entities.Test test2 = sampleTest();
+        com.testingez.testingez.models.entities.Test test1 = SampleObjects.test();
+        com.testingez.testingez.models.entities.Test test2 = SampleObjects.test();
         test2.setCode("1*^6jM");
-        User creator = sampleUser();
+        User creator = SampleObjects.user();
         userRepository.save(creator);
         test1.setCreator(creator);
         test2.setCreator(creator);
@@ -148,28 +147,4 @@ class TestRepositoryTest {
         assertThat(creatorIds).containsOnly(creatorId);
     }
 
-    private static com.testingez.testingez.models.entities.Test sampleTest() {
-        com.testingez.testingez.models.entities.Test test = new com.testingez.testingez.models.entities.Test();
-        test.setName("engineering");
-        test.setDescription("random");
-        test.setCode("3*#9sO");
-        test.setResponseTime(1);
-        test.setPassingScore(5);
-        test.setQuestionsCount(10);
-        test.setStatus(TestStatus.CLOSED);
-        test.setDateCreated(LocalDateTime.now());
-        test.setDateUpdated(LocalDateTime.now());
-        return test;
-    }
-
-    private static User sampleUser() {
-        User user = new User();
-        user.setUsername("username");
-        user.setPassword("password");
-        user.setFirstName("Petar");
-        user.setLastName("Kele-sho");
-        user.setEmail("pesho@aes.vas");
-        user.setPhone("048-581-5853");
-        return user;
-    }
 }
