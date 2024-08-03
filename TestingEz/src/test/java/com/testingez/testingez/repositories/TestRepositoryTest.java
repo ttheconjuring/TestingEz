@@ -37,7 +37,7 @@ class TestRepositoryTest {
     @Test
     void returnsNonEmptyOptionalOfTestWhenExistingCodeIsGiven() {
         // given
-        com.testingez.testingez.models.entities.Test test = SampleObjects.sampleTest();
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
         underTest.save(test);
 
         // when
@@ -50,7 +50,7 @@ class TestRepositoryTest {
     @Test
     void returnsEmptyOptionalOfTestWhenNonExistingCodeIsGiven() {
         // given
-        com.testingez.testingez.models.entities.Test test = SampleObjects.sampleTest();
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
         underTest.save(test);
 
         // when
@@ -90,8 +90,8 @@ class TestRepositoryTest {
         // given
         Long creatorId = 2L; // 2L because the creator is 1L
         Pageable pageable = PageRequest.of(0, 10);
-        com.testingez.testingez.models.entities.Test test = SampleObjects.sampleTest();
-        User creator = SampleObjects.sampleUser();
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
+        User creator = SampleObjects.user();
         userRepository.save(creator);
         test.setCreator(creator);
         underTest.save(test);
@@ -108,8 +108,8 @@ class TestRepositoryTest {
         // given
         Long creatorId = 1L;
         Pageable pageable = PageRequest.of(0, 10);
-        com.testingez.testingez.models.entities.Test test = SampleObjects.sampleTest();
-        User creator = SampleObjects.sampleUser();
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
+        User creator = SampleObjects.user();
         userRepository.save(creator);
         test.setCreator(creator);
         underTest.save(test);
@@ -127,10 +127,10 @@ class TestRepositoryTest {
         // given
         Long creatorId = 1L;
         Pageable pageable = PageRequest.of(0, 10);
-        com.testingez.testingez.models.entities.Test test1 = SampleObjects.sampleTest();
-        com.testingez.testingez.models.entities.Test test2 = SampleObjects.sampleTest();
+        com.testingez.testingez.models.entities.Test test1 = SampleObjects.test();
+        com.testingez.testingez.models.entities.Test test2 = SampleObjects.test();
         test2.setCode("1*^6jM");
-        User creator = SampleObjects.sampleUser();
+        User creator = SampleObjects.user();
         userRepository.save(creator);
         test1.setCreator(creator);
         test2.setCreator(creator);

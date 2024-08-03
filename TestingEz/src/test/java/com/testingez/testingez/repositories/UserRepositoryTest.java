@@ -28,7 +28,7 @@ class UserRepositoryTest {
     @Test
     void returnsNonEmptyOptionalOfUserWhenExistingUsernameIsGiven() {
         // given
-        User user = SampleObjects.sampleUser();
+        User user = SampleObjects.user();
         underTest.save(user);
 
         // when
@@ -41,7 +41,7 @@ class UserRepositoryTest {
     @Test
     void returnsEmptyOptionalOfUserWhenNonExistingUsernameIsGiven() {
         // given
-        User user = SampleObjects.sampleUser();
+        User user = SampleObjects.user();
         underTest.save(user);
 
         // when
@@ -66,7 +66,7 @@ class UserRepositoryTest {
     @Test
     void returnsNonEmptyOptionalOfUserWhenExistingEmailsIsGiven() {
         // given
-        User user = SampleObjects.sampleUser();
+        User user = SampleObjects.user();
         underTest.save(user);
 
         // when
@@ -79,7 +79,7 @@ class UserRepositoryTest {
     @Test
     void returnsEmptyOptionalOfUserWhenNonExistingEmailsIsGiven() {
         // given
-        User user = SampleObjects.sampleUser();
+        User user = SampleObjects.user();
         underTest.save(user);
 
         // when
@@ -104,7 +104,7 @@ class UserRepositoryTest {
     @Test
     void returnsNonEmptyOptionalOfUserWhenExistingPhoneIsGiven() {
         // given
-        User user = SampleObjects.sampleUser();
+        User user = SampleObjects.user();
         underTest.save(user);
 
         // when
@@ -117,7 +117,7 @@ class UserRepositoryTest {
     @Test
     void returnsEmptyOptionalOfUserWhenNonExistingPhoneIsGiven() {
         // given
-        User user = SampleObjects.sampleUser();
+        User user = SampleObjects.user();
         underTest.save(user);
 
         // when

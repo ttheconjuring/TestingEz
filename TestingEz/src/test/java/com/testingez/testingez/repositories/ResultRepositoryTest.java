@@ -40,11 +40,11 @@ class ResultRepositoryTest {
     @Test
     void returnsNonEmptyOptionalOfResultWhenExistingTestIdAndExistingUserIdAreGiven() {
         // given
-        User user = SampleObjects.sampleUser();
+        User user = SampleObjects.user();
         userRepository.save(user);
-        com.testingez.testingez.models.entities.Test test = SampleObjects.sampleTest();
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
         testRepository.save(test);
-        Result result = SampleObjects.sampleResult();
+        Result result = SampleObjects.result();
         result.setUser(user);
         result.setTest(test);
         underTest.save(result);
@@ -59,11 +59,11 @@ class ResultRepositoryTest {
     @Test
     void returnsEmptyOptionalOfResultWhenNonExistingTestIdAndExistingUserIdAreGiven() {
         // given
-        User user = SampleObjects.sampleUser();
+        User user = SampleObjects.user();
         userRepository.save(user);
-        com.testingez.testingez.models.entities.Test test = SampleObjects.sampleTest();
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
         testRepository.save(test);
-        Result result = SampleObjects.sampleResult();
+        Result result = SampleObjects.result();
         result.setUser(user);
         result.setTest(test);
         underTest.save(result);
@@ -78,11 +78,11 @@ class ResultRepositoryTest {
     @Test
     void returnsEmptyOptionalOfResultWhenExistingTestIdAndNonExistingUserIdAreGiven() {
         // given
-        User user = SampleObjects.sampleUser();
+        User user = SampleObjects.user();
         userRepository.save(user);
-        com.testingez.testingez.models.entities.Test test = SampleObjects.sampleTest();
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
         testRepository.save(test);
-        Result result = SampleObjects.sampleResult();
+        Result result = SampleObjects.result();
         result.setUser(user);
         result.setTest(test);
         underTest.save(result);
@@ -111,10 +111,10 @@ class ResultRepositoryTest {
     void returnsPageOfResultsWithAtLeastOneResultWhenExistingUserIdIsGivenAndTheUserHasAtLeastOneResult() {
         // given
         Pageable pageable = PageRequest.of(0, 10);
-        User user = SampleObjects.sampleUser();
+        User user = SampleObjects.user();
         userRepository.save(user);
-        Result result1 = SampleObjects.sampleResult();
-        Result result2 = SampleObjects.sampleResult();
+        Result result1 = SampleObjects.result();
+        Result result2 = SampleObjects.result();
         result1.setUser(user);
         result2.setUser(user);
         underTest.save(result1);
