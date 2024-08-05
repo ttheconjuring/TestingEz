@@ -1,11 +1,11 @@
 package com.testingez.testingez.services.impls;
 
 import com.testingez.testingez.SampleObjects;
+import com.testingez.testingez.models.dtos.UserProfileDTO;
 import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
 import com.testingez.testingez.models.entities.Role;
 import com.testingez.testingez.models.entities.User;
 import com.testingez.testingez.repositories.RoleRepository;
-import com.testingez.testingez.repositories.TestRepository;
 import com.testingez.testingez.repositories.UserRepository;
 import com.testingez.testingez.services.UserHelperService;
 import org.junit.jupiter.api.Test;
@@ -13,9 +13,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.MappingException;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.spi.ErrorMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -36,6 +40,8 @@ class UserServiceImplTest {
     private ModelMapper modelMapper;
     @Mock
     private PasswordEncoder passwordEncoder;
+    @Mock
+    private UserHelperService userHelperService;
 
     @Test
     void registerMethodShouldReturnSuccess() {
@@ -93,6 +99,60 @@ class UserServiceImplTest {
 
         // then
         assertThat(result).contains("passwords");
+    }
+
+    @Test
+    void getUserProfileDataMethodShouldSuccessfullyReturnUserProfileData() {
+        // given
+        User loggedUser = SampleObjects.user();
+        loggedUser.setRole(SampleObjects.standardRole());
+        UserProfileDTO profileData = SampleObjects.userProfileDTO();
+
+        when(userHelperService.getLoggedUser()).thenReturn(loggedUser);
+        when(modelMapper.map(loggedUser, UserProfileDTO.class)).thenReturn(profileData);
+
+        // when
+        UserProfileDTO userProfileData = underTest.getUserProfileData();
+
+        // then
+        assertThat(userProfileData.getUsername()).isEqualTo(loggedUser.getUsername());
+        assertThat(userProfileData.getFirstName()).isEqualTo(loggedUser.getFirstName());
+        assertThat(userProfileData.getLastName()).isEqualTo(loggedUser.getLastName());
+        assertThat(userProfileData.getEmail()).isEqualTo(loggedUser.getEmail());
+        assertThat(userProfileData.getPhone()).isEqualTo(loggedUser.getPhone());
+        assertThat(userProfileData.getRole()).isEqualTo(loggedUser.getRole().getRole().name());
+        assertThat(userProfileData).isEqualTo(profileData);
+    }
+
+    @Test
+    void getUserProfileDataMethodShouldReturnNullWhenLoggedUserIsNull() {
+        // given
+        when(userHelperService.getLoggedUser()).thenReturn(null);
+
+        // when
+        UserProfileDTO userProfileData = underTest.getUserProfileData();
+
+        // then
+        assertThat(userProfileData).isNull();
+    }
+
+    @Test
+    void getUserProfileDataMethodShouldThrowAnErrorWhenThereIsProblemWithMapping() {
+        // given
+        User loggedUser = SampleObjects.user();
+
+        when(userHelperService.getLoggedUser()).thenReturn(loggedUser);
+        when(modelMapper.map(loggedUser, UserProfileDTO.class))
+
+
+                // when
+                .thenThrow(new MappingException(List.of((
+                        new ErrorMessage("Mapping was not possible!")))));
+
+        // then
+        assertThatExceptionOfType(MappingException.class)
+                .isThrownBy(() -> underTest.getUserProfileData())
+                .withMessageContaining("Mapping was not possible!");
     }
 
 }

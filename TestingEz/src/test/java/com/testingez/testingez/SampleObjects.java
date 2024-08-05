@@ -1,5 +1,6 @@
 package com.testingez.testingez;
 
+import com.testingez.testingez.models.dtos.UserProfileDTO;
 import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
 import com.testingez.testingez.models.entities.*;
 import com.testingez.testingez.models.enums.ResultStatus;
@@ -92,6 +93,17 @@ public class SampleObjects {
         role.setId(2L);
         role.setRole(UserRole.STANDARD);
         return role;
+    }
+
+    public static UserProfileDTO userProfileDTO() {
+        UserProfileDTO userProfileDTO = new UserProfileDTO();
+        userProfileDTO.setUsername("username");
+        userProfileDTO.setFirstName("Petar");
+        userProfileDTO.setLastName("Kele-sho");
+        userProfileDTO.setEmail("pesho@aes.vas");
+        userProfileDTO.setPhone("048-581-5853");
+        userProfileDTO.setRole("STANDARD");
+        return userProfileDTO;
     }
 
 }
