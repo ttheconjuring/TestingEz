@@ -74,7 +74,7 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public Page<TestPeekDTO> getPaginatedTests(Pageable pageable) {
+    public Page<TestPeekDTO> getAllPaginatedTests(Pageable pageable) {
         Page<Test> tests = this.testRepository.findAll(pageable);
         return tests.map(test -> modelMapper.map(test, TestPeekDTO.class));
     }
@@ -98,6 +98,16 @@ public class TestServiceImpl implements TestService {
         }
         test.setDateUpdated(LocalDateTime.now());
         this.testRepository.saveAndFlush(test);
+    }
+
+    /*
+     * This method finds all tests created by the current logged user, maps each test to DTO and then
+     * returns the pageable object holding the data.
+     */
+    @Override
+    public Page<TestPeekDTO> getSomePaginatedTests(Pageable pageable) {
+        Page<Test> tests = this.testRepository.findAllByCreatorId(this.userHelperService.getLoggedUser().getId(), pageable);
+        return tests.map(test -> modelMapper.map(test, TestPeekDTO.class));
     }
 
 }

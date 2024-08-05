@@ -81,16 +81,6 @@ public class UserServiceImpl implements UserService {
     }
 
     /*
-     * This method finds all tests created by the current logged user, maps each test to DTO and then
-     * returns the pageable object holding the data.
-     */
-    @Override
-    public Page<TestPeekDTO> getPaginatedTests(Pageable pageable) {
-        Page<Test> tests = this.testRepository.findAllByCreatorId(this.userHelperService.getLoggedUser().getId(), pageable);
-        return tests.map(test -> modelMapper.map(test, TestPeekDTO.class));
-    }
-
-    /*
      * This method is invoked in register(). It checks if the the username, the email
      * and the phone are actually unique values. If there is some violations, then the
      * errors are stored in string builder object and then returned. It also checks, if
@@ -153,7 +143,7 @@ public class UserServiceImpl implements UserService {
             }
         }
         if (!errors.isEmpty()) {
-            return errors;
+            return errors.trim();
         }
         if (!userProfileData.getFirstName().equals(user.getFirstName())) {
             user.setFirstName(userProfileData.getFirstName());

@@ -141,7 +141,7 @@ public class TestControllerImpl implements TestController {
     @Override
     @GetMapping("/all")
     public String showAll(Pageable pageable, Model model) {
-        Page<TestPeekDTO> paginatedTests = this.testService.getPaginatedTests(pageable);
+        Page<TestPeekDTO> paginatedTests = this.testService.getAllPaginatedTests(pageable);
         model.addAttribute("paginatedTests", paginatedTests);
         return "all-tests";
     }

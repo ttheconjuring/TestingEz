@@ -155,4 +155,63 @@ class UserServiceImplTest {
                 .withMessageContaining("Mapping was not possible!");
     }
 
+    @Test
+    void editProfileDataMethodShouldSuccessfullyEditAllTheProfileData() {
+        // given
+        UserProfileDTO updated = new UserProfileDTO();
+        updated.setUsername("updated");
+        updated.setFirstName("updated");
+        updated.setLastName("updated");
+        updated.setEmail("updated@email.com");
+        updated.setPhone("updated-phone");
+        User current = SampleObjects.user();
+
+        when(userHelperService.getLoggedUser()).thenReturn(current);
+        when(userRepository.findByUsername(updated.getUsername())).thenReturn(Optional.empty());
+        when(userRepository.findByEmail(updated.getEmail())).thenReturn(Optional.empty());
+        when(userRepository.findByPhone(updated.getPhone())).thenReturn(Optional.empty());
+
+        // when
+        String result = underTest.editProfileData(updated);
+
+        // then
+        assertThat(result).isEqualTo("success");
+        assertThat(current.getUsername()).isEqualTo(updated.getUsername());
+        assertThat(current.getFirstName()).isEqualTo(updated.getFirstName());
+        assertThat(current.getLastName()).isEqualTo(updated.getLastName());
+        assertThat(current.getEmail()).isEqualTo(updated.getEmail());
+        assertThat(current.getPhone()).isEqualTo(updated.getPhone());
+    }
+
+    @Test
+    void editProfileDataMethodShouldNotUpdateUsernameEmailAndPhoneWhenTheyAreAlreadyTaken() {
+        // given
+        UserProfileDTO updated = new UserProfileDTO();
+        updated.setUsername("updated");
+        updated.setFirstName("updated");
+        updated.setLastName("updated");
+        updated.setEmail("updated@email.com");
+        updated.setPhone("updated-phone");
+        User current = SampleObjects.user();
+
+        when(userHelperService.getLoggedUser()).thenReturn(current);
+        when(userRepository.findByUsername(updated.getUsername())).thenReturn(Optional.of(current));
+        when(userRepository.findByEmail(updated.getEmail())).thenReturn(Optional.of(current));
+        when(userRepository.findByPhone(updated.getPhone())).thenReturn(Optional.of(current));
+
+        // when
+        String result = underTest.editProfileData(updated);
+
+        // then
+        assertThat(result).isNotEqualTo("success");
+        assertThat(current.getUsername()).isNotEqualTo(updated.getUsername());
+        assertThat(current.getEmail()).isNotEqualTo(updated.getEmail());
+        assertThat(current.getPhone()).isNotEqualTo(updated.getPhone());
+        assertThat(result).contains("username")
+                .contains("email")
+                .contains("phone");
+
+    }
+
+
 }
