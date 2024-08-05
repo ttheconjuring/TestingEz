@@ -7,6 +7,7 @@ import com.testingez.testingez.models.dtos.UserProfileDTO;
 import com.testingez.testingez.models.dtos.ninja.ImprovementDTO;
 import com.testingez.testingez.services.NinjaService;
 import com.testingez.testingez.services.ResultService;
+import com.testingez.testingez.services.TestService;
 import com.testingez.testingez.services.UserService;
 import com.testingez.testingez.web.UserController;
 import jakarta.validation.Valid;
@@ -31,6 +32,7 @@ import java.util.UUID;
 public class UserControllerImpl implements UserController {
 
     private final UserService userService;
+    private final TestService testService;
     private final NinjaService ninjaService;
     private final ResultService resultService;
 
@@ -127,7 +129,7 @@ public class UserControllerImpl implements UserController {
     @Override
     @GetMapping("/my-tests")
     public String userTests(Pageable pageable, Model model) {
-        Page<TestPeekDTO> paginatedTests = this.userService.getPaginatedTests(pageable);
+        Page<TestPeekDTO> paginatedTests = this.testService.getSomePaginatedTests(pageable);
         model.addAttribute("paginatedTests", paginatedTests);
         return "my-tests";
     }

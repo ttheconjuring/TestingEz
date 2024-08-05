@@ -17,9 +17,11 @@ public interface TestService {
 
     TestPreviewDTO getTestPreviewData(String code);
 
-    Page<TestPeekDTO> getPaginatedTests(Pageable pageable);
+    Page<TestPeekDTO> getAllPaginatedTests(Pageable pageable);
 
     TestDetailsDTO getTestDetails(Long testId);
 
     void changeTestStatus(Long id);
+
+    Page<TestPeekDTO> getSomePaginatedTests(Pageable pageable);
 }

@@ -1,10 +1,7 @@
 package com.testingez.testingez.services;
 
-import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.UserProfileDTO;
 import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 public interface UserService {
 
@@ -13,7 +10,5 @@ public interface UserService {
     UserProfileDTO getUserProfileData();
 
     String editProfileData(UserProfileDTO userProfileData);
-
-    Page<TestPeekDTO> getPaginatedTests(Pageable pageable);
 
 }
