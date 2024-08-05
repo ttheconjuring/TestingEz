@@ -15,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
@@ -24,7 +23,6 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-@ExtendWith(SpringExtension.class)
 class UserServiceImplTest {
 
     @InjectMocks
@@ -35,13 +33,9 @@ class UserServiceImplTest {
     @Mock
     private RoleRepository roleRepository;
     @Mock
-    private TestRepository testRepository;
-    @Mock
     private ModelMapper modelMapper;
     @Mock
     private PasswordEncoder passwordEncoder;
-    @Mock
-    private UserHelperService userHelperService;
 
     @Test
     void registerMethodShouldReturnSuccess() {
@@ -53,7 +47,6 @@ class UserServiceImplTest {
         when(userRepository.findByUsername(userSignUpData.getUsername())).thenReturn(Optional.empty());
         when(userRepository.findByEmail(userSignUpData.getEmail())).thenReturn(Optional.empty());
         when(userRepository.findByPhone(userSignUpData.getPhone())).thenReturn(Optional.empty());
-        // TODO
         when(modelMapper.map(userSignUpData, User.class)).thenReturn(user);
         when(passwordEncoder.encode(userSignUpData.getPassword())).thenReturn("encoded-password");
         when(userRepository.count()).thenReturn(0L);
@@ -64,6 +57,42 @@ class UserServiceImplTest {
 
         // then
         assertThat(result).isEqualTo("success");
+    }
+
+    @Test
+    void registerMethodShouldReturnErrorStringWhenUsernameEmailPhoneTheyAreAlreadyTaken() {
+        // given
+        UserSignUpDTO userSignUpDTO = SampleObjects.userSignUpDTO();
+        User user = SampleObjects.user();
+
+        when(userRepository.findByUsername(userSignUpDTO.getUsername())).thenReturn(Optional.of(user));
+        when(userRepository.findByEmail(userSignUpDTO.getEmail())).thenReturn(Optional.of(user));
+        when(userRepository.findByPhone(userSignUpDTO.getPhone())).thenReturn(Optional.of(user));
+
+        // when
+        String result = underTest.register(userSignUpDTO);
+
+        // then
+        assertThat(result).contains("username");
+        assertThat(result).contains("email");
+        assertThat(result).contains("phone");
+    }
+
+    @Test
+    void registerMethodShouldReturnErrorStringWhenThePasswordAndTheConfirmPasswordInputsAreNotEqual() {
+        // given
+        UserSignUpDTO userSignUpDTO = SampleObjects.userSignUpDTO();
+        userSignUpDTO.setConfirmPassword("random");
+
+        when(userRepository.findByUsername(userSignUpDTO.getUsername())).thenReturn(Optional.empty());
+        when(userRepository.findByEmail(userSignUpDTO.getEmail())).thenReturn(Optional.empty());
+        when(userRepository.findByPhone(userSignUpDTO.getPhone())).thenReturn(Optional.empty());
+
+        // when
+        String result = underTest.register(userSignUpDTO);
+
+        // then
+        assertThat(result).contains("passwords");
     }
 
 }
