@@ -31,7 +31,6 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
     private final UserHelperService userHelperService;
-    private final TestRepository testRepository;
 
     /*
      * This method accepts object holding all the data required for the users to create
