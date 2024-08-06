@@ -1,6 +1,8 @@
 package com.testingez.testingez.services.impls;
 
 import com.testingez.testingez.SampleObjects;
+import com.testingez.testingez.exceptions.custom.TestNotFoundException;
+import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.models.entities.Result;
 import com.testingez.testingez.models.entities.User;
@@ -169,6 +171,65 @@ class TestServiceImplTest {
 
         // then
         assertThat(result).isEqualTo("not found");
+    }
+
+    @Test
+    void getTestPreviewDataShouldWorkJustFineWhenTheCodeProvidedIsValid() {
+        // given
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
+        String code = test.getCode();
+        TestPreviewDTO testPreviewDTO = SampleObjects.testPreviewDTO();
+
+        when(testRepository.findByCode(code)).thenReturn(Optional.of(test));
+        when(modelMapper.map(test, TestPreviewDTO.class)).thenReturn(testPreviewDTO);
+
+        // when
+        TestPreviewDTO testPreviewData = underTest.getTestPreviewData(code);
+
+        // then
+        assertThat(testPreviewData).isNotNull();
+        assertThat(testPreviewData.getName()).isEqualTo(test.getName());
+        assertThat(testPreviewData.getDescription()).isEqualTo(test.getDescription());
+        assertThat(testPreviewData.getPassingScore()).isEqualTo(test.getPassingScore());
+        assertThat(testPreviewData.getResponseTime()).isEqualTo(test.getResponseTime());
+        assertThat(testPreviewData.getQuestionsCount()).isEqualTo(test.getQuestionsCount());
+        assertThat(testPreviewData.getStatus()).isEqualTo(test.getStatus().name());
+    }
+
+    @Test
+    void getTestPreviewDataShouldThrowAnExceptionWhenTheCodeProvidedIsInvalid() {
+        // given
+        String code = "invalid-code";
+
+        when(testRepository.findByCode(code)).thenThrow(
+                new TestNotFoundException(("We couldn't find test with code: " + code + "!")));
+
+
+        // then
+        assertThatExceptionOfType(TestNotFoundException.class)
+                .isThrownBy(() ->
+                        // when
+                        underTest.getTestPreviewData(code))
+                .withMessage("We couldn't find test with code: " + code + "!");
+    }
+
+    @Test
+    void getTestPreviewDataShouldThrowAnExceptionWhenThereIsMappingProblem() {
+        // given
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
+        String code = test.getCode();
+
+        when(testRepository.findByCode(code)).thenReturn(Optional.of(test));
+        when(modelMapper.map(test, TestPreviewDTO.class)).thenThrow(
+                new MappingException(List.of(new ErrorMessage("Mapping was not possible!")))
+        );
+
+        // then
+        assertThatExceptionOfType(MappingException.class)
+                .isThrownBy(() ->
+                        // when
+                        underTest.getTestPreviewData(code))
+                .withMessageContaining("Mapping was not possible!");
     }
 
 }

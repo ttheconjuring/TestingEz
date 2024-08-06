@@ -1,6 +1,7 @@
 package com.testingez.testingez;
 
 import com.testingez.testingez.models.dtos.UserProfileDTO;
+import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
 import com.testingez.testingez.models.entities.*;
@@ -117,6 +118,18 @@ public class SampleObjects {
         testCreateDTO.setQuestionsCount(10);
         testCreateDTO.setStatus("closed");
         return testCreateDTO;
+    }
+
+    public static TestPreviewDTO testPreviewDTO() {
+        TestPreviewDTO testPreviewDTO = new TestPreviewDTO();
+        testPreviewDTO.setName("engineering");
+        testPreviewDTO.setDescription("random");
+        testPreviewDTO.setResponseTime(1);
+        testPreviewDTO.setPassingScore(5);
+        testPreviewDTO.setQuestionsCount(10);
+        testPreviewDTO.setStatus("CLOSED");
+        testPreviewDTO.setCreatorUsername("username");
+        return testPreviewDTO;
     }
 
 }
