@@ -1,6 +1,9 @@
 package com.testingez.testingez;
 
 import com.testingez.testingez.models.dtos.UserProfileDTO;
+import com.testingez.testingez.models.dtos.exp.TestDetailsDTO;
+import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
+import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
 import com.testingez.testingez.models.entities.*;
 import com.testingez.testingez.models.enums.ResultStatus;
@@ -104,6 +107,45 @@ public class SampleObjects {
         userProfileDTO.setPhone("048-581-5853");
         userProfileDTO.setRole("STANDARD");
         return userProfileDTO;
+    }
+
+    public static TestCreateDTO testCreateDTO() {
+        TestCreateDTO testCreateDTO = new TestCreateDTO();
+        testCreateDTO.setName("engineering");
+        testCreateDTO.setDescription("random");
+        testCreateDTO.setCode("3*#9sO");
+        testCreateDTO.setResponseTime(1);
+        testCreateDTO.setPassingScore(5);
+        testCreateDTO.setQuestionsCount(10);
+        testCreateDTO.setStatus("closed");
+        return testCreateDTO;
+    }
+
+    public static TestPreviewDTO testPreviewDTO() {
+        TestPreviewDTO testPreviewDTO = new TestPreviewDTO();
+        testPreviewDTO.setName("engineering");
+        testPreviewDTO.setDescription("random");
+        testPreviewDTO.setResponseTime(1);
+        testPreviewDTO.setPassingScore(5);
+        testPreviewDTO.setQuestionsCount(10);
+        testPreviewDTO.setStatus("CLOSED");
+        testPreviewDTO.setCreatorUsername("username");
+        return testPreviewDTO;
+    }
+
+    public static TestDetailsDTO testDetailsDTO() {
+        TestDetailsDTO testDetailsDTO = new TestDetailsDTO();
+        testDetailsDTO.setName("engineering");
+        testDetailsDTO.setDescription("random");
+        testDetailsDTO.setCode("3*#9sO");
+        testDetailsDTO.setResponseTime(1);
+        testDetailsDTO.setPassingScore(5);
+        testDetailsDTO.setQuestionsCount(10);
+        testDetailsDTO.setStatus("CLOSED");
+        testDetailsDTO.setDateCreated(LocalDateTime.now());
+        testDetailsDTO.setDateUpdated(LocalDateTime.now());
+        testDetailsDTO.setCreatorUsername("username");
+        return testDetailsDTO;
     }
 
 }

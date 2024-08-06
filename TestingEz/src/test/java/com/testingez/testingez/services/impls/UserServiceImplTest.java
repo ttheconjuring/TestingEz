@@ -136,7 +136,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void getUserProfileDataMethodShouldThrowAnErrorWhenThereIsProblemWithMapping() {
+    void getUserProfileDataMethodShouldThrowAnExceptionWhenThereIsProblemWithMapping() {
         // given
         User loggedUser = SampleObjects.user();
 
