@@ -2,6 +2,7 @@ package com.testingez.testingez.services.impls;
 
 import com.testingez.testingez.SampleObjects;
 import com.testingez.testingez.exceptions.custom.TestNotFoundException;
+import com.testingez.testingez.models.dtos.exp.TestDetailsDTO;
 import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.models.entities.Result;
@@ -19,6 +20,7 @@ import org.modelmapper.MappingException;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.ErrorMessage;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -229,6 +231,72 @@ class TestServiceImplTest {
                 .isThrownBy(() ->
                         // when
                         underTest.getTestPreviewData(code))
+                .withMessageContaining("Mapping was not possible!");
+    }
+
+    @Test
+    void getTestDetailsShouldWorkJustFineWhenTheTestIdProvidedIsValid() {
+        // given
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
+        test.setDateCreated(LocalDateTime.parse("2024-08-06T15:59:51.415775800"));
+        test.setDateUpdated(LocalDateTime.parse("2024-08-06T15:59:51.415775800"));
+        Long testId = test.getId();
+        TestDetailsDTO testDetailsDTO = SampleObjects.testDetailsDTO();
+        testDetailsDTO.setDateCreated(LocalDateTime.parse("2024-08-06T15:59:51.415775800"));
+        testDetailsDTO.setDateUpdated(LocalDateTime.parse("2024-08-06T15:59:51.415775800"));
+
+        when(testRepository.findById(testId)).thenReturn(Optional.of(test));
+        when(modelMapper.map(test, TestDetailsDTO.class)).thenReturn(testDetailsDTO);
+
+        // when
+        TestDetailsDTO testDetails = underTest.getTestDetails(testId);
+
+        // then
+        assertThat(testDetails).isNotNull();
+        assertThat(testDetailsDTO.getName()).isEqualTo(test.getName());
+        assertThat(testDetailsDTO.getDescription()).isEqualTo(test.getDescription());
+        assertThat(testDetailsDTO.getCode()).isEqualTo(test.getCode());
+        assertThat(testDetailsDTO.getPassingScore()).isEqualTo(test.getPassingScore());
+        assertThat(testDetailsDTO.getResponseTime()).isEqualTo(test.getResponseTime());
+        assertThat(testDetailsDTO.getQuestionsCount()).isEqualTo(test.getQuestionsCount());
+        assertThat(testDetailsDTO.getStatus()).isEqualTo(test.getStatus().name());
+        assertThat(testDetailsDTO.getDateCreated()).isEqualTo(test.getDateCreated());
+        assertThat(testDetailsDTO.getDateUpdated()).isEqualTo(test.getDateUpdated());
+    }
+
+    @Test
+    void getTestDetailsShouldThrowAnExceptionWhenTheTestIdProvidedIsInvalid() {
+        // given
+        Long testId = -1L;
+
+        when(testRepository.findById(testId)).thenThrow(
+                new TestNotFoundException("We couldn't find test with id: " + testId + "!")
+        );
+
+        // then
+        assertThatExceptionOfType(TestNotFoundException.class)
+                .isThrownBy(() ->
+                        // when
+                        underTest.getTestDetails(testId))
+                .withMessage("We couldn't find test with id: " + testId + "!");
+    }
+
+    @Test
+    void getTestDetailsShouldThrowAnExceptionWhenThereIsMappingProblem() {
+        // given
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
+        Long testId = test.getId();
+
+        when(testRepository.findById(testId)).thenReturn(Optional.of(test));
+
+        when(modelMapper.map(test, TestDetailsDTO.class)).thenThrow(
+                new MappingException(List.of(new ErrorMessage("Mapping was not possible!"))));
+
+        // then
+        assertThatExceptionOfType(MappingException.class)
+                .isThrownBy(() ->
+                        // when
+                        underTest.getTestDetails(testId))
                 .withMessageContaining("Mapping was not possible!");
     }
 

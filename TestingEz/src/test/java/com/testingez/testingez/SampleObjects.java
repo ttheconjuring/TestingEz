@@ -1,6 +1,7 @@
 package com.testingez.testingez;
 
 import com.testingez.testingez.models.dtos.UserProfileDTO;
+import com.testingez.testingez.models.dtos.exp.TestDetailsDTO;
 import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
@@ -130,6 +131,21 @@ public class SampleObjects {
         testPreviewDTO.setStatus("CLOSED");
         testPreviewDTO.setCreatorUsername("username");
         return testPreviewDTO;
+    }
+
+    public static TestDetailsDTO testDetailsDTO() {
+        TestDetailsDTO testDetailsDTO = new TestDetailsDTO();
+        testDetailsDTO.setName("engineering");
+        testDetailsDTO.setDescription("random");
+        testDetailsDTO.setCode("3*#9sO");
+        testDetailsDTO.setResponseTime(1);
+        testDetailsDTO.setPassingScore(5);
+        testDetailsDTO.setQuestionsCount(10);
+        testDetailsDTO.setStatus("CLOSED");
+        testDetailsDTO.setDateCreated(LocalDateTime.now());
+        testDetailsDTO.setDateUpdated(LocalDateTime.now());
+        testDetailsDTO.setCreatorUsername("username");
+        return testDetailsDTO;
     }
 
 }
