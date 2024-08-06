@@ -1,6 +1,7 @@
 package com.testingez.testingez;
 
 import com.testingez.testingez.models.dtos.UserProfileDTO;
+import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
 import com.testingez.testingez.models.entities.*;
 import com.testingez.testingez.models.enums.ResultStatus;
@@ -104,6 +105,18 @@ public class SampleObjects {
         userProfileDTO.setPhone("048-581-5853");
         userProfileDTO.setRole("STANDARD");
         return userProfileDTO;
+    }
+
+    public static TestCreateDTO testCreateDTO() {
+        TestCreateDTO testCreateDTO = new TestCreateDTO();
+        testCreateDTO.setName("engineering");
+        testCreateDTO.setDescription("random");
+        testCreateDTO.setCode("3*#9sO");
+        testCreateDTO.setResponseTime(1);
+        testCreateDTO.setPassingScore(5);
+        testCreateDTO.setQuestionsCount(10);
+        testCreateDTO.setStatus("closed");
+        return testCreateDTO;
     }
 
 }
