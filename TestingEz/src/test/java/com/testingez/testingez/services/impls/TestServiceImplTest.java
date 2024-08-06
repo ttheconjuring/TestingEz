@@ -2,7 +2,9 @@ package com.testingez.testingez.services.impls;
 
 import com.testingez.testingez.SampleObjects;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
+import com.testingez.testingez.models.entities.Result;
 import com.testingez.testingez.models.entities.User;
+import com.testingez.testingez.models.enums.TestStatus;
 import com.testingez.testingez.repositories.ResultRepository;
 import com.testingez.testingez.repositories.TestRepository;
 import com.testingez.testingez.services.UserHelperService;
@@ -16,6 +18,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.ErrorMessage;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -37,7 +40,7 @@ class TestServiceImplTest {
     private ResultRepository resultRepository;
 
     @Test
-    void createMethodShouldSuccessfullyCreateTest() {
+    void createShouldSuccessfullyCreateTest() {
         // given
         TestCreateDTO testCreateDTO = SampleObjects.testCreateDTO();
         com.testingez.testingez.models.entities.Test test = new com.testingez.testingez.models.entities.Test();
@@ -50,7 +53,6 @@ class TestServiceImplTest {
         test.setId(1L);
 
         // when
-
         Long index = underTest.create(testCreateDTO);
 
         // then
@@ -59,7 +61,7 @@ class TestServiceImplTest {
     }
 
     @Test
-    void createMethodShouldThrowAnExceptionWhenSourceIsNull() {
+    void createShouldThrowAnExceptionWhenSourceIsNull() {
         // given
         TestCreateDTO testCreateDTO = null;
 
@@ -71,7 +73,7 @@ class TestServiceImplTest {
     }
 
     @Test
-    void createMethodShouldThrowAnExceptionWhenThereIsMappingProblem() {
+    void createShouldThrowAnExceptionWhenThereIsMappingProblem() {
         // given
         TestCreateDTO testCreateDTO = SampleObjects.testCreateDTO();
 
@@ -85,6 +87,88 @@ class TestServiceImplTest {
         assertThatExceptionOfType(MappingException.class)
                 .isThrownBy(() -> underTest.create(testCreateDTO))
                 .withMessageContaining("Mapping was not possible!");
+    }
+
+    @Test
+    void checkUponTestShouldReturnOkStringWhenEverythingIsAlright() {
+        // given
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
+        test.setStatus(TestStatus.OPEN);
+        String code = test.getCode();
+        User loggedUser = SampleObjects.user();
+
+        when(testRepository.findByCode(code)).thenReturn(Optional.of(test));
+        when(userHelperService.getLoggedUser()).thenReturn(loggedUser);
+        when(resultRepository.findByTestIdAndUserId(test.getId(), loggedUser.getId())).thenReturn(Optional.empty());
+
+        // when
+        String result = underTest.checkUponTest(code);
+
+        // then
+        assertThat(result).isEqualTo("ok");
+    }
+
+    @Test
+    void checkUponTestShouldReturnNotFoundStringWhenTheCodeProvidedIsInvalid() {
+        // given
+        String code = "invalid-code";
+
+        when(testRepository.findByCode(code)).thenReturn(Optional.empty());
+
+        // when
+        String result = underTest.checkUponTest(code);
+
+        // then
+        assertThat(result).isEqualTo("not found");
+    }
+
+    @Test
+    void checkUponTestShouldReturnClosedStringWhenTheTestFoundIsClosed() {
+        // given
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
+        String code = test.getCode();
+
+        when(testRepository.findByCode(code)).thenReturn(Optional.of(test));
+
+        // when
+        String result = underTest.checkUponTest(code);
+
+        // then
+        assertThat(result).isEqualTo("closed");
+    }
+
+    @Test
+    void checkUponTestShouldReturnCompletedStringWhenTheTestFoundIsAlreadyAttendedByTheLoggedUser() {
+        // given
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
+        test.setStatus(TestStatus.OPEN);
+        String code = test.getCode();
+        User loggedUser = SampleObjects.user();
+        Result foundResult = SampleObjects.result();
+
+        when(testRepository.findByCode(code)).thenReturn(Optional.of(test));
+        when(userHelperService.getLoggedUser()).thenReturn(loggedUser);
+        when(resultRepository.findByTestIdAndUserId(test.getId(), loggedUser.getId())).thenReturn(Optional.of(foundResult));
+
+        // when
+        String result = underTest.checkUponTest(code);
+
+        // then
+        assertThat(result).isEqualTo("completed");
+    }
+
+    @Test
+    void checkUponTestShouldReturnNotFoundStringWhenTheCodeProvidedIsNull() {
+        // given
+        String code = null;
+
+        when(testRepository.findByCode(code)).thenReturn(Optional.empty());
+
+        // when
+        String result = underTest.checkUponTest(code);
+
+        // then
+        assertThat(result).isEqualTo("not found");
     }
 
 }
