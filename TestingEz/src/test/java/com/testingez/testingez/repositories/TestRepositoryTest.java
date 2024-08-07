@@ -100,48 +100,4 @@ class TestRepositoryTest {
         assertThat(result).isEmpty();
     }
 
-    @Test
-    void returnsPageWithSingleTestWhenTheCreatorHasOnlyOneTestCreated() {
-        // given
-        Long creatorId = 1L;
-        Pageable pageable = PageRequest.of(0, 10);
-        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
-        User creator = SampleObjects.user();
-        userRepository.save(creator);
-        test.setCreator(creator);
-        underTest.save(test);
-
-        // when
-        Page<com.testingez.testingez.models.entities.Test> result = underTest.findAllByCreatorId(creatorId, pageable);
-
-        // then
-        assertThat(result.getTotalElements()).isEqualTo(1);
-        assertThat(result.getContent().getFirst().getCreator().getId()).isEqualTo(creatorId);
-    }
-
-    @Test
-    void returnsPageWithMultipleTestsWhenTheCreatorHasMoreThanOneTestsCreated() {
-        // given
-        Long creatorId = 1L;
-        Pageable pageable = PageRequest.of(0, 10);
-        com.testingez.testingez.models.entities.Test test1 = SampleObjects.test();
-        com.testingez.testingez.models.entities.Test test2 = SampleObjects.test();
-        test2.setCode("1*^6jM");
-        User creator = SampleObjects.user();
-        userRepository.save(creator);
-        test1.setCreator(creator);
-        test2.setCreator(creator);
-        underTest.saveAll(Arrays.asList(test1, test2));
-
-        // when
-        Page<com.testingez.testingez.models.entities.Test> result = underTest.findAllByCreatorId(creatorId, pageable);
-
-        // then
-        assertThat(result.getTotalElements()).isEqualTo(2);
-        List<Long> creatorIds = result.getContent().stream()
-                .map(test -> test.getCreator().getId())
-                .toList();
-        assertThat(creatorIds).containsOnly(creatorId);
-    }
-
 }

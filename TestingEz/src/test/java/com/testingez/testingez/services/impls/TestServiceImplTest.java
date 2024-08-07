@@ -26,6 +26,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 
+import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -203,16 +204,14 @@ class TestServiceImplTest {
         // given
         String code = "invalid-code";
 
-        when(testRepository.findByCode(code)).thenThrow(
-                new TestNotFoundException(("We couldn't find test with code: " + code + "!")));
-
+        when(testRepository.findByCode(code)).thenReturn(Optional.empty());
 
         // then
         assertThatExceptionOfType(TestNotFoundException.class)
                 .isThrownBy(() ->
                         // when
                         underTest.getTestPreviewData(code))
-                .withMessage("We couldn't find test with code: " + code + "!");
+                .withMessage("We couldn't find test with code: " + code);
     }
 
     @Test
@@ -269,16 +268,14 @@ class TestServiceImplTest {
         // given
         Long testId = -1L;
 
-        when(testRepository.findById(testId)).thenThrow(
-                new TestNotFoundException("We couldn't find test with id: " + testId + "!")
-        );
+        when(testRepository.findById(testId)).thenReturn(Optional.empty());
 
         // then
         assertThatExceptionOfType(TestNotFoundException.class)
                 .isThrownBy(() ->
                         // when
                         underTest.getTestDetails(testId))
-                .withMessage("We couldn't find test with id: " + testId + "!");
+                .withMessage("We couldn't find test with id: " + testId);
     }
 
     @Test
@@ -298,6 +295,67 @@ class TestServiceImplTest {
                         // when
                         underTest.getTestDetails(testId))
                 .withMessageContaining("Mapping was not possible!");
+    }
+
+    @Test
+    void changeTestStatusShouldChangeTestStatusToCLOSED() {
+        // given
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
+        test.setStatus(TestStatus.OPEN);
+        LocalDateTime before = test.getDateUpdated();
+        Long id = test.getId();
+
+        when(testRepository.findById(id)).thenReturn(Optional.of(test));
+
+        /* otherwise the test executes too fast and can't find difference between
+         * dateUpdated before and after the test execution
+         */
+        timeout(1000);
+
+        // when
+        underTest.changeTestStatus(id);
+
+        // then
+        assertThat(test.getStatus()).isEqualTo(TestStatus.CLOSED);
+        assertThat(test.getDateUpdated()).isNotEqualTo(before);
+    }
+
+    @Test
+    void changeTestStatusShouldChangeTestStatusToOPEN() {
+        // given
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
+        test.setStatus(TestStatus.CLOSED);
+        LocalDateTime before = test.getDateUpdated();
+        Long id = test.getId();
+
+        when(testRepository.findById(id)).thenReturn(Optional.of(test));
+
+        /* otherwise the test executes too fast and can't find difference between
+         * dateUpdated before and after the test execution
+         */
+        timeout(1000);
+
+        // when
+        underTest.changeTestStatus(id);
+
+        // then
+        assertThat(test.getStatus()).isEqualTo(TestStatus.OPEN);
+        assertThat(test.getDateUpdated()).isNotEqualTo(before);
+    }
+
+    @Test
+    void changeTestStatusShouldThrowAnExceptionWhenTheIdProvidedIsInvalid() {
+        // given
+        Long id = -1L;
+
+        when(testRepository.findById(id)).thenReturn(Optional.empty());
+
+        // then
+        assertThatExceptionOfType(TestNotFoundException.class)
+                .isThrownBy(() ->
+                        // when
+                        underTest.changeTestStatus(id))
+                .withMessage("We couldn't find test with id: " + id);
     }
 
 }

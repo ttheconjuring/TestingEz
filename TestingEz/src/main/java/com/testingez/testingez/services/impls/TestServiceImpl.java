@@ -95,7 +95,7 @@ public class TestServiceImpl implements TestService {
         return this.modelMapper.map(
                 this.testRepository.findByCode(code)
                         .orElseThrow(() ->
-                                new TestNotFoundException("We couldn't find test with code: " + code + "!")),
+                                new TestNotFoundException("We couldn't find test with code: " + code)),
                 TestPreviewDTO.class);
     }
 
@@ -121,7 +121,7 @@ public class TestServiceImpl implements TestService {
     public TestDetailsDTO getTestDetails(Long testId) {
         return this.modelMapper.map(this.testRepository.findById(testId)
                         .orElseThrow(
-                                () -> new TestNotFoundException("We couldn't find test with id: " + testId + "!")),
+                                () -> new TestNotFoundException("We couldn't find test with id: " + testId)),
                 TestDetailsDTO.class);
     }
 
