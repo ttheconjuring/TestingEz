@@ -41,7 +41,7 @@ class ResultRepositoryTest {
         userRepository.save(user);
         com.testingez.testingez.models.entities.Test test = SampleObjects.test();
         testRepository.save(test);
-        Result result = SampleObjects.result();
+        Result result = SampleObjects.passResult();
         result.setUser(user);
         result.setTest(test);
         underTest.save(result);
@@ -60,7 +60,7 @@ class ResultRepositoryTest {
         userRepository.save(user);
         com.testingez.testingez.models.entities.Test test = SampleObjects.test();
         testRepository.save(test);
-        Result result = SampleObjects.result();
+        Result result = SampleObjects.passResult();
         result.setUser(user);
         result.setTest(test);
         underTest.save(result);
@@ -79,7 +79,7 @@ class ResultRepositoryTest {
         userRepository.save(user);
         com.testingez.testingez.models.entities.Test test = SampleObjects.test();
         testRepository.save(test);
-        Result result = SampleObjects.result();
+        Result result = SampleObjects.passResult();
         result.setUser(user);
         result.setTest(test);
         underTest.save(result);
@@ -110,8 +110,8 @@ class ResultRepositoryTest {
         Pageable pageable = PageRequest.of(0, 10);
         User user = SampleObjects.user();
         userRepository.save(user);
-        Result result1 = SampleObjects.result();
-        Result result2 = SampleObjects.result();
+        Result result1 = SampleObjects.passResult();
+        Result result2 = SampleObjects.failResult();
         result1.setUser(user);
         result2.setUser(user);
         underTest.save(result1);

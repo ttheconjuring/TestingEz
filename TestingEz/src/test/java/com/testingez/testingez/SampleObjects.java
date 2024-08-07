@@ -1,6 +1,7 @@
 package com.testingez.testingez;
 
 import com.testingez.testingez.models.dtos.UserProfileDTO;
+import com.testingez.testingez.models.dtos.exp.ResultSummaryDTO;
 import com.testingez.testingez.models.dtos.exp.TestDetailsDTO;
 import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
@@ -40,15 +41,6 @@ public class SampleObjects {
         user.setEmail("pesho@aes.vas");
         user.setPhone("048-581-5853");
         return user;
-    }
-
-    public static Result result() {
-        Result result = new Result();
-        result.setPoints(5);
-        result.setResult("5/10");
-        result.setCompletedAt(LocalDateTime.now());
-        result.setStatus(ResultStatus.PASS);
-        return result;
     }
 
     public static Result passResult() {
@@ -172,6 +164,22 @@ public class SampleObjects {
         testDetailsDTO.setDateUpdated(LocalDateTime.now());
         testDetailsDTO.setCreatorUsername("username");
         return testDetailsDTO;
+    }
+
+    public static ResultSummaryDTO passResultSummaryDTO() {
+        ResultSummaryDTO resultSummaryDTO = new ResultSummaryDTO();
+        resultSummaryDTO.setPoints(10);
+        resultSummaryDTO.setResult("5/5");
+        resultSummaryDTO.setStatus("PASS");
+        return resultSummaryDTO;
+    }
+
+    public static ResultSummaryDTO failResultSummaryDTO() {
+        ResultSummaryDTO resultSummaryDTO = new ResultSummaryDTO();
+        resultSummaryDTO.setPoints(0);
+        resultSummaryDTO.setResult("0/5");
+        resultSummaryDTO.setStatus("FAIL");
+        return resultSummaryDTO;
     }
 
 }

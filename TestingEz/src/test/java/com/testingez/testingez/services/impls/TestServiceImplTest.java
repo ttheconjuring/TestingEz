@@ -149,7 +149,7 @@ class TestServiceImplTest {
         test.setStatus(TestStatus.OPEN);
         String code = test.getCode();
         User loggedUser = SampleObjects.user();
-        Result foundResult = SampleObjects.result();
+        Result foundResult = SampleObjects.passResult();
 
         when(testRepository.findByCode(code)).thenReturn(Optional.of(test));
         when(userHelperService.getLoggedUser()).thenReturn(loggedUser);

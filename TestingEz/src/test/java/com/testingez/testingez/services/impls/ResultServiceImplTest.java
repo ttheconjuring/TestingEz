@@ -1,8 +1,10 @@
 package com.testingez.testingez.services.impls;
 
 import com.testingez.testingez.SampleObjects;
+import com.testingez.testingez.exceptions.custom.ResultNotFoundException;
 import com.testingez.testingez.exceptions.custom.TestNotFoundException;
 import com.testingez.testingez.exceptions.custom.UserNotFoundException;
+import com.testingez.testingez.models.dtos.exp.ResultSummaryDTO;
 import com.testingez.testingez.models.entities.Question;
 import com.testingez.testingez.models.entities.Response;
 import com.testingez.testingez.models.entities.Result;
@@ -153,6 +155,77 @@ class ResultServiceImplTest {
                         // when
                         underTest.calculateResult(anyLong(), invalidUserId))
                 .withMessageContaining("We couldn't find user with id: " + invalidUserId);
+    }
+
+    @Test
+    void getResultSummaryShouldSuccessfullyReturnSummaryWhenTestIdAndUserIdAreValid() {
+        // given
+        Long testId = 1L;
+        Long userId = 1L;
+        Result result = SampleObjects.failResult();
+        ResultSummaryDTO resultSummaryDTO = SampleObjects.failResultSummaryDTO();
+
+        when(resultRepository.findByTestIdAndUserId(testId, userId)).thenReturn(Optional.of(result));
+        when(modelMapper.map(result, ResultSummaryDTO.class)).thenReturn(resultSummaryDTO);
+
+        // when
+
+        ResultSummaryDTO resultSummary = underTest.getResultSummary(testId, userId);
+
+        // then
+        assertThat(resultSummary).isNotNull();
+        assertThat(resultSummary.getPoints()).isEqualTo(0);
+        assertThat(resultSummary.getResult()).isEqualTo("0/5");
+        assertThat(resultSummary).isEqualTo(resultSummaryDTO);
+
+    }
+
+    @Test
+    void getResultSummaryShouldThrowAnExceptionWhenTestIdIsInvalid() {
+        // given
+        Long invalidTestId = -1L;
+        Long userId = 1L;
+
+        when(resultRepository.findByTestIdAndUserId(invalidTestId, userId)).thenReturn(Optional.empty());
+
+        // then
+        assertThatExceptionOfType(ResultNotFoundException.class)
+                .isThrownBy(() ->
+                        // when
+                        underTest.getResultSummary(invalidTestId, userId))
+                .withMessageContaining("We couldn't find result on test id: " + invalidTestId + " by user id: " + userId);
+    }
+
+    @Test
+    void getResultSummaryShouldThrowAnExceptionWhenUserIdIsInvalid() {
+        // given
+        Long testId = 1L;
+        Long invalidUserId = -1L;
+
+        when(resultRepository.findByTestIdAndUserId(testId, invalidUserId)).thenReturn(Optional.empty());
+
+        // then
+        assertThatExceptionOfType(ResultNotFoundException.class)
+                .isThrownBy(() ->
+                        // when
+                        underTest.getResultSummary(testId, invalidUserId))
+                .withMessageContaining("We couldn't find result on test id: " + testId + " by user id: " + invalidUserId);
+    }
+
+    @Test
+    void getResultSummaryShouldThrowAnExceptionWhenTestIdAndUserIdAreInvalid() {
+        // given
+        Long invalidTestId = -1L;
+        Long invalidUserId = -1L;
+
+        when(resultRepository.findByTestIdAndUserId(invalidTestId, invalidUserId)).thenReturn(Optional.empty());
+
+        // then
+        assertThatExceptionOfType(ResultNotFoundException.class)
+                .isThrownBy(() ->
+                        // when
+                        underTest.getResultSummary(invalidTestId, invalidUserId))
+                .withMessageContaining("We couldn't find result on test id: " + invalidTestId + " by user id: " + invalidUserId);
     }
 
 
