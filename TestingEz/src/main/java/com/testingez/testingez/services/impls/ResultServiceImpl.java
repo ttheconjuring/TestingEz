@@ -81,11 +81,11 @@ public class ResultServiceImpl implements ResultService {
     public ResultDetailsDTO getResultDetails(Long resultId) {
         LOGGER.info("Caching result details for: " + resultId);
         Result result = this.resultRepository.findById(resultId)
-                .orElseThrow(() -> new ResultNotFoundException("We couldn't find result with id: " + resultId + "!"));
+                .orElseThrow(() -> new ResultNotFoundException("We couldn't find result with id: " + resultId));
         ResultDetailsDTO details = this.modelMapper.map(result, ResultDetailsDTO.class);
         Long testId = result.getTest().getId();
         details.setTestName(this.testRepository.findById(testId)
-                .orElseThrow(() -> new TestNotFoundException("We couldn't find test with id: " + testId + "!")).getName());
+                .orElseThrow(() -> new TestNotFoundException("We couldn't find test with id: " + testId)).getName());
         return details;
     }
 

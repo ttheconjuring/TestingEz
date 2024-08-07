@@ -1,6 +1,7 @@
 package com.testingez.testingez;
 
 import com.testingez.testingez.models.dtos.UserProfileDTO;
+import com.testingez.testingez.models.dtos.exp.ResultDetailsDTO;
 import com.testingez.testingez.models.dtos.exp.ResultSummaryDTO;
 import com.testingez.testingez.models.dtos.exp.TestDetailsDTO;
 import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
@@ -181,5 +182,26 @@ public class SampleObjects {
         resultSummaryDTO.setStatus("FAIL");
         return resultSummaryDTO;
     }
+
+    public static ResultDetailsDTO failResultDetailsDTO() {
+        ResultDetailsDTO resultDetailsDTO = new ResultDetailsDTO();
+        resultDetailsDTO.setTestName("engineering");
+        resultDetailsDTO.setStatus("FAIL");
+        resultDetailsDTO.setResult("0/5");
+        resultDetailsDTO.setPoints(0);
+        resultDetailsDTO.setCompletedAt(LocalDateTime.parse("2024-07-31T16:46:45.735197"));
+        return resultDetailsDTO;
+    }
+
+    public static ResultDetailsDTO passResultDetailsDTO() {
+        ResultDetailsDTO resultDetailsDTO = new ResultDetailsDTO();
+        resultDetailsDTO.setTestName("engineering");
+        resultDetailsDTO.setStatus("PASS");
+        resultDetailsDTO.setResult("5/5");
+        resultDetailsDTO.setPoints(10);
+        resultDetailsDTO.setCompletedAt(LocalDateTime.parse("2024-07-31T16:46:45.735197"));
+        return resultDetailsDTO;
+    }
+
 
 }

@@ -4,6 +4,7 @@ import com.testingez.testingez.SampleObjects;
 import com.testingez.testingez.exceptions.custom.ResultNotFoundException;
 import com.testingez.testingez.exceptions.custom.TestNotFoundException;
 import com.testingez.testingez.exceptions.custom.UserNotFoundException;
+import com.testingez.testingez.models.dtos.exp.ResultDetailsDTO;
 import com.testingez.testingez.models.dtos.exp.ResultSummaryDTO;
 import com.testingez.testingez.models.entities.Question;
 import com.testingez.testingez.models.entities.Response;
@@ -21,6 +22,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -226,6 +228,71 @@ class ResultServiceImplTest {
                         // when
                         underTest.getResultSummary(invalidTestId, invalidUserId))
                 .withMessageContaining("We couldn't find result on test id: " + invalidTestId + " by user id: " + invalidUserId);
+    }
+
+    @Test
+    void getResultDetailsShouldSuccessfullyReturnDetailsWhenResultIdIsValid() {
+        // given
+        Long resultId = 1L;
+        Result result = SampleObjects.passResult();
+        ResultDetailsDTO resultDetailsDTO = SampleObjects.passResultDetailsDTO();
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
+        test.setId(1L);
+        result.setTest(test);
+
+        when(resultRepository.findById(resultId)).thenReturn(Optional.of(result));
+        when(modelMapper.map(result, ResultDetailsDTO.class)).thenReturn(resultDetailsDTO);
+        when(testRepository.findById(1L)).thenReturn(Optional.of(test));
+
+        // when
+        ResultDetailsDTO resultDetails = underTest.getResultDetails(resultId);
+
+        // then
+        assertThat(resultDetails).isNotNull();
+        assertThat(resultDetails.getTestName()).isEqualTo("engineering");
+        assertThat(resultDetails.getStatus()).isEqualTo("PASS");
+        assertThat(resultDetails.getResult()).isEqualTo("5/5");
+        assertThat(resultDetails.getPoints()).isEqualTo(10);
+        assertThat(resultDetails.getCompletedAt()).isEqualTo(LocalDateTime.parse("2024-07-31T16:46:45.735197"));
+        assertThat(resultDetails).isEqualTo(resultDetailsDTO);
+    }
+
+    @Test
+    void getResultDetailsShouldThrowAnExceptionWhenResultIdIsInvalid() {
+        // given
+        Long invalidResultId = -1L;
+
+        when(resultRepository.findById(invalidResultId)).thenReturn(Optional.empty());
+
+        // then
+        assertThatExceptionOfType(ResultNotFoundException.class)
+                .isThrownBy(() ->
+                        // when
+                        underTest.getResultDetails(invalidResultId))
+                .withMessageContaining("We couldn't find result with id: " + invalidResultId);
+    }
+
+    @Test
+    void getResultDetailsShouldThrowAnExceptionWhenTheTestIdAssociatedWithTheResultIsInvalid() {
+        // given
+        Long resultId = 1L;
+        Long invalidTestId = -1L;
+        Result result = SampleObjects.failResult();
+        ResultDetailsDTO resultDetailsDTO = SampleObjects.failResultDetailsDTO();
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
+        result.setTest(test);
+        test.setId(invalidTestId);
+
+        when(resultRepository.findById(resultId)).thenReturn(Optional.of(result));
+        when(modelMapper.map(result, ResultDetailsDTO.class)).thenReturn(resultDetailsDTO);
+        when(testRepository.findById(invalidTestId)).thenReturn(Optional.empty());
+
+        // then
+        assertThatExceptionOfType(TestNotFoundException.class)
+                .isThrownBy(() ->
+                        // when
+                        underTest.getResultDetails(resultId))
+                .withMessageContaining("We couldn't find test with id: " + invalidTestId);
     }
 
 
