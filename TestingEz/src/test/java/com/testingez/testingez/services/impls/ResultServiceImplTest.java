@@ -47,8 +47,6 @@ class ResultServiceImplTest {
     private TestRepository testRepository;
     @Mock
     private ModelMapper modelMapper;
-    @Mock
-    private UserHelperService userHelperService;
 
     @Test
     void calculateResultShouldCalculatePositiveResult() {
