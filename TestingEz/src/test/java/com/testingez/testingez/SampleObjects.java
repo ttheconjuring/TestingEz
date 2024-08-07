@@ -51,7 +51,33 @@ public class SampleObjects {
         return result;
     }
 
-    public static Response response() {
+    public static Result passResult() {
+        Result result = new Result();
+        result.setPoints(10);
+        result.setResult("10/10");
+        result.setCompletedAt(LocalDateTime.now());
+        result.setStatus(ResultStatus.PASS);
+        return result;
+    }
+
+    public static Result failResult() {
+        Result result = new Result();
+        result.setPoints(0);
+        result.setResult("0/10");
+        result.setCompletedAt(LocalDateTime.now());
+        result.setStatus(ResultStatus.FAIL);
+        return result;
+    }
+
+    public static Response correctResponse() {
+        Response response = new Response();
+        response.setResponseText("random");
+        response.setIsCorrect(true);
+        response.setSubmittedOn(LocalDateTime.now());
+        return response;
+    }
+
+    public static Response incorrectResponse() {
         Response response = new Response();
         response.setResponseText("random");
         response.setIsCorrect(false);

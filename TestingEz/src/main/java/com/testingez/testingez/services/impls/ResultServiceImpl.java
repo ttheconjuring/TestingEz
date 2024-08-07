@@ -9,6 +9,7 @@ import com.testingez.testingez.models.dtos.exp.ResultDetailsDTO;
 import com.testingez.testingez.models.entities.Response;
 import com.testingez.testingez.models.entities.Result;
 import com.testingez.testingez.models.entities.Test;
+import com.testingez.testingez.models.entities.User;
 import com.testingez.testingez.models.enums.ResultStatus;
 import com.testingez.testingez.repositories.*;
 import com.testingez.testingez.services.ResultService;
@@ -38,7 +39,11 @@ public class ResultServiceImpl implements ResultService {
     private static final Logger LOGGER = Logger.getLogger(ResultServiceImpl.class.getName());
 
     @Override
-    public void calculateResult(Long testId, Long userId) {
+    public Result calculateResult(Long testId, Long userId) {
+        Test test = this.testRepository.findById(testId)
+                .orElseThrow(() -> new TestNotFoundException("We couldn't find test with id: " + testId));
+        User user = this.userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("We couldn't find user with id: " + userId));
         Result result = new Result();
         int totalPoints = 0;
         int correctAnswers = 0;
@@ -51,8 +56,6 @@ public class ResultServiceImpl implements ResultService {
         }
         result.setPoints(totalPoints);
         result.setResult(correctAnswers + "/" + responses.size());
-        Test test = this.testRepository.findById(testId)
-                .orElseThrow(() -> new TestNotFoundException("We couldn't find test with id: " + testId + "!"));
         if (totalPoints >= test.getPassingScore()) {
             result.setStatus(ResultStatus.PASS);
         } else {
@@ -60,9 +63,8 @@ public class ResultServiceImpl implements ResultService {
         }
         result.setCompletedAt(LocalDateTime.now());
         result.setTest(test);
-        result.setUser(this.userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("We couldn't find user with id: " + userId + "!")));
-        this.resultRepository.saveAndFlush(result);
+        result.setUser(user);
+        return this.resultRepository.saveAndFlush(result);
     }
 
     @Override
