@@ -1,6 +1,8 @@
 package com.testingez.testingez;
 
 import com.testingez.testingez.models.dtos.UserProfileDTO;
+import com.testingez.testingez.models.dtos.exp.ResultDetailsDTO;
+import com.testingez.testingez.models.dtos.exp.ResultSummaryDTO;
 import com.testingez.testingez.models.dtos.exp.TestDetailsDTO;
 import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
@@ -42,16 +44,33 @@ public class SampleObjects {
         return user;
     }
 
-    public static Result result() {
+    public static Result passResult() {
         Result result = new Result();
-        result.setPoints(5);
-        result.setResult("5/10");
+        result.setPoints(10);
+        result.setResult("10/10");
         result.setCompletedAt(LocalDateTime.now());
         result.setStatus(ResultStatus.PASS);
         return result;
     }
 
-    public static Response response() {
+    public static Result failResult() {
+        Result result = new Result();
+        result.setPoints(0);
+        result.setResult("0/10");
+        result.setCompletedAt(LocalDateTime.now());
+        result.setStatus(ResultStatus.FAIL);
+        return result;
+    }
+
+    public static Response correctResponse() {
+        Response response = new Response();
+        response.setResponseText("random");
+        response.setIsCorrect(true);
+        response.setSubmittedOn(LocalDateTime.now());
+        return response;
+    }
+
+    public static Response incorrectResponse() {
         Response response = new Response();
         response.setResponseText("random");
         response.setIsCorrect(false);
@@ -147,5 +166,42 @@ public class SampleObjects {
         testDetailsDTO.setCreatorUsername("username");
         return testDetailsDTO;
     }
+
+    public static ResultSummaryDTO passResultSummaryDTO() {
+        ResultSummaryDTO resultSummaryDTO = new ResultSummaryDTO();
+        resultSummaryDTO.setPoints(10);
+        resultSummaryDTO.setResult("5/5");
+        resultSummaryDTO.setStatus("PASS");
+        return resultSummaryDTO;
+    }
+
+    public static ResultSummaryDTO failResultSummaryDTO() {
+        ResultSummaryDTO resultSummaryDTO = new ResultSummaryDTO();
+        resultSummaryDTO.setPoints(0);
+        resultSummaryDTO.setResult("0/5");
+        resultSummaryDTO.setStatus("FAIL");
+        return resultSummaryDTO;
+    }
+
+    public static ResultDetailsDTO failResultDetailsDTO() {
+        ResultDetailsDTO resultDetailsDTO = new ResultDetailsDTO();
+        resultDetailsDTO.setTestName("engineering");
+        resultDetailsDTO.setStatus("FAIL");
+        resultDetailsDTO.setResult("0/5");
+        resultDetailsDTO.setPoints(0);
+        resultDetailsDTO.setCompletedAt(LocalDateTime.parse("2024-07-31T16:46:45.735197"));
+        return resultDetailsDTO;
+    }
+
+    public static ResultDetailsDTO passResultDetailsDTO() {
+        ResultDetailsDTO resultDetailsDTO = new ResultDetailsDTO();
+        resultDetailsDTO.setTestName("engineering");
+        resultDetailsDTO.setStatus("PASS");
+        resultDetailsDTO.setResult("5/5");
+        resultDetailsDTO.setPoints(10);
+        resultDetailsDTO.setCompletedAt(LocalDateTime.parse("2024-07-31T16:46:45.735197"));
+        return resultDetailsDTO;
+    }
+
 
 }

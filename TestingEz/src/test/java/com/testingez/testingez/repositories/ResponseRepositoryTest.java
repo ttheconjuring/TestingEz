@@ -44,7 +44,7 @@ class ResponseRepositoryTest {
         testRepository.save(test);
         User user = SampleObjects.user();
         userRepository.save(user);
-        Response response = SampleObjects.response();
+        Response response = SampleObjects.correctResponse();
         response.setUser(user);
         response.setTest(test);
         underTest.save(response);
@@ -63,7 +63,7 @@ class ResponseRepositoryTest {
         testRepository.save(test);
         User user = SampleObjects.user();
         userRepository.save(user);
-        Response response = SampleObjects.response();
+        Response response = SampleObjects.correctResponse();
         response.setUser(user);
         response.setTest(test);
         underTest.save(response);
@@ -82,7 +82,7 @@ class ResponseRepositoryTest {
         testRepository.save(test);
         User user = SampleObjects.user();
         userRepository.save(user);
-        Response response = SampleObjects.response();
+        Response response = SampleObjects.correctResponse();
         response.setUser(user);
         response.setTest(test);
         underTest.save(response);
@@ -117,7 +117,7 @@ class ResponseRepositoryTest {
         questionRepository.save(question);
         User user = SampleObjects.user();
         userRepository.save(user);
-        Response response = SampleObjects.response();
+        Response response = SampleObjects.correctResponse();
         response.setUser(user);
         response.setQuestion(question);
         response.setTest(test);
@@ -140,7 +140,7 @@ class ResponseRepositoryTest {
         questionRepository.save(question);
         User user = SampleObjects.user();
         userRepository.save(user);
-        Response response = SampleObjects.response();
+        Response response = SampleObjects.correctResponse();
         response.setUser(user);
         response.setQuestion(question);
         response.setTest(test);
@@ -163,7 +163,7 @@ class ResponseRepositoryTest {
         questionRepository.save(question);
         User user = SampleObjects.user();
         userRepository.save(user);
-        Response response = SampleObjects.response();
+        Response response = SampleObjects.correctResponse();
         response.setUser(user);
         response.setQuestion(question);
         response.setTest(test);
@@ -186,7 +186,7 @@ class ResponseRepositoryTest {
         questionRepository.save(question);
         User user = SampleObjects.user();
         userRepository.save(user);
-        Response response = SampleObjects.response();
+        Response response = SampleObjects.correctResponse();
         response.setUser(user);
         response.setQuestion(question);
         response.setTest(test);
@@ -210,7 +210,7 @@ class ResponseRepositoryTest {
         questionRepository.save(question);
         User user = SampleObjects.user();
         userRepository.save(user);
-        Response response = SampleObjects.response();
+        Response response = SampleObjects.correctResponse();
         response.setUser(user);
         response.setQuestion(question);
         response.setTest(test);
@@ -233,7 +233,7 @@ class ResponseRepositoryTest {
         questionRepository.save(question);
         User user = SampleObjects.user();
         userRepository.save(user);
-        Response response = SampleObjects.response();
+        Response response = SampleObjects.correctResponse();
         response.setUser(user);
         response.setQuestion(question);
         response.setTest(test);
@@ -256,7 +256,7 @@ class ResponseRepositoryTest {
         questionRepository.save(question);
         User user = SampleObjects.user();
         userRepository.save(user);
-        Response response = SampleObjects.response();
+        Response response = SampleObjects.correctResponse();
         response.setUser(user);
         response.setQuestion(question);
         response.setTest(test);
@@ -279,7 +279,7 @@ class ResponseRepositoryTest {
         questionRepository.save(question);
         User user = SampleObjects.user();
         userRepository.save(user);
-        Response response = SampleObjects.response();
+        Response response = SampleObjects.correctResponse();
         response.setUser(user);
         response.setQuestion(question);
         response.setTest(test);
