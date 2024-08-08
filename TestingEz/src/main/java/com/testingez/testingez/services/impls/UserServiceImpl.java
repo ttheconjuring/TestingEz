@@ -1,19 +1,14 @@
 package com.testingez.testingez.services.impls;
 
-import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.UserProfileDTO;
 import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
-import com.testingez.testingez.models.entities.Test;
 import com.testingez.testingez.models.entities.User;
 import com.testingez.testingez.repositories.RoleRepository;
-import com.testingez.testingez.repositories.TestRepository;
 import com.testingez.testingez.repositories.UserRepository;
 import com.testingez.testingez.services.UserHelperService;
 import com.testingez.testingez.services.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

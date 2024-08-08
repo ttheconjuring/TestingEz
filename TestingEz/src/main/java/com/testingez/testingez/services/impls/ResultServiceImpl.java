@@ -38,6 +38,20 @@ public class ResultServiceImpl implements ResultService {
 
     private static final Logger LOGGER = Logger.getLogger(ResultServiceImpl.class.getName());
 
+    /*
+     * This method calculates the result of a user after the test is over. This method is
+     * invoked after the last question is answered. It takes test id and user id and
+     * tries to find them. If some of these two is missing, then an error is thrown.
+     * Plain result object is created. First, the method calculates the total points
+     * earned by iterating over the responses on the questions and filters only
+     * the correct ones. At the same time, the method counts the correct answers,
+     * so then a result can be set. The result shows correct answered questions/all questions.
+     * Then, based on the total points earned, the result gets status. It is either PASS or FAIL,
+     * and it is determined by the total points. If the points are equal or more than the passing
+     * score of the test - the status is PASS, otherwise - FAIL. Finally, the result gets the
+     * date and time when is created and also a test and user are attached to it. The result object
+     * is saved in the database and then returned.
+     */
     @Override
     public Result calculateResult(Long testId, Long userId) {
         Test test = this.testRepository.findById(testId)
@@ -67,6 +81,13 @@ public class ResultServiceImpl implements ResultService {
         return this.resultRepository.saveAndFlush(result);
     }
 
+    /*
+     * This method returns object holding small portion of the result itself.
+     * It takes test id and user id, so it can find the correct result set of
+     * correct test and the correct user. Once found, the result is mapped to
+     * DTO and returned. If the result is not find for some reason, then an
+     * error is thrown.
+     */
     @Override
     public ResultSummaryDTO getResultSummary(Long testId, Long userId) {
         return this.modelMapper.map(
@@ -76,6 +97,15 @@ public class ResultServiceImpl implements ResultService {
                 ResultSummaryDTO.class);
     }
 
+    /*
+     * This method shows all information about specific result. Since this data is not
+     * changeable, once found, the result is cached. The method accepts result id and
+     * tries to find the result in the database. If it is not found, an error is thrown.
+     * When the result is found, the object is mapped to DTO. Then the method is trying
+     * to access the test of the result, so it can access the name of the test, which
+     * is very useful information about the result. If the there is no test associated
+     * with the result, an error is thrown.
+     */
     @Cacheable(value = "result")
     @Override
     public ResultDetailsDTO getResultDetails(Long resultId) {
@@ -89,6 +119,13 @@ public class ResultServiceImpl implements ResultService {
         return details;
     }
 
+    /*
+     * This methods returns page with the results of the current logged user. It
+     * gets all result object associated with the user and maps them to small DTO
+     * that is exposed to the open world. The method gets the result test name,
+     * so it is easier for the user to understand what result is he/she looking at.
+     * If such test is not found, an error is thrown.
+     */
     @Override
     public Page<ResultPeekDTO> getPaginatedResults(Pageable pageable) {
         Page<Result> results = this.resultRepository.findAllByUserId(this.userHelperService.getLoggedUser().getId(), pageable);
