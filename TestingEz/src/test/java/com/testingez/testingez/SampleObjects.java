@@ -1,10 +1,7 @@
 package com.testingez.testingez;
 
 import com.testingez.testingez.models.dtos.UserProfileDTO;
-import com.testingez.testingez.models.dtos.exp.ResultDetailsDTO;
-import com.testingez.testingez.models.dtos.exp.ResultSummaryDTO;
-import com.testingez.testingez.models.dtos.exp.TestDetailsDTO;
-import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
+import com.testingez.testingez.models.dtos.exp.*;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
 import com.testingez.testingez.models.entities.*;
@@ -201,6 +198,30 @@ public class SampleObjects {
         resultDetailsDTO.setPoints(10);
         resultDetailsDTO.setCompletedAt(LocalDateTime.parse("2024-07-31T16:46:45.735197"));
         return resultDetailsDTO;
+    }
+
+    public static TestPeekDTO testPeekDTO() {
+        TestPeekDTO testPeekDTO = new TestPeekDTO();
+        testPeekDTO.setName("engineering");
+        testPeekDTO.setStatus("OPEN");
+        testPeekDTO.setDateUpdated(LocalDateTime.parse("2024-07-31T16:46:45.735197"));
+        return testPeekDTO;
+    }
+
+    public static ResultPeekDTO passResultPeekDTO() {
+        ResultPeekDTO resultPeekDTO = new ResultPeekDTO();
+        resultPeekDTO.setTestName("engineering");
+        resultPeekDTO.setCompletedAt(LocalDateTime.parse("2024-07-31T16:46:45.735197"));
+        resultPeekDTO.setStatus("PASS");
+        return resultPeekDTO;
+    }
+
+    public static ResultPeekDTO failResultPeekDTO() {
+        ResultPeekDTO resultPeekDTO = new ResultPeekDTO();
+        resultPeekDTO.setTestName("engineering");
+        resultPeekDTO.setCompletedAt(LocalDateTime.parse("2024-07-31T16:46:45.735197"));
+        resultPeekDTO.setStatus("FAIl");
+        return resultPeekDTO;
     }
 
 
