@@ -8,9 +8,9 @@
 <header th:fragment="header" class="flex-shrink-0 border-bottom border-2">
     <nav class="navbar navbar-expand-lg bg-light shadow">
         <div class="container-fluid gap-1">
-            <a
-                    class="btn btn-light navbar-brand rounded px-1 fs-5 border border-2"
-                    th:href="@{/user/profile}"
+            <a sec:authorize="isAuthenticated()"
+               class="btn btn-light navbar-brand rounded px-1 fs-5 border border-2"
+               th:href="@{/user/profile}"
             >
                 <img
                         src="/images/astronaut.png"
@@ -73,10 +73,10 @@
                     >All Users</a>
                 </div>
                 <div class="navbar-nav ms-auto">
-                    <form
-                            class="text-center"
-                            method="post"
-                            th:action="@{/account/logout}">
+                    <form sec:authorize="isAuthenticated()"
+                          class="text-center"
+                          method="post"
+                          th:action="@{/account/logout}">
                         <button
                                 class="btn btn-dark rounded px-3 py-2 fs-5 text-center mt-3 mt-lg-0 border border-black border-2"
                                 type="submit"
@@ -85,6 +85,16 @@
                             Log out
                         </button>
                     </form>
+                    <a class="btn btn-dark rounded px-3 py-2 fs-5 text-center mt-3 mt-lg-0 border border-black border-2 me-1"
+                       th:href="@{/account/login}"
+                       sec:authorize="!isAuthenticated()"
+                       th:text="#{signIn}"
+                    ></a>
+                    <a class="btn btn-dark rounded px-3 py-2 fs-5 text-center mt-3 mt-lg-0 border border-black border-2"
+                       th:href="@{/account/create}"
+                       sec:authorize="!isAuthenticated()"
+                       th:text="#{signUp}"
+                    ></a>
                 </div>
             </div>
         </div>
