@@ -41,11 +41,11 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public void putDown(TestQuestionsDTO testQuestionsDTO, Long testId) {
         List<QuestionCreateDTO> questions = testQuestionsDTO.getQuestions();
-        Test lastAddedTest = this.testRepository.findById(testId)
-                .orElseThrow(() -> new TestNotFoundException("We couldn't test with id: " + testId + "!"));
+        Test test = this.testRepository.findById(testId)
+                .orElseThrow(() -> new TestNotFoundException("We couldn't test with id: " + testId));
         for (int i = 0; i < questions.size(); i++) {
             Question question = this.modelMapper.map(questions.get(i), Question.class);
-            question.setTest(lastAddedTest);
+            question.setTest(test);
             question.setNumber(i + 1);
             this.questionRepository.saveAndFlush(question);
         }
@@ -56,14 +56,14 @@ public class QuestionServiceImpl implements QuestionService {
         return this.testRepository
                 .findById(testId)
                 .orElseThrow(() ->
-                        new TestNotFoundException("We couldn't test with id: " + testId + "!"))
+                        new TestNotFoundException("We couldn't test with id: " + testId))
                 .getQuestionsCount();
     }
 
     @Override
     public QuestionAnswerDTO fetchQuestionData(Long testId, Integer questionNumber) {
         Test test = this.testRepository.findById(testId)
-                .orElseThrow(() -> new TestNotFoundException("We couldn't find test with id: " + testId + "!"));
+                .orElseThrow(() -> new TestNotFoundException("We couldn't find test with id: " + testId));
         if (test.getQuestionsCount() < questionNumber) {
             this.resultService.calculateResult(testId,
                     this.userHelperService.getLoggedUser().getId());
@@ -81,7 +81,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public List<AnsweredQuestionDTO> getAnsweredQuestionsData(Long resultId) {
         Result result = this.resultRepository.findById(resultId)
-                .orElseThrow(() -> new ResultNotFoundException("We couldn't find result with id: " + resultId + "!"));
+                .orElseThrow(() -> new ResultNotFoundException("We couldn't find result with id: " + resultId));
         Long testId = result.getTest().getId();
         List<ResponseToQuestionDTO> responses = this.responseRepository.findAllByTestIdAndUserId(testId, this.userHelperService.getLoggedUser().getId())
                 .stream()
@@ -104,7 +104,8 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public List<QuestionDetailsDTO> getQuestionsOfATest(Long testId) {
         return this.questionRepository.findAllByTestId(testId)
-                .stream().map(question ->
+                .stream()
+                .map(question ->
                         this.modelMapper.map(question, QuestionDetailsDTO.class)
                 ).toList();
     }
@@ -114,7 +115,7 @@ public class QuestionServiceImpl implements QuestionService {
         return this.modelMapper.map(
                 this.questionRepository.findById(questionId)
                         .orElseThrow(
-                                () -> new QuestionNotFoundException("We couldn't find question with id: " + questionId + "!")
+                                () -> new QuestionNotFoundException("We couldn't find question with id: " + questionId)
                         ), QuestionEditDTO.class
         );
     }

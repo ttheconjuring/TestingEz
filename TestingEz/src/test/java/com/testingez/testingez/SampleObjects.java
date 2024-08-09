@@ -2,6 +2,7 @@ package com.testingez.testingez;
 
 import com.testingez.testingez.models.dtos.UserProfileDTO;
 import com.testingez.testingez.models.dtos.exp.*;
+import com.testingez.testingez.models.dtos.imp.QuestionEditDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
 import com.testingez.testingez.models.entities.*;
@@ -224,5 +225,43 @@ public class SampleObjects {
         return resultPeekDTO;
     }
 
+    public static QuestionAnswerDTO questionAnswerDTO() {
+        QuestionAnswerDTO questionAnswerDTO = new QuestionAnswerDTO();
+        questionAnswerDTO.setQuestion("q?");
+        questionAnswerDTO.setAnswer1("a1");
+        questionAnswerDTO.setAnswer2("a2");
+        questionAnswerDTO.setAnswer3("a3");
+        questionAnswerDTO.setAnswer4("a4");
+        questionAnswerDTO.setPoints(2);
+        questionAnswerDTO.setNumber(1);
+        questionAnswerDTO.setResponseTime(1);
+        return questionAnswerDTO;
+    }
+
+    public static AnsweredQuestionDTO answeredQuestionDTO() {
+        AnsweredQuestionDTO answeredQuestionDTO = new AnsweredQuestionDTO();
+        answeredQuestionDTO.setQuestion("q?");
+        answeredQuestionDTO.setAnswer1("a1");
+        answeredQuestionDTO.setAnswer2("a2");
+        answeredQuestionDTO.setAnswer3("a3");
+        answeredQuestionDTO.setAnswer4("a4");
+        answeredQuestionDTO.setCorrectAnswer("a4");
+        answeredQuestionDTO.setGivenAnswer("a1");
+        answeredQuestionDTO.setPoints(2);
+        answeredQuestionDTO.setNumber(1);
+        return answeredQuestionDTO;
+    }
+
+    public static QuestionEditDTO questionEditDTO() {
+        QuestionEditDTO questionEditDTO = new QuestionEditDTO();
+        questionEditDTO.setQuestion("q?");
+        questionEditDTO.setAnswer1("a1");
+        questionEditDTO.setAnswer2("a2");
+        questionEditDTO.setAnswer3("a3");
+        questionEditDTO.setAnswer4("a4");
+        questionEditDTO.setCorrectAnswer("a4");
+        questionEditDTO.setNumber(1);
+        return questionEditDTO;
+    }
 
 }
