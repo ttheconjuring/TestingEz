@@ -3,6 +3,7 @@ package com.testingez.testingez.services.impls;
 import com.testingez.testingez.SampleObjects;
 import com.testingez.testingez.exceptions.custom.TestNotFoundException;
 import com.testingez.testingez.models.dtos.exp.TestDetailsDTO;
+import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.models.entities.Result;
@@ -19,15 +20,17 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.MappingException;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.ErrorMessage;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
-
-import static org.mockito.Mockito.timeout;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class TestServiceImplTest {
@@ -234,6 +237,28 @@ class TestServiceImplTest {
     }
 
     @Test
+    void getAllPaginatedTestsShouldReturnPageWithAllAvailableTestDTOs() {
+        // given
+        Pageable pageable = PageRequest.of(0, 10);
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
+        Page<com.testingez.testingez.models.entities.Test> testPage = new PageImpl<>(List.of(test));
+        TestPeekDTO testPeekDTO = new TestPeekDTO();
+
+        when(testRepository.findAll(pageable)).thenReturn(testPage);
+        when(modelMapper.map(test, TestPeekDTO.class)).thenReturn(testPeekDTO);
+
+        // when
+        Page<TestPeekDTO> result = underTest.getAllPaginatedTests(pageable);
+
+        // then
+        assertThat(result).isNotNull();
+        assertThat(result.getTotalElements()).isEqualTo(1L);
+        assertThat(result.getContent().getFirst()).isEqualTo(testPeekDTO);
+        verify(testRepository, times(1)).findAll(pageable);
+        verify(modelMapper, times(1)).map(test, TestPeekDTO.class);
+    }
+
+    @Test
     void getTestDetailsShouldWorkJustFineWhenTheTestIdProvidedIsValid() {
         // given
         com.testingez.testingez.models.entities.Test test = SampleObjects.test();
@@ -357,5 +382,33 @@ class TestServiceImplTest {
                         underTest.changeTestStatus(id))
                 .withMessage("We couldn't find test with id: " + id);
     }
+
+    @Test
+    void getSomePaginatedTestsShouldSuccessfullyReturnPageWithTests() {
+        // given
+        Long userId = 1L;
+        Pageable pageable = PageRequest.of(0, 10);
+        User user = SampleObjects.user();
+        user.setId(userId);
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
+        Page<com.testingez.testingez.models.entities.Test> testPage = new PageImpl<>(List.of(test));
+        TestPeekDTO testPeekDTO = SampleObjects.testPeekDTO();
+
+        when(userHelperService.getLoggedUser()).thenReturn(user);
+        when(testRepository.findAllByCreatorId(userId, pageable)).thenReturn(testPage);
+        when(modelMapper.map(test, TestPeekDTO.class)).thenReturn(testPeekDTO);
+
+        // when
+        Page<TestPeekDTO> result = underTest.getSomePaginatedTests(pageable);
+
+        // then
+        assertThat(result.getTotalElements()).isEqualTo(1L);
+        assertThat(result.getContent().getFirst()).isEqualTo(testPeekDTO);
+
+        verify(userHelperService, times(1)).getLoggedUser();
+        verify(testRepository, times(1)).findAllByCreatorId(userId, pageable);
+        verify(modelMapper, times(1)).map(test, TestPeekDTO.class);
+    }
+
 
 }

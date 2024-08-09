@@ -5,6 +5,7 @@ import com.testingez.testingez.exceptions.custom.ResultNotFoundException;
 import com.testingez.testingez.exceptions.custom.TestNotFoundException;
 import com.testingez.testingez.exceptions.custom.UserNotFoundException;
 import com.testingez.testingez.models.dtos.exp.ResultDetailsDTO;
+import com.testingez.testingez.models.dtos.exp.ResultPeekDTO;
 import com.testingez.testingez.models.dtos.exp.ResultSummaryDTO;
 import com.testingez.testingez.models.entities.Question;
 import com.testingez.testingez.models.entities.Response;
@@ -21,8 +22,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,6 +53,8 @@ class ResultServiceImplTest {
     private TestRepository testRepository;
     @Mock
     private ModelMapper modelMapper;
+    @Mock
+    private UserHelperService userHelperService;
 
     @Test
     void calculateResultShouldCalculatePositiveResult() {
@@ -291,6 +299,63 @@ class ResultServiceImplTest {
                         // when
                         underTest.getResultDetails(resultId))
                 .withMessageContaining("We couldn't find test with id: " + invalidTestId);
+    }
+
+    @Test
+    void getPaginatedResultsShouldReturnPageWithResultsDTOs() {
+        // given
+        User user = SampleObjects.user();
+        user.setId(1L);
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
+        test.setId(1L);
+        Result result = SampleObjects.passResult();
+        result.setId(1L);
+        result.setTest(test);
+        result.setUser(user);
+        ResultPeekDTO resultPeekDTO = SampleObjects.passResultPeekDTO();
+        Page<Result> resultPage = new PageImpl<>(Collections.singletonList(result));
+        Pageable pageable = PageRequest.of(0, 10);
+
+        when(userHelperService.getLoggedUser()).thenReturn(user);
+        when(resultRepository.findAllByUserId(user.getId(), pageable)).thenReturn(resultPage);
+        when(testRepository.findById(test.getId())).thenReturn(Optional.of(test));
+        when(modelMapper.map(result, ResultPeekDTO.class)).thenReturn(resultPeekDTO);
+
+        // when
+        Page<ResultPeekDTO> paginatedResults = underTest.getPaginatedResults(pageable);
+
+        // then
+        assertThat(paginatedResults).isNotNull();
+        assertThat(paginatedResults.getContent()).hasSize(1);
+        assertThat(paginatedResults.getContent().getFirst()).isEqualTo(resultPeekDTO);
+    }
+
+    @Test
+    void getPaginatedResultsShouldThrowAnExceptionWhenTheTestIsNotFound() {
+        // given
+        User user = SampleObjects.user();
+        user.setId(1L);
+        com.testingez.testingez.models.entities.Test test = SampleObjects.test();
+        test.setId(1L);
+        Result result = SampleObjects.passResult();
+        result.setId(1L);
+        result.setTest(test);
+        result.setUser(user);
+        ResultPeekDTO resultPeekDTO = SampleObjects.passResultPeekDTO();
+        Page<Result> resultPage = new PageImpl<>(Collections.singletonList(result));
+        Pageable pageable = PageRequest.of(0, 10);
+
+        when(userHelperService.getLoggedUser()).thenReturn(user);
+        when(resultRepository.findAllByUserId(user.getId(), pageable)).thenReturn(resultPage);
+        when(modelMapper.map(result, ResultPeekDTO.class)).thenReturn(resultPeekDTO);
+        when(testRepository.findById(test.getId())).thenReturn(Optional.empty());
+
+        // then
+        assertThatExceptionOfType(TestNotFoundException.class)
+                .isThrownBy(() ->
+                        // when
+                        underTest.getPaginatedResults(pageable))
+                .withMessageContaining("We couldn't find test with id: " + test.getId());
     }
 
 

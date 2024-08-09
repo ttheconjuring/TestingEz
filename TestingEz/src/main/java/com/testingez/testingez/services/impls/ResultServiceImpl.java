@@ -135,7 +135,7 @@ public class ResultServiceImpl implements ResultService {
                     this.testRepository.findById(result.getTest().getId())
                             .orElseThrow(() -> new TestNotFoundException("We couldn't " +
                                     "find test with id: " +
-                                    result.getTest().getId() + "!")).getName());
+                                    result.getTest().getId())).getName());
             return resultPeekDTO;
         });
     }
