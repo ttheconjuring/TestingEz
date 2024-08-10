@@ -52,7 +52,7 @@ public class NinjaControllerImpl implements NinjaController {
     @PostMapping("/improvements/post")
     public ResponseEntity<?> postImprovement(@Valid @RequestBody ImprovementDTO improvement) {
         try {
-            return new ResponseEntity<>(this.ninjaService.processImprovement(improvement), HttpStatus.CREATED);
+            return new ResponseEntity<>(this.ninjaService.postImprovement(improvement), HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>("Invalid request data", HttpStatus.BAD_REQUEST);
         } catch (Exception e) {

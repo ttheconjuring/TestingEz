@@ -52,7 +52,7 @@ public class QuestionServiceImpl implements QuestionService {
     public void putDown(TestQuestionsDTO testQuestionsDTO, Long testId) {
         List<QuestionCreateDTO> questions = testQuestionsDTO.getQuestions();
         Test test = this.testRepository.findById(testId)
-                .orElseThrow(() -> new TestNotFoundException("We couldn't test with id: " + testId));
+                .orElseThrow(() -> new TestNotFoundException("We couldn't find test with id: " + testId));
         for (int i = 0; i < questions.size(); i++) {
             Question question = this.modelMapper.map(questions.get(i), Question.class);
             question.setTest(test);
@@ -71,7 +71,7 @@ public class QuestionServiceImpl implements QuestionService {
         return this.testRepository
                 .findById(testId)
                 .orElseThrow(() ->
-                        new TestNotFoundException("We couldn't test with id: " + testId))
+                        new TestNotFoundException("We couldn't find test with id: " + testId))
                 .getQuestionsCount();
     }
 

@@ -25,7 +25,7 @@ public interface NinjaService {
 
     ImprovementDTO[] getImprovements();
 
-    ImprovementDTO processImprovement(ImprovementDTO improvementDTO);
+    ImprovementDTO postImprovement(ImprovementDTO improvementDTO);
 
     ImprovementDTO deleteImprovement(UUID id);
 }
