@@ -140,7 +140,7 @@ public class NinjaServiceImpl implements NinjaService {
     }
 
     @Override
-    public ImprovementDTO processImprovement(ImprovementDTO improvementDTO) {
+    public ImprovementDTO postImprovement(ImprovementDTO improvementDTO) {
         improvementDTO.setApproved(false);
         improvementDTO.setDisapproved(false);
         return this.modelMapper.map(this.improvementRepository.saveAndFlush(

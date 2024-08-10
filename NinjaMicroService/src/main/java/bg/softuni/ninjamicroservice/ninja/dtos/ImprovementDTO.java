@@ -21,4 +21,9 @@ public class ImprovementDTO {
 
     private Boolean disapproved;
 
+    @Override
+    public String toString() {
+        return String.format("{\"id\":\"%s\",\"idea\":\"%s\",\"approved\":%b,\"disapproved\":%b}",
+                id, idea, approved, disapproved);
+    }
 }
