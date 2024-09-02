@@ -20,6 +20,10 @@ public interface UserController {
 
     String edit(UserProfileDTO userProfileData, BindingResult bindingResult, RedirectAttributes redirectAttributes);
 
+    String delete(Model model);
+
+    String delete(Long id);
+
     String userTests(Pageable pageable, Model model);
 
     String userResults(Pageable pageable, Model model);

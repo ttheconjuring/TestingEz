@@ -7,8 +7,10 @@ public interface UserService {
 
     String register(UserSignUpDTO userSignUpData);
 
-    UserProfileDTO getUserProfileData();
+    UserProfileDTO getProfileData();
 
     String editProfileData(UserProfileDTO userProfileData);
+
+    Boolean deleteProfile(Long id);
 
 }

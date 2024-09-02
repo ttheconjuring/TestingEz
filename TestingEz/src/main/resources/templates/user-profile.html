@@ -79,10 +79,11 @@
         </div>
         <div class="row justify-content-center text-center">
             <div class="col-sm-8 col-md-4">
-                <button type="button"
+                <a th:href="@{/user/profile/delete/confirmation}"
+                        type="button"
                         class="btn btn-danger rounded text-center border border-2 border-black fs-5 px-3"
                         th:text="#{deleteAccount}">
-                </button>
+                </a>
             </div>
         </div>
     </main>
