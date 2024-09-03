@@ -5,10 +5,7 @@ import com.testingez.testingez.models.dtos.exp.ResultPeekDTO;
 import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.UserProfileDTO;
 import com.testingez.testingez.models.dtos.ninja.ImprovementDTO;
-import com.testingez.testingez.services.NinjaService;
-import com.testingez.testingez.services.ResultService;
-import com.testingez.testingez.services.TestService;
-import com.testingez.testingez.services.UserService;
+import com.testingez.testingez.services.*;
 import com.testingez.testingez.web.UserController;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -17,10 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -35,6 +29,7 @@ public class UserControllerImpl implements UserController {
     private final TestService testService;
     private final NinjaService ninjaService;
     private final ResultService resultService;
+    private final UserHelperService userHelperService;
 
     /*
      * This method leads to the home page. It fetches the data, required for the
@@ -118,6 +113,36 @@ public class UserControllerImpl implements UserController {
 
         redirectAttributes.addFlashAttribute("message", "profile updated successfully");
         return "redirect:/operation/success";
+    }
+
+    /*
+     * This method returns the page where the user should put down
+     * specific sentence in order to confirm the account deletion.
+     * The model receives the user id, so later it can be passed as
+     * a request parameter to another method and be eventually be deleted.
+     */
+    @Override
+    @GetMapping("/profile/delete/confirmation")
+    public String delete(Model model) {
+        model.addAttribute("id", this.userHelperService.getLoggedUser().getId());
+        return "account-delete";
+    }
+
+    /*
+     * This method receives the user id as a request parameter and invokes
+     * method that tries to delete the user. If the account is deleted, then
+     * the user is redirected to the index page, otherwise an exception is
+     * thrown with an appropriate message.
+     */
+    @Override
+    @GetMapping("/profile/delete")
+    public String delete(@RequestParam(name = "id") Long id) {
+        Boolean accountIsDeleted = this.userService.deleteProfile(id);
+        if (accountIsDeleted) {
+            return "redirect:/";
+        } else {
+            throw new UnsupportedOperationException("Sorry, we are working to solve the problem!");
+        }
     }
 
     /*
@@ -227,7 +252,7 @@ public class UserControllerImpl implements UserController {
     }
 
     private void addUserProfileDataToModel(Model model) {
-        model.addAttribute("userProfileData", this.userService.getUserProfileData());
+        model.addAttribute("userProfileData", this.userService.getProfileData());
     }
 
 }

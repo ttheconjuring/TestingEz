@@ -35,7 +35,7 @@
                             th:text="#{clickMe}"
                             type="button">
                     </button>
-                    <p class="mt-3" th:text="#{score}"><span id="score" class="score">0</span></p>
+                    <p class="mt-3"><span id="score" class="score">0</span></p>
                     <p id="message" class="mt-3"></p>
                 </div>
                 <div class="text-center p-2 border border-2 rounded shadow">
@@ -128,10 +128,6 @@
     </div>
     <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
-<script
-        type="module"
-        src="https://cdn.jsdelivr.net/npm/@bufferhead/nightowl@0.0.14/dist/nightowl.js"
-></script>
 <script src="/js/clicker-game.js"></script>
 <script src="/js/guess-the-number-game.js"></script>
 <script src="/js/reveal-answer.js"></script>

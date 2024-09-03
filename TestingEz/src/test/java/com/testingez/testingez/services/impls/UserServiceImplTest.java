@@ -111,7 +111,7 @@ class UserServiceImplTest {
         when(modelMapper.map(loggedUser, UserProfileDTO.class)).thenReturn(profileData);
 
         // when
-        UserProfileDTO userProfileData = underTest.getUserProfileData();
+        UserProfileDTO userProfileData = underTest.getProfileData();
 
         // then
         assertThat(userProfileData.getUsername()).isEqualTo(loggedUser.getUsername());
@@ -129,7 +129,7 @@ class UserServiceImplTest {
         when(userHelperService.getLoggedUser()).thenReturn(null);
 
         // when
-        UserProfileDTO userProfileData = underTest.getUserProfileData();
+        UserProfileDTO userProfileData = underTest.getProfileData();
 
         // then
         assertThat(userProfileData).isNull();
@@ -150,7 +150,7 @@ class UserServiceImplTest {
 
         // then
         assertThatExceptionOfType(MappingException.class)
-                .isThrownBy(() -> underTest.getUserProfileData())
+                .isThrownBy(() -> underTest.getProfileData())
                 .withMessageContaining("Mapping was not possible!");
     }
 

@@ -5,13 +5,12 @@
 <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="bg-light p-5 border border-2 rounded fs-5 shadow">
         <h2 class="text-center" th:text="#{login}"></h2>
-        <form action="#"
-              class="d-flex flex-column"
+        <form class="d-flex flex-column"
               method="post"
               novalidate
               th:action="@{/account/login}"
               th:object="${userSignInData}">
-            <div th:if="${error}" class="text-danger fs-6 text-center" th:text="#{invalidCredentials}">
+            <div th:if="${error}" class="bg-danger text-white fs-6 text-center rounded" th:text="#{invalidCredentials}">
             </div>
             <label for="username" class="form-label" th:text="#{loginUsername}"></label>
             <div class="input-group">
@@ -55,10 +54,6 @@
         </form>
     </div>
 </div>
-<script
-        type="module"
-        src="https://cdn.jsdelivr.net/npm/@bufferhead/nightowl@0.0.14/dist/nightowl.js"
-></script>
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<div th:replace="~{fragments/heads :: head}"></div>
+<body class="font">
+<div class="d-flex flex-column justify-content-center vh-100">
+    <div class=" d-flex flex-column bg-light shadow p-3 border-top border-bottom border-3 border-danger">
+        <div class="container">
+            <div class="row mb-2 justify-content-center">
+                <div class="col-sm-10 col-md-8 col-lg-6">
+                    <h2 th:text="#{deleteAccount}"></h2>
+                    <label for="confirmation" th:text="#{pleaseType}"></label>
+                    <input
+                            id="confirmation"
+                            class="form-control border fs-5"
+                            th:placeholder="#{confirmation}"
+                            required
+                            type="text"
+                            oninput="validateInput()"
+                    />
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-sm-10 col-md-8 col-lg-6">
+                    <a id="confirmBtn"
+                       th:href="@{/user/profile/delete(id=${id})}"
+                       class="btn btn-danger rounded text-center border border-2 border-black fs-5 px-3"
+                       th:text="#{confirm}"
+                       style="display: none">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/confirm-deletion.js"></script>
+</body>
+</html>

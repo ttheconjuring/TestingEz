@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
      * gets its profile data, maps it to DTO and returns the dto.
      */
     @Override
-    public UserProfileDTO getUserProfileData() {
+    public UserProfileDTO getProfileData() {
         return this.modelMapper.map(this.userHelperService.getLoggedUser(), UserProfileDTO.class);
     }
 
@@ -72,6 +72,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public String editProfileData(UserProfileDTO userProfileData) {
         return updateUserProfileData(userProfileData, this.userHelperService.getLoggedUser());
+    }
+
+    /*
+     * This method receives user id and tries to delete the user. If the deletion
+     * is complete, true is returned, otherwise - false.
+     */
+    @Override
+    public Boolean deleteProfile(Long id) {
+        try {
+            this.userRepository.deleteById(id);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     /*
