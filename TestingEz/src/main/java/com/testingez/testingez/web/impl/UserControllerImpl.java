@@ -145,6 +145,12 @@ public class UserControllerImpl implements UserController {
         }
     }
 
+    @Override
+    @GetMapping("/profile/avatar/change")
+    public String avatar() {
+        return "avatar-change";
+    }
+
     /*
      * This method leads the users to page, where their own tests are displayed.
      * Only 5 tests are shown at a time. Pages are available to navigate over
