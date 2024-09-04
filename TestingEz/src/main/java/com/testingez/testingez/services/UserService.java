@@ -13,4 +13,6 @@ public interface UserService {
 
     Boolean deleteProfile(Long id);
 
+    void changeAvatar(String url);
+
 }

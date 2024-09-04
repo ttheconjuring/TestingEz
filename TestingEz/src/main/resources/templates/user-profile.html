@@ -11,16 +11,17 @@
         <div class="row bg-light shadow rounded border border-2 p-3">
             <div class="col-sm-12 col-md-5 mb-3 mb-sm-3 mb-md-0 d-flex flex-column align-items-center gap-2">
                 <img
-                        src="/images/astronaut.png"
+                        th:src="${avatarUrl}"
                         alt="profile-picture"
                         width="300px"
                         height="300px"
                         class="shadow rounded-circle border border-2"
                 />
-                <button type="button"
-                        class="btn btn-dark rounded text-center border border-2 border-black w-50 fs-5"
-                        th:text="#{change}">
-                </button>
+                <a th:href="@{/user/profile/avatar/change}"
+                   type="button"
+                   class="btn btn-dark rounded text-center border border-2 border-black w-50 fs-5"
+                   th:text="#{change}">
+                </a>
             </div>
             <div class="col-sm-12 col-md-7 d-flex flex-column align-items-center" th:object="${userProfileData}">
                 <input
@@ -80,9 +81,9 @@
         <div class="row justify-content-center text-center">
             <div class="col-sm-8 col-md-4">
                 <a th:href="@{/user/profile/delete/confirmation}"
-                        type="button"
-                        class="btn btn-danger rounded text-center border border-2 border-black fs-5 px-3"
-                        th:text="#{deleteAccount}">
+                   type="button"
+                   class="btn btn-danger rounded text-center border border-2 border-black fs-5 px-3"
+                   th:text="#{deleteAccount}">
                 </a>
             </div>
         </div>

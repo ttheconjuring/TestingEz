@@ -24,6 +24,8 @@ public interface UserController {
 
     String delete(Long id);
 
+    String avatar();
+
     String userTests(Pageable pageable, Model model);
 
     String userResults(Pageable pageable, Model model);

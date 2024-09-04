@@ -6,6 +6,7 @@ import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.services.QuestionService;
 import com.testingez.testingez.services.TestService;
+import com.testingez.testingez.services.UserHelperService;
 import com.testingez.testingez.web.TestController;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,12 @@ public class TestControllerImpl implements TestController {
 
     private final TestService testService;
     private final QuestionService questionService;
+    private final UserHelperService userHelperService;
+
+    @ModelAttribute("avatarUrl")
+    public String avatarUrl() {
+        return this.userHelperService.getLoggedUser().getAvatarUrl();
+    }
 
     @ModelAttribute("testCreateData")
     public TestCreateDTO testCreateData() {

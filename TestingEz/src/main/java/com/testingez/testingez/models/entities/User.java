@@ -36,6 +36,9 @@ public class User {
     @Column(unique = true, nullable = false)
     private String phone;
 
+    @Column(name = "avatar_url", nullable = false)
+    private String avatarUrl;
+
     @ManyToOne
     private Role role;
 

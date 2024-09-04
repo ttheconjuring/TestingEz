@@ -13,11 +13,11 @@
                th:href="@{/user/profile}"
             >
                 <img
-                        src="/images/astronaut.png"
+                        th:src="${avatarUrl}"
                         alt="default-avatar"
                         width="35"
                         height="35"
-                        class="d-inline-block align-text-middle me-1"
+                        class="d-inline-block align-text-middle me-1 rounded-circle"
                 />
                 <span sec:authentication="name" class="text-dark"></span></a
             >

@@ -37,6 +37,12 @@ public class UserControllerImpl implements UserController {
      * then passes it to the template. It throws custom exception, when the
      * microservice does not respond.
      */
+
+    @ModelAttribute("avatarUrl")
+    public String avatarUrl() {
+        return this.userHelperService.getLoggedUser().getAvatarUrl();
+    }
+
     @Override
     @GetMapping("/home")
     public String home(Model model) throws NinjaMicroServiceException {
@@ -143,6 +149,12 @@ public class UserControllerImpl implements UserController {
         } else {
             throw new UnsupportedOperationException("Sorry, we are working to solve the problem!");
         }
+    }
+
+    @Override
+    @GetMapping("/profile/avatar/change")
+    public String avatar() {
+        return "avatar-change";
     }
 
     /*
