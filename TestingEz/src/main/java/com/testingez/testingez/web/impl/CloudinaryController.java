@@ -2,6 +2,7 @@ package com.testingez.testingez.web.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.testingez.testingez.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,22 +12,23 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Map;
 
 @AllArgsConstructor
 @RestController
 public class CloudinaryController {
 
     private final Cloudinary cloudinary;
+    private final UserService userService;
 
     @PostMapping("/upload-avatar")
-    public ResponseEntity<?> uploadAvatar(@RequestPart("avatar") MultipartFile file) {
+    public ResponseEntity<String> uploadAvatar(@RequestPart("avatar") MultipartFile file) {
         try {
-            Map uploadResult = this.cloudinary.uploader().upload(file.getBytes(),
-                    ObjectUtils.asMap("folder", "TestingEz"));
-            return new ResponseEntity<>(uploadResult.get("url"), HttpStatus.OK);
+            String url = (String) this.cloudinary.uploader().upload(file.getBytes(),
+                    ObjectUtils.asMap("folder", "TestingEz")).get("url");
+            this.userService.changeAvatar(url);
+            return new ResponseEntity<>(url, HttpStatus.OK);
         } catch (IOException e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("The upload failed!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

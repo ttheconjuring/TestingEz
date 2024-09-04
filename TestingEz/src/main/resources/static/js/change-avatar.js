@@ -48,8 +48,15 @@ cropButton.addEventListener('click', function () {
             fetch('/upload-avatar', {
                 method: 'POST',
                 body: formData
-            }).then(response => response.json())
-                .then(data => console.log('Avatar uploaded successfully', data))
+            })
+                .then(response => {
+                        if (response.ok) {
+                            window.location.href = 'http://localhost:8080/user/profile';
+                        } else {
+                            throw new Error('Network response was not ok');
+                        }
+                    }
+                )
                 .catch(error => console.error('Error uploading avatar', error));
         }, 'image/jpeg');
     }

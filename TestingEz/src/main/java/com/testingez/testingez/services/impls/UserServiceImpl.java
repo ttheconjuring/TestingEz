@@ -44,6 +44,7 @@ public class UserServiceImpl implements UserService {
         }
         User newUser = this.modelMapper.map(userSignUpData, User.class);
         newUser.setPassword(passwordEncoder.encode(userSignUpData.getPassword()));
+        newUser.setAvatarUrl("https://res.cloudinary.com/ditl40ows/image/upload/v1725455132/TestingEz/astronaut_zfqyvs.png");
         if (this.userRepository.count() == 0) {
             newUser.setRole(this.roleRepository.findById(1L)
                     .orElseThrow(() -> new IllegalArgumentException("No role could be found with id: 1")));
@@ -86,6 +87,16 @@ public class UserServiceImpl implements UserService {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void changeAvatar(String url) {
+        if (url != null && !url.isEmpty()) {
+            this.userHelperService.getLoggedUser().setAvatarUrl(url);
+            this.userRepository.saveAndFlush(this.userHelperService.getLoggedUser());
+        } else {
+            throw new IllegalArgumentException("The provided avatar url is invalid!");
+        }
     }
 
     /*
