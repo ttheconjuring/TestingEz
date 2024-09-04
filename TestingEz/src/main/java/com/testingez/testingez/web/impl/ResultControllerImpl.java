@@ -2,6 +2,7 @@ package com.testingez.testingez.web.impl;
 
 import com.testingez.testingez.services.QuestionService;
 import com.testingez.testingez.services.ResultService;
+import com.testingez.testingez.services.UserHelperService;
 import com.testingez.testingez.web.ResultController;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ public class ResultControllerImpl implements ResultController {
 
     private final ResultService resultService;
     private final QuestionService questionService;
+    private final UserHelperService userHelperService;
 
     /*
      * This method leads to a page that is shown after a test is completed. The page
@@ -45,6 +47,7 @@ public class ResultControllerImpl implements ResultController {
     @Override
     @GetMapping("/details/{resultId}")
     public String resultDetails(@PathVariable Long resultId, Model model) {
+        model.addAttribute("avatarUrl", this.userHelperService.getLoggedUser().getAvatarUrl());
         model.addAttribute("resultDetails", this.resultService.getResultDetails(resultId));
         model.addAttribute("answeredQuestions", this.questionService.getAnsweredQuestionsData(resultId));
         return "result-details";
