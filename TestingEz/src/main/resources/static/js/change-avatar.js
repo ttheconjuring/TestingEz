@@ -34,6 +34,7 @@ avatarInput.addEventListener('change', function (event) {
 });
 
 cropButton.addEventListener('click', function () {
+    cropButton.disabled = true;
     if (cropper) {
         const canvas = cropper.getCroppedCanvas({
             width: 300,
