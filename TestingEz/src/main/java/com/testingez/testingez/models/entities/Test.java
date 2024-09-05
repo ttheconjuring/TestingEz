@@ -52,7 +52,13 @@ public class Test {
     @JoinColumn(name = "creator_id", referencedColumnName = "id")
     private User creator;
 
-    @OneToMany(mappedBy = "test")
+    @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Question> questions;
+
+    @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Response> responses;
+
+    @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Result> results;
 
 }
