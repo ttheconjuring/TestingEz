@@ -22,7 +22,7 @@ public class TestingEzApplication {
      *   4.Implement logic behind link 'All Users'
      *   5.Make it possible to change the response time and
      *      passing score of a test and also to add a new questions.
-     *   6.Make it possible to delete a test
+     *   6.Make it possible to delete a test - done
      *   7.Add functionality to the footer
      *   8.Add remember me option on login
      *   9.Add email account activation
