@@ -6,6 +6,14 @@
     <div th:replace="~{fragments/headers :: header}"></div>
     <main class="container flex-grow-1">
         <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-8 col-lg-6 p-0">
+                <div th:if="${error}" class="bg-danger text-white fs-6 text-center rounded"
+                     th:text="#{testAttendance}">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
             <div class="col-sm-12 col-md-8 col-lg-6 shadow rounded border border-2"
                  th:object="${testDetails}">
                 <h2 th:text="*{name}"></h2>
@@ -15,7 +23,7 @@
                 <p th:text="#{passingScore} + ' ' + *{passingScore}"></p>
                 <p th:text="#{questionsCount} + ' ' + *{questionsCount}"></p>
                 <p><span th:text="#{status}"></span>
-                    <a class="btn border border-2"
+                    <a class="btn border border-2 border-black"
                        th:classappend="*{status} == 'OPEN' ? 'bg-success' : 'bg-danger'"
                        th:href="@{/test/status/change/{id}(id=*{id})}"
                        th:text="*{status}"></a></p>
@@ -47,6 +55,15 @@
                 </div>
             </div>
         </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-8 col-lg-6 text-center mt-3">
+                <a th:href="@{/questions/add/test/{testId}(testId=*{id})}"
+                   class="btn btn-light border border-2 rounded-5">
+                    <img src="/images/plus.png" style="width: 25px; height: auto" alt="add">
+                </a>
+            </div>
+        </div>
+        <hr>
         <div class="row justify-content-center">
             <div class="col-sm-12 col-md-8 col-lg-6 text-center mt-3">
                 <form method="post"
