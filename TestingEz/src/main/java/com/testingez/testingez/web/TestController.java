@@ -23,7 +23,7 @@ public interface TestController {
 
     String showAll(Pageable pageable, Model model);
 
-    String testDetails(Long id, Model model);
+    String testDetails(Long id, String attendanceError, Model model);
 
     String changeTestStatus(Long id);
 
