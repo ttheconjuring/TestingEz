@@ -12,8 +12,6 @@ public class QuestionEditDTO {
 
     private Long id;
 
-    private Integer number;
-
     @NotNull(message = "{property.should.not.be.null}")
     @NotEmpty(message = "{property.should.not.be.empty}")
     private String question;
@@ -37,6 +35,8 @@ public class QuestionEditDTO {
     @NotNull(message = "{property.should.not.be.null}")
     @NotEmpty(message = "{property.should.not.be.empty}")
     private String correctAnswer;
+
+    private Integer number;
 
     private Long testId;
 

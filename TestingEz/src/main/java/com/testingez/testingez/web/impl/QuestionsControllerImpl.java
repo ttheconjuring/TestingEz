@@ -145,8 +145,43 @@ public class QuestionsControllerImpl implements QuestionsController {
             redirectAttributes.addFlashAttribute("questionData", questionEditDTO);
             return String.format("redirect:/questions/edit/%d", questionId);
         }
-        this.questionService.editQuestion(questionEditDTO);
+        Boolean isEdited = this.questionService.editQuestion(questionEditDTO);
+        if (!isEdited) {
+            redirectAttributes.addAttribute("attendanceError", "testAttended");
+            return String.format("redirect:/test/details/%d", questionEditDTO.getTestId());
+        } // TODO: comment
         return String.format("redirect:/test/details/%d", questionEditDTO.getTestId());
+    }
+
+    // TODO: comment
+    @Override
+    @GetMapping("/add/test/{testId}")
+    public String add(@PathVariable Long testId, Model model) {
+        if (!model.containsAttribute("questionData")) {
+            model.addAttribute("questionData", new QuestionCreateDTO());
+        }
+        model.addAttribute("testId", testId);
+        return "question-add";
+    }
+
+    // TODO: comment
+    @Override
+    @PostMapping("/add/test/{testId}")
+    public String add(@PathVariable Long testId,
+                      @Valid QuestionCreateDTO questionData,
+                      BindingResult bindingResult,
+                      RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.questionData", bindingResult);
+            redirectAttributes.addFlashAttribute("questionData", questionData);
+            return String.format("redirect:/questions/add/test/%d", testId);
+        }
+        Boolean isAdded = this.questionService.addQuestion(testId, questionData);
+        if (!isAdded) {
+            redirectAttributes.addAttribute("attendanceError", "testAttended");
+            return String.format("redirect:/test/details/%d", testId);
+        }
+        return String.format("redirect:/test/details/%d", testId);
     }
 
     private TestQuestionsDTO testQuestionsDTO(int questionsCount, Long testId) {

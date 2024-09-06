@@ -13,6 +13,8 @@ public interface ResultRepository extends JpaRepository<Result, Long> {
 
     Optional<Result> findByTestIdAndUserId(Long testId, Long userId);
 
+    Integer countByTestId(Long testId);
+
     Page<Result> findAllByUserId(Long userId, Pageable pageable);
 
 }

@@ -175,7 +175,10 @@ public class QuestionServiceImpl implements QuestionService {
      * question entity. The question is freshly updated then.
      */
     @Override
-    public void editQuestion(QuestionEditDTO questionEditDTO) {
+    public Boolean editQuestion(QuestionEditDTO questionEditDTO) {
+        if (this.resultRepository.countByTestId(questionEditDTO.getTestId()) > 0) {
+            return false;
+        } // TODO: comment
         Question question = this.questionRepository.findById(questionEditDTO.getId())
                 .orElseThrow(() -> new QuestionNotFoundException("We couldn't find question with id: " + questionEditDTO.getId() + "!"));
         question.setQuestion(questionEditDTO.getQuestion());
@@ -185,6 +188,25 @@ public class QuestionServiceImpl implements QuestionService {
         question.setAnswer4(questionEditDTO.getAnswer4());
         question.setCorrectAnswer(questionEditDTO.getCorrectAnswer());
         this.questionRepository.saveAndFlush(question);
+        return true;
+    }
+
+    // TODO: comment
+    @Override
+    public Boolean addQuestion(Long testId, QuestionCreateDTO questionData) {
+        if (this.resultRepository.countByTestId(testId) > 0) {
+            return false;
+        }
+        Test test = this.testRepository.findById(testId)
+                .orElseThrow(() -> new TestNotFoundException("We couldn't find test with id: " + testId));
+        Integer questionsCount = test.getQuestionsCount();
+        Question question = this.modelMapper.map(questionData, Question.class);
+        question.setNumber(questionsCount + 1);
+        question.setTest(test);
+        test.setQuestionsCount(questionsCount + 1);
+        this.questionRepository.saveAndFlush(question);
+        this.testRepository.saveAndFlush(test);
+        return true;
     }
 
 }

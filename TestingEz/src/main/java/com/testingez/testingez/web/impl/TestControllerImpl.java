@@ -161,7 +161,14 @@ public class TestControllerImpl implements TestController {
      */
     @Override
     @GetMapping("/details/{id}")
-    public String testDetails(@PathVariable Long id, Model model) {
+    public String testDetails(@PathVariable Long id,
+                              @RequestParam(required = false,
+                                      name = "attendanceError")
+                              String attendanceError,
+                              Model model) {
+        if (attendanceError != null) {
+            model.addAttribute("error", attendanceError);
+        }
         model.addAttribute("testDetails", this.testService.getTestDetails(id));
         model.addAttribute("testQuestions", this.questionService.getQuestionsOfATest(id));
         return "test-details";
