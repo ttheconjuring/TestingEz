@@ -176,7 +176,7 @@ public class QuestionServiceImpl implements QuestionService {
      * question entity. The question is freshly updated then.
      */
     @Override
-    public Boolean editQuestion(QuestionEditDTO questionEditDTO) {
+    public Boolean edit(QuestionEditDTO questionEditDTO) {
         if (this.resultRepository.countByTestId(questionEditDTO.getTestId()) > 0) {
             return false;
         }
@@ -201,7 +201,7 @@ public class QuestionServiceImpl implements QuestionService {
      * the test and save the test and the question both.
      */
     @Override
-    public Boolean addQuestion(Long testId, QuestionCreateDTO questionData) {
+    public Boolean add(Long testId, QuestionCreateDTO questionData) {
         if (this.resultRepository.countByTestId(testId) > 0) {
             return false;
         }
@@ -214,6 +214,18 @@ public class QuestionServiceImpl implements QuestionService {
         test.setQuestionsCount(questionsCount + 1);
         this.questionRepository.saveAndFlush(question);
         this.testRepository.saveAndFlush(test);
+        return true;
+    }
+
+    @Override
+    public Boolean delete(Long questionId, Long testId) {
+        if (this.resultRepository.countByTestId(testId) > 0) {
+            return false;
+        }
+        Test test = this.testRepository.findById(testId)
+                .orElseThrow(() -> new TestNotFoundException("We couldn't find test with id: " + testId));
+        test.setQuestionsCount(test.getQuestionsCount() - 1);
+        this.questionRepository.deleteById(questionId);
         return true;
     }
 

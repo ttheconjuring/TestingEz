@@ -390,7 +390,7 @@ class QuestionServiceImplTest {
         when(questionRepository.findById(questionEditDTO.getId())).thenReturn(Optional.of(question));
 
         // when
-        underTest.editQuestion(questionEditDTO);
+        underTest.edit(questionEditDTO);
 
         // then
         verify(questionRepository).saveAndFlush(questionCaptor.capture());
@@ -416,7 +416,7 @@ class QuestionServiceImplTest {
         assertThatExceptionOfType(QuestionNotFoundException.class)
                 .isThrownBy(() ->
                         // when
-                        underTest.editQuestion(questionEditDTO))
+                        underTest.edit(questionEditDTO))
                 .withMessageContaining("We couldn't find question with id: " + invalidQuestionId);
     }
 
