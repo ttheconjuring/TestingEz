@@ -196,6 +196,14 @@ public class QuestionsControllerImpl implements QuestionsController {
         return String.format("redirect:/test/details/%d", testId);
     }
 
+    /*
+     * This method accepts test id and question id and tries to
+     * delete the question from the test. If the question is deleted,
+     * then user is redirected to the test details page with green
+     * alert saying "Changes applied!". If the question is not deleted,
+     * then user is redirected to the test details page again, but this
+     * time the alert is red, saying that the changes were not applied.
+     */
     @Override
     @GetMapping("/delete/{testId}/{questionId}")
     public String delete(@PathVariable Long testId,

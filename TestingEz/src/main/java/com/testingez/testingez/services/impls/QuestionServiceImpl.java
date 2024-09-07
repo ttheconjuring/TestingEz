@@ -217,6 +217,13 @@ public class QuestionServiceImpl implements QuestionService {
         return true;
     }
 
+    /*
+     * This method waits for question id and test id, then checks if the test is attended.
+     * In case the test is attended, then it returns false. If the test it not attended,
+     * it tries to find the test. If the test is not found, an error is thrown. Otherwise,
+     * the test question count is decreased by one and lastly the question is deleted. True
+     * is returned.
+     */
     @Override
     public Boolean delete(Long questionId, Long testId) {
         if (this.resultRepository.countByTestId(testId) > 0) {
