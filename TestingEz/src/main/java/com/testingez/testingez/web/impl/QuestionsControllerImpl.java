@@ -149,11 +149,16 @@ public class QuestionsControllerImpl implements QuestionsController {
         if (!isEdited) {
             redirectAttributes.addAttribute("attendanceError", "testAttended");
             return String.format("redirect:/test/details/%d", questionEditDTO.getTestId());
-        } // TODO: comment
+        }
         return String.format("redirect:/test/details/%d", questionEditDTO.getTestId());
     }
 
-    // TODO: comment
+    /*
+     * This method leads to a page a new question can be created and attached to existing test.
+     * In case we are redirected here for first time, we pass as an argument a new QuestionCreateDTO
+     * to the model. We also pass the test id, so the question can be associated. A new question
+     * is added only when the test is not attended.
+     */
     @Override
     @GetMapping("/add/test/{testId}")
     public String add(@PathVariable Long testId, Model model) {
@@ -164,7 +169,12 @@ public class QuestionsControllerImpl implements QuestionsController {
         return "question-add";
     }
 
-    // TODO: comment
+    /*
+     * This method accepts filled QuestionCreateDTO and tries to add it to the test.
+     * In case the incoming data is invalid, then the user gets back to correct the data.
+     * If the question is added, the user is redirected to the test details where the new
+     * question will appear. A new question is added only when the test is not attended.
+     */
     @Override
     @PostMapping("/add/test/{testId}")
     public String add(@PathVariable Long testId,

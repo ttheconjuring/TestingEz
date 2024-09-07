@@ -169,8 +169,9 @@ public class QuestionServiceImpl implements QuestionService {
 
     /*
      * This method is invoked when the user has made changes to their question.
-     * The method waits for an object holding the updated question. It tries to
-     * find it first, and if it is not found, an error is thrown. If the question
+     * The method waits for an object holding the updated question. The question
+     * will be edited only if the test is not attended yet. It tries to
+     * find the question first, and if it is not found, an error is thrown. If the question
      * is found, then all the data from the argument object is mirrored to the
      * question entity. The question is freshly updated then.
      */
@@ -178,7 +179,7 @@ public class QuestionServiceImpl implements QuestionService {
     public Boolean editQuestion(QuestionEditDTO questionEditDTO) {
         if (this.resultRepository.countByTestId(questionEditDTO.getTestId()) > 0) {
             return false;
-        } // TODO: comment
+        }
         Question question = this.questionRepository.findById(questionEditDTO.getId())
                 .orElseThrow(() -> new QuestionNotFoundException("We couldn't find question with id: " + questionEditDTO.getId() + "!"));
         question.setQuestion(questionEditDTO.getQuestion());
@@ -191,7 +192,14 @@ public class QuestionServiceImpl implements QuestionService {
         return true;
     }
 
-    // TODO: comment
+    /*
+     * This method adds a new question to the database and associates the test to it.
+     * It will be added to the test only if the test is not attended yet. If the test is
+     * not found, then an error is thrown. Otherwise, we get the questions counts in order to
+     * set number to the new question and also to increase the value by one. After the question
+     * is created, the number is set and also the test. Then we update the question count of
+     * the test and save the test and the question both.
+     */
     @Override
     public Boolean addQuestion(Long testId, QuestionCreateDTO questionData) {
         if (this.resultRepository.countByTestId(testId) > 0) {
