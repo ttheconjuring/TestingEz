@@ -10,6 +10,9 @@
                 <div th:if="${error}" class="bg-danger text-white fs-6 text-center rounded"
                      th:text="#{testAttendance}">
                 </div>
+                <div th:if="${success}" class="bg-success text-white fs-6 text-center rounded"
+                     th:text="#{changesApplied}">
+                </div>
             </div>
         </div>
         <br>
@@ -39,11 +42,17 @@
                      th:each="questionData : ${testQuestions}">
                     <div class="d-flex justify-content-between">
                         <span th:text="'№: ' + ${questionData.number}"></span>
-                        <a
-                                class="btn btn-light border border-2 rounded"
-                                th:href="@{/questions/edit/{id}(id=${questionData.id})}">
-                            <img src="/images/edit.png" style="width: 25px; height: auto" alt="edit">
-                        </a>
+                        <div class="d-flex gap-1">
+                            <a class="btn btn-light border border-2 rounded"
+                               th:href="@{/questions/edit/{id}(id=${questionData.id})}">
+                                <img src="/images/edit.png" style="width: 25px; height: auto" alt="edit">
+                            </a>
+
+                            <a class="btn btn-light border border-2 rounded"
+                               th:href="@{/questions/delete/{testId}/{questionId}(testId=${testDetails.id}, questionId=${questionData.id})}">
+                                <img src="/images/recycle-bin.png" style="width: 25px; height: auto" alt="remove">
+                            </a>
+                        </div>
                     </div>
                     <p th:text="#{pointss} + ' ' + ${questionData.points}"></p>
                     <p th:text="${questionData.question}"></p>
