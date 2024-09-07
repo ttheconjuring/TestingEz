@@ -21,7 +21,7 @@ public class TestingEzApplication {
      *   3.Find out why login is required after username change.
      *   4.Implement logic behind link 'All Users'
      *   5.Make it possible to add new question to a test. - done
-     *   6.Make it possible to delete a question from a test.
+     *   6.Make it possible to delete a question from a test. - done
      *   7.Make it possible to delete a test - done
      *   8.Add functionality to the footer
      *   9.Add remember me option on login

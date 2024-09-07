@@ -9,11 +9,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 public interface QuestionsController {
 
-    String answerQuestion(Long testId, Integer questionNumber, Model model, RedirectAttributes redirectAttributes);
+    String answer(Long testId, Integer questionNumber, Model model, RedirectAttributes redirectAttributes);
 
-    String deviseQuestions(Long testId, Model model);
+    String devise(Long testId, Model model);
 
-    String saveQuestionsToDb(Long testId, TestQuestionsDTO testQuestionsData, BindingResult bindingResult, RedirectAttributes redirectAttributes);
+    String save(Long testId, TestQuestionsDTO testQuestionsData, BindingResult bindingResult, RedirectAttributes redirectAttributes);
 
     String edit(Long questionId, Model model);
 
@@ -22,5 +22,7 @@ public interface QuestionsController {
     String add(Long testId, Model model);
 
     String add(Long testId, QuestionCreateDTO questionCreateDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes);
+
+    String delete(Long questionId, Long testId, RedirectAttributes redirectAttributes);
 
 }

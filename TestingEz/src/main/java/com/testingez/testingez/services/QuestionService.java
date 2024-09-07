@@ -23,8 +23,10 @@ public interface QuestionService {
 
     QuestionEditDTO fetchQuestionData(Long questionId);
 
-    Boolean editQuestion(QuestionEditDTO questionEditDTO);
+    Boolean edit(QuestionEditDTO questionEditDTO);
 
-    Boolean addQuestion(Long testId, QuestionCreateDTO questionData);
+    Boolean add(Long testId, QuestionCreateDTO questionData);
+
+    Boolean delete(Long questionId, Long testId);
 
 }

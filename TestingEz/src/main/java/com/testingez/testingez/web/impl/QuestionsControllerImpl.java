@@ -44,10 +44,10 @@ public class QuestionsControllerImpl implements QuestionsController {
      */
     @Override
     @GetMapping("/{testId}/{questionNumber}")
-    public String answerQuestion(@PathVariable Long testId,
-                                 @PathVariable Integer questionNumber,
-                                 Model model,
-                                 RedirectAttributes redirectAttributes) {
+    public String answer(@PathVariable Long testId,
+                         @PathVariable Integer questionNumber,
+                         Model model,
+                         RedirectAttributes redirectAttributes) {
         QuestionAnswerDTO questionAnswerDTO = this.questionService.fetchQuestionData(testId, questionNumber);
         if (questionAnswerDTO == null) {
             return String.format("redirect:/results/%d/%d",
@@ -75,7 +75,7 @@ public class QuestionsControllerImpl implements QuestionsController {
      */
     @Override
     @GetMapping("/{testId}/create")
-    public String deviseQuestions(@PathVariable Long testId, Model model) {
+    public String devise(@PathVariable Long testId, Model model) {
         if (!model.containsAttribute("testQuestionsData")) {
             model.addAttribute("testQuestionsData",
                     testQuestionsDTO(this.questionService.getQuestionsCountOfTheTest(testId), testId));
@@ -93,10 +93,10 @@ public class QuestionsControllerImpl implements QuestionsController {
      */
     @Override
     @PostMapping("/{testId}/create")
-    public String saveQuestionsToDb(@PathVariable Long testId,
-                                    @Valid TestQuestionsDTO testQuestionsData,
-                                    BindingResult bindingResult,
-                                    RedirectAttributes redirectAttributes) {
+    public String save(@PathVariable Long testId,
+                       @Valid TestQuestionsDTO testQuestionsData,
+                       BindingResult bindingResult,
+                       RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.testQuestionsData", bindingResult);
             redirectAttributes.addFlashAttribute("testQuestionsData", testQuestionsData);
@@ -145,15 +145,21 @@ public class QuestionsControllerImpl implements QuestionsController {
             redirectAttributes.addFlashAttribute("questionData", questionEditDTO);
             return String.format("redirect:/questions/edit/%d", questionId);
         }
-        Boolean isEdited = this.questionService.editQuestion(questionEditDTO);
+        Boolean isEdited = this.questionService.edit(questionEditDTO);
         if (!isEdited) {
-            redirectAttributes.addAttribute("attendanceError", "testAttended");
-            return String.format("redirect:/test/details/%d", questionEditDTO.getTestId());
-        } // TODO: comment
+            redirectAttributes.addFlashAttribute("error", "attendanceError");
+        } else {
+            redirectAttributes.addFlashAttribute("success", "questionEdited");
+        }
         return String.format("redirect:/test/details/%d", questionEditDTO.getTestId());
     }
 
-    // TODO: comment
+    /*
+     * This method leads to a page a new question can be created and attached to existing test.
+     * In case we are redirected here for first time, we pass as an argument a new QuestionCreateDTO
+     * to the model. We also pass the test id, so the question can be associated. A new question
+     * is added only when the test is not attended.
+     */
     @Override
     @GetMapping("/add/test/{testId}")
     public String add(@PathVariable Long testId, Model model) {
@@ -164,7 +170,12 @@ public class QuestionsControllerImpl implements QuestionsController {
         return "question-add";
     }
 
-    // TODO: comment
+    /*
+     * This method accepts filled QuestionCreateDTO and tries to add it to the test.
+     * In case the incoming data is invalid, then the user gets back to correct the data.
+     * If the question is added, the user is redirected to the test details where the new
+     * question will appear. A new question is added only when the test is not attended.
+     */
     @Override
     @PostMapping("/add/test/{testId}")
     public String add(@PathVariable Long testId,
@@ -176,10 +187,33 @@ public class QuestionsControllerImpl implements QuestionsController {
             redirectAttributes.addFlashAttribute("questionData", questionData);
             return String.format("redirect:/questions/add/test/%d", testId);
         }
-        Boolean isAdded = this.questionService.addQuestion(testId, questionData);
+        Boolean isAdded = this.questionService.add(testId, questionData);
         if (!isAdded) {
-            redirectAttributes.addAttribute("attendanceError", "testAttended");
-            return String.format("redirect:/test/details/%d", testId);
+            redirectAttributes.addFlashAttribute("error", "attendanceError");
+        } else {
+            redirectAttributes.addFlashAttribute("success", "questionAdded");
+        }
+        return String.format("redirect:/test/details/%d", testId);
+    }
+
+    /*
+     * This method accepts test id and question id and tries to
+     * delete the question from the test. If the question is deleted,
+     * then user is redirected to the test details page with green
+     * alert saying "Changes applied!". If the question is not deleted,
+     * then user is redirected to the test details page again, but this
+     * time the alert is red, saying that the changes were not applied.
+     */
+    @Override
+    @GetMapping("/delete/{testId}/{questionId}")
+    public String delete(@PathVariable Long testId,
+                         @PathVariable Long questionId,
+                         RedirectAttributes redirectAttributes) {
+        Boolean isDeleted = this.questionService.delete(questionId, testId);
+        if (!isDeleted) {
+            redirectAttributes.addFlashAttribute("error", "attendanceError");
+        } else {
+            redirectAttributes.addFlashAttribute("success", "questionDeleted");
         }
         return String.format("redirect:/test/details/%d", testId);
     }
