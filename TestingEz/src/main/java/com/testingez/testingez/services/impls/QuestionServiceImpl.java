@@ -20,7 +20,6 @@ import com.testingez.testingez.repositories.TestRepository;
 import com.testingez.testingez.services.QuestionService;
 import com.testingez.testingez.services.ResultService;
 import com.testingez.testingez.services.UserHelperService;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -228,7 +227,6 @@ public class QuestionServiceImpl implements QuestionService {
      */
     @Override
     public Boolean delete(Long questionId, Long testId) {
-        // TODO: touch the numbering when a question is deleted
         if (this.resultRepository.countByTestId(testId) > 0) {
             return false;
         }

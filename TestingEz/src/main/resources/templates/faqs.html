@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="~{fragments/heads :: head}"></div>
+<body class="font">
+<div class="d-flex flex-column vh-100">
+    <div class="container d-flex flex-column justify-content-center flex-grow-1 gap-1">
+        <h1 class="text-center">Frequently Asked Questions</h1>
+        <div class="accordion shadow rounded border border-2" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        What is "TestingEz"?
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse bg-dark text-white"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <code>"TestingEz"</code> is a place where everyone is free to create and join tests on different
+                        topics.&#128513;
+                        It aims to simultaneously <code>educate</code> and <code>entertain</code> people, since there is
+                        no limits on what tests
+                        or questions you are trying to create. It was created as an alternative to some way more famous
+                        testing platforms as: Google Forms, Kahoot, Typeform, FlexiQuiz and others.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        How did "TestingEz" come to existence?
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse bg-dark text-white"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        In the beginning, <code>"TestingEz"</code> was actually a <code>desktop application</code>&#128187;
+                        devised and made for school diploma project. It had very limited options compared to
+                        the current version of the project, but was good enough to earn me an excellent grade.
+                        Although I knew the realization was far from great, the <code>idea</code> was definitely a good
+                        one and eventually grew into <code>web application</code>&#127760;. To cut long story short,
+                        this is how
+                        <code>"TestingEz"</code> came to existence.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseThree" aria-expanded="false"
+                            aria-controls="collapseThree">
+                        Who stands behind "TestingEz"?
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse bg-dark text-white"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        The <code>"We..."</code> messages you might have encountered while discovering the potential
+                        of <code>"TestingEz"</code> (hopefully not &#128517;) refers only to <code>"Me"</code>. Believe
+                        it or not,
+                        the developer team of this "amazing" project was consisted only of one person - unfortunately
+                        me.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseFour" aria-expanded="false"
+                            aria-controls="collapseThree">
+                        Should I pay before I use "TestingEz"?
+                    </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse bg-dark text-white"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Absolutely, <code>not</code>. The initial budget of "TestingEz" was exactly 0&#128178; (or
+                        slightly beneath
+                        it)
+                        and that's why it is <code>totally free</code>.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseFive" aria-expanded="false"
+                            aria-controls="collapseThree">
+                        Is "TestingEz" safe?
+                    </button>
+                </h2>
+                <div id="collapseFive" class="accordion-collapse collapse bg-dark text-white"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p>While <code>"TestingEz"</code> is generally <code>safe</code>, we can't guarantee that you
+                            won't
+                            come upon some <code>disturbing, strange, threatening</code> tests or questions.</p>
+                        <b>So, have fun and be warned!</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="~{fragments/footers :: footer}"></div>
+</div>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>
