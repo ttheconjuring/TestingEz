@@ -11,4 +11,7 @@ public class WelcomeController {
         return "index";
     }
 
+    @GetMapping("/FAQs")
+    public String FAQs() { return "faqs"; }
+
 }
