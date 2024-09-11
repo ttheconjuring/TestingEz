@@ -213,8 +213,8 @@ class QuestionServiceImplTest {
                 .isThrownBy(() ->
                         // when
                         underTest.fetchQuestionData(testId, invalidQuestionNumber))
-                .withMessageContaining("Question(№" + invalidQuestionNumber + ") associated with test: " + testId +
-                        "was not found!");
+                .withMessageContaining("Question №" + invalidQuestionNumber + " associated with test: " + testId +
+                        " was not found!");
     }
 
     @Test
