@@ -24,6 +24,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @AllArgsConstructor
@@ -95,8 +96,8 @@ public class QuestionServiceImpl implements QuestionService {
             return null;
         }
         Question question = this.questionRepository.findByTestIdAndNumber(testId, questionNumber)
-                .orElseThrow(() -> new QuestionNotFoundException("Question(№" + questionNumber + ") associated with test: " + testId +
-                        "was not found!"));
+                .orElseThrow(() -> new QuestionNotFoundException("Question №" + questionNumber + " associated with test: " + testId +
+                        " was not found!"));
         QuestionAnswerDTO map = this.modelMapper.map(question, QuestionAnswerDTO.class);
         map.setResponseTime(test.getResponseTime());
         map.setTestId(testId);
@@ -231,9 +232,26 @@ public class QuestionServiceImpl implements QuestionService {
         }
         Test test = this.testRepository.findById(testId)
                 .orElseThrow(() -> new TestNotFoundException("We couldn't find test with id: " + testId));
+        if (test.getQuestionsCount() <= 1) {
+            return false;
+        }
         test.setQuestionsCount(test.getQuestionsCount() - 1);
         this.questionRepository.deleteById(questionId);
+        touchNumbering(testId);
         return true;
+    }
+
+    private void touchNumbering(Long testId) {
+        List<Question> questions = this.questionRepository.findAllByTestId(testId)
+                .stream().sorted(Comparator.comparing(Question::getNumber)).toList();
+        int n = questions.size();
+        for (int i = 1; i <= n; i++) {
+            Question question = questions.get(i - 1);
+            if (question.getNumber() != i) {
+                question.setNumber(i);
+                this.questionRepository.saveAndFlush(question);
+            }
+        }
     }
 
 }

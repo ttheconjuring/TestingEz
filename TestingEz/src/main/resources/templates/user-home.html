@@ -3,19 +3,19 @@
       xmlns:sec='http://www.thymeleaf.org/extras/spring-security'>
 <div th:replace="~{fragments/heads :: head}"></div>
 <body class="font">
-<div class="d-flex flex-column bg-light gap-3">
+<div class="d-flex flex-column gap-3">
     <div th:replace="~{fragments/headers :: header}"></div>
 
-    <main class="container d-flex flex-column bg-light justify-content-center flex-grow-1 gap-3">
+    <main class="container d-flex flex-column justify-content-center flex-grow-1 gap-3">
         <div class="row align-items-center justify-content-center">
             <div class="col-sm-10 col-lg-8">
                 <h1 class="mb-3" th:text="#{testOfTheDay}"></h1>
-                <div class="rounded shadow border border-2 p-2 fs-5 text-center">
+                <div class="bg-light rounded shadow border border-2 p-2 fs-5 text-center">
                     <div th:each="questionObject, iStat: ${testOfTheDay}">
                         <p th:text="${iStat.index + 1} + '.' + ${questionObject.question}"></p>
                         <div class="d-flex justify-content-center gap-2">
                             <input
-                                    class="bg-light rounded border border-2 py-1 w-75 text-center"
+                                    class=" rounded border border-2 py-1 w-75 text-center"
                                     th:data-answer="${questionObject.answer}"
                                     th:id="'answer-' + ${iStat.index}">
                             <button class="btn btn-dark px-3 border border-2 border-black rounded check-btn"
@@ -28,7 +28,7 @@
             </div>
             <div class="col-sm-10 col-lg-4">
                 <h1 class="mb-3" th:text="#{bored}"></h1>
-                <div class="text-center p-2 mb-3 border border-2 rounded shadow">
+                <div class="bg-light text-center p-2 mb-3 border border-2 rounded shadow">
                     <h2 th:text="#{clickTheButtonGame}"></h2>
                     <p th:text="#{clickTheButtonAsMany}"></p>
                     <button class="btn btn-dark px-3 border border-2 border-black rounded" id="game-button"
@@ -38,7 +38,7 @@
                     <p class="mt-3"><span id="score" class="score">0</span></p>
                     <p id="message" class="mt-3"></p>
                 </div>
-                <div class="text-center p-2 border border-2 rounded shadow">
+                <div class="bg-light text-center p-2 border border-2 rounded shadow">
                     <h2 th:text="#{guessTheNumberGame}"></h2>
                     <p th:text="#{guessANumberBetween}"></p>
                     <input type="number"
@@ -58,7 +58,7 @@
             <h1 class="mb-3" th:text="#{miscellaneous}"></h1>
             <div class="col-sm-10 col-md-4 mb-2">
                 <div id="factsCarousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-item p-2 rounded border border-2 shadow"
+                    <div class="carousel-item bg-light p-2 rounded border border-2 shadow"
                          th:each="factObject, iStat : ${factsOfTheDay}"
                          th:classappend="${iStat.index == 0} ? 'active' : ''">
                         <p class="card-title fw-bold fs-5" th:text="#{randomFact} + ${iStat.index + 1}"></p>
@@ -68,7 +68,7 @@
             </div>
             <div class="col-sm-10 col-md-4 mb-2">
                 <div id="jokesCarousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-item p-2 rounded border border-2 shadow"
+                    <div class="carousel-item p-2 bg-light rounded border border-2 shadow"
                          th:each="jokeObject, iStat : ${jokesOfTheDay}"
                          th:classappend="${iStat.index == 0} ? 'active' : ''">
                         <p class="card-title fw-bold fs-5" th:text="#{randomJoke} + ${iStat.index + 1}"></p>
@@ -78,7 +78,7 @@
             </div>
             <div class="col-sm-10 col-md-4 mb-2">
                 <div id="quotesCarousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-item p-2 rounded border border-2 shadow"
+                    <div class="carousel-item p-2 bg-light rounded border border-2 shadow"
                          th:each="quoteObject, iStat : ${quotesOfTheDay}"
                          th:classappend="${iStat.index == 0} ? 'active' : ''">
                         <p class="card-title fw-bold fs-5" th:text="#{randomQuote} + ${iStat.index + 1}"></p>
@@ -90,7 +90,7 @@
         </div>
         <div class="row justify-content-center border-top border-2">
             <div class="col-sm-10 col-md-6 my-5">
-                <div class="border border-2 rounded shadow p-3 d-flex flex-column justify-content-center align-items-center">
+                <div class="bg-light border border-2 rounded shadow p-3 d-flex flex-column justify-content-center align-items-center">
                     <h4 th:text="#{helpUs}"></h4>
                     <span th:text="#{howToImprove}"></span>
                     <form
