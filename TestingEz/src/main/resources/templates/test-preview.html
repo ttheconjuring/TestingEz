@@ -7,9 +7,9 @@
     <div th:replace="~{fragments/headers :: header}"></div>
 
     <main class="container d-flex justify-content-center flex-grow-1">
-        <div class="bg-light shadow rounded p-3 border border-2 fs-5">
+        <div class="d-flex flex-column justify-content-center py-3 px-5 bg-light shadow rounded p-3 border border-2 fs-5">
             <form
-                    class="d-flex flex-column align-items-center justify-content-center"
+                    class="d-flex flex-column align-items-center justify-content-center mx-5"
                     th:object="${testPreviewData}"
                     th:action="@{/test/join/preview}"
                     th:method="post"
