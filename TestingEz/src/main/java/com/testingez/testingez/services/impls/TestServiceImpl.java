@@ -101,7 +101,7 @@ public class TestServiceImpl implements TestService {
 
 
     /*
-     * This method gets all test from the database and maps them
+     * This method gets all tests from the database and maps them
      * to small peek dto. If there are no tests, then an empty page
      * is returned.
      */

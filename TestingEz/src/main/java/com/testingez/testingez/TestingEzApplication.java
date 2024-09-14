@@ -24,9 +24,9 @@ public class TestingEzApplication {
      *   6.Make it possible to delete a question from a test. - done
      *   7.Make it possible to delete a test - done
      *   8.Add functionality to the footer - done
-     *   9.Add remember me option on login
-     *   10.Add email account activation
-     *   11.Write some tests (unit + integration)
+     *   9.Add remember me option on login - done
+     *   10.Add leaderboard to test
+     *   11.Make the timer server side
      * */
 
 }
