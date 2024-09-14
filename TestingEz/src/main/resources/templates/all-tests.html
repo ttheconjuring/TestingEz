@@ -32,12 +32,12 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center gap-1">
-                <a class="btn btn-dark text-center px-3 py-1 shadow rounded border border-2"
+                <a class="btn btn-light text-center px-3 py-1 shadow rounded border border-2"
                    th:href="@{/test/all(page=${paginatedTests.number - 1}, size=${paginatedTests.size})}"
                    th:if="${paginatedTests.hasPrevious()}">
                     <img src="/images/left-arrow.png" alt="<<" style="width: 25px; height: auto;">
                 </a>
-                <a class="btn btn-dark text-center px-3 py-1 shadow rounded border border-2"
+                <a class="btn btn-light text-center px-3 py-1 shadow rounded border border-2"
                    th:href="@{/test/all(page=${paginatedTests.number + 1}, size=${paginatedTests.size})}"
                    th:if="${paginatedTests.hasNext()}">
                     <img src="/images/right-arrow.png" alt=">>" style="width: 25px; height: auto;">
@@ -47,5 +47,6 @@
     </main>
     <div th:replace="~{fragments/footers :: footer}"></div>
 </div>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>

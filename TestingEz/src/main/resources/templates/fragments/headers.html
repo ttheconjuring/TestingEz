@@ -14,7 +14,7 @@
             >
                 <img
                         th:src="${avatarUrl}"
-                        alt="default-avatar"
+                        alt="avatar"
                         width="35"
                         height="35"
                         class="d-inline-block align-text-middle me-1 rounded-circle"
@@ -67,7 +67,7 @@
                        th:text="#{allTests}"
                     >All Tests</a>
                     <a class="btn btn-light nav-link text-center fs-5 text-dark"
-                       href="#"
+                       th:href="@{/user/all(page=0, size=12)}"
                        sec:authorize="hasRole('ROLE_ADMINISTRATOR')"
                        th:text="#{allUsers}"
                     >All Users</a>
