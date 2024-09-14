@@ -3,6 +3,9 @@ package com.testingez.testingez.web.impl;
 import com.testingez.testingez.models.dtos.imp.UserSignInDTO;
 import com.testingez.testingez.web.LoginController;
 import lombok.AllArgsConstructor;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +32,10 @@ public class LoginControllerImpl implements LoginController {
     @GetMapping("/login")
     public String login(@RequestParam(required = false, name = "error") String error,
                         Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
+            return "redirect:/user/home";
+        }
         if (error != null) {
             model.addAttribute("error", error);
         }

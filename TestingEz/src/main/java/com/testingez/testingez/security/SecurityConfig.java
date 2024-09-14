@@ -49,6 +49,13 @@ public class SecurityConfig {
                                     .failureHandler(authenticationFailureHandler());
                         }
                 )
+                .rememberMe(
+                        rememberMe -> {
+                            rememberMe.tokenValiditySeconds(86400);
+                            rememberMe.key("a5w7z3dd1");
+                            rememberMe.rememberMeParameter("remember-me");
+                        }
+                )
                 .logout(
                         logout -> {
                             logout

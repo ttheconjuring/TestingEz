@@ -23,7 +23,7 @@ public class TestingEzApplication {
      *   5.Make it possible to add new question to a test. - done
      *   6.Make it possible to delete a question from a test. - done
      *   7.Make it possible to delete a test - done
-     *   8.Add functionality to the footer
+     *   8.Add functionality to the footer - done
      *   9.Add remember me option on login
      *   10.Add email account activation
      *   11.Write some tests (unit + integration)
