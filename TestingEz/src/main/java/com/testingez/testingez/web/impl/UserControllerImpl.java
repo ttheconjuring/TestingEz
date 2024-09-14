@@ -4,6 +4,7 @@ import com.testingez.testingez.exceptions.custom.NinjaMicroServiceException;
 import com.testingez.testingez.models.dtos.exp.ResultPeekDTO;
 import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.UserProfileDTO;
+import com.testingez.testingez.models.dtos.exp.ThinProfileDTO;
 import com.testingez.testingez.models.dtos.ninja.ImprovementDTO;
 import com.testingez.testingez.services.*;
 import com.testingez.testingez.web.UserController;
@@ -155,6 +156,14 @@ public class UserControllerImpl implements UserController {
     @GetMapping("/profile/avatar/change")
     public String avatar() {
         return "avatar-change";
+    }
+
+    @Override
+    @GetMapping("/all")
+    public String all(Pageable pageable, Model model) {
+        Page<ThinProfileDTO> paginatedProfiles = this.userService.getAllPaginatedProfiles(pageable);
+        model.addAttribute("paginatedProfiles", paginatedProfiles);
+        return "all-users";
     }
 
     /*

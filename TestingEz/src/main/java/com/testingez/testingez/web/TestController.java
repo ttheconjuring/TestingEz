@@ -21,7 +21,7 @@ public interface TestController {
 
     String delete(Long id, RedirectAttributes redirectAttributes);
 
-    String showAll(Pageable pageable, Model model);
+    String all(Pageable pageable, Model model);
 
     String testDetails(Long id, Model model);
 

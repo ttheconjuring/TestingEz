@@ -26,6 +26,8 @@ public interface UserController {
 
     String avatar();
 
+    String all(Pageable pageable, Model model);
+
     String userTests(Pageable pageable, Model model);
 
     String userResults(Pageable pageable, Model model);
