@@ -5,7 +5,6 @@
 <body class="font">
 <div class="d-flex flex-column vh-100 gap-3">
     <div th:replace="~{fragments/headers :: header}"></div>
-
     <main class="container d-flex flex-column justify-content-center flex-grow-1">
         <h3 th:text="#{myTests}"></h3>
         <div class="container bg-light shadow rounded border border-2 p-5">
@@ -25,7 +24,7 @@
                     <span th:text="#{lastUpdated} + ' ' + ${test.dateUpdated}"></span>
                 </div>
                 <div class="col-sm-12 col-md-3 text-end">
-                    <a class="btn btn-dark px-3 border border-2 rounded"
+                    <a class="btn btn-dark px-3 border border-2 border-black rounded"
                        th:text="#{details}"
                        th:href="@{/test/details/{id}(id=${test.id})}">
                     </a>
