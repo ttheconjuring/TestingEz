@@ -153,6 +153,14 @@ public class TestControllerImpl implements TestController {
         return "all-tests";
     }
 
+    @Override
+    @GetMapping("/{id}/leaderboard")
+    public String leaderboard(@PathVariable Long id, Model model) {
+        model.addAttribute("testName", this.testService.getTestDetails(id).getName());
+        model.addAttribute("thinResults", this.testService.getTestLeaderboard(id));
+        return "leaderboard";
+    }
+
     /*
      * This method leads to a page with all the information about a test, including the
      * questions. It accepts id that is used to fetch all the required data. Two objects

@@ -4,6 +4,7 @@ import com.testingez.testingez.exceptions.custom.TestNotFoundException;
 import com.testingez.testingez.models.dtos.exp.TestDetailsDTO;
 import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
+import com.testingez.testingez.models.dtos.exp.ThinResultDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.models.entities.Test;
 import com.testingez.testingez.models.enums.TestStatus;
@@ -18,7 +19,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -152,6 +155,22 @@ public class TestServiceImpl implements TestService {
     public Page<TestPeekDTO> getSomePaginatedTests(Pageable pageable) {
         Page<Test> tests = this.testRepository.findAllByCreatorId(this.userHelperService.getLoggedUser().getId(), pageable);
         return tests.map(test -> modelMapper.map(test, TestPeekDTO.class));
+    }
+
+    @Override
+    public List<ThinResultDTO> getTestLeaderboard(Long id) {
+        return this.resultRepository.findAllByTestIdOrderByPointsDesc(id)
+                .stream()
+                .map(result -> {
+                    ThinResultDTO thinResultDTO = new ThinResultDTO();
+                    thinResultDTO.setId(result.getId());
+                    thinResultDTO.setAvatarUrl(result.getUser().getAvatarUrl());
+                    thinResultDTO.setUsername(result.getUser().getUsername());
+                    thinResultDTO.setResult(result.getResult());
+                    thinResultDTO.setStatus(result.getStatus().name());
+                    return thinResultDTO;
+                })
+                .collect(Collectors.toList());
     }
 
 }

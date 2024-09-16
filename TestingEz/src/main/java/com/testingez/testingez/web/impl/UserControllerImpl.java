@@ -65,7 +65,7 @@ public class UserControllerImpl implements UserController {
     @Override
     @GetMapping("/profile")
     public String profile(Model model) {
-        addUserProfileDataToModel(model);
+        model.addAttribute("userProfileData", this.userService.getProfileData());
         return "user-profile";
     }
 
@@ -80,7 +80,7 @@ public class UserControllerImpl implements UserController {
     @GetMapping("/profile/edit")
     public String edit(Model model) {
         if (!model.containsAttribute("userProfileData")) {
-            addUserProfileDataToModel(model);
+            model.addAttribute("userProfileData", this.userService.getProfileData());
         }
         return "user-profile-edit";
     }
@@ -275,10 +275,6 @@ public class UserControllerImpl implements UserController {
             redirectAttributes.addFlashAttribute("invalidPhone", true);
         }
         redirectAttributes.addFlashAttribute("userProfileData", userProfileData);
-    }
-
-    private void addUserProfileDataToModel(Model model) {
-        model.addAttribute("userProfileData", this.userService.getProfileData());
     }
 
 }

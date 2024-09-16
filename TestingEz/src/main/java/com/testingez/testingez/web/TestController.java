@@ -23,6 +23,8 @@ public interface TestController {
 
     String all(Pageable pageable, Model model);
 
+    String leaderboard(Long id, Model model);
+
     String testDetails(Long id, Model model);
 
     String changeTestStatus(Long id);
