@@ -6,6 +6,7 @@ import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
 import com.testingez.testingez.models.dtos.exp.ThinResultDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
+import com.testingez.testingez.models.entities.Result;
 import com.testingez.testingez.models.entities.Test;
 import com.testingez.testingez.models.enums.TestStatus;
 import com.testingez.testingez.repositories.ResultRepository;
@@ -157,20 +158,30 @@ public class TestServiceImpl implements TestService {
         return tests.map(test -> modelMapper.map(test, TestPeekDTO.class));
     }
 
+    /*
+     * This method tries to find all results related to the given test id.
+     * Once found, the results are already sorted by points in descending order,
+     * they are iterated over and every result is mapped to ThinResultDTO - object,
+     * containing mixed properties out of User and Result entity objects. All these
+     * mapped object are collected to list and the list is returned.
+     */
     @Override
     public List<ThinResultDTO> getTestLeaderboard(Long id) {
         return this.resultRepository.findAllByTestIdOrderByPointsDesc(id)
                 .stream()
-                .map(result -> {
-                    ThinResultDTO thinResultDTO = new ThinResultDTO();
-                    thinResultDTO.setId(result.getId());
-                    thinResultDTO.setAvatarUrl(result.getUser().getAvatarUrl());
-                    thinResultDTO.setUsername(result.getUser().getUsername());
-                    thinResultDTO.setResult(result.getResult());
-                    thinResultDTO.setStatus(result.getStatus().name());
-                    return thinResultDTO;
-                })
+                .map(this::mapResultToThinResult)
                 .collect(Collectors.toList());
     }
+
+    private ThinResultDTO mapResultToThinResult(Result result) {
+        ThinResultDTO thinResultDTO = new ThinResultDTO();
+        thinResultDTO.setId(result.getId());
+        thinResultDTO.setAvatarUrl(result.getUser().getAvatarUrl());
+        thinResultDTO.setUsername(result.getUser().getUsername());
+        thinResultDTO.setResult(result.getResult());
+        thinResultDTO.setStatus(result.getStatus().name());
+        return thinResultDTO;
+    }
+
 
 }

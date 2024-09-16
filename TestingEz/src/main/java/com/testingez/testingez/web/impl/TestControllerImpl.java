@@ -153,6 +153,13 @@ public class TestControllerImpl implements TestController {
         return "all-tests";
     }
 
+    /*
+     * This method leads to a page, where the creator of the test can see the results
+     * of his test. The leaderboard shows all contestants with their tests status
+     * and actual result. If more curious, the creator can even check the answers
+     * of anyone. The method waits for the test id, so it can find the result related
+     * to that test and visualize them on the leaderboard.
+     */
     @Override
     @GetMapping("/{id}/leaderboard")
     public String leaderboard(@PathVariable Long id, Model model) {

@@ -9,7 +9,7 @@
             <div class="row justify-content-center">
                 <div class="col-sm-12 col-md-8 col-lg-6 text-center">
                     <h2 class="bg-dark text-white rounded shadow border border-2 px-3"
-                        th:text="'Leaderboard for test &quot;' + ${testName} + '&quot;'"></h2>
+                        th:text="#{leaderboard} + ' &quot;' + ${testName} + '&quot;'"></h2>
                 </div>
             </div>
             <div class="row justify-content-evenly align-items-center shadow border border-2 p-2 rounded"
@@ -19,13 +19,13 @@
                     <span class="fs-5 text-white" th:text="${iStat.index + 1} + '.@'+ ${thinResult.username}"></span>
                 </div>
                 <div class="col-sm-12 col-md-2 text-center">
-                    <span class="fs-5 text-white" th:text="'Status: ' + ${thinResult.status}"></span>
+                    <span class="fs-5 text-white" th:text="#{status} + ' ' +  ${thinResult.status}"></span>
                 </div>
                 <div class="col-sm-12 col-md-2 text-center ">
-                    <span class="fs-5 text-white" th:text="'Result: ' + ${thinResult.result}"></span>
+                    <span class="fs-5 text-white" th:text="#{result} + ' ' + ${thinResult.result}"></span>
                 </div>
                 <div class="col-sm-12 col-md-2 text-end">
-                    <a href="" class="btn btn-light border border-2 rounded fs-5">details</a>
+                    <a href="" class="btn btn-light border border-2 rounded fs-5" th:text="#{details}"></a>
                 </div>
             </div>
         </div>
