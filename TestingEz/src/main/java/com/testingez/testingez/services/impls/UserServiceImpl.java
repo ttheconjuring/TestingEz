@@ -92,6 +92,11 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+    /*
+     * This methods accepts url leading to the image on internet. If
+     * the url is null or empty string, then error is thrown! Otherwise,
+     * the image is set the current user account.
+     */
     @Override
     public void changeAvatar(String url) {
         if (url != null && !url.isEmpty()) {
@@ -102,6 +107,10 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /*
+     * This method retrieves all users from the database, maps each user
+     * to ThinProfileDTO and returns the page.
+     */
     @Override
     public Page<ThinProfileDTO> getAllPaginatedProfiles(Pageable pageable) {
         Page<User> users = this.userRepository.findAll(pageable);

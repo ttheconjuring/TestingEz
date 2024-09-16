@@ -51,8 +51,11 @@ public class SecurityConfig {
                 )
                 .rememberMe(
                         rememberMe -> {
+                            // What is the duration of remembering
                             rememberMe.tokenValiditySeconds(86400);
+                            // What is the UNIQUE key to remember
                             rememberMe.key("a5w7z3dd1");
+                            // This parameter should be named after the input name
                             rememberMe.rememberMeParameter("remember-me");
                         }
                 )
