@@ -17,7 +17,7 @@
         </div>
         <br>
         <div class="row justify-content-center">
-            <div class="col-sm-12 col-md-8 col-lg-6 bg-light shadow rounded border border-2"
+            <div class="col-sm-12 col-md-8 col-lg-6 bg-light shadow rounded border border-2 d-flex flex-column py-2"
                  th:object="${testDetails}">
                 <h2 th:text="*{name}"></h2>
                 <p th:text="#{description} + ' ' + *{description}"></p>
@@ -33,6 +33,8 @@
                 <p th:text="#{createdAt} + ' ' + *{dateCreated}"></p>
                 <p th:text="#{updatedAt} + ' ' + *{dateUpdated}"></p>
                 <p th:text="#{creator} + ' ' + *{creatorUsername}"></p>
+                <a th:href="@{/test/{id}/leaderboard(id=*{id})}"
+                   class="btn btn-dark border border-2 border-black rounded fs-5">Leaderboard</a>
             </div>
         </div>
         <br>
@@ -47,7 +49,6 @@
                                th:href="@{/questions/edit/{id}(id=${questionData.id})}">
                                 <img src="/images/edit.png" style="width: 25px; height: auto" alt="edit">
                             </a>
-
                             <a class="btn btn-light border border-2 rounded"
                                th:href="@{/questions/delete/{testId}/{questionId}(testId=${testDetails.id}, questionId=${questionData.id})}">
                                 <img src="/images/recycle-bin.png" style="width: 25px; height: auto" alt="remove">

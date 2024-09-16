@@ -147,10 +147,25 @@ public class TestControllerImpl implements TestController {
      */
     @Override
     @GetMapping("/all")
-    public String showAll(Pageable pageable, Model model) {
+    public String all(Pageable pageable, Model model) {
         Page<TestPeekDTO> paginatedTests = this.testService.getAllPaginatedTests(pageable);
         model.addAttribute("paginatedTests", paginatedTests);
         return "all-tests";
+    }
+
+    /*
+     * This method leads to a page, where the creator of the test can see the results
+     * of his test. The leaderboard shows all contestants with their tests status
+     * and actual result. If more curious, the creator can even check the answers
+     * of anyone. The method waits for the test id, so it can find the result related
+     * to that test and visualize them on the leaderboard.
+     */
+    @Override
+    @GetMapping("/{id}/leaderboard")
+    public String leaderboard(@PathVariable Long id, Model model) {
+        model.addAttribute("testName", this.testService.getTestDetails(id).getName());
+        model.addAttribute("thinResults", this.testService.getTestLeaderboard(id));
+        return "leaderboard";
     }
 
     /*

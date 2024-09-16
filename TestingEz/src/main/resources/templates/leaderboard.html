@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{fragments/heads :: head}"></div>
+<body class="font">
+<div class="d-flex flex-column vh-100">
+    <div th:replace="~{fragments/headers :: header}"></div>
+    <main class="d-flex flex-column justify-content-center flex-grow-1">
+        <div class="container py-2 px-5 shadow bg-light border border-2 rounded">
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-8 col-lg-6 text-center">
+                    <h2 class="bg-dark text-white rounded shadow border border-2 px-3"
+                        th:text="#{leaderboard} + ' &quot;' + ${testName} + '&quot;'"></h2>
+                </div>
+            </div>
+            <div class="row justify-content-evenly align-items-center shadow border border-2 p-2 rounded"
+                 th:classappend="${thinResult.status == 'PASS'} ? 'bg-success' : 'bg-danger'"
+                 th:each="thinResult, iStat : ${thinResults}">
+                <div class="col-sm-12 col-md-2">
+                    <span class="fs-5 text-white" th:text="${iStat.index + 1} + '.@'+ ${thinResult.username}"></span>
+                </div>
+                <div class="col-sm-12 col-md-2 text-center">
+                    <span class="fs-5 text-white" th:text="#{status} + ' ' +  ${thinResult.status}"></span>
+                </div>
+                <div class="col-sm-12 col-md-2 text-center ">
+                    <span class="fs-5 text-white" th:text="#{result} + ' ' + ${thinResult.result}"></span>
+                </div>
+                <div class="col-sm-12 col-md-2 text-end">
+                    <a href="" class="btn btn-light border border-2 rounded fs-5" th:text="#{details}"></a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div th:replace="~{fragments/footers :: footer}"></div>
+</div>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>

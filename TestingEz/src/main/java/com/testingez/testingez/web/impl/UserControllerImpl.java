@@ -4,6 +4,7 @@ import com.testingez.testingez.exceptions.custom.NinjaMicroServiceException;
 import com.testingez.testingez.models.dtos.exp.ResultPeekDTO;
 import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.UserProfileDTO;
+import com.testingez.testingez.models.dtos.exp.ThinProfileDTO;
 import com.testingez.testingez.models.dtos.ninja.ImprovementDTO;
 import com.testingez.testingez.services.*;
 import com.testingez.testingez.web.UserController;
@@ -31,18 +32,17 @@ public class UserControllerImpl implements UserController {
     private final ResultService resultService;
     private final UserHelperService userHelperService;
 
+    @ModelAttribute("avatarUrl")
+    public String avatarUrl() {
+        return this.userHelperService.getLoggedUser().getAvatarUrl();
+    }
+
     /*
      * This method leads to the home page. It fetches the data, required for the
      * home page to be functioning correctly from the separate microservice, and
      * then passes it to the template. It throws custom exception, when the
      * microservice does not respond.
      */
-
-    @ModelAttribute("avatarUrl")
-    public String avatarUrl() {
-        return this.userHelperService.getLoggedUser().getAvatarUrl();
-    }
-
     @Override
     @GetMapping("/home")
     public String home(Model model) throws NinjaMicroServiceException {
@@ -65,7 +65,7 @@ public class UserControllerImpl implements UserController {
     @Override
     @GetMapping("/profile")
     public String profile(Model model) {
-        addUserProfileDataToModel(model);
+        model.addAttribute("userProfileData", this.userService.getProfileData());
         return "user-profile";
     }
 
@@ -80,7 +80,7 @@ public class UserControllerImpl implements UserController {
     @GetMapping("/profile/edit")
     public String edit(Model model) {
         if (!model.containsAttribute("userProfileData")) {
-            addUserProfileDataToModel(model);
+            model.addAttribute("userProfileData", this.userService.getProfileData());
         }
         return "user-profile-edit";
     }
@@ -151,10 +151,26 @@ public class UserControllerImpl implements UserController {
         }
     }
 
+    /*
+     * This method leads to the page where users can change their avatar.
+     */
     @Override
     @GetMapping("/profile/avatar/change")
     public String avatar() {
         return "avatar-change";
+    }
+
+    /*
+     * This method leads to page where up to 12 user profiles are revealed.
+     * It waits to pageable holding profile DTOs containing only the username
+     * and the profile avatar. It is passed to the model and the page is shown.
+     */
+    @Override
+    @GetMapping("/all")
+    public String all(Pageable pageable, Model model) {
+        Page<ThinProfileDTO> paginatedProfiles = this.userService.getAllPaginatedProfiles(pageable);
+        model.addAttribute("paginatedProfiles", paginatedProfiles);
+        return "all-users";
     }
 
     /*
@@ -216,7 +232,6 @@ public class UserControllerImpl implements UserController {
      * Here, admin can approve and disapprove them by clicking buttons. The data
      * is fetched from the microservice and passed to the model.
      */
-
     @Override
     @GetMapping("/improvement/ideas")
     public String checkImprovements(Model model) {
@@ -237,7 +252,6 @@ public class UserControllerImpl implements UserController {
      * another alert should appear, telling the users that the improvement idea was not deleted
      * due to some reasons.
      */
-
     @Override
     @GetMapping("/improvements/delete/{id}")
     public String deleteImprovement(@PathVariable UUID id) {
@@ -261,10 +275,6 @@ public class UserControllerImpl implements UserController {
             redirectAttributes.addFlashAttribute("invalidPhone", true);
         }
         redirectAttributes.addFlashAttribute("userProfileData", userProfileData);
-    }
-
-    private void addUserProfileDataToModel(Model model) {
-        model.addAttribute("userProfileData", this.userService.getProfileData());
     }
 
 }

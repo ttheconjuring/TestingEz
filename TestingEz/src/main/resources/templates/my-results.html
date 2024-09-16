@@ -16,13 +16,13 @@
             <div class="row align-items-center border border-2 shadow rounded p-2 mb-2"
                  th:each="result, iStat : ${paginatedResults}"
                  th:classappend="${result.status == 'PASS'} ? 'bg-success' : 'bg-danger'">
-                <div class="col-sm-12 col-md-3">
+                <div class="col-sm-12 col-md-3 text-white">
                     <span th:text="#{testName} + ' ' + ${result.testName}"></span>
                 </div>
-                <div class="col-sm-12 col-md-3">
+                <div class="col-sm-12 col-md-3 text-white">
                     <span th:text="#{status} + ' ' + ${result.status}"></span>
                 </div>
-                <div class="col-sm-12 col-md-3">
+                <div class="col-sm-12 col-md-3 text-white">
                     <span th:text="#{date} + ' ' + ${result.completedAt}"></span>
                 </div>
                 <div class="col-sm-12 col-md-3 text-end">
