@@ -164,7 +164,7 @@ public class TestControllerImpl implements TestController {
     @GetMapping("/{id}/leaderboard")
     public String leaderboard(@PathVariable Long id, Model model) {
         model.addAttribute("testName", this.testService.getTestDetails(id).getName());
-        model.addAttribute("thinResults", this.testService.getTestLeaderboard(id));
+        model.addAttribute("userResults", this.testService.getTestLeaderboard(id));
         return "leaderboard";
     }
 

@@ -13,22 +13,22 @@
                 </div>
             </div>
             <div class="row justify-content-evenly align-items-center shadow border border-2 p-2 rounded"
-                 th:classappend="${thinResult.status == 'PASS'} ? 'bg-success' : 'bg-danger'"
-                 th:each="thinResult, iStat : ${thinResults}">
+                 th:classappend="${userResult.status == 'PASS'} ? 'bg-success' : 'bg-danger'"
+                 th:each="userResult, iStat : ${userResults}">
                 <div class="col-sm-12 col-md-2">
-                    <span class="fs-5 text-white" th:text="${iStat.index + 1} + '.@'+ ${thinResult.username}"></span>
+                    <span class="fs-5 text-white" th:text="${iStat.index + 1} + '.@'+ ${userResult.username}"></span>
                 </div>
                 <div class="col-sm-12 col-md-2 text-center">
-                    <span class="fs-5 text-white" th:text="#{status} + ' ' +  ${thinResult.status}"></span>
+                    <span class="fs-5 text-white" th:text="#{status} + ' ' +  ${userResult.status}"></span>
                 </div>
                 <div class="col-sm-12 col-md-2 text-center">
-                    <span class="fs-5 text-white" th:text="#{pointss} + ' ' +  ${thinResult.points}"></span>
+                    <span class="fs-5 text-white" th:text="#{pointss} + ' ' +  ${userResult.points}"></span>
                 </div>
                 <div class="col-sm-12 col-md-2 text-center ">
-                    <span class="fs-5 text-white" th:text="#{result} + ' ' + ${thinResult.result}"></span>
+                    <span class="fs-5 text-white" th:text="#{result} + ' ' + ${userResult.result}"></span>
                 </div>
                 <div class="col-sm-12 col-md-2 text-end">
-                    <a href="" class="btn btn-light border border-2 rounded fs-5" th:text="#{details}"></a>
+                    <a th:href="@{/results/details/{id}(id=${userResult.id})}" class="btn btn-light border border-2 rounded fs-5" th:text="#{details}"></a>
                 </div>
             </div>
         </div>
