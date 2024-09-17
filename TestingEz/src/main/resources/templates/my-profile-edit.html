@@ -27,7 +27,7 @@
                         class="w-100"
                         method="post"
                         novalidate
-                        th:action="@{/user/profile/edit}"
+                        th:action="@{/user/my-profile/edit}"
                         th:object="${userProfileData}">
                     <div class="text-danger fs-6"
                          th:errors="*{username}"
@@ -95,12 +95,12 @@
                             readonly
                             type="text">
                     <div class="d-flex justify-content-center gap-2 w-100">
-                        <button class="btn btn-success rounded text-center border border-2 border-black w-50 fs-5"
+                        <button class="btn btn-success rounded text-center border border-2 w-50 fs-5"
                                 type="submit"
                                 th:text="#{save}">
                         </button>
-                        <a th:href="@{/user/profile}"
-                           class="btn btn-dark rounded text-center border border-2 w-50 fs-5"
+                        <a th:href="@{/user/my-profile}"
+                           class="btn btn-dark rounded text-center border border-2 border-black w-50 fs-5"
                            th:text="#{cancel}">
                         </a>
                     </div>

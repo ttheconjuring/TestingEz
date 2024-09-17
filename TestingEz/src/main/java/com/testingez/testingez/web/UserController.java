@@ -20,6 +20,8 @@ public interface UserController {
 
     String edit(UserProfileDTO userProfileData, BindingResult bindingResult, RedirectAttributes redirectAttributes);
 
+    String userProfile(Long id, Model model);
+
     String delete(Model model);
 
     String delete(Long id);
@@ -28,9 +30,9 @@ public interface UserController {
 
     String all(Pageable pageable, Model model);
 
-    String userTests(Pageable pageable, Model model);
+    String tests(Pageable pageable, Model model);
 
-    String userResults(Pageable pageable, Model model);
+    String results(Pageable pageable, Model model);
 
     String postImprovement(ImprovementDTO improvementDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes);
 

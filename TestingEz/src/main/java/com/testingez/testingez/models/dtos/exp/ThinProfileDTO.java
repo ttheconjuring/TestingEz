@@ -9,6 +9,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ThinProfileDTO {
 
+    private Long id;
+
     private String username;
 
     private String avatarUrl;

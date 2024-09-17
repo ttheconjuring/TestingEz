@@ -17,7 +17,7 @@
                          width="100"
                          class="rounded-circle border border-2 shadow">
                     <span class="fs-5" th:text="'@'+${profile.username}"></span>
-                    <button class="btn btn-dark border border-2 border-black rounded fs-5 px-5" th:text="#{view}"></button>
+                    <a th:href="@{/user/profile/{id}(id=${profile.id})}" class="btn btn-dark border border-2 border-black rounded fs-5 px-5" th:text="#{view}"></a>
                 </div>
             </div>
             <div class="d-flex justify-content-center gap-1">

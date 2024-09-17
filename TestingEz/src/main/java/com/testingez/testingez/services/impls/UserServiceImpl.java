@@ -64,8 +64,11 @@ public class UserServiceImpl implements UserService {
      * gets its profile data, maps it to DTO and returns the dto.
      */
     @Override
-    public UserProfileDTO getProfileData() {
-        return this.modelMapper.map(this.userHelperService.getLoggedUser(), UserProfileDTO.class);
+    public UserProfileDTO getProfileData(Long id) {
+        return this.modelMapper.map(
+                this.userRepository.findById(id).orElseThrow(
+                        () -> new IllegalArgumentException("We couldn't find user with id: " + id)
+                ), UserProfileDTO.class);
     }
 
     /*
