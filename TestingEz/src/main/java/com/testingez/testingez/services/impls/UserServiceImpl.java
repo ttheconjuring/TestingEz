@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /*
-     * This methods accepts url leading to the image on internet. If
+     * This method accepts url leading to the image on internet. If
      * the url is null or empty string, then error is thrown! Otherwise,
      * the image is set the current user account.
      */

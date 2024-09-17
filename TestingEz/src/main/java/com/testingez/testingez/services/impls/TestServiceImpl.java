@@ -4,7 +4,7 @@ import com.testingez.testingez.exceptions.custom.TestNotFoundException;
 import com.testingez.testingez.models.dtos.exp.TestDetailsDTO;
 import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
-import com.testingez.testingez.models.dtos.exp.ThinResultDTO;
+import com.testingez.testingez.models.dtos.exp.UserResultDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import com.testingez.testingez.models.entities.Result;
 import com.testingez.testingez.models.entities.Test;
@@ -161,26 +161,27 @@ public class TestServiceImpl implements TestService {
     /*
      * This method tries to find all results related to the given test id.
      * Once found, the results are already sorted by points in descending order,
-     * they are iterated over and every result is mapped to ThinResultDTO - object,
+     * they are iterated over and every result is mapped to UserResultDTO - object,
      * containing mixed properties out of User and Result entity objects. All these
      * mapped object are collected to list and the list is returned.
      */
     @Override
-    public List<ThinResultDTO> getTestLeaderboard(Long id) {
+    public List<UserResultDTO> getTestLeaderboard(Long id) {
         return this.resultRepository.findAllByTestIdOrderByPointsDesc(id)
                 .stream()
                 .map(this::mapResultToThinResult)
                 .collect(Collectors.toList());
     }
 
-    private ThinResultDTO mapResultToThinResult(Result result) {
-        ThinResultDTO thinResultDTO = new ThinResultDTO();
-        thinResultDTO.setId(result.getId());
-        thinResultDTO.setAvatarUrl(result.getUser().getAvatarUrl());
-        thinResultDTO.setUsername(result.getUser().getUsername());
-        thinResultDTO.setResult(result.getResult());
-        thinResultDTO.setStatus(result.getStatus().name());
-        return thinResultDTO;
+    private UserResultDTO mapResultToThinResult(Result result) {
+        UserResultDTO userResultDTO = new UserResultDTO();
+        userResultDTO.setId(result.getId());
+        userResultDTO.setAvatarUrl(result.getUser().getAvatarUrl());
+        userResultDTO.setUsername(result.getUser().getUsername());
+        userResultDTO.setPoints(result.getPoints());
+        userResultDTO.setResult(result.getResult());
+        userResultDTO.setStatus(result.getStatus().name());
+        return userResultDTO;
     }
 
 
