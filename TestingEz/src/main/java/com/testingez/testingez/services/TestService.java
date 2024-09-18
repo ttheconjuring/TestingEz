@@ -3,7 +3,7 @@ package com.testingez.testingez.services;
 import com.testingez.testingez.models.dtos.exp.TestDetailsDTO;
 import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.exp.TestPreviewDTO;
-import com.testingez.testingez.models.dtos.exp.ThinResultDTO;
+import com.testingez.testingez.models.dtos.exp.UserResultDTO;
 import com.testingez.testingez.models.dtos.imp.TestCreateDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,5 +28,5 @@ public interface TestService {
 
     Page<TestPeekDTO> getSomePaginatedTests(Pageable pageable);
 
-    List<ThinResultDTO> getTestLeaderboard(Long id);
+    List<UserResultDTO> getTestLeaderboard(Long id);
 }

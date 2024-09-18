@@ -7,6 +7,7 @@
     <div th:replace="~{fragments/headers :: header}"></div>
 
     <main class="container d-flex flex-column flex-fill align-item-center justify-content-center gap-3 flex-grow-1">
+        <h1 class="text-center" th:text="#{myProfile}"></h1>
         <div class="row bg-light shadow rounded border border-2 p-3">
             <div class="col-sm-12 col-md-5 mb-3 mb-sm-3 mb-md-0 d-flex flex-column align-items-center gap-2">
                 <img
@@ -16,13 +17,17 @@
                         height="300px"
                         class="shadow rounded-circle border border-2"
                 />
+                <button type="button"
+                        class="btn btn-dark rounded text-center border border-2 border-black w-50 fs-5"
+                        th:text="#{change}">
+                </button>
             </div>
             <div class="col-sm-12 col-md-7 d-flex flex-column align-items-center">
                 <form
                         class="w-100"
                         method="post"
                         novalidate
-                        th:action="@{/user/profile/{id}/edit(id=${id})}"
+                        th:action="@{/user/my-profile/edit}"
                         th:object="${userProfileData}">
                     <div class="text-danger fs-6"
                          th:errors="*{username}"
@@ -82,22 +87,19 @@
                             placeholder="(phone)"
                             th:field="*{phone}"
                             type="text">
-                    <div class="text-danger fs-6"
-                         th:errors="*{role}"
-                         th:if="${#fields.hasErrors('role')}">
-                    </div>
                     <input
                             class="form-control border border-2 rounded fs-5 mb-2"
                             id="role"
                             placeholder="(role)"
                             th:field="*{role}"
+                            readonly
                             type="text">
                     <div class="d-flex justify-content-center gap-2 w-100">
                         <button class="btn btn-success rounded text-center border border-2 w-50 fs-5"
                                 type="submit"
                                 th:text="#{save}">
                         </button>
-                        <a th:href="@{/user/profile/{id}(id=${id})}"
+                        <a th:href="@{/user/my-profile}"
                            class="btn btn-dark rounded text-center border border-2 border-black w-50 fs-5"
                            th:text="#{cancel}">
                         </a>

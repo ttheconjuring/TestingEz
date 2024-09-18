@@ -3,7 +3,9 @@ package com.testingez.testingez.services.impls;
 import com.testingez.testingez.models.dtos.UserProfileDTO;
 import com.testingez.testingez.models.dtos.exp.ThinProfileDTO;
 import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
+import com.testingez.testingez.models.entities.Role;
 import com.testingez.testingez.models.entities.User;
+import com.testingez.testingez.models.enums.UserRole;
 import com.testingez.testingez.repositories.RoleRepository;
 import com.testingez.testingez.repositories.UserRepository;
 import com.testingez.testingez.services.UserHelperService;
@@ -64,8 +66,11 @@ public class UserServiceImpl implements UserService {
      * gets its profile data, maps it to DTO and returns the dto.
      */
     @Override
-    public UserProfileDTO getProfileData() {
-        return this.modelMapper.map(this.userHelperService.getLoggedUser(), UserProfileDTO.class);
+    public UserProfileDTO getProfileData(Long id) {
+        return this.modelMapper.map(
+                this.userRepository.findById(id).orElseThrow(
+                        () -> new IllegalArgumentException("We couldn't find user with id: " + id)
+                ), UserProfileDTO.class);
     }
 
     /*
@@ -74,8 +79,10 @@ public class UserServiceImpl implements UserService {
      * along with the current logger user object.
      */
     @Override
-    public String editProfileData(UserProfileDTO userProfileData) {
-        return updateUserProfileData(userProfileData, this.userHelperService.getLoggedUser());
+    public String editProfileData(Long id, UserProfileDTO userProfileData) {
+        return updateUserProfileData(userProfileData, this.userRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("We couldn't find user with id: " + id)
+        ));
     }
 
     /*
@@ -93,7 +100,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /*
-     * This methods accepts url leading to the image on internet. If
+     * This method accepts url leading to the image on internet. If
      * the url is null or empty string, then error is thrown! Otherwise,
      * the image is set the current user account.
      */
@@ -187,6 +194,13 @@ public class UserServiceImpl implements UserService {
         }
         if (!userProfileData.getLastName().equals(user.getLastName())) {
             user.setLastName(userProfileData.getLastName());
+        }
+        if (!userProfileData.getRole().equals(user.getRole().getRole().name())) {
+            if (userProfileData.getRole().equals("ADMINISTRATOR")) {
+                user.setRole(this.roleRepository.findById(1L).get());
+            } else {
+                user.setRole(this.roleRepository.findById(2L).get());
+            }
         }
         this.userRepository.saveAndFlush(user);
         return "success";

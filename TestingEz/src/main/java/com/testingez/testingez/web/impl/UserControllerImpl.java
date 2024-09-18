@@ -63,10 +63,10 @@ public class UserControllerImpl implements UserController {
      * own profiles.
      */
     @Override
-    @GetMapping("/profile")
+    @GetMapping("/my-profile")
     public String profile(Model model) {
-        model.addAttribute("userProfileData", this.userService.getProfileData());
-        return "user-profile";
+        model.addAttribute("userProfileData", this.userService.getProfileData(this.userHelperService.getLoggedUser().getId()));
+        return "my-profile";
     }
 
     /*
@@ -77,12 +77,12 @@ public class UserControllerImpl implements UserController {
      * display appropriate messages in order to help the user understand the problem.
      */
     @Override
-    @GetMapping("/profile/edit")
+    @GetMapping("/my-profile/edit")
     public String edit(Model model) {
         if (!model.containsAttribute("userProfileData")) {
-            model.addAttribute("userProfileData", this.userService.getProfileData());
+            model.addAttribute("userProfileData", this.userService.getProfileData(this.userHelperService.getLoggedUser().getId()));
         }
-        return "user-profile-edit";
+        return "my-profile-edit";
     }
 
     /*
@@ -99,7 +99,7 @@ public class UserControllerImpl implements UserController {
      * After successful update, the user is sent to a page saying changes are made.
      */
     @Override
-    @PostMapping("/profile/edit")
+    @PostMapping("/my-profile/edit")
     public String edit(@Valid UserProfileDTO userProfileData,
                        BindingResult bindingResult,
                        RedirectAttributes redirectAttributes) {
@@ -107,19 +107,68 @@ public class UserControllerImpl implements UserController {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userProfileData",
                     bindingResult);
             redirectAttributes.addFlashAttribute("userProfileData", userProfileData);
-            return "redirect:/user/profile/edit";
+            return "redirect:/user/my-profile/edit";
         }
 
-        String result = this.userService.editProfileData(userProfileData);
+        String result = this.userService.editProfileData(this.userHelperService.getLoggedUser().getId(), userProfileData);
 
         if (!result.equals("success")) {
             handleProfileEditErrors(result, userProfileData, redirectAttributes);
-            return "redirect:/user/profile/edit";
+            return "redirect:/user/my-profile/edit";
         }
 
         redirectAttributes.addFlashAttribute("message", "profile updated successfully");
         return "redirect:/operation/success";
     }
+
+    /*
+     * This method leads to a page where the profile of the user with the given id
+     * is exposed. This endpoint should be accessible only by administrators, since
+     * to be redirected here, you should have got to the pages, which only
+     * administrators are allowed to see.
+     */
+    @Override
+    @GetMapping("/profile/{id}")
+    public String userProfile(@PathVariable Long id, Model model) {
+        model.addAttribute("id", id);
+        model.addAttribute("userProfileData", this.userService.getProfileData(id));
+        return "user-profile";
+    }
+
+    @Override
+    @GetMapping("/profile/{id}/edit")
+    public String userEdit(@PathVariable Long id, Model model) {
+        model.addAttribute("id", id);
+        if (!model.containsAttribute("userProfileData")) {
+            model.addAttribute("userProfileData", this.userService.getProfileData(id));
+        }
+        return "user-profile-edit";
+    }
+
+    @Override
+    @PostMapping("/profile/{id}/edit")
+    public String userEdit(@PathVariable Long id,
+                           @Valid UserProfileDTO userProfileData,
+                           BindingResult bindingResult,
+                           RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userProfileData",
+                    bindingResult);
+            redirectAttributes.addFlashAttribute("userProfileData", userProfileData);
+            return String.format("redirect:/user/profile/%d/edit", id);
+        }
+
+        String result = this.userService.editProfileData(id, userProfileData);
+
+        if (!result.equals("success")) {
+            handleProfileEditErrors(result, userProfileData, redirectAttributes);
+            return String.format("redirect:/user/profile/%d/edit", id);
+        }
+
+        redirectAttributes.addFlashAttribute("message", "profile updated successfully");
+        return "redirect:/operation/success";
+    }
+
 
     /*
      * This method returns the page where the user should put down
@@ -181,7 +230,7 @@ public class UserControllerImpl implements UserController {
      */
     @Override
     @GetMapping("/my-tests")
-    public String userTests(Pageable pageable, Model model) {
+    public String tests(Pageable pageable, Model model) {
         Page<TestPeekDTO> paginatedTests = this.testService.getSomePaginatedTests(pageable);
         model.addAttribute("paginatedTests", paginatedTests);
         return "my-tests";
@@ -195,7 +244,7 @@ public class UserControllerImpl implements UserController {
      */
     @Override
     @GetMapping("/my-results")
-    public String userResults(Pageable pageable, Model model) {
+    public String results(Pageable pageable, Model model) {
         Page<ResultPeekDTO> paginatedResults = this.resultService.getPaginatedResults(pageable);
         model.addAttribute("paginatedResults", paginatedResults);
         return "my-results";

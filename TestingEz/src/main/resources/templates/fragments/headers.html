@@ -10,7 +10,7 @@
         <div class="container-fluid gap-1">
             <a sec:authorize="isAuthenticated()"
                class="btn btn-light navbar-brand rounded px-1 fs-5 border border-2"
-               th:href="@{/user/profile}"
+               th:href="@{/user/my-profile}"
             >
                 <img
                         th:src="${avatarUrl}"

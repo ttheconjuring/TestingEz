@@ -53,7 +53,7 @@ public class ResultServiceImpl implements ResultService {
      * is saved in the database and then returned.
      */
     @Override
-    public Result calculateResult(Long testId, Long userId) {
+    public void calculateResult(Long testId, Long userId) {
         Test test = this.testRepository.findById(testId)
                 .orElseThrow(() -> new TestNotFoundException("We couldn't find test with id: " + testId));
         User user = this.userRepository.findById(userId)
@@ -78,7 +78,7 @@ public class ResultServiceImpl implements ResultService {
         result.setCompletedAt(LocalDateTime.now());
         result.setTest(test);
         result.setUser(user);
-        return this.resultRepository.saveAndFlush(result);
+        this.resultRepository.saveAndFlush(result);
     }
 
     /*

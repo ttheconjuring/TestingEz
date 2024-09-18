@@ -115,7 +115,8 @@ public class QuestionServiceImpl implements QuestionService {
         Result result = this.resultRepository.findById(resultId)
                 .orElseThrow(() -> new ResultNotFoundException("We couldn't find result with id: " + resultId));
         Long testId = result.getTest().getId();
-        List<ResponseToQuestionDTO> responses = this.responseRepository.findAllByTestIdAndUserId(testId, this.userHelperService.getLoggedUser().getId())
+        Long userId = result.getUser().getId();
+        List<ResponseToQuestionDTO> responses = this.responseRepository.findAllByTestIdAndUserId(testId, userId)
                 .stream()
                 .map(response -> this.modelMapper.map(response, ResponseToQuestionDTO.class))
                 .toList();

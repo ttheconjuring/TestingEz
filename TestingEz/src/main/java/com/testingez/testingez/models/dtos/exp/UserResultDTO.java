@@ -7,13 +7,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ThinResultDTO {
+public class UserResultDTO {
 
     private Long id;
 
     private String avatarUrl;
 
     private String username;
+
+    private Integer points;
 
     private String result;
 

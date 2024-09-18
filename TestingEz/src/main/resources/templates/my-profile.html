@@ -7,6 +7,7 @@
     <div th:replace="~{fragments/headers :: header}"></div>
 
     <main class="container d-flex flex-column flex-fill align-item-center justify-content-center gap-3 flex-grow-1">
+        <h1 class="text-center" th:text="#{myProfile}"></h1>
         <div class="row bg-light shadow rounded border border-2 p-3">
             <div class="col-sm-12 col-md-5 mb-3 mb-sm-3 mb-md-0 d-flex flex-column align-items-center gap-2">
                 <img
@@ -16,6 +17,11 @@
                         height="300px"
                         class="shadow rounded-circle border border-2"
                 />
+                <a th:href="@{/user/profile/avatar/change}"
+                   type="button"
+                   class="btn btn-dark rounded text-center border border-2 border-black w-50 fs-5"
+                   th:text="#{change}">
+                </a>
             </div>
             <div class="col-sm-12 col-md-7 d-flex flex-column align-items-center" th:object="${userProfileData}">
                 <input
@@ -66,7 +72,7 @@
                         readonly
                         type="text"
                         th:value="'Role: ' + *{role}">
-                <a th:href=" @{/user/profile/{id}/edit(id=${id})}"
+                <a th:href=" @{/user/my-profile/edit}"
                    class="btn btn-dark rounded text-center border border-2 border-black w-50 fs-5"
                    th:text="#{editProfile}">
                 </a>

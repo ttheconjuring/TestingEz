@@ -10,9 +10,9 @@ public interface UserService {
 
     String register(UserSignUpDTO userSignUpData);
 
-    UserProfileDTO getProfileData();
+    UserProfileDTO getProfileData(Long id);
 
-    String editProfileData(UserProfileDTO userProfileData);
+    String editProfileData(Long id, UserProfileDTO userProfileData);
 
     Boolean deleteProfile(Long id);
 
