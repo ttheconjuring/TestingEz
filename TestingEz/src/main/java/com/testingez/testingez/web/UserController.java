@@ -22,6 +22,10 @@ public interface UserController {
 
     String userProfile(Long id, Model model);
 
+    String userEdit(Long id, Model model);
+
+    String userEdit(Long id, UserProfileDTO userProfileData, BindingResult bindingResult, RedirectAttributes redirectAttributes);
+
     String delete(Model model);
 
     String delete(Long id);

@@ -110,7 +110,7 @@ public class UserControllerImpl implements UserController {
             return "redirect:/user/my-profile/edit";
         }
 
-        String result = this.userService.editProfileData(userProfileData);
+        String result = this.userService.editProfileData(this.userHelperService.getLoggedUser().getId(), userProfileData);
 
         if (!result.equals("success")) {
             handleProfileEditErrors(result, userProfileData, redirectAttributes);
@@ -130,9 +130,45 @@ public class UserControllerImpl implements UserController {
     @Override
     @GetMapping("/profile/{id}")
     public String userProfile(@PathVariable Long id, Model model) {
+        model.addAttribute("id", id);
         model.addAttribute("userProfileData", this.userService.getProfileData(id));
-        return "my-profile";
+        return "user-profile";
     }
+
+    @Override
+    @GetMapping("/profile/{id}/edit")
+    public String userEdit(@PathVariable Long id, Model model) {
+        model.addAttribute("id", id);
+        if (!model.containsAttribute("userProfileData")) {
+            model.addAttribute("userProfileData", this.userService.getProfileData(id));
+        }
+        return "user-profile-edit";
+    }
+
+    @Override
+    @PostMapping("/profile/{id}/edit")
+    public String userEdit(@PathVariable Long id,
+                           @Valid UserProfileDTO userProfileData,
+                           BindingResult bindingResult,
+                           RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userProfileData",
+                    bindingResult);
+            redirectAttributes.addFlashAttribute("userProfileData", userProfileData);
+            return String.format("redirect:/user/profile/%d/edit", id);
+        }
+
+        String result = this.userService.editProfileData(id, userProfileData);
+
+        if (!result.equals("success")) {
+            handleProfileEditErrors(result, userProfileData, redirectAttributes);
+            return String.format("redirect:/user/profile/%d/edit", id);
+        }
+
+        redirectAttributes.addFlashAttribute("message", "profile updated successfully");
+        return "redirect:/operation/success";
+    }
+
 
     /*
      * This method returns the page where the user should put down

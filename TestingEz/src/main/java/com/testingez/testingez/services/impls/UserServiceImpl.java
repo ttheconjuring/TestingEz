@@ -3,7 +3,9 @@ package com.testingez.testingez.services.impls;
 import com.testingez.testingez.models.dtos.UserProfileDTO;
 import com.testingez.testingez.models.dtos.exp.ThinProfileDTO;
 import com.testingez.testingez.models.dtos.imp.UserSignUpDTO;
+import com.testingez.testingez.models.entities.Role;
 import com.testingez.testingez.models.entities.User;
+import com.testingez.testingez.models.enums.UserRole;
 import com.testingez.testingez.repositories.RoleRepository;
 import com.testingez.testingez.repositories.UserRepository;
 import com.testingez.testingez.services.UserHelperService;
@@ -77,8 +79,10 @@ public class UserServiceImpl implements UserService {
      * along with the current logger user object.
      */
     @Override
-    public String editProfileData(UserProfileDTO userProfileData) {
-        return updateUserProfileData(userProfileData, this.userHelperService.getLoggedUser());
+    public String editProfileData(Long id, UserProfileDTO userProfileData) {
+        return updateUserProfileData(userProfileData, this.userRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("We couldn't find user with id: " + id)
+        ));
     }
 
     /*
@@ -190,6 +194,13 @@ public class UserServiceImpl implements UserService {
         }
         if (!userProfileData.getLastName().equals(user.getLastName())) {
             user.setLastName(userProfileData.getLastName());
+        }
+        if (!userProfileData.getRole().equals(user.getRole().getRole().name())) {
+            if (userProfileData.getRole().equals("ADMINISTRATOR")) {
+                user.setRole(this.roleRepository.findById(1L).get());
+            } else {
+                user.setRole(this.roleRepository.findById(2L).get());
+            }
         }
         this.userRepository.saveAndFlush(user);
         return "success";

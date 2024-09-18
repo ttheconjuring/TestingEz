@@ -12,7 +12,7 @@ public interface UserService {
 
     UserProfileDTO getProfileData(Long id);
 
-    String editProfileData(UserProfileDTO userProfileData);
+    String editProfileData(Long id, UserProfileDTO userProfileData);
 
     Boolean deleteProfile(Long id);
 
