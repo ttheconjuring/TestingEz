@@ -3,6 +3,8 @@ package com.testingez.testingez.web;
 import com.testingez.testingez.exceptions.custom.NinjaMicroServiceException;
 import com.testingez.testingez.models.dtos.UserProfileDTO;
 import com.testingez.testingez.models.dtos.ninja.ImprovementDTO;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,9 +28,9 @@ public interface UserController {
 
     String userEdit(Long id, UserProfileDTO userProfileData, BindingResult bindingResult, RedirectAttributes redirectAttributes);
 
-    String delete(Model model);
+    String delete(Long id, Model model);
 
-    String delete(Long id);
+    String delete(Long id, HttpServletRequest request, HttpServletResponse response);
 
     String avatar();
 

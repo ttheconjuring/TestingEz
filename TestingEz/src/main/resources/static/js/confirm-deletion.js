@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const confirmButton = document.getElementById('confirmBtn');
 
     function validateInput() {
-        const requiredText = "I DEFINITELY want to DELETE my ACCOUNT.";
+        const requiredText = "I DEFINITELY want to DELETE this ACCOUNT.";
         if (inputField.value === requiredText) {
             confirmButton.removeAttribute('style')  // Show the button
         } else {

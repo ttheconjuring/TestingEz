@@ -80,7 +80,7 @@
         </div>
         <div class="row justify-content-center text-center">
             <div class="col-sm-8 col-md-4">
-                <a th:href="@{/user/profile/delete/confirmation}"
+                <a th:href="@{/user/profile/{id}/delete/confirmation(id=${id})}"
                    type="button"
                    class="btn btn-danger rounded text-center border border-2 border-black fs-5 px-3"
                    th:text="#{deleteAccount}">
