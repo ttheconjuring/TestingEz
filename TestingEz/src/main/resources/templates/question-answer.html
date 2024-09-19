@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{fragments/heads :: head}"></div>
-<body class="bg-лигхт vh-100 d-flex justify-content-center align-items-center font">
+<body class="vh-100 d-flex justify-content-center align-items-center font">
 <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="bg-light p-3 border border-3 shadow rounded fs-3 w-50">
         <div class="container d-flex flex-column align-items-center gap-4"
@@ -12,6 +12,7 @@
                 </div>
                 <div class="col-sm-12 col-md-4 text-center bg-light rounded shadow border border-2">
                     <input type="hidden" th:value="*{responseTime}" th:id="responseTime">
+                    <input type="hidden" th:value="${startTime}" th:id="startTime">
                     <span th:id="countdown"></span>
                 </div>
                 <div class="col-sm-12 col-md-4 text-center">

@@ -6,7 +6,9 @@ import com.testingez.testingez.models.dtos.exp.QuestionDetailsDTO;
 import com.testingez.testingez.models.dtos.imp.QuestionCreateDTO;
 import com.testingez.testingez.models.dtos.imp.QuestionEditDTO;
 import com.testingez.testingez.models.dtos.imp.TestQuestionsDTO;
+import jakarta.servlet.http.HttpSession;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface QuestionService {
@@ -29,4 +31,5 @@ public interface QuestionService {
 
     Boolean delete(Long questionId, Long testId);
 
+    LocalDateTime getOrSetStartTime(Long testId, Integer questionNumber, HttpSession session);
 }
