@@ -9,6 +9,7 @@ import com.testingez.testingez.services.QuestionService;
 import com.testingez.testingez.services.ResponseService;
 import com.testingez.testingez.services.UserHelperService;
 import com.testingez.testingez.web.QuestionsController;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +49,7 @@ public class QuestionsControllerImpl implements QuestionsController {
     public String answer(@PathVariable Long testId,
                          @PathVariable Integer questionNumber,
                          Model model,
-                         RedirectAttributes redirectAttributes) {
+                         HttpSession session) {
         QuestionAnswerDTO questionAnswerDTO = this.questionService.fetchQuestionData(testId, questionNumber);
         if (questionAnswerDTO == null) {
             return String.format("redirect:/results/%d/%d",
@@ -57,8 +59,13 @@ public class QuestionsControllerImpl implements QuestionsController {
             return String.format("redirect:/questions/%d/%d",
                     testId, questionNumber + 1);
         }
+
+        // Fetch or set the start time when the user first sees the question
+        LocalDateTime startTime = this.questionService.getOrSetStartTime(testId, questionNumber, session);
+
         model.addAttribute("questionData", questionAnswerDTO);
         model.addAttribute("responseData", new ResponseCreateDTO());
+        model.addAttribute("startTime", startTime);
         return "question-answer";
     }
 

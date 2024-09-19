@@ -20,10 +20,12 @@ import com.testingez.testingez.repositories.TestRepository;
 import com.testingez.testingez.services.QuestionService;
 import com.testingez.testingez.services.ResultService;
 import com.testingez.testingez.services.UserHelperService;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 
@@ -240,6 +242,24 @@ public class QuestionServiceImpl implements QuestionService {
         this.questionRepository.deleteById(questionId);
         touchNumbering(testId);
         return true;
+    }
+
+    @Override
+    public LocalDateTime getOrSetStartTime(Long testId, Integer questionNumber, HttpSession session) {
+        // Construct a unique key for each test question in the session
+        String sessionKey = "startTime_" + testId + "_" + questionNumber;
+
+        // Try to get the start time from the session
+        LocalDateTime startTime = (LocalDateTime) session.getAttribute(sessionKey);
+
+        // If no start time exists, set the current time and store it in the session
+        if (startTime == null) {
+            startTime = LocalDateTime.now();
+            session.setAttribute(sessionKey, startTime);
+        }
+
+        // Return the start time (either existing or newly set)
+        return startTime;
     }
 
     private void touchNumbering(Long testId) {

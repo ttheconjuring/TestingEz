@@ -1,31 +1,49 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Get the response time from the HTML element
-    const responseTime = parseInt(document.getElementById('responseTime').value);
+    // Get the response time and start time from the HTML elements
+    const responseTime = parseInt(document.getElementById('responseTime').value); // in minutes
+    const startTimeStr = document.getElementById('startTime').value; // Assuming startTime is a string in ISO format
 
-    // Calculate the timeout in milliseconds
-    const timeout = responseTime * 60 * 1000;
+    // Convert response time to milliseconds
+    const responseTimeMs = responseTime * 60 * 1000;
 
-    // Set a timeout to trigger the submit button after the specified time
-    setTimeout(function () {
-        // Find and trigger the submit button
+    // Parse the start time
+    const startTime = new Date(startTimeStr);
+
+    // Get the current time
+    const currentTime = new Date();
+
+    // Calculate the end time
+    const endTime = new Date(startTime.getTime() + responseTimeMs);
+
+    // Calculate the time remaining
+    const timeRemaining = endTime - currentTime;
+
+    if (timeRemaining <= 0) {
+        // If time has already expired, submit the form immediately
         document.querySelector('form').submit();
-    }, timeout);
+    } else {
+        // Set a timeout to trigger the submit button after the remaining time
+        setTimeout(function () {
+            document.querySelector('form').submit();
+        }, timeRemaining);
 
-    // Optionally, you can also display the countdown to the user
-    const countdownElement = document.getElementById('countdown');
-    let timeRemaining = timeout / 1000;
+        // Optionally, display the countdown to the user
+        const countdownElement = document.getElementById('countdown');
+        let remainingSeconds = Math.floor(timeRemaining / 1000);
 
-    const countdownInterval = setInterval(function () {
-        if (timeRemaining <= 0) {
-            clearInterval(countdownInterval);
-            return;
-        }
+        const countdownInterval = setInterval(function () {
+            if (remainingSeconds <= 0) {
+                clearInterval(countdownInterval);
+                countdownElement.textContent = '00:00';
+                return;
+            }
 
-        timeRemaining--;
+            remainingSeconds--;
 
-        const minutes = Math.floor(timeRemaining / 60);
-        const seconds = timeRemaining % 60;
+            const minutes = Math.floor(remainingSeconds / 60);
+            const seconds = remainingSeconds % 60;
 
-        countdownElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-    }, 1000);
+            countdownElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }, 1000);
+    }
 });

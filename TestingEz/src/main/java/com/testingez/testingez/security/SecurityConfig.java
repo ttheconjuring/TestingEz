@@ -31,9 +31,6 @@ public class SecurityConfig {
                                         // some more resources for all users
                                         .requestMatchers("/", "/features", "/FAQs",
                                                 "/account/login", "/account/create").permitAll()
-
-                                        // Restrict access to profile URLs only for ADMINISTRATOR
-                                        .requestMatchers("/user/profile/{id}", "/user/profile/{id}/edit").hasRole("ADMINISTRATOR")
                                         // all other URLs should be authenticated
                                         .anyRequest().authenticated()
                 )

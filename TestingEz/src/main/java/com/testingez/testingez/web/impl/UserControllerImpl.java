@@ -8,10 +8,15 @@ import com.testingez.testingez.models.dtos.exp.ThinProfileDTO;
 import com.testingez.testingez.models.dtos.ninja.ImprovementDTO;
 import com.testingez.testingez.services.*;
 import com.testingez.testingez.web.UserController;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -65,7 +71,9 @@ public class UserControllerImpl implements UserController {
     @Override
     @GetMapping("/my-profile")
     public String profile(Model model) {
-        model.addAttribute("userProfileData", this.userService.getProfileData(this.userHelperService.getLoggedUser().getId()));
+        Long id = this.userHelperService.getLoggedUser().getId();
+        model.addAttribute("userProfileData", this.userService.getProfileData(id));
+        model.addAttribute("id", id);
         return "my-profile";
     }
 
@@ -123,7 +131,7 @@ public class UserControllerImpl implements UserController {
 
     /*
      * This method leads to a page where the profile of the user with the given id
-     * is exposed. This endpoint should be accessible only by administrators, since
+     * is exposed. This endpoint is accessible only by administrators, since
      * to be redirected here, you should have got to the pages, which only
      * administrators are allowed to see.
      */
@@ -135,6 +143,11 @@ public class UserControllerImpl implements UserController {
         return "user-profile";
     }
 
+    /*
+     * This method leads to a page where the administrators can edit a specific user's profiles.
+     * The id required is the user's id. Using this id, the page is loaded with the data about
+     * the user. This endpoint is accessible only by administrators.
+     */
     @Override
     @GetMapping("/profile/{id}/edit")
     public String userEdit(@PathVariable Long id, Model model) {
@@ -145,6 +158,13 @@ public class UserControllerImpl implements UserController {
         return "user-profile-edit";
     }
 
+    /*
+     * This method accepts updated data about users and tries to apply the changes in the database.
+     * This endpoint is accessible only by administrators. The method needs id and the object,
+     * holding the new data. Then this info is passed to editProfileData() method and the result
+     * determines the exit. If not successful, the administrator is redirected to page with the invalid
+     * data loaded, waiting to be edited. Otherwise - home page.
+     */
     @Override
     @PostMapping("/profile/{id}/edit")
     public String userEdit(@PathVariable Long id,
@@ -169,7 +189,6 @@ public class UserControllerImpl implements UserController {
         return "redirect:/operation/success";
     }
 
-
     /*
      * This method returns the page where the user should put down
      * specific sentence in order to confirm the account deletion.
@@ -177,24 +196,37 @@ public class UserControllerImpl implements UserController {
      * a request parameter to another method and be eventually be deleted.
      */
     @Override
-    @GetMapping("/profile/delete/confirmation")
-    public String delete(Model model) {
-        model.addAttribute("id", this.userHelperService.getLoggedUser().getId());
+    @GetMapping("/profile/{id}/delete/confirmation")
+    public String delete(@PathVariable Long id, Model model) {
+        model.addAttribute("id", id);
         return "account-delete";
     }
 
     /*
-     * This method receives the user id as a request parameter and invokes
-     * method that tries to delete the user. If the account is deleted, then
-     * the user is redirected to the index page, otherwise an exception is
-     * thrown with an appropriate message.
+     * This method receives the user id as a request parameter and checks
+     * if the current user id and the given id are equal. Then an attempt
+     * is made the account to be deleted. And if so: we check then if the
+     * user tries not delete their own account, or it is administrator
+     * who deletes someone else account. If the user tries to delete their
+     * own account, then the session is invalidated and redirected to the index
+     * page. If not, the administrator is redirected to /user/all.
      */
     @Override
     @GetMapping("/profile/delete")
-    public String delete(@RequestParam(name = "id") Long id) {
+    public String delete(@RequestParam(name = "id") Long id,
+                         HttpServletRequest request, HttpServletResponse response) {
+        boolean isCurrentLoggedUser = this.userHelperService.getLoggedUser().getId().equals(id);
         Boolean accountIsDeleted = this.userService.deleteProfile(id);
         if (accountIsDeleted) {
-            return "redirect:/";
+            if (isCurrentLoggedUser) {
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                if (auth != null) {
+                    new SecurityContextLogoutHandler().logout(request, response, auth);
+                }
+                return "redirect:/";
+            } else {
+                return "redirect:/user/all";
+            }
         } else {
             throw new UnsupportedOperationException("Sorry, we are working to solve the problem!");
         }
