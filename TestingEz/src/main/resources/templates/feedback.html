@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{fragments/heads :: head}"></div>
+<body class="font">
+<div class="d-flex flex-column vh-100">
+    <main class="container d-flex flex-column justify-content-center flex-grow-1">
+        <div class="row justify-content-center border-top border-2">
+            <div class="col-sm-10 col-md-6 my-5">
+                <div class="bg-light border border-2 rounded shadow p-3 d-flex flex-column justify-content-center align-items-center">
+                    <h4 th:text="#{helpUs}"></h4>
+                    <span th:text="#{howToImprove}"></span>
+                    <form
+                            th:action="@{/user/improvements/post}"
+                            th:object="${improvementData}"
+                            method="post"
+                            class="text-center">
+                        <input class="border border-2 rounded px-1 w-100 mb-1"
+                               id="idea"
+                               type="text"
+                               th:field="*{idea}">
+                        <button class="btn btn-dark border border-2 border-black px-5" id="is" type="submit"
+                                th:text="#{send}">
+                        </button>
+                        <div class="text-danger fs-6"
+                             th:errors="*{idea}"
+                             th:if="${#fields.hasErrors('idea')}">
+                        </div>
+                        <div th:if="${sent}" class="text-success fs-6" th:text="#{thanks}">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div th:replace="~{fragments/footers :: footer}"></div>
+</div>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>
