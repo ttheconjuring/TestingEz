@@ -31,7 +31,7 @@ public class QuestionsControllerImpl implements QuestionsController {
     private final UserHelperService userHelperService;
     private final ResponseService responseService;
 
-    /* TODO: make the timer server side
+    /*
      * This method leads to a page where a question with answers are given and the users
      * should select one and submit it. It also has a timer counting down to 0 that puts
      * limited time for response. The method accepts test id and question number to be able

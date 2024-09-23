@@ -14,19 +14,4 @@ public class TestingEzApplication {
         SpringApplication.run(TestingEzApplication.class, args);
     }
 
-    /*
-     * TODO:
-     *   1.Implement logic behind button 'Delete Account'. - done
-     *   2.Implement logic behind button 'change' (avatar). - done
-     *   3.Find out why login is required after username change.
-     *   4.Implement logic behind link 'All Users'. - done
-     *   5.Make it possible to add new question to a test. - done
-     *   6.Make it possible to delete a question from a test. - done
-     *   7.Make it possible to delete a test. - done
-     *   8.Add functionality to the footer. - done
-     *   9.Add remember me option on login. - done
-     *   10.Add leaderboard to test. - done
-     *   11.Make the timer server side.
-     * */
-
 }
