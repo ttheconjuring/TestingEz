@@ -1,5 +1,6 @@
 package com.testingez.testingez.web;
 
+import com.testingez.testingez.exceptions.custom.NinjaMicroServiceException;
 import com.testingez.testingez.models.dtos.ninja.ImprovementDTO;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,10 +10,15 @@ import java.util.UUID;
 
 public interface FeedbackController {
 
-    String postImprovement(ImprovementDTO improvementDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes);
+    String feedback(Model model);
 
-    String checkImprovements(Model model);
+    String post(ImprovementDTO improvementDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes)
+            throws NinjaMicroServiceException;
 
-    String deleteImprovement(UUID id);
+    String check(Model model)
+            throws NinjaMicroServiceException;
+
+    String disapprove(UUID id)
+            throws NinjaMicroServiceException;
 
 }

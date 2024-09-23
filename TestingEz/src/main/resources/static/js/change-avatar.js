@@ -52,7 +52,7 @@ cropButton.addEventListener('click', function () {
             })
                 .then(response => {
                         if (response.ok) {
-                            window.location.href = 'http://localhost:8080/user/profile';
+                            window.location.href = 'http://localhost:8080/user/my-profile';
                         } else {
                             alert('Sorry, but something went wrong!');
                         }

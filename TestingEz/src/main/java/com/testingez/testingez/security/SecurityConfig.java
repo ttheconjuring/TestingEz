@@ -30,7 +30,7 @@ public class SecurityConfig {
                                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                         // some more resources for all users
                                         .requestMatchers("/", "/features", "/FAQs", "/feedback",
-                                                "/account/login", "/account/create").permitAll()
+                                                "/account/login", "/account/create", "/feedback/post").permitAll()
                                         // all other URLs should be authenticated
                                         .anyRequest().authenticated()
                 )

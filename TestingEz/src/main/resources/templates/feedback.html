@@ -4,13 +4,13 @@
 <body class="font">
 <div class="d-flex flex-column vh-100">
     <main class="container d-flex flex-column justify-content-center flex-grow-1">
-        <div class="row justify-content-center border-top border-2">
+        <div class="row justify-content-center border-top border-bottom border-2">
             <div class="col-sm-10 col-md-6 my-5">
                 <div class="bg-light border border-2 rounded shadow p-3 d-flex flex-column justify-content-center align-items-center">
                     <h4 th:text="#{helpUs}"></h4>
                     <span th:text="#{howToImprove}"></span>
                     <form
-                            th:action="@{/user/improvements/post}"
+                            th:action="@{/feedback/post}"
                             th:object="${improvementData}"
                             method="post"
                             class="text-center">

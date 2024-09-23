@@ -3,45 +3,56 @@ package com.testingez.testingez.web.impl;
 import com.testingez.testingez.exceptions.custom.NinjaMicroServiceException;
 import com.testingez.testingez.models.dtos.ninja.ImprovementDTO;
 import com.testingez.testingez.services.NinjaService;
+import com.testingez.testingez.services.UserHelperService;
 import com.testingez.testingez.web.FeedbackController;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.UUID;
 
 @Controller
+@RequestMapping("/feedback")
 @AllArgsConstructor
 public class FeedbackControllerImpl implements FeedbackController {
 
     private final NinjaService ninjaService;
+    private final UserHelperService userHelperService;
+
+    @Override
+    @GetMapping
+    public String feedback(Model model) {
+        if (!model.containsAttribute("improvementData")) {
+            model.addAttribute("improvementData", new ImprovementDTO());
+        }
+        return "feedback";
+    }
 
     /*
      * This method accepts the object sent from user home page that contains the improvement idea.
      * The object is validated and if there are violations, then users are alerted. Then, a POST
      * request is made with rest client to endpoint: /ninja/api/improvements/post where
-     * the data is proceed by the rest controller and put in the database. If the request
+     * the data is proceeded by the rest controller and put in the database. If the request
      * is successful, a polite green-text message is shown, indicating the job is done.
      */
     @Override
-    public String postImprovement(ImprovementDTO improvementData, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    @PostMapping("/post")
+    public String post(@Valid ImprovementDTO improvementData,
+                       BindingResult bindingResult,
+                       RedirectAttributes redirectAttributes) throws NinjaMicroServiceException {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.improvementData", bindingResult);
             redirectAttributes.addFlashAttribute("improvementData", improvementData);
-            return "redirect:/user/home";
+            return "redirect:/feedback";
         }
-
-        try {
-            this.ninjaService.postImprovement(improvementData);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        this.ninjaService.postImprovement(improvementData);
         redirectAttributes.addFlashAttribute("sent", true);
-        return "redirect:/user/home";
+        return "redirect:/feedback";
     }
 
     /*
@@ -50,14 +61,12 @@ public class FeedbackControllerImpl implements FeedbackController {
      * is fetched from the microservice and passed to the model.
      */
     @Override
-    public String checkImprovements(Model model) {
+    @GetMapping("/all")
+    public String check(Model model) throws NinjaMicroServiceException {
         List<ImprovementDTO> improvementIdeas;
-        try {
-            improvementIdeas = this.ninjaService.fetchImprovements();
-        } catch (NinjaMicroServiceException e) {
-            throw new RuntimeException(e);
-        }
+        improvementIdeas = this.ninjaService.fetchImprovements();
         model.addAttribute("improvementIdeas", improvementIdeas);
+        model.addAttribute("avatarUrl", this.userHelperService.getLoggedUser().getAvatarUrl());
         return "impr-ideas";
     }
 
@@ -69,13 +78,10 @@ public class FeedbackControllerImpl implements FeedbackController {
      * due to some reasons.
      */
     @Override
-    public String deleteImprovement(UUID id) {
-        try {
-            this.ninjaService.deleteImprovement(id);
-        } catch (NinjaMicroServiceException e) {
-            throw new RuntimeException(e);
-        }
-        return "redirect:/user/improvement/ideas";
+    @GetMapping("/disapprove/{id}")
+    public String disapprove(@PathVariable UUID id) throws NinjaMicroServiceException {
+        this.ninjaService.deleteImprovement(id);
+        return "redirect:/feedback/all";
     }
 
 }
