@@ -11,7 +11,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ImprovementDTO {
+public class FeedbackDTO {
 
     private UUID id;
 

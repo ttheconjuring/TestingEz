@@ -5,7 +5,7 @@ import com.testingez.testingez.models.dtos.exp.ResultPeekDTO;
 import com.testingez.testingez.models.dtos.exp.TestPeekDTO;
 import com.testingez.testingez.models.dtos.UserProfileDTO;
 import com.testingez.testingez.models.dtos.exp.ThinProfileDTO;
-import com.testingez.testingez.models.dtos.ninja.ImprovementDTO;
+import com.testingez.testingez.models.dtos.ninja.FeedbackDTO;
 import com.testingez.testingez.services.*;
 import com.testingez.testingez.web.UserController;
 import jakarta.servlet.http.HttpServletRequest;
@@ -52,10 +52,7 @@ public class UserControllerImpl implements UserController {
         model.addAttribute("factsOfTheDay", this.ninjaService.fetchFacts());
         model.addAttribute("jokesOfTheDay", this.ninjaService.fetchJokes());
         model.addAttribute("quotesOfTheDay", this.ninjaService.fetchQuotes());
-        model.addAttribute("ideasAvailable", !this.ninjaService.fetchImprovements().isEmpty());
-        if (!model.containsAttribute("improvementData")) {
-            model.addAttribute("improvementData", new ImprovementDTO());
-        }
+        model.addAttribute("feedbackAvailable", !this.ninjaService.fetchFeedback().isEmpty());
         return "user-home";
     }
 

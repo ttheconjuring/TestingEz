@@ -1,7 +1,7 @@
 package com.testingez.testingez.web.impl;
 
 import com.testingez.testingez.exceptions.custom.NinjaMicroServiceException;
-import com.testingez.testingez.models.dtos.ninja.ImprovementDTO;
+import com.testingez.testingez.models.dtos.ninja.FeedbackDTO;
 import com.testingez.testingez.services.NinjaService;
 import com.testingez.testingez.services.UserHelperService;
 import com.testingez.testingez.web.FeedbackController;
@@ -28,7 +28,7 @@ public class FeedbackControllerImpl implements FeedbackController {
     @GetMapping
     public String feedback(Model model) {
         if (!model.containsAttribute("improvementData")) {
-            model.addAttribute("improvementData", new ImprovementDTO());
+            model.addAttribute("improvementData", new FeedbackDTO());
         }
         return "feedback";
     }
@@ -42,7 +42,7 @@ public class FeedbackControllerImpl implements FeedbackController {
      */
     @Override
     @PostMapping("/post")
-    public String post(@Valid ImprovementDTO improvementData,
+    public String post(@Valid FeedbackDTO improvementData,
                        BindingResult bindingResult,
                        RedirectAttributes redirectAttributes) throws NinjaMicroServiceException {
         if (bindingResult.hasErrors()) {
@@ -50,7 +50,7 @@ public class FeedbackControllerImpl implements FeedbackController {
             redirectAttributes.addFlashAttribute("improvementData", improvementData);
             return "redirect:/feedback";
         }
-        this.ninjaService.postImprovement(improvementData);
+        this.ninjaService.postFeedback(improvementData);
         redirectAttributes.addFlashAttribute("sent", true);
         return "redirect:/feedback";
     }
@@ -63,11 +63,10 @@ public class FeedbackControllerImpl implements FeedbackController {
     @Override
     @GetMapping("/all")
     public String check(Model model) throws NinjaMicroServiceException {
-        List<ImprovementDTO> improvementIdeas;
-        improvementIdeas = this.ninjaService.fetchImprovements();
-        model.addAttribute("improvementIdeas", improvementIdeas);
+        List<FeedbackDTO> feedbacks = this.ninjaService.fetchFeedback();
+        model.addAttribute("feedbacks", feedbacks);
         model.addAttribute("avatarUrl", this.userHelperService.getLoggedUser().getAvatarUrl());
-        return "impr-ideas";
+        return "feedback-ideas";
     }
 
     /*
@@ -80,7 +79,7 @@ public class FeedbackControllerImpl implements FeedbackController {
     @Override
     @GetMapping("/disapprove/{id}")
     public String disapprove(@PathVariable UUID id) throws NinjaMicroServiceException {
-        this.ninjaService.deleteImprovement(id);
+        this.ninjaService.disapproveFeedback(id);
         return "redirect:/feedback/all";
     }
 

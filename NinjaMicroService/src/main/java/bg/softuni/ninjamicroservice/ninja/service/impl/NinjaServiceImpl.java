@@ -2,7 +2,7 @@ package bg.softuni.ninjamicroservice.ninja.service.impl;
 
 import bg.softuni.ninjamicroservice.ninja.config.NinjasConfig;
 import bg.softuni.ninjamicroservice.ninja.dtos.*;
-import bg.softuni.ninjamicroservice.ninja.entities.Improvement;
+import bg.softuni.ninjamicroservice.ninja.entities.Feedback;
 import bg.softuni.ninjamicroservice.ninja.repositories.*;
 import bg.softuni.ninjamicroservice.ninja.service.NinjaService;
 import lombok.AllArgsConstructor;
@@ -25,7 +25,7 @@ public class NinjaServiceImpl implements NinjaService {
     private final JokeRepository jokeRepository;
     private final TriviaRepository triviaRepository;
     private final QuoteRepository quoteRepository;
-    private final ImprovementRepository improvementRepository;
+    private final FeedbackRepository feedbackRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -132,30 +132,30 @@ public class NinjaServiceImpl implements NinjaService {
     }
 
     @Override
-    public ImprovementDTO[] getImprovements() {
-        return this.improvementRepository.findAll()
+    public FeedbackDTO[] getFeedbacks() {
+        return this.feedbackRepository.findAll()
                 .stream()
-                .map(improvement -> this.modelMapper.map(improvement, ImprovementDTO.class))
-                .toArray(ImprovementDTO[]::new);
+                .map(feedback -> this.modelMapper.map(feedback, FeedbackDTO.class))
+                .toArray(FeedbackDTO[]::new);
     }
 
     @Override
-    public ImprovementDTO postImprovement(ImprovementDTO improvementDTO) {
-        improvementDTO.setApproved(false);
-        improvementDTO.setDisapproved(false);
-        return this.modelMapper.map(this.improvementRepository.saveAndFlush(
-                this.modelMapper.map(improvementDTO, Improvement.class)), ImprovementDTO.class);
+    public FeedbackDTO postFeedback(FeedbackDTO feedbackDTO) {
+        feedbackDTO.setApproved(false);
+        feedbackDTO.setDisapproved(false);
+        return this.modelMapper.map(this.feedbackRepository.saveAndFlush(
+                this.modelMapper.map(feedbackDTO, Feedback.class)), FeedbackDTO.class);
     }
 
     @Override
-    public ImprovementDTO deleteImprovement(UUID id) {
-        Optional<Improvement> byId = this.improvementRepository.findById(id);
+    public FeedbackDTO disapproveFeedback(UUID id) {
+        Optional<Feedback> byId = this.feedbackRepository.findById(id);
         if (byId.isEmpty()) {
             return null;
         }
-        ImprovementDTO map = this.modelMapper.map(byId.get(), ImprovementDTO.class);
-        this.improvementRepository.delete(byId.get());
-        return map;
+        byId.get().setDisapproved(true);
+        this.feedbackRepository.saveAndFlush(byId.get());
+        return this.modelMapper.map(byId.get(), FeedbackDTO.class);
     }
 
 }

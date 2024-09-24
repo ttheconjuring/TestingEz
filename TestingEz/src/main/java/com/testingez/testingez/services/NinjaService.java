@@ -16,9 +16,9 @@ public interface NinjaService {
 
     List<QuoteDTO> fetchQuotes() throws NinjaMicroServiceException;
 
-    List<ImprovementDTO> fetchImprovements() throws NinjaMicroServiceException;
+    List<FeedbackDTO> fetchFeedback() throws NinjaMicroServiceException;
 
-    void postImprovement(ImprovementDTO improvementData) throws NinjaMicroServiceException;
+    void postFeedback(FeedbackDTO feedbackDTO) throws NinjaMicroServiceException;
 
-    void deleteImprovement(UUID id) throws NinjaMicroServiceException;
+    void disapproveFeedback(UUID id) throws NinjaMicroServiceException;
 }

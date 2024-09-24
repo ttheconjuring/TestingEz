@@ -28,7 +28,6 @@ public class CacheUpdater {
             this.ninjaService.fetchFacts();
             this.ninjaService.fetchJokes();
             this.ninjaService.fetchQuotes();
-            this.ninjaService.fetchImprovements();
         } catch (Exception error) {
             throw new NinjaMicroServiceException("We couldn't update cache due to " +
                     "NinjaMicroService issues.", error);

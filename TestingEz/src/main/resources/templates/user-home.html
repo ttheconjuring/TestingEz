@@ -92,7 +92,7 @@
     <div class="position-fixed bottom-0 end-0 p-3">
         <a th:href="@{/feedback/all}"
            class="nav-link"
-           th:if="${ideasAvailable == true}"
+           th:if="${feedbackAvailable}"
            sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
             <img src="/images/idea.png"
                  style="width: 35px; height: auto;"

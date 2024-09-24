@@ -148,22 +148,22 @@ class NinjaControllerImplTest {
     @Test
     void getImprovementsShouldReturnImprovements() throws Exception {
         // given
-        ImprovementDTO improvement1 = new ImprovementDTO();
+        FeedbackDTO improvement1 = new FeedbackDTO();
         improvement1.setId(UUID.randomUUID());
         improvement1.setIdea("idea1");
         improvement1.setApproved(false);
         improvement1.setDisapproved(false);
-        ImprovementDTO improvement2 = new ImprovementDTO();
+        FeedbackDTO improvement2 = new FeedbackDTO();
         improvement2.setId(UUID.randomUUID());
         improvement2.setIdea("idea2");
         improvement2.setApproved(true);
         improvement2.setDisapproved(false);
-        ImprovementDTO improvement3 = new ImprovementDTO();
+        FeedbackDTO improvement3 = new FeedbackDTO();
         improvement3.setId(UUID.randomUUID());
         improvement3.setIdea("idea3");
         improvement3.setApproved(false);
         improvement3.setDisapproved(true);
-        ImprovementDTO[] improvements = {improvement1, improvement2, improvement3};
+        FeedbackDTO[] improvements = {improvement1, improvement2, improvement3};
         when(ninjaService.getImprovements()).thenReturn(improvements);
 
         // when
@@ -190,12 +190,12 @@ class NinjaControllerImplTest {
     @Test
     void postImprovementShouldCreateImprovement() throws Exception {
         // given
-        ImprovementDTO improvement = new ImprovementDTO();
+        FeedbackDTO improvement = new FeedbackDTO();
         improvement.setId(UUID.randomUUID());
         improvement.setIdea("idea");
         improvement.setApproved(false);
         improvement.setDisapproved(false);
-        when(ninjaService.postImprovement(Mockito.any(ImprovementDTO.class)))
+        when(ninjaService.postImprovement(Mockito.any(FeedbackDTO.class)))
                 .thenReturn(improvement);
 
         // when
@@ -215,7 +215,7 @@ class NinjaControllerImplTest {
     void deleteImprovementShouldDeleteImprovement() throws Exception {
         // given
         UUID id = UUID.randomUUID();
-        ImprovementDTO improvement = new ImprovementDTO();
+        FeedbackDTO improvement = new FeedbackDTO();
         improvement.setId(id);
         improvement.setIdea("idea");
         improvement.setApproved(false);

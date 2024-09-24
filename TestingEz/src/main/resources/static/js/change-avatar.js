@@ -54,7 +54,7 @@ cropButton.addEventListener('click', function () {
                         if (response.ok) {
                             window.location.href = 'http://localhost:8080/user/my-profile';
                         } else {
-                            alert('Sorry, but something went wrong!');
+                            alert('Sorry, but something went wrong! Check your internet connection. ');
                         }
                     }
                 )

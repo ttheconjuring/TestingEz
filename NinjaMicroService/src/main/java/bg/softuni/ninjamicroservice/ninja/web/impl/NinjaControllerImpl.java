@@ -43,16 +43,16 @@ public class NinjaControllerImpl implements NinjaController {
     }
 
     @Override
-    @GetMapping("/improvements")
-    public ResponseEntity<ImprovementDTO[]> getImprovements() {
-        return ResponseEntity.ok(this.ninjaService.getImprovements());
+    @GetMapping("/feedback")
+    public ResponseEntity<FeedbackDTO[]> getFeedbacks() {
+        return ResponseEntity.ok(this.ninjaService.getFeedbacks());
     }
 
     @Override
-    @PostMapping("/improvements/post")
-    public ResponseEntity<?> postImprovement(@Valid @RequestBody ImprovementDTO improvement) {
+    @PostMapping("/feedback/post")
+    public ResponseEntity<?> postFeedback(@Valid @RequestBody FeedbackDTO feedbackDTO) {
         try {
-            return new ResponseEntity<>(this.ninjaService.postImprovement(improvement), HttpStatus.CREATED);
+            return new ResponseEntity<>(this.ninjaService.postFeedback(feedbackDTO), HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>("Invalid request data", HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
@@ -61,14 +61,14 @@ public class NinjaControllerImpl implements NinjaController {
     }
 
     @Override
-    @DeleteMapping("/improvements/delete/{id}")
-    public ResponseEntity<?> deleteImprovement(@PathVariable UUID id) {
+    @DeleteMapping("/feedback/disapprove/{id}")
+    public ResponseEntity<?> disapproveFeedback(@PathVariable UUID id) {
         try {
-            ImprovementDTO improvementDTO = this.ninjaService.deleteImprovement(id);
-            if (improvementDTO != null) {
-                return new ResponseEntity<>(improvementDTO, HttpStatus.OK);
+            FeedbackDTO feedbackDTO = this.ninjaService.disapproveFeedback(id);
+            if (feedbackDTO != null) {
+                return new ResponseEntity<>(feedbackDTO, HttpStatus.OK);
             } else {
-                return new ResponseEntity<>("We couldn't find such improvement idea!", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("We couldn't find such feedback!", HttpStatus.NOT_FOUND);
             }
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>("Invalid request data", HttpStatus.BAD_REQUEST);
