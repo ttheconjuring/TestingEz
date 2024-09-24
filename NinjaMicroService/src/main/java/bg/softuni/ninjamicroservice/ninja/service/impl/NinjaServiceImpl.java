@@ -148,14 +148,23 @@ public class NinjaServiceImpl implements NinjaService {
     }
 
     @Override
+    public FeedbackDTO approveFeedback(UUID id) {
+        Feedback feedback = this.feedbackRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Feedback with UUID: " + id + " not found!"));
+        feedback.setDisapproved(false);
+        feedback.setApproved(true);
+        this.feedbackRepository.saveAndFlush(feedback);
+        return this.modelMapper.map(feedback, FeedbackDTO.class);
+    }
+
+    @Override
     public FeedbackDTO disapproveFeedback(UUID id) {
-        Optional<Feedback> byId = this.feedbackRepository.findById(id);
-        if (byId.isEmpty()) {
-            return null;
-        }
-        byId.get().setDisapproved(true);
-        this.feedbackRepository.saveAndFlush(byId.get());
-        return this.modelMapper.map(byId.get(), FeedbackDTO.class);
+        Feedback feedback = this.feedbackRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Feedback with UUID: " + id + " not found!"));
+        feedback.setDisapproved(true);
+        feedback.setApproved(false);
+        this.feedbackRepository.saveAndFlush(feedback);
+        return this.modelMapper.map(feedback, FeedbackDTO.class);
     }
 
 }

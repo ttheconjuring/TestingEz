@@ -20,5 +20,8 @@ public interface NinjaService {
 
     void postFeedback(FeedbackDTO feedbackDTO) throws NinjaMicroServiceException;
 
+    void approveFeedback(UUID id) throws NinjaMicroServiceException;
+
     void disapproveFeedback(UUID id) throws NinjaMicroServiceException;
+
 }

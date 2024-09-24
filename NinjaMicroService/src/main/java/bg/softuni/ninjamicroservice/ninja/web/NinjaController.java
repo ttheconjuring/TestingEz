@@ -19,6 +19,8 @@ public interface NinjaController {
 
     ResponseEntity<?> postFeedback(FeedbackDTO improvement);
 
+    ResponseEntity<?> approveFeedback(UUID id);
+
     ResponseEntity<?> disapproveFeedback(UUID id);
 
 }

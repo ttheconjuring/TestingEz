@@ -27,8 +27,8 @@ public class FeedbackControllerImpl implements FeedbackController {
     @Override
     @GetMapping
     public String feedback(Model model) {
-        if (!model.containsAttribute("improvementData")) {
-            model.addAttribute("improvementData", new FeedbackDTO());
+        if (!model.containsAttribute("feedbackDTO")) {
+            model.addAttribute("feedbackDTO", new FeedbackDTO());
         }
         return "feedback";
     }
@@ -42,15 +42,15 @@ public class FeedbackControllerImpl implements FeedbackController {
      */
     @Override
     @PostMapping("/post")
-    public String post(@Valid FeedbackDTO improvementData,
+    public String post(@Valid FeedbackDTO feedbackDTO,
                        BindingResult bindingResult,
                        RedirectAttributes redirectAttributes) throws NinjaMicroServiceException {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.improvementData", bindingResult);
-            redirectAttributes.addFlashAttribute("improvementData", improvementData);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.feedbackDTO", bindingResult);
+            redirectAttributes.addFlashAttribute("feedbackDTO", feedbackDTO);
             return "redirect:/feedback";
         }
-        this.ninjaService.postFeedback(improvementData);
+        this.ninjaService.postFeedback(feedbackDTO);
         redirectAttributes.addFlashAttribute("sent", true);
         return "redirect:/feedback";
     }
@@ -70,11 +70,21 @@ public class FeedbackControllerImpl implements FeedbackController {
     }
 
     /*
-     * This method accepts UUID id and tries to delete the improvement idea. After that,
-     * users are redirected to the page with all improvement ideas. If an idea is deleted
-     * successfully, there should be some sort of alert, saying the process was done. Otherwise,
-     * another alert should appear, telling the users that the improvement idea was not deleted
-     * due to some reasons.
+     * This method accepts UUID id and tries to approve the feedback. After that,
+     * users are redirected to the page with all feedbacks. If an feedback is approved
+     * successfully, it appears in green color.
+     */
+    @Override
+    @GetMapping("/approve/{id}")
+    public String approve(@PathVariable UUID id) throws NinjaMicroServiceException {
+        this.ninjaService.approveFeedback(id);
+        return "redirect:/feedback/all";
+    }
+
+    /*
+     * This method accepts UUID id and tries to disapprove the feedback. After that,
+     * users are redirected to the page with all feedbacks. If an feedback is disapproved
+     * successfully, it appears in red color.
      */
     @Override
     @GetMapping("/disapprove/{id}")

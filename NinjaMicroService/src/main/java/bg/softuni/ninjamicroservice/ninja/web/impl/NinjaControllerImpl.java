@@ -61,7 +61,24 @@ public class NinjaControllerImpl implements NinjaController {
     }
 
     @Override
-    @DeleteMapping("/feedback/disapprove/{id}")
+    @PutMapping("/feedback/approve/{id}")
+    public ResponseEntity<?> approveFeedback(@PathVariable UUID id) {
+        try {
+            FeedbackDTO feedbackDTO = this.ninjaService.approveFeedback(id);
+            if (feedbackDTO != null) {
+                return new ResponseEntity<>(feedbackDTO, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("We couldn't find such feedback!", HttpStatus.NOT_FOUND);
+            }
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>("Invalid request data", HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    @PutMapping("/feedback/disapprove/{id}")
     public ResponseEntity<?> disapproveFeedback(@PathVariable UUID id) {
         try {
             FeedbackDTO feedbackDTO = this.ninjaService.disapproveFeedback(id);

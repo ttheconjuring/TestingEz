@@ -7,15 +7,17 @@
     <div th:replace="~{fragments/headers :: header}"></div>
 
     <main class="container d-flex flex-column justify-content-center flex-grow-1 gap-1">
-        <div th:if="${disapproved}" class="fs-4 b"></div>
         <div class="row justify-content-center align-items-center"
              th:each="feedback : ${feedbacks}">
-            <div class="col-sm-10 col-md-6 border border-2 p-2 rounded">
+            <div class="col-sm-10 col-md-6 border border-2 p-2 rounded shadow"
+                 th:classappend="${(feedback.disapproved == true ? 'bg-danger' : '') +
+                (feedback.approved == true ? 'bg-success' : '')}">
                 <p class="text-wrap" th:text="${feedback.idea}"></p>
                 <div class="d-flex gap-1">
-                    <button type="button" class="w-50 btn btn-dark border border-black border-2 rounded">Approve
-                    </button>
-                    <a class="w-50 btn btn-dark border border-2 rounded dis"
+                    <a class="w-50 btn btn-dark border border-2 border-black rounded dis"
+                       th:text="#{approve}"
+                       th:href="@{/feedback/approve/{id}(id=${feedback.id})}"></a>
+                    <a class="w-50 btn btn-dark border border-2 border-black rounded dis"
                        th:text="#{disapprove}"
                        th:href="@{/feedback/disapprove/{id}(id=${feedback.id})}"></a>
                 </div>

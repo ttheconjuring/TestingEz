@@ -136,10 +136,24 @@ public class NinjaServiceImpl implements NinjaService {
     }
 
     @Override
+    public void approveFeedback(UUID id) throws NinjaMicroServiceException {
+        try {
+            this.restClient
+                    .put()
+                    .uri(this.ninjasApiConfig.getFeedback().getUrl() + "/approve/" + id)
+                    .retrieve()
+                    .toBodilessEntity();
+        } catch (Exception error) {
+            throw new NinjaMicroServiceException("We couldn't approve the" +
+                    " feedback ):", error);
+        }
+    }
+
+    @Override
     public void disapproveFeedback(UUID id) throws NinjaMicroServiceException {
         try {
             this.restClient
-                    .delete()
+                    .put()
                     .uri(this.ninjasApiConfig.getFeedback().getUrl() + "/disapprove/" + id)
                     .retrieve()
                     .toBodilessEntity();

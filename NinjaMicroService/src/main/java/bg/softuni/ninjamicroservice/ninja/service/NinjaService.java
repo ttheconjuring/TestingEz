@@ -27,5 +27,8 @@ public interface NinjaService {
 
     FeedbackDTO postFeedback(FeedbackDTO feedbackDTO);
 
+    FeedbackDTO approveFeedback(UUID id);
+
     FeedbackDTO disapproveFeedback(UUID id);
+
 }

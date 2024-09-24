@@ -18,6 +18,9 @@ public interface FeedbackController {
     String check(Model model)
             throws NinjaMicroServiceException;
 
+    String approve(UUID id)
+            throws NinjaMicroServiceException;
+
     String disapprove(UUID id)
             throws NinjaMicroServiceException;
 
