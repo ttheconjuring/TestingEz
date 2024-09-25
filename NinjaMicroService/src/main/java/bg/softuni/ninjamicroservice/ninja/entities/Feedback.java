@@ -12,8 +12,8 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "improvements")
-public class Improvement {
+@Table(name = "feedbacks")
+public class Feedback {
 
     @Id
     @UuidGenerator(style = UuidGenerator.Style.RANDOM)

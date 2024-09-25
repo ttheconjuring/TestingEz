@@ -23,9 +23,12 @@ public interface NinjaService {
 
     QuoteDTO[] getQuotes();
 
-    ImprovementDTO[] getImprovements();
+    FeedbackDTO[] getFeedbacks();
 
-    ImprovementDTO postImprovement(ImprovementDTO improvementDTO);
+    FeedbackDTO postFeedback(FeedbackDTO feedbackDTO);
 
-    ImprovementDTO deleteImprovement(UUID id);
+    FeedbackDTO approveFeedback(UUID id);
+
+    FeedbackDTO disapproveFeedback(UUID id);
+
 }

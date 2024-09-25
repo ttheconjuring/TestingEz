@@ -26,7 +26,7 @@ public class NinjasConfig {
         facts.checkConfiguration("facts");
         jokes.checkConfiguration("jokes");
         trivia.checkConfiguration("trivia");
-        trivia.checkConfiguration("quotes");
+        quotes.checkConfiguration("quotes");
     }
 
     @Getter

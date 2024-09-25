@@ -4,11 +4,9 @@ import bg.softuni.ninjamicroservice.ninja.entities.Fact;
 import bg.softuni.ninjamicroservice.ninja.entities.Joke;
 import bg.softuni.ninjamicroservice.ninja.entities.Quote;
 import bg.softuni.ninjamicroservice.ninja.entities.Trivia;
-import bg.softuni.ninjamicroservice.ninja.repositories.FactRepository;
-import bg.softuni.ninjamicroservice.ninja.repositories.JokeRepository;
-import bg.softuni.ninjamicroservice.ninja.repositories.QuoteRepository;
-import bg.softuni.ninjamicroservice.ninja.repositories.TriviaRepository;
+import bg.softuni.ninjamicroservice.ninja.repositories.*;
 import bg.softuni.ninjamicroservice.ninja.service.NinjaService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -27,9 +25,11 @@ public class UpdateData {
     private final FactRepository factRepository;
     private final JokeRepository jokeRepository;
     private final QuoteRepository quoteRepository;
+    private final FeedbackRepository feedbackRepository;
     private final NinjaService ninjaService;
     private final ModelMapper modelMapper;
 
+    @Transactional
     // @Scheduled(fixedRate = 600000) // 10 min
     @Scheduled(cron = "0 0 * * * ?")
     public void updateData() {
@@ -38,6 +38,7 @@ public class UpdateData {
         this.factRepository.deleteAll();
         this.jokeRepository.deleteAll();
         this.quoteRepository.deleteAll();
+        this.feedbackRepository.deleteAllByDisapprovedTrue();
         addFacts();
         addJokes();
         addQuotes();

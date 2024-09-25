@@ -100,53 +100,66 @@ public class NinjaServiceImpl implements NinjaService {
         return quoteDTOList;
     }
 
-    @Cacheable(value = "home", key = "'improvements'")
     @Override
-    public List<ImprovementDTO> fetchImprovements() throws NinjaMicroServiceException {
-        List<ImprovementDTO> improvementDTOList;
+    public List<FeedbackDTO> fetchFeedback() throws NinjaMicroServiceException {
+        List<FeedbackDTO> improvementDTOList;
         try {
             improvementDTOList = new ArrayList<>(List.of(
                     Objects.requireNonNull(this.restClient
                             .get()
-                            .uri(this.ninjasApiConfig.getImprovements().getUrl())
+                            .uri(this.ninjasApiConfig.getFeedback().getUrl())
                             .accept(MediaType.APPLICATION_JSON)
                             .retrieve()
-                            .body(ImprovementDTO[].class))
+                            .body(FeedbackDTO[].class))
             ));
         } catch (Exception error) {
             throw new NinjaMicroServiceException("We couldn't fetch the" +
-                    "required improvements due to NinjaMicroService issues.", error);
+                    "required feedback due to NinjaMicroService issues.", error);
         }
         return improvementDTOList;
     }
 
     @Override
-    public void postImprovement(ImprovementDTO improvementData) throws NinjaMicroServiceException {
+    public void postFeedback(FeedbackDTO feedbackDTO) throws NinjaMicroServiceException {
         try {
             this.restClient
                     .post()
-                    .uri(this.ninjasApiConfig.getImprovements().getUrl() + "/post")
+                    .uri(this.ninjasApiConfig.getFeedback().getUrl() + "/post")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .body(improvementData)
+                    .body(feedbackDTO)
                     .retrieve()
                     .toBodilessEntity();
         } catch (Exception error) {
             throw new NinjaMicroServiceException("We couldn't send the" +
-                    " improvement idea ):", error);
+                    " feedback ):", error);
         }
     }
 
     @Override
-    public void deleteImprovement(UUID id) throws NinjaMicroServiceException {
+    public void approveFeedback(UUID id) throws NinjaMicroServiceException {
         try {
             this.restClient
-                    .delete()
-                    .uri(this.ninjasApiConfig.getImprovements().getUrl() + "/delete/" + id)
+                    .put()
+                    .uri(this.ninjasApiConfig.getFeedback().getUrl() + "/approve/" + id)
                     .retrieve()
                     .toBodilessEntity();
         } catch (Exception error) {
-            throw new NinjaMicroServiceException("We couldn't delete the" +
-                    " improvement idea ):", error);
+            throw new NinjaMicroServiceException("We couldn't approve the" +
+                    " feedback ):", error);
+        }
+    }
+
+    @Override
+    public void disapproveFeedback(UUID id) throws NinjaMicroServiceException {
+        try {
+            this.restClient
+                    .put()
+                    .uri(this.ninjasApiConfig.getFeedback().getUrl() + "/disapprove/" + id)
+                    .retrieve()
+                    .toBodilessEntity();
+        } catch (Exception error) {
+            throw new NinjaMicroServiceException("We couldn't disapprove the" +
+                    " feedback ):", error);
         }
     }
 

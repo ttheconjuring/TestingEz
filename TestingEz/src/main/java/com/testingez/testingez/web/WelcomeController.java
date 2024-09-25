@@ -12,9 +12,13 @@ public class WelcomeController {
     }
 
     @GetMapping("/FAQs")
-    public String FAQs() { return "faqs"; }
+    public String FAQs() {
+        return "faqs";
+    }
 
     @GetMapping("/features")
-    public String features() { return "features"; }
+    public String features() {
+        return "features";
+    }
 
 }

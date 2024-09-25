@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<div th:replace="~{fragments/heads :: head}"></div>
+<body class="font">
+<div class="d-flex flex-column vh-100 gap-3">
+    <div th:replace="~{fragments/headers :: header}"></div>
+
+    <main class="container d-flex flex-column justify-content-center flex-grow-1 gap-1">
+        <h2 class="text-center">Anonymous feedbacks:</h2>
+        <div class="row justify-content-center align-items-center"
+             th:each="feedback : ${feedbacks}">
+            <div class="col-sm-10 col-md-6 border border-2 p-2 rounded shadow text-center"
+                 th:classappend="${(feedback.disapproved == true ? 'bg-danger' : '') +
+                (feedback.approved == true ? 'bg-success' : '')}">
+                <p class="text-wrap" th:text="${feedback.idea}"></p>
+                <div class="d-flex gap-1 justify-content-center">
+                    <a class="w-50 btn btn-success border border-2 rounded shadow"
+                       th:classappend="${feedback.approved == true} ? 'disabled btn-dark' : ''"
+                       th:href="@{/feedback/approve/{id}(id=${feedback.id})}"
+                       th:if="${(feedback.disapproved == false && feedback.approved == false) ||
+                    (feedback.approved == true && feedback.disapproved == false)}"
+                       th:text="#{approve}"></a>
+                    <a class="w-50 btn btn-danger border border-2 rounded shadow"
+                       th:href="@{/feedback/disapprove/{id}(id=${feedback.id})}"
+                       th:classappend="${feedback.disapproved == true} ? 'disabled btn-dark' : ''"
+                       th:if="${(feedback.disapproved == false && feedback.approved == false) ||
+                    (feedback.approved == false && feedback.disapproved == true)}"
+                       th:text="#{disapprove}"></a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div th:replace="~{fragments/footers :: footer}"></div>
+</div>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>

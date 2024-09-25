@@ -15,10 +15,12 @@ public interface NinjaController {
 
     ResponseEntity<QuoteDTO[]> getQuotes();
 
-    ResponseEntity<ImprovementDTO[]> getImprovements();
+    ResponseEntity<FeedbackDTO[]> getFeedbacks();
 
-    ResponseEntity<?> postImprovement(ImprovementDTO improvement);
+    ResponseEntity<?> postFeedback(FeedbackDTO improvement);
 
-    ResponseEntity<?> deleteImprovement(UUID id);
+    ResponseEntity<?> approveFeedback(UUID id);
+
+    ResponseEntity<?> disapproveFeedback(UUID id);
 
 }
