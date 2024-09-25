@@ -8,4 +8,7 @@ import java.util.UUID;
 
 @Repository
 public interface FeedbackRepository extends JpaRepository<Feedback, UUID> {
+
+    void deleteAllByDisapprovedTrue();
+
 }
