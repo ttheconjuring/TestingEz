@@ -1,7 +1,7 @@
 package com.testingez.mainService.security;
 
-import com.testingez.mainService.models.entities.User;
-import com.testingez.mainService.repositories.UserRepository;
+import com.testingez.mainService.model.entities.User;
+import com.testingez.mainService.repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

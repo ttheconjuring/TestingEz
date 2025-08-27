@@ -1,6 +1,6 @@
 package com.testingez.mainService.web;
 
-import com.testingez.mainService.models.dtos.imp.UserSignUpDTO;
+import com.testingez.mainService.model.dtos.imp.UserSignUpDTO;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 

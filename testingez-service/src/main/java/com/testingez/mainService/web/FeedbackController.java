@@ -1,7 +1,7 @@
 package com.testingez.mainService.web;
 
-import com.testingez.mainService.exceptions.custom.NinjaMicroServiceException;
-import com.testingez.mainService.models.dtos.ninja.FeedbackDTO;
+import com.testingez.mainService.exception.custom.NinjaMicroServiceException;
+import com.testingez.mainService.model.dtos.ninja.FeedbackDTO;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;

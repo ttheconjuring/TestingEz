@@ -1,14 +1,14 @@
 package com.testingez.mainService;
 
-import com.testingez.mainService.models.dtos.UserProfileDTO;
-import com.testingez.mainService.models.dtos.exp.*;
-import com.testingez.mainService.models.dtos.imp.QuestionEditDTO;
-import com.testingez.mainService.models.dtos.imp.TestCreateDTO;
-import com.testingez.mainService.models.dtos.imp.UserSignUpDTO;
-import com.testingez.mainService.models.entities.*;
-import com.testingez.mainService.models.enums.ResultStatus;
-import com.testingez.mainService.models.enums.TestStatus;
-import com.testingez.mainService.models.enums.UserRole;
+import com.testingez.mainService.model.dtos.UserProfileDTO;
+import com.testingez.mainService.model.dtos.exp.*;
+import com.testingez.mainService.model.dtos.imp.QuestionEditDTO;
+import com.testingez.mainService.model.dtos.imp.TestCreateDTO;
+import com.testingez.mainService.model.dtos.imp.UserSignUpDTO;
+import com.testingez.mainService.model.entities.*;
+import com.testingez.mainService.model.enums.ResultStatus;
+import com.testingez.mainService.model.enums.TestStatus;
+import com.testingez.mainService.model.enums.UserRole;
 
 import java.time.LocalDateTime;
 

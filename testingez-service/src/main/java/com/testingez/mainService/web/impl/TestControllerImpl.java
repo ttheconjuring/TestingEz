@@ -1,12 +1,12 @@
 package com.testingez.mainService.web.impl;
 
-import com.testingez.mainService.models.dtos.TestJoinDTO;
-import com.testingez.mainService.models.dtos.exp.TestPeekDTO;
-import com.testingez.mainService.models.dtos.exp.TestPreviewDTO;
-import com.testingez.mainService.models.dtos.imp.TestCreateDTO;
-import com.testingez.mainService.services.QuestionService;
-import com.testingez.mainService.services.TestService;
-import com.testingez.mainService.services.UserHelperService;
+import com.testingez.mainService.model.dtos.TestJoinDTO;
+import com.testingez.mainService.model.dtos.exp.TestPeekDTO;
+import com.testingez.mainService.model.dtos.exp.TestPreviewDTO;
+import com.testingez.mainService.model.dtos.imp.TestCreateDTO;
+import com.testingez.mainService.service.QuestionService;
+import com.testingez.mainService.service.TestService;
+import com.testingez.mainService.service.UserHelperService;
 import com.testingez.mainService.web.TestController;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

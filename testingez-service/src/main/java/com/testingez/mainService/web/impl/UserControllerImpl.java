@@ -1,11 +1,11 @@
 package com.testingez.mainService.web.impl;
 
-import com.testingez.mainService.exceptions.custom.NinjaMicroServiceException;
-import com.testingez.mainService.models.dtos.exp.ResultPeekDTO;
-import com.testingez.mainService.models.dtos.exp.TestPeekDTO;
-import com.testingez.mainService.models.dtos.UserProfileDTO;
-import com.testingez.mainService.models.dtos.exp.ThinProfileDTO;
-import com.testingez.mainService.services.*;
+import com.testingez.mainService.exception.custom.NinjaMicroServiceException;
+import com.testingez.mainService.model.dtos.exp.ResultPeekDTO;
+import com.testingez.mainService.model.dtos.exp.TestPeekDTO;
+import com.testingez.mainService.model.dtos.UserProfileDTO;
+import com.testingez.mainService.model.dtos.exp.ThinProfileDTO;
+import com.testingez.mainService.service.*;
 import com.testingez.mainService.web.UserController;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

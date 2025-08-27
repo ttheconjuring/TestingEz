@@ -1,8 +1,8 @@
 package com.testingez.mainService.web;
 
-import com.testingez.mainService.models.dtos.imp.QuestionCreateDTO;
-import com.testingez.mainService.models.dtos.imp.QuestionEditDTO;
-import com.testingez.mainService.models.dtos.imp.TestQuestionsDTO;
+import com.testingez.mainService.model.dtos.imp.QuestionCreateDTO;
+import com.testingez.mainService.model.dtos.imp.QuestionEditDTO;
+import com.testingez.mainService.model.dtos.imp.TestQuestionsDTO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

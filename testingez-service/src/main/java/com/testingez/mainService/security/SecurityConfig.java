@@ -1,6 +1,6 @@
 package com.testingez.mainService.security;
 
-import com.testingez.mainService.repositories.UserRepository;
+import com.testingez.mainService.repository.UserRepository;
 import com.testingez.mainService.security.utils.CustomAuthenticationFailureHandler;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;

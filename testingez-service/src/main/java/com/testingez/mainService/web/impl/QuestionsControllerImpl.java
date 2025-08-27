@@ -1,13 +1,13 @@
 package com.testingez.mainService.web.impl;
 
-import com.testingez.mainService.models.dtos.exp.QuestionAnswerDTO;
-import com.testingez.mainService.models.dtos.imp.QuestionCreateDTO;
-import com.testingez.mainService.models.dtos.imp.QuestionEditDTO;
-import com.testingez.mainService.models.dtos.imp.ResponseCreateDTO;
-import com.testingez.mainService.models.dtos.imp.TestQuestionsDTO;
-import com.testingez.mainService.services.QuestionService;
-import com.testingez.mainService.services.ResponseService;
-import com.testingez.mainService.services.UserHelperService;
+import com.testingez.mainService.model.dtos.exp.QuestionAnswerDTO;
+import com.testingez.mainService.model.dtos.imp.QuestionCreateDTO;
+import com.testingez.mainService.model.dtos.imp.QuestionEditDTO;
+import com.testingez.mainService.model.dtos.imp.ResponseCreateDTO;
+import com.testingez.mainService.model.dtos.imp.TestQuestionsDTO;
+import com.testingez.mainService.service.QuestionService;
+import com.testingez.mainService.service.ResponseService;
+import com.testingez.mainService.service.UserHelperService;
 import com.testingez.mainService.web.QuestionsController;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;

@@ -1,7 +1,7 @@
 package com.testingez.mainService.web.impl;
 
-import com.testingez.mainService.models.dtos.imp.UserSignUpDTO;
-import com.testingez.mainService.services.UserService;
+import com.testingez.mainService.model.dtos.imp.UserSignUpDTO;
+import com.testingez.mainService.service.UserService;
 import com.testingez.mainService.web.RegistrationController;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

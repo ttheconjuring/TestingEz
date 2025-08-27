@@ -1,7 +1,7 @@
 package com.testingez.mainService.web;
 
-import com.testingez.mainService.models.dtos.TestJoinDTO;
-import com.testingez.mainService.models.dtos.imp.TestCreateDTO;
+import com.testingez.mainService.model.dtos.TestJoinDTO;
+import com.testingez.mainService.model.dtos.imp.TestCreateDTO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

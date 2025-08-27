@@ -1,8 +1,8 @@
 package com.testingez.mainService.web.impl;
 
-import com.testingez.mainService.services.QuestionService;
-import com.testingez.mainService.services.ResultService;
-import com.testingez.mainService.services.UserHelperService;
+import com.testingez.mainService.service.QuestionService;
+import com.testingez.mainService.service.ResultService;
+import com.testingez.mainService.service.UserHelperService;
 import com.testingez.mainService.web.ResultController;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;

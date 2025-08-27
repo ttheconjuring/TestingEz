@@ -1,7 +1,7 @@
 package com.testingez.mainService.config;
 
-import com.testingez.mainService.models.dtos.UserProfileDTO;
-import com.testingez.mainService.models.entities.User;
+import com.testingez.mainService.model.dtos.UserProfileDTO;
+import com.testingez.mainService.model.entities.User;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.springframework.context.annotation.Bean;

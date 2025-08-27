@@ -1,6 +1,6 @@
 package com.testingez.mainService.web.impl;
 
-import com.testingez.mainService.models.dtos.imp.UserSignInDTO;
+import com.testingez.mainService.model.dtos.imp.UserSignInDTO;
 import com.testingez.mainService.web.LoginController;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;

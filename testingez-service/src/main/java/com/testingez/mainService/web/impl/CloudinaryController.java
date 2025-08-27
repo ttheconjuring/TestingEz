@@ -2,7 +2,7 @@ package com.testingez.mainService.web.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.testingez.mainService.services.UserService;
+import com.testingez.mainService.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

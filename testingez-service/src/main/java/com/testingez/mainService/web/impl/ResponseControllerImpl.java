@@ -1,7 +1,7 @@
 package com.testingez.mainService.web.impl;
 
-import com.testingez.mainService.models.dtos.imp.ResponseCreateDTO;
-import com.testingez.mainService.services.ResponseService;
+import com.testingez.mainService.model.dtos.imp.ResponseCreateDTO;
+import com.testingez.mainService.service.ResponseService;
 import com.testingez.mainService.web.ResponseController;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,7 @@
 package com.testingez.mainService.web;
 
-import com.testingez.mainService.exceptions.custom.NinjaMicroServiceException;
-import com.testingez.mainService.models.dtos.UserProfileDTO;
+import com.testingez.mainService.exception.custom.NinjaMicroServiceException;
+import com.testingez.mainService.model.dtos.UserProfileDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.data.domain.Pageable;

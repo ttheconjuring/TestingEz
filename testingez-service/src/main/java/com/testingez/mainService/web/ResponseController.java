@@ -1,6 +1,6 @@
 package com.testingez.mainService.web;
 
-import com.testingez.mainService.models.dtos.imp.ResponseCreateDTO;
+import com.testingez.mainService.model.dtos.imp.ResponseCreateDTO;
 
 public interface ResponseController {
 

@@ -1,9 +1,9 @@
 package com.testingez.mainService.web.impl;
 
-import com.testingez.mainService.exceptions.custom.NinjaMicroServiceException;
-import com.testingez.mainService.models.dtos.ninja.FeedbackDTO;
-import com.testingez.mainService.services.NinjaService;
-import com.testingez.mainService.services.UserHelperService;
+import com.testingez.mainService.exception.custom.NinjaMicroServiceException;
+import com.testingez.mainService.model.dtos.ninja.FeedbackDTO;
+import com.testingez.mainService.service.NinjaService;
+import com.testingez.mainService.service.UserHelperService;
 import com.testingez.mainService.web.FeedbackController;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

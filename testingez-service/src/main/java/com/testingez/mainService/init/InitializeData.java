@@ -1,8 +1,8 @@
 package com.testingez.mainService.init;
 
-import com.testingez.mainService.models.entities.Role;
-import com.testingez.mainService.models.enums.UserRole;
-import com.testingez.mainService.repositories.RoleRepository;
+import com.testingez.mainService.model.entities.Role;
+import com.testingez.mainService.model.enums.UserRole;
+import com.testingez.mainService.repository.RoleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
