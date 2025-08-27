@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.testing-ez</groupId>
-    <artifactId>TestingEz</artifactId>
+    <artifactId>main-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>TestingEz</name>
-    <description>TestingEz</description>
+    <name>main-service</name>
+    <description>The engine behind TestingEz</description>
     <properties>
         <java.version>21</java.version>
     </properties>
