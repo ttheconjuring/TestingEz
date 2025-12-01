@@ -9,5 +9,5 @@ Web application that aims to provide an easy and intuitive way for people to cra
 - Included internationalization with support for many languages.
 - Tested by unit and integration tests to ensure functionality and stability of the system.
 
-[See how it looks in Figma](https://www.figma.com/design/chISDVSjOdd9zlUnb6ECRW/Testing-System-Design?node-id=0%3A1&t=X41PKUAyiQDLXSVY-1) 
+✨[See how it looks in Figma](https://www.figma.com/design/chISDVSjOdd9zlUnb6ECRW/Testing-System-Design?node-id=0%3A1&t=X41PKUAyiQDLXSVY-1) ✨
 
