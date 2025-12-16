@@ -30,8 +30,8 @@ public class UpdateData {
     private final ModelMapper modelMapper;
 
     @Transactional
-    // @Scheduled(fixedRate = 600000) // 10 min
-    @Scheduled(cron = "0 0 * * * ?")
+    @Scheduled(fixedRate = 600000) // 10 min
+    // @Scheduled(cron = "0 0 * * * ?")
     public void updateData() {
         LOGGER.info("Updating data");
         this.triviaRepository.deleteAll();
